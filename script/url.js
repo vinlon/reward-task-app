@@ -1,6 +1,6 @@
 /**----------------------- 域名 ------------------------ */
 //var URL = 'http://www.syfuyebang.com/';
-var URL = 'http://119.29.35.126:81/';
+var URL = 'http://www.xiazy.cn/';
 
 // var token = '956281d2f7d3c838d65a52b33c828146';
 
@@ -27,7 +27,7 @@ var get_pic_1 = URL + 'App/Upload/upimg';
 var get_pic = URL + 'App/Advertising/get_pic';
 
 // 分销中心 我的团队
-// var my_team = URL + 'App/User/my_team';
+ var my_team = URL + 'App/User/my_team';
 
 //轮播图
 var get_banner_url = URL + 'App/Index/get_banner';
@@ -36,7 +36,6 @@ var popu_lists = URL + 'App/popularize/popularize_lists';
 //裂变领取
 var popu_receive_reward = URL + 'App/popularize/receive_reward';
 // 任务大厅
-// var task_list = URL + '/App/Renwunotoken/task_list';
 var task_list = URL + '/App/Renwunotoken/task_lists'; // 新修改
 
 

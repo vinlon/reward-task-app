@@ -131,40 +131,40 @@
 								money_type:1,
 					}
 				}
-			},function(ret, err){
+//			},function(ret, err){
 
-				if (ret.code==-20){
-					api.confirm({
-						title: '提示',
-						msg: '请绑定微信在提现',
-						buttons: ['确定', '取消']
-					}, function (ret, err) {
-						var index = ret.buttonIndex;
-						if (index == 1) {
-							api.openWin({
-								name: 'set',
-								url: '../my/set.html'
-							});
-						}
-					})
+//				if (ret.code==-20){
+//					api.confirm({
+	//					title: '提示',
+//						msg: '请绑定微信在提现',
+	//					buttons: ['确定', '取消']
+		//			}, function (ret, err) {
+	//					var index = ret.buttonIndex;
+	//					if (index == 1) {
+	//						api.openWin({
+	//							name: 'set',
+	//							url: '../my/set.html'
+	//						});
+	//					}
+	//				})
 
-					return false;
-				}
+		//			return false;
+	//			}
 
-					api.toast({
-						msg: ret.message,
-						duration: 2000,
-						location: 'bottom'
-					});
+		//			api.toast({
+		//				msg: ret.message,
+		//				duration: 2000,
+		//				location: 'bottom'
+		//			});
 
-				if (ret.code == 100) {
-						setTimeout(function() {
-							api.openWin({
-								name: 'record',
-								url: '../retail/record.html'
-							});
-						}, 1000)
-				}
+		//		if (ret.code == 100) {
+		//				setTimeout(function() {
+		//					api.openWin({
+		//						name: 'record',
+		//						url: '../retail/record.html'
+		//					});
+		//				}, 1000)
+		//	}
 			});
 
 		}
