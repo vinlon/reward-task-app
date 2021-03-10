@@ -1,0 +1,21 @@
+*{font-size: 1rem;font-family:"苹方";}
+.clearfix{clear: both;}
+a{display: block;text-decoration: none;}
+h1,h2,h3{font-weight: normal;}
+img{display: block;width: 100%;}
+button{outline: none;}
+.b{width: 100%;background-color: #fff;}
+.header{padding: 0 0.9375rem;margin: 0 auto;box-sizing: border-box;border-bottom: 0.0625rem solid #eaeaea;margin-bottom: 0.625rem;padding-top: 1rem;width: 100%}
+.search{width: 5.1%;float: left;}
+.search img{width: 100%;padding-top: 1rem;box-sizing: border-box;}
+.header_text{text-align: center;width: 89.8%;float: left;line-height: 3.125rem;}
+.header_text h1{font-size: 1.125rem;color: #2a2b35;font-family:"苹方";font-weight: bold;}
+
+.banner{width: 92%;margin: 0 auto;}
+.banner p{font-size:0.875rem;color: #333333;margin-top: 0.5rem;margin-bottom: 1rem;}
+
+.service{width: 92%;margin: 0 auto;border: 0.0625rem solid #ebebeb;border-radius: 0.2rem;margin-bottom: 0.625rem;padding:0.875rem 0;box-sizing: border-box;}
+.service_pic{width: 12.3%;float: left;margin: 0 1rem;margin-top: 0.45rem;}
+.servive_text{border-left: 0.0625rem solid #ebebeb;padding-left: 0.875rem;box-sizing: border-box;width: 70%;float: left;}
+.servive_text h1{font-size: 1.0625rem;color: #333333;font-weight: bold;margin-bottom: 0.2rem;}
+.servive_text h2{font-size: 0.875rem;color: #666666;}

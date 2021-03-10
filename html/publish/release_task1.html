@@ -1,0 +1,486 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+	<meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+	<title>发布任务1/2</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/release_task1.css" />
+	<link rel="stylesheet" href="../../css/swiper.min.css">
+	<script src="../../script/jquery-1.8.3.min.js"></script>
+	<script src="../../script/api.js" charset="utf-8"></script>
+	<script src="../../script/swiper.min.js"></script>
+	<script src="../../script/common.js"></script>
+	<script src="../../script/url.js"></script>
+</head>
+<body>
+	<div class="b" id="header">
+		<div class="header">
+	        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+			<div class="question" onclick="help()"><img src="../../image/question.png"></div>
+	        <div class="header_text"><h1>发布任务1/2</h1></div>
+	        <div class="clearfix"></div>
+	    </div>
+	</div>
+	<div class="phone">
+		<div class="code">
+			<h1>项目名称<span>*</span></h1>
+			<div class="input">
+				<div class="text">
+					<h2>请输入项目名字</h2>
+					<p>(APP名字，1-10字)</p>
+					<div class="clearfix"></div>
+				</div>
+				<input type="text"  id="name" class="a" >
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="code">
+			<h1>任务标题<span>*</span></h1>
+			<div class="input">
+				<div class="sum_text">
+					<h2>请输入任务标题</h2>
+					<p>(5-20字)</p>
+					<div class="clearfix"></div>
+				</div>
+				<input type="text" class="a1" id="title">
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="code">
+			<h1>任务链接</h1>
+			<div class="input">
+					<div class="text2">
+					<h2>请输入任务链接</h2>
+					<p>(选填)</p>
+					<div class="clearfix"></div>
+					</div>
+				<input type="text" class="a2" id="connect">
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="cover"></div>
+		<div class="code1" >
+			<h1>任务步骤<span>*</span></h1>
+			<div class="add_bu">
+				<h3>添加步骤</h3>
+				<div class="add"><img src="../../image/tj.png"></div>
+				<div class="buzou">
+					<h1 onclick="type_xx(1);">图文说明</h1>
+					<h2 onclick="type_xx(2);">收集截图</h2>
+				</div>
+			</div>
+
+			<div class="clearfix"></div>
+		</div>
+	<div id="buzhou">
+		<div class="show">
+			<h1>第1步（图文说明）</h1>
+			<input placeholder="请填写任务步骤图文说明，图片选填" id="bu_input_1"></input>
+				<input type="hidden" value="1" id="type_1"></input>
+			<div class="pic">
+				<div class="show_pic">
+					<img src="../../image/xj.png" onclick="upLoad(1)" id="img_1"><input type="hidden" id="uploadimg_1">
+				</div>
+
+			</div>
+		</div>
+
+
+ </div>
+ <div id="del">
+		<button type="button" name="button" onclick="del_id_by_num();">删除</button>
+ </div>
+
+		<div class="refer">
+			<h1>提交数据（选填）</h1>
+			<textarea placeholder="如：提交手机号或用户昵称" id="content"></textarea>
+			<h2>0/30</h2>
+			<div class="clearfix"></div>
+		</div>
+
+	</div>
+	<div class="button" onclick="subt()">
+		<button>下一步</button>
+	</div>
+
+
+	<input type="hidden" value="1" id="buzhou_num" ></input>
+	</body>
+<script type="text/javascript">
+	var winHeight = $(window).height();   //获取当前页面高度
+	$(window).resize(function(){
+	var thisHeight=$(this).height();
+	if(winHeight - thisHeight >50){
+		 //当软键盘弹出，在这里面操作
+		$(".button").css("position","static")
+	}else{
+		//当软键盘收起，在此处操作
+		$(".button").css("position","fixed")
+	}
+	});
+
+</script>
+
+
+<script>
+
+function del_id_by_num(){
+	var buzhou_num=$('#buzhou_num').val();
+	//	alert(buzhou_num);
+		if(buzhou_num == 1){
+			alert("最少保留一步,无法删除");return false;
+		}
+
+		$('#div_x_'+buzhou_num).remove();
+		var ptxtre=parseInt(buzhou_num)-1;
+		$('#buzhou_num').val(ptxtre);
+}
+function subt() {
+	var xz_buzhou=$('#buzhou_num').val();
+//	alert(xz_buzhou);
+	var pics=[];
+	var titles=[];
+	var types=[];
+	var t_numsxcx=parseInt(xz_buzhou);
+	var p_numx=0;
+	for(var i = 1;i<t_numsxcx+1;i++){
+//	pics.push($('#uploadimg_'+xz_buzhou).val());
+//	titles.push($('#bu_input_'+xz_buzhou).val());
+	pics[i]=$('#uploadimg_'+i).val();
+	if(pics[i] == ""){
+			alert('请上传第'+i+'步骤图片');return false;
+	}
+	titles[i]=$('#bu_input_'+i).val();
+	if(titles[i] == ""){
+			alert('请填写第'+i+'步骤描述内容');return false;
+	}
+	types[i]=$('#type_'+i).val();
+
+//	alert(i);
+	//	xz_buzhou-=1;
+				if(types[i] == 2){
+					p_numx+=1;
+				}
+	}
+
+	if(p_numx == 0){
+		alert('请填写一个收集类型');return false;
+	}
+	//alert(pics);
+	//alert(titles);
+	//	console.log(JSON.stringify(pics));//步骤图片
+//		console.log(JSON.stringify(titles));//步骤说明
+//		console.log(JSON.stringify(types));//步骤类型 1说明,2收集
+		type_id //分类
+		//项目名字
+		var name=$('#name').val();
+		if(name == ""){
+				alert('请填写项目名称');return false;
+		}
+		//任务标题
+				var title=$('#title').val();
+				if(title == ""){
+						alert('请填写任务标题');return false;
+				}
+		//任务链接
+				var connect=$('#connect').val();
+
+		//提交数据
+				var content=$('#content').val();
+
+
+		// 然后跳转第二页
+		// alert(price)
+		// alert(num)
+		api.openWin({
+			name: 'release_task2',
+			url: 'release_task2.html',
+			pageParam: {
+				type_id: type_id,
+				name:name,
+				title:title,
+				connect:connect,
+				content:content,
+				pics:pics,
+				titles:titles,
+				types:types,
+				price:price,
+				num:num,
+			}
+		})
+		return false;
+
+}
+function type_xx(num){
+	  var	buzhou_num = $api.byId('buzhou_num').value;
+		var tx=parseInt(buzhou_num)+1;
+	$('#buzhou_num').val(tx);
+//	alert(tx);
+	//alert(buzhou_num);
+//	return false;
+	if(num == 1){
+			var name="图文说明";
+			var name1="请填写任务步骤图文说明，图片选填";
+	}else{
+	  	var name="收集截图";
+			var name1="您可在这里详细说明要截取哪个页面,图片必填";
+	}
+  //var	buzhou_num = $api.byId('buzhou_num').value;
+	//	var tx=parseInt(buzhou_num)+1;
+//	password =$api.byId('password').value;
+
+
+
+// $('.cover').css("display","none");
+// $('.buzou').css("display","none");
+$(".cover").css({"display":"none","font-size":"200%"});
+
+
+  var xhtml="";
+			xhtml+='<div class="show" id="div_x_'+tx+'">'
+			xhtml+='<input type="hidden" value="'+num+'" id="type_'+tx+'"></input>'
+    	xhtml+='	<h1>第'+tx+'步（'+name+'）</h1>'
+    	xhtml+='	<input placeholder="'+name1+'" id="bu_input_'+tx+'"></input>'
+     	xhtml+='	<div class="pic">'
+	  	xhtml+='	<div class="show_pic"><img src="../../image/xj.png" onclick="upLoad('+tx+')" id="img_'+tx+'"><input type="hidden" id="uploadimg_'+tx+'"></div>'
+
+//		  xhtml+='	<h3>至多1张</h3>'
+		  xhtml+='</div>'
+	  xhtml+='</div>'
+		$(".buzou").hide();
+		$(".cover").hide();
+	//	alert(xhtml);
+//	$api.forceUpdate(buzhou,xhtml);
+// 			$('buzhou_num').val(tx);
+		// $api.val(buzhou_num,tx);
+	$api.append(buzhou,xhtml);
+
+
+}
+</script>
+
+
+	<script>
+	apiready = function(){
+	height()
+	//var header = document.querySelector('#header'); //头帘高度
+	//$api.fixStatusBar(header);
+	api.addEventListener({
+	        name:'close'
+	    }, function(ret) {
+			// console.log(1);
+			alert("后台审核通过，发布成功");
+			api.sendEvent({
+						 name: 'close1',
+						 extra: {
+
+						 }
+					 });
+					 api.closeWin({
+					 });
+	    });
+		param = api.pageParam;
+		type_id = param.id;
+		price= param.price;
+			num= param.num;
+
+	//			$api.setStorage('token','a936436f65ff3e27edf61054d416da28'); //存token
+	//		token = $api.getStorage('token');
+		//	token="";
+
+	//	alert(id);
+	}
+
+
+	$(function(){
+		$(".add_bu h3").click(function(){
+			$(".buzou").show();
+			$(".cover").show();
+		})
+		$(".cover").click(function(){
+			$(".buzou").hide();
+			$(".cover").hide();
+		})
+	})
+
+	// function sub() {
+  //       token = $api.getStorage('token');
+  //       name = $api.byId('name').value;
+  //       title = $api.byId('title').value;
+	// 	connect = $api.byId('connect').value;
+	// 	step_name = $api.byId('step_name').value;
+  //       pic = $api.byId('uploadimg').value;
+	// 	content = $api.byId('content').value;
+	//
+  //       if (name || title || step_name == '') {
+  //           api.toast({
+  //               msg: '请确认项目名称、任务标题以及任务步骤是否填写',
+  //               duration: 2000,
+  //               location: 'bottom'
+  //           });
+  //           return false;
+  //       }
+	//
+  //       api.ajax({
+  //           url: add_task,
+  //           method: 'post',
+  //           data: {
+  //               values: {
+  //                   token: token,
+	// 				name: name,
+  //                   title: title,
+	// 				connect: connect,
+  //                   content: content,
+	// 				step_list : array(1:{name:step_name,pic:pic,type:1})
+	//
+  //               }
+  //           }
+  //       }, function(ret, err) {
+  //           api.toast({
+  //               msg: ret.message,
+  //               duration: 2000,
+  //               location: 'bottom'
+  //           });
+	//
+  //           if (msg.status == 100) {
+  //               setTimeout(function() {
+  //                   api.openWin({
+  //                       name: 'release_task2',
+  //                       url: 'release_task2.html'
+  //                   })
+  //               }, 1000)
+  //           }
+  //       });
+	//
+  //   }
+
+    function upLoad(num) {
+
+        api.getPicture({
+            sourceType: 'library',
+            encodingType: 'jpg',
+            mediaValue: 'pic',
+            destinationType: 'url',
+            allowEdit: true,
+            quality: 100,
+            targetWidth: 1000,
+            targetHeight: 1000,
+            saveToPhotoAlbum: false
+        }, function(ret, err) {
+            if (ret) {
+
+                if (ret.data) {
+                    //将返回的路径放到id="img",为的是显示图片
+                    imgFile = ret.data;
+                    $("#img_"+num).attr('src', imgFile);
+
+
+                    // alert(upload_Img)
+										//	console.log(JSON.stringify(imgFile));return false;
+                    api.ajax({
+                        url: get_pic_1,
+                        method: 'post',
+                        data: {
+                            files: {
+                                image: imgFile,
+													//			token:token,
+                            }
+                        }
+                    }, function(ret, err) {
+												console.log(JSON.stringify(ret));
+													console.log(JSON.stringify(err));
+                        if (ret) {
+
+                            if (ret.code == 1) {
+
+                                $("#img_"+num).attr('src', URL+ret.data);
+																	$('#uploadimg_'+num).val(ret.data);
+                            }
+                            // 将返回的路径房费隐藏的 input id="yicang"中  提交时获
+                        } else {}
+                    });
+
+                } else {
+                    api.toast({ //弹框
+                        msg: '未上传图片', //提示语
+                        duration: 3000, //提示时长
+                        location: 'bottom' //提示位置
+                    });
+                }
+            } else {
+                // alert(3)
+                // alert(JSON.stringify(err));
+            }
+        });
+    }
+
+
+
+
+	function help(){
+	  api.openWin({
+		  name: 'help',
+		  url: '../my/help.html'
+	  })
+	}
+	function release_task2(){
+	  api.openWin({
+		  name: 'release_task2',
+		  url: 'release_task2.html'
+	  })
+	}
+
+	function go_back() {
+	  api.closeWin({
+
+	  });
+	}
+	</script>
+	<script type="text/javascript">
+	$(function(){
+		$(".a").focus(function(){
+			$(this).siblings(".text").hide();
+		})
+
+			$(".a").blur(function() {
+				if ($(".a").val() == "")
+					{ $(".text").show(); }
+				else{
+					$(".text").hide();
+			 }
+			 })
+	 })
+
+	 $(function(){
+		$(".a1").focus(function(){
+			$(this).siblings(".sum_text").hide();
+		})
+
+			 $(".a1").blur(function() {
+				 if ($(".a1").val() == "")
+					{ $(".sum_text").show(); }
+				 else{
+					 $(".sum_text").hide();
+			 }
+				 })
+	 })
+
+	 $(function(){
+		$(".a2").focus(function(){
+			$(this).siblings(".text2").hide();
+		})
+
+			 $(".a2").blur(function() {
+				 if ($(".a2").val() == "")
+					{ $(".text2").show(); }
+				 else{
+					 $(".text2").hide();
+			 }
+				 })
+	 })
+	</script>
+
+</html>

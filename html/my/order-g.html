@@ -1,0 +1,320 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+	<meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+	<title>订单列表</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/order.css" />
+	<link rel="stylesheet" href="../../css/swiper.min.css">
+	<script src="../../script/jquery-1.8.3.min.js"></script>
+	<script src="../../script/api.js" charset="utf-8"></script>
+	<script src="../../script/swiper.min.js"></script>
+	<script src="../../script/common.js"></script>
+	<script src="../../script/url.js"></script>
+</head>
+<body>
+	<div class="b" id="header">
+		<div class="header">
+	        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+	        <div class="header_text"><h1>订单列表</h1></div>
+	        <div class="clearfix"></div>
+	    </div>
+	</div>
+
+
+	<div class="award">
+
+		<div class="line"></div>
+
+
+		<!-- 我的任务 -->
+		<div class="coving"></div>
+		<div class="cover"></div>
+<div id="list_x">
+		 <div class="tasks">
+			<div class="award_row" >
+				<div class="yhm">
+					<p>用户名：</p>
+					<p>时间：</p>
+				</div>
+				<div class="award_text">
+					<h1 id="content">提交内容:</h1>
+					<div class="clearfix"></div>
+					<h3 id="add_times">创建时间：</h3>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="tasks_row" id="pics">
+					<!-- <div class="jt"><img src="../../image/task2.png" alt=""></div>
+					<div class="jt"><img src="../../image/task2.png" alt=""></div>
+					<div class="jt"><img src="../../image/task2.png" alt=""></div>
+					<div class="jt"><img src="../../image/task2.png" alt=""></div>
+					<div class="clearfix"></div> -->
+			</div>
+		</div>
+		<div class="sh">
+			<div class="tongguo"><button type="button" name="button" onclick="queren_shenhe();">通过</button></div>
+			<div class="bohui">
+				<!-- <input type="text" id="bohui_content" placeholder="请输入驳回理由"></input> -->
+				<button type="button" name="button" onclick="check_bohui();">驳回</button>
+			</div>
+		</div>
+</div>
+
+</div>
+<input type="hidden" value="0"  id="task_order_id" ></input>
+
+<!-- 驳回弹窗 -->
+<div class="bh">
+	<textarea name="name" id="bohui_content">请输入驳回理由...</textarea>
+	<div class="add"><img src="../../image/add1.png" id="img"><input type="hidden" id="uploadimg"></div>
+<p>如接单用户所提交的验证图无后台数据或其他可以证明其没有完成任务的，可上传相关截图</p>
+<div class="bott_button">
+	<button type="button" name="button" class="qux">取消</button>
+	<button type="button" name="button" class="qued">确认</button>
+</div>
+</div>
+
+	</body>
+	<script type="text/javascript">
+	$(function(){
+		$(".bohui button").click(function(){
+			$(".bh").show();
+			$(".cover").show();
+		})
+		$(".bott_button .qux").click(function(){
+			$(".bh").hide();
+			$(".cover").hide();
+		})
+
+	})
+	</script>
+
+	<script>
+		apiready = function(){
+					token = $api.getStorage('token');
+			height()
+		param = api.pageParam;
+		id = param.id;//任务id
+
+			get_orders_by_status();
+			api.setRefreshHeaderInfo({
+				loadingImg: 'widget://image/refresh.png',
+				bgColor: '#ccc',
+				textColor: '#fff',
+				textDown: '下拉刷新...',
+				textUp: '松开刷新...'
+			}, function(ret, err) {
+				//在这里从服务器加载数据，加载完成后调用
+				//停止api.refreshHeaderLoadDone()方法恢复组件到默认状态
+				window.location.reload();
+				api.refreshHeaderLoadDone();
+			});
+		}
+		function get_orders_by_status(){
+			api.ajax({
+				url: get_task_by_order_url,
+				method: 'post',
+				data: {
+					values: {
+						token: token,
+						id:id,
+					}
+				}
+			}, function(ret, err) {
+		//	console.log(JSON.stringify(ret));
+		//			console.log(JSON.stringify(err));
+					// api.alert({ msg: JSON.stringify(ret) });
+					if (ret.code == -302) {
+						api.toast({
+							msg: ret.message,
+							duration: 2000,
+							location: 'bottom'
+						});
+						setTimeout(function() {
+							api.openWin({
+								name: 'login',
+								url: 'login.html',
+								pageParam: {
+									name: 'test'
+								}
+							});
+						}, 1000);
+						return false;
+					}
+				//	$('#content').html(ret.tijiao_content);
+		   	$api.html(content,"提交数据:"+ret.tijiao_content);
+				$api.html(add_times,ret.data.add_time_format);
+				$api.val(task_order_id,ret.data.id);
+
+			//	console.log(JSON.stringify(ret));console.log(JSON.stringify(err));
+					var	length = ret.data.tod.length;
+					//	 alert(length)
+					var 	lblist_type = '';
+						for (var lb = 0; lb < length; lb++) {
+
+								lblist_type += '<div class="jt"><img src="'+URL+ret.data.tod[lb].pic+'" alt=""></div>'
+							}
+							lblist_type+='<div class="clearfix"></div>';
+			$api.html(pics,lblist_type);
+							$(function(){
+								$(".jt").click(function(){
+									$(this).removeClass("jt").addClass("fd");
+									$(".cover").show();
+									$(".coving").show();
+								})
+								$(".coving").click(function(){
+									$(".fd").removeClass("fd").addClass("jt");
+									$(".cover").hide();
+									$(".coving").hide();
+								})
+
+
+
+
+							})
+
+
+			});
+		}
+		function go_back() {
+			api.closeWin({
+
+			});
+		}
+
+	function check_bohui(){
+				var task_order_id =$('#task_order_id').val();
+				var bohui_content =$('#bohui_content').val();
+				api.ajax({
+					url: check_reject_url,
+					method: 'post',
+					data: {
+						values: {
+							token: token,
+							id:task_order_id,
+							content:bohui_content,
+						}
+					}
+				}, function(ret, err) {
+						console.log(JSON.stringify(ret));
+						console.log(JSON.stringify(err));
+						// api.alert({ msg: JSON.stringify(ret) });
+						if (ret.code == -302) {
+							api.toast({
+								msg: ret.message,
+								duration: 2000,
+								location: 'bottom'
+							});
+							setTimeout(function() {
+								api.openWin({
+									name: 'login',
+									url: 'login.html',
+									pageParam: {
+										name: 'test'
+									}
+								});
+							}, 1000);
+							return false;
+						}else if (ret.code == 100) {
+
+									api.toast({
+										msg: ret.info,
+										duration: 2000,
+										location: 'bottom'
+									});
+							if(ret.next == 1){
+								setTimeout(function() {
+									window.location.reload();
+								}, 1000);
+							}else{
+								setTimeout(function() {
+									api.closeWin({
+
+									});
+								}, 1000);
+
+							}
+
+						}else{
+
+								api.toast({
+									msg: ret.info,
+									duration: 2000,
+									location: 'bottom'
+								});
+
+						}
+					});
+	}
+
+	function queren_shenhe(){
+		var task_order_id =$('#task_order_id').val();
+	//	alert(task_order_id);return false;
+		api.ajax({
+			url: check_task_url,
+			method: 'post',
+			data: {
+				values: {
+					token: token,
+					id:task_order_id,
+				}
+			}
+		}, function(ret, err) {
+		//		console.log(JSON.stringify(ret));
+		//		console.log(JSON.stringify(err));
+				// api.alert({ msg: JSON.stringify(ret) });
+				if (ret.code == -302) {
+					api.toast({
+						msg: ret.message,
+						duration: 2000,
+						location: 'bottom'
+					});
+					setTimeout(function() {
+						api.openWin({
+							name: 'login',
+							url: 'login.html',
+							pageParam: {
+								name: 'test'
+							}
+						});
+					}, 1000);
+					return false;
+				}else if (ret.code == 100) {
+
+							api.toast({
+								msg: ret.info,
+								duration: 2000,
+								location: 'bottom'
+							});
+					if(ret.next == 1){
+						setTimeout(function() {
+							window.location.reload();
+						}, 1000);
+					}else{
+						setTimeout(function() {
+							api.closeWin({
+
+							});
+						}, 1000);
+
+					}
+
+				}else{
+
+						api.toast({
+							msg: ret.info,
+							duration: 2000,
+							location: 'bottom'
+						});
+
+				}
+			});
+
+	}
+	</script>
+
+</html>

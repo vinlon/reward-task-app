@@ -1,0 +1,420 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+	<meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+	<title>购买刷新</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/buy.css" />
+	<link rel="stylesheet" href="../../css/swiper.min.css">
+	<script type="text/javascript"></script>
+	<script src="../../script/jquery-1.8.3.min.js"></script>
+	<script src="../../script/api.js" charset="utf-8"></script>
+	<script src="../../script/swiper.min.js"></script>
+	<script src="../../script/common.js"></script>
+	<script src="../../script/url.js"></script>
+	<script src="../../script/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+	<div class="b" id="header">
+		<div class="header">
+	        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+	        <div class="header_text"><h1>购买刷新</h1></div>
+	        <div class="clearfix"></div>
+	    </div>
+	</div>
+
+	<div class="point">
+		<p>刷新后任务位置提升到首页任务区顶部，可获取超高流量曝光！</p>
+	</div>
+	<div class="buy" id="buy_text">
+		<div class="buy_text" id="buy_1" onclick="set_buy(1);">
+			<h1>3次</h1>
+			<h2>2.0元/次</h2>
+			<h3>￥9.0</h3>
+			<h4><span>￥</span>6.0</h4>
+	        <div class="clearfix"></div>
+		</div>
+		<div class="buy_text" id="buy_2" onclick="set_buy(2);">
+			<h1>10次</h1>
+			<h2>1.5元/次</h2>
+			<h3>￥30.0</h3>
+			<h4><span>￥</span>15.0</h4>
+	        <div class="clearfix"></div>
+		</div>
+		<div class="buy_text" id="buy_3" onclick="set_buy(3);">
+			<h1>20次</h1>
+			<h2>1.25元/次</h2>
+			<h3>￥60.0</h3>
+			<h4><span>￥</span>25.0</h4>
+	        <div class="clearfix"></div>
+		</div>
+		<div class="buy_text" id="buy_4" onclick="set_buy(4);">
+			<h1>50次</h1>
+			<h2>1.0元/次</h2>
+			<h3>￥150.0</h3>
+			<h4><span>￥</span>50.0</h4>
+	        <div class="clearfix"></div>
+		</div>
+		<div class="buy_text" id="buy_5" onclick="set_buy(5);">
+			<h1>100次</h1>
+			<h2>0.95元/次</h2>
+			<h3>￥300.0</h3>
+			<h4><span>￥</span>95.0</h4>
+	        <div class="clearfix"></div>
+		</div>
+		<div class="buy_text" id="buy_6" onclick="set_buy(6);">
+			<h1>300次</h1>
+			<h2>0.93元/次</h2>
+			<h3>￥900.0</h3>
+			<h4><span>￥</span>280.0</h4>
+	        <div class="clearfix"></div>
+		</div>
+	</div>
+
+<!-- 充值方式 -->
+<div class="way">
+	<div class="way_title"><h1>支付方式</h1></div>
+	<div class="way_content">
+		<div class="way_pic"><img src="../../image/zhifubao.png"></div>
+		<h1>支付宝支付</h1>
+		<div class="alipay_pic">
+		   <input onclick="clicktype(this)" id="zfb"  type="radio" name="sex" value="2">
+		   <label for="zfb"></label>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+	<div class="wechat">
+		<div class="wechat_way_pic"><img src="../../image/weixin.png"></div>
+		<h1>微信支付</h1>
+		<div class="wechat_pic">
+			<input onclick="clicktype(this)" id="wxzf" type="radio" name="sex" checked value="1" >
+			<label for="wxzf"></label>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+
+	<!-- 余额支付 -->
+	<div class="surplus">
+		<div class="surplus_way_pic"><img src="../../image/yue.png"></div>
+		<h1>充值金额支付</h1>
+		<div class="surplus_pic">
+			<input onclick="clicktype(this)" id="czzf" type="radio" name="sex"  value="3" >
+			<label for="czzf"></label>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+</div>
+
+<div class="button" onclick="sub()"><button>立即支付</button></div>
+<input type="hidden" name="" value="1" id="zftype">
+<input type="hidden" name="" value="1" id="m_id">
+
+	</body>
+	<script>
+		apiready = function(){
+			height()
+			//var header = document.querySelector('#header'); //头帘高度
+			//$api.fixStatusBar(header);
+			get_buy()
+			api.setRefreshHeaderInfo({
+				loadingImg: 'widget://image/refresh.png',
+				bgColor: '#ccc',
+				textColor: '#fff',
+				textDown: '下拉刷新...',
+				textUp: '松开刷新...'
+			}, function(ret, err) {
+				//在这里从服务器加载数据，加载完成后调用
+				//停止api.refreshHeaderLoadDone()方法恢复组件到默认状态
+				window.location.reload();
+				api.refreshHeaderLoadDone();
+			});
+		}
+
+	function set_buy(id){
+			//alert(id);
+				// var type= 1;
+				// var id=id;
+			$api.byId('m_id').value = id;
+
+		}
+
+	function clicktype(obj){
+			$api.byId('zftype').value = $(obj).val();
+		}
+
+	function sub(){
+			//$api.setStorage('token','a936436f65ff3e27edf61054d416da28'); //存token
+				token = $api.getStorage('token');
+				//alert(token)
+				type = $api.byId('zftype').value
+				id = $api.byId('m_id').value;
+				console.log(JSON.stringify(id));
+				console.log(JSON.stringify(type));
+				api.ajax({
+				url: buy_shuaxin_url,
+				method: 'post',
+				data: {
+					values: {
+						token: token,
+						id: id,
+						type: type,
+					}
+				}
+			},function(ret, err){
+			console.log(JSON.stringify(ret));
+			console.log(JSON.stringify(err));
+			// return
+			if(ret.status == 100){
+					if(ret.type == 1){//微信支付
+						api.ajax({
+								url: wx_pay,
+								method: 'post',
+								data: {
+										values: {
+												order: ret.order_num,
+												token:token,
+												type:2,
+										},
+								}
+						},function(ret, err){
+							console.log(JSON.stringify(ret));
+							console.log(JSON.stringify(err));
+								if (ret) {
+										 console.log(JSON.stringify( ret))
+
+										var wxPay = api.require('wxPay');
+
+										wxPay.payOrder({
+												apiKey: ret.data.appid,
+												orderId: ret.data.prepayid,
+												mchId: ret.data.partnerid,
+												nonceStr: ret.data.noncestr,
+												timeStamp:ret.data.timestamp,
+												sign: ret.data.sign
+										}, function(ret, err) {
+												 alert(JSON.stringify( ret))
+													alert(JSON.stringify( err))
+												if (ret.status) {
+														api.toast({
+																msg: '支付成功',
+																duration: 2000,
+																location: 'bottom'
+														});
+
+
+												} else {
+														api.toast({
+																msg: '支付失败',
+																duration: 2000,
+																location: 'bottom'
+														});
+
+												}
+										});
+
+								} else {
+
+								}
+						});
+					}else if(ret.type == 2){//支付宝支付
+
+								api.ajax({
+										url: pay_order,
+										method: 'post',
+										data: {
+												values: {
+														order: ret.order_num,
+														token:token,
+														type:2,
+												},
+										}
+								},function(ret, err){
+									console.log( JSON.stringify( ret ) );
+										console.log( JSON.stringify( err ) );
+										if (ret) {
+												var aliPayPlus = api.require('aliPayPlus');
+												aliPayPlus.payOrder({
+														orderInfo: ret.data
+												}, function(ret, err) {
+													 console.log( JSON.stringify( ret ) );
+													 	 console.log( JSON.stringify( err ) );
+														if(ret.code == 9000){
+																api.toast({
+																		msg: '支付成功',
+																		duration: 2000,
+																		location: 'bottom'
+																});
+																// api.sendEvent({
+																// 		name: 'ordertype'
+																// });
+																// api.sendEvent({
+																// 		name: 'mycoupn',
+																// });
+																// setTimeout(function() {
+																// 		api.openWin({
+																// 		name: 'cg',
+																// 			 url: './chenggong.html',
+																// 			 pageParam: {
+																// 					 pid: ordernum,
+																// 			 }
+																// 		});
+																// }, 500)
+														}else if (ret.code == 6001) {
+																api.toast({
+																		msg: '取消支付',
+																		duration: 2000,
+																		location: 'bottom'
+																});
+														}else if (ret.code == 6002) {
+																api.toast({
+																		msg: '网络连接出错',
+																		duration: 2000,
+																		location: 'bottom'
+																});
+														}else if (ret.code == 8000) {
+																api.toast({
+																		msg: '正在处理中，请查询订单的支付状态',
+																		duration: 2000,
+																		location: 'bottom'
+																});
+														}else if (ret.code == 5000) {
+																api.toast({
+																		msg: '重复请求',
+																		duration: 2000,
+																		location: 'bottom'
+																});
+														}else if (ret.code == 4000) {
+																api.toast({
+																		msg: '订单支付失败',
+																		duration: 2000,
+																		location: 'bottom'
+																});
+														}
+												});
+												// alert( JSON.stringify( ret ) );
+										} else {
+												// alert( JSON.stringify( err ) );
+										}
+								});
+					}else{
+						api.toast({
+								msg: ret.info,
+								duration: 2000,
+								location: 'bottom'
+						});
+					}
+			}else{
+				api.toast({
+						msg: ret.info,
+						duration: 2000,
+						location: 'bottom'
+				});
+			}
+
+				// if (ret.code == 1) {
+				// 	api.toast({
+				// 			msg: ret.info,
+				// 			duration: 2000,
+				// 			location: 'bottom'
+				// 	});
+				// 	}
+			});
+
+		}
+
+	function  get_buy(){
+		token = $api.getStorage('token'); //获取token
+	//	console.log(JSON.stringify(token))
+		api.ajax({
+			url: shuaxin_list_url,
+			method: 'post',
+			data: {
+				values: {
+					token: token,
+
+				}
+			}
+		}, function(ret, err) {
+			console.log(JSON.stringify(ret));
+			console.log(JSON.stringify(err))
+				var	length = ret.info.length;
+				//	 alert(length)
+				var lblist_type = '';
+				for (var lb = 0; lb < length; lb++) {
+
+
+					lblist_type += '	<div class="buy_text" id="buy_'+ret.info[lb].id+'" onclick="set_buy('+ret.info[lb].id+');" >'
+					lblist_type += '	<h1>'+ret.info[lb].num+'次</h1>'
+					lblist_type += '	<h2>'+ret.info[lb].junjia+'</h2>'
+					lblist_type += '	<h3>￥'+ret.info[lb].yuan_money+'</h3>'
+					lblist_type += '	<h4><span>￥</span>'+ret.info[lb].money+'</h4>'
+					lblist_type += '	<div class="clearfix"></div>'
+					lblist_type += '	</div>'
+
+
+					}
+
+				//	var abc=lblist_type+lblist_type;
+				//	console.log(JSON.stringify(lblist_type))
+					$api.html(buy_text,lblist_type);
+					$(function(){
+						$(".buy_text:eq(0)").addClass("color");
+						$(".buy_text").click(function(){
+							$(this).addClass("color").siblings().removeClass("color");
+						})
+					})
+
+
+
+		});
+	}
+
+
+
+		// // 支付方式
+		// $(function(){
+		// 	$(".content_pic").children().hide();
+		// 	$(".content_pic").addClass("bor");
+		// 	$(".surplus_content_pic").children().hide();
+		// 	$(".surplus_content_pic").addClass("bor");
+		// 	$(".wechat ").children(".wechat_content_pic").children().show();
+		// 	$(".wechat ").children(".wechat_content_pic").removeClass("bor");
+		// 	$(".way_content").click(function(){
+		// 		$(this).children(".content_pic").children().show();
+		// 		$(this).children(".content_pic").removeClass("bor");
+		// 		$(this).siblings(".wechat").children(".wechat_content_pic").children().hide();
+		// 		$(this).siblings(".wechat").children(".wechat_content_pic").addClass("bor");
+		// 		$(this).siblings(".surplus").children(".surplus_content_pic").children().hide();
+		// 		$(this).siblings(".surplus").children(".surplus_content_pic").addClass("bor");
+		// 	});
+		// 	$(".wechat").click(function(){
+		// 		$(this).children(".wechat_content_pic").children().show();
+		// 		$(this).children(".wechat_content_pic").removeClass("bor");
+		// 		$(this).siblings(".way_content").children(".content_pic").children().hide();
+		// 		$(this).siblings(".way_content").children(".content_pic").addClass("bor");
+		// 		$(this).siblings(".surplus").children(".surplus_content_pic").children().hide();
+		// 		$(this).siblings(".surplus").children(".surplus_content_pic").addClass("bor");
+		// 	});
+		// 	$(".surplus").click(function(){
+		// 		$(this).children(".surplus_content_pic").children().show();
+		// 		$(this).children(".surplus_content_pic").removeClass("bor");
+		// 		$(this).siblings(".way_content").children(".content_pic").children().hide();
+		// 		$(this).siblings(".way_content").children(".content_pic").addClass("bor");
+		// 		$(this).siblings(".wechat").children(".wechat_content_pic").children().hide();
+		// 		$(this).siblings(".wechat").children(".wechat_content_pic").addClass("bor");
+		// 	});
+		// })
+//购买次数
+
+		function go_back() {
+	        api.closeWin({
+	            // name: '',
+	        })
+	    }
+	</script>
+
+
+</html>

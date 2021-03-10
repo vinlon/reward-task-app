@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>置顶</title>
+
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <script src="../../script/jquery-3.4.1.min.js"></script>
+    <!--    <link rel="stylesheet" href="../../css/guanzu.css">-->
+    <script src="../../script/aui/script/aui-dialog.js"></script>
+    <link rel="stylesheet" href="../../script/aui/css/api.css">
+    <link rel="stylesheet" href="../../script/aui/css/aui.css">
+</head>
+
+<body>
+    <header class="aui-bar aui-bar-nav" style="padding-top:25px;">
+        <a class="aui-pull-left" onclick="go_back()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">全天置顶</div>
+    </header>
+
+
+    <div class="aui-content aui-margin-b-15">
+        <ul class="aui-list aui-form-list">
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        置顶位置
+                    </div>
+                    <div class="aui-list-item-input">
+                        <select id="position" onchange="xuanzhirw()">
+                        <option value="1">首页位置一</option>
+                        <option value="2">首页位置二</option>
+                        <option value="3">首页位置三</option>
+                        <option value="4">首页位置四</option>
+                        <option value="5">悬赏大厅位置一</option>
+                        <option value="6">悬赏大厅位置二</option>
+                    </select>
+                    </div>
+                </div>
+            </li>
+
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        置顶任务
+                    </div>
+                    <div class="aui-list-item-input">
+                        <select id="zhidinrw">
+                    </select>
+                    </div>
+                </div>
+            </li>
+
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        价格
+                    </div>
+                    <div class="aui-list-item-input">
+                        <p class="aui-text-left prices"></p>
+                    </div>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+
+
+    <section class="aui-content-padded">
+        <div class="aui-card-list">
+            <div class="aui-card-list-header">
+                置顶规则
+            </div>
+            <div class="aui-card-list-content-padded">
+                1.每次购买有效期为1天（每日凌晨24点到次日凌晨24点）;
+            </div>
+            <div class="aui-card-list-content-padded">
+                2.每日1点上架昨天预约成功的任务，24点开始预够次日名次，先到先得，抢完即止;
+            </div>
+
+            <div class="aui-card-list-content-padded">
+                3.指定任务预购成功后，如出现：暂停.名额为零。下架等情况还是会正常置顶，请发布者留意任务状态；
+            </div>
+            <div class="aui-card-list-content-padded">
+                4预购成功后，不予退款，请谨慎购买.
+            </div>
+        </div>
+    </section>
+
+
+    <footer class="aui-bar aui-bar-tab" id="footer">
+        <div class="aui-bar-tab-item aui-active" style="color:white;" onclick="go_back()">
+            <div class="aui-bar-tab-label aui-text-info">取消</div>
+        </div>
+        <div class="aui-bar-tab-item" style="background-color: red;color: white">
+            <div class="aui-bar-tab-label" onclick="submits()">确定</div>
+        </div>
+
+    </footer>
+
+</body>
+<script src="../../script/api.js" charset="utf-8"></script>
+<!--<script src="../../script/swiper.min.js"></script>-->
+<script src="../../script/common.js"></script>
+<script src="../../script/url.js"></script>
+
+<script>
+    var dialog = new auiDialog({})
+    apiready = function() {
+        height()
+        param = api.pageParam;
+        type = param.type; //所属分类
+        $("#position").val(type)
+        type = type - 1;
+
+
+        show_data(type);
+
+    }
+
+
+    // 提交数据
+    function submits() {
+        let position = $("#position").val();
+        let zhidinrw = $("#zhidinrw").val();
+        if (zhidinrw == 0) {
+            dialog.alert({
+                title: "温馨提示",
+                msg: '您没有进行中的任务',
+                buttons: ['确定']
+            }, function(ret) {
+                console.log(ret)
+            })
+
+            return;
+        }
+
+
+        let token = $api.getStorage('token'); //获取token
+        let data = {
+                task_id: zhidinrw,
+                type: position,
+                token: token
+            }
+            /*api.showProgress({
+                title: '努力加载中...',
+                text: '请稍后...',
+                modal: false
+            });*/
+        showLoadMore(1);
+        // console.log(JSON.stringify(data))
+        api.ajax({
+            url: add_top,
+            method: 'post',
+            dataType: "json",
+            data: {
+                values: data
+            }
+        }, function(ret, err) {
+            //api.hideProgress();
+            showLoadMore();
+            let datas = ret;
+            console.log(JSON.stringify(datas))
+            if (datas.code == 200) {
+                dialog.alert({
+                    title: "温馨提示",
+                    msg: datas.msg,
+                    buttons: ['确定']
+                }, function(ret) {
+                    api.sendEvent({
+                        name: 'top_data',
+                    });
+                    api.closeWin({});
+                    // console.log(ret)
+                })
+                return;
+            } else {
+                dialog.alert({
+                    title: "温馨提示",
+                    msg: datas.msg,
+                    buttons: ['确定']
+                }, function(ret) {
+                    console.log(ret)
+                })
+
+                return;
+            }
+
+
+        })
+
+    }
+
+    // 下拉框
+    function xuanzhirw() {
+        let position = $("#position").val();
+        position = position - 1;
+        $(".prices").html(day_data[position].price + "元/天");
+
+    }
+
+    let day_data;
+
+    function show_data(type) {
+        let token = $api.getStorage('token'); //获取token
+        api.ajax({
+            url: top_show_task,
+            method: 'post',
+            dataType: "json",
+            data: {
+                values: {
+                    token: token
+                }
+            }
+        }, function(ret, err) {
+
+            let day = ret.data.day;
+            day_data = day;
+            let task = ret.data.task;
+
+            $(".prices").html(day[type].price + "元/天");
+            let day_htmls = "";
+            if (JSON.stringify(task) != "[]") {
+                task.map(item => {
+                    day_htmls += " <option value='" + item.id + "' >" + item.name + "</option>"
+                })
+
+            } else {
+                day_htmls = " <option value='0'  selected>没有任务</option>"
+            }
+            $("#zhidinrw").append(day_htmls)
+        })
+    }
+
+    function go_back() {
+
+        api.sendEvent({
+            name: 'top_data',
+        });
+        api.closeWin({});
+    }
+</script>
+
+</html>

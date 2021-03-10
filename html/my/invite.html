@@ -1,0 +1,251 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>邀请好友</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/invite.css" />
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+</head>
+
+<body>
+
+    <div class="header" id="header">
+        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+        <div class="header_text">
+            <h1>邀请好友</h1>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="bg">
+        <img src="../../image/bg.png">
+        <div class="content">
+            <div class="tx">
+                <h1>随时提现 极速到账</h1>
+            </div>
+            <div class="bg_w">
+                <div class="text_pic"><img src="../../image/text.png"></div>
+                <div class="code"><img src="" id="code"></div>
+                <!-- 二维码 -->
+                <h1>扫码加入我们吧</h1>
+
+            </div>
+            <div class="button"><button type="submit">一键邀请好友</button></div>
+        </div>
+        <div class="click_button">
+            <div class="background">
+                <div class="card" onclick="sharePyq();">
+                    <div class="pic"><img src="../../image/pyq.png"></div>
+                    <h1>朋友圈</h1>
+                </div>
+                <div class="card" onclick="shareWx();">
+                    <div class="pic"><img src="../../image/wx.png"></div>
+                    <h1>微信</h1>
+                </div>
+
+                <div class="card" onclick="copy();">
+                    <div class="pic"><img src="../../image/lj.png"></div>
+                    <h1>复制链接</h1>
+                </div>
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="cancel"><button type="submit">取消</button></div>
+        </div>
+    </div>
+    <input type="hidden" value="" id="urlttt"></input>
+    <div class="covering"></div>
+
+</body>
+<script src="../../script/api.js" charset="utf-8"></script>
+<script src="../../script/swiper.min.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/url.js"></script>
+<script>
+    apiready = function() {
+        height()
+            //var header = document.querySelector('#header'); //头帘高度
+            //$api.fixStatusBar(header);
+        invite()
+    }
+
+    function copy() {
+        //text为需要复制的文本
+        var text = $('#urlttt').val();
+        var clipBoard = api.require('clipBoard');
+        clipBoard.set({
+            value: text
+        }, function(ret, err) {
+            if (ret) {
+                //		alert(text);
+
+                api.toast({
+                    msg: "复制成功",
+                    duration: 2000,
+                    location: 'bottom'
+                });
+            } else {
+                api.toast({
+                    msg: "复制失败，请重试",
+                    duration: 2000,
+                    location: 'bottom'
+                });
+
+            }
+        });
+    }
+
+
+    function invite() {
+        token = $api.getStorage('token');
+        api.ajax({
+            url: inviteFriends,
+            method: 'post',
+            data: {
+                values: {
+                    token: token
+                }
+            }
+        }, function(ret, err) {
+            //console.log(JSON.stringify(ret.data))
+            if (ret.code == 1) {
+                imgFile = URL + ret.data.code;
+                //console.log(JSON.stringify(imgFile))
+                $("#code").attr('src', imgFile);
+                $('#urlttt').val(ret.data.url);
+            }
+        });
+
+
+    }
+    $(function() {
+        $(".click_button").hide();
+        $(".button").click(function() {
+            $(".click_button").fadeIn();
+            $(".covering").show();
+        });
+        $(".cancel").click(function() {
+            $(".click_button").hide();
+            $(".black").removeClass("color");
+            $(".covering").hide();
+        });
+    })
+
+    function go_back() {
+        api.closeWin({
+            // name: '',
+        })
+    }
+</script>
+<script>
+    //分享朋友圈
+    function sharePyq() {
+
+
+        // bb = $('#bendi').val();
+
+        var urltt = $('#urlttt').val();
+        // alert(bb)
+        //判断是否安装了微信
+        var wx = api.require('wxPlus');
+        wx.isInstalled(function(ret, err) {
+            // alert(JSON.stringify(ret))
+            if (ret.installed) {
+                api.download({
+                    url: URL + '/Uploads/Admin/News/2019-12-13/5df34f8b67191.png', // 图片地址
+                    savePath: 'fs://image/fx_wx.jpg', // 图片存储路径
+                    report: true,
+                    cache: true,
+                    allowResume: true
+                }, function(res, err) {
+                    // 	console.log(JSON.stringify(res))
+                    // alert("当前设备已安装微信客户端");
+                    // alert(JSON.stringify(ret))
+                    wx.shareWebpage({
+                        apiKey: 'wxe176834445c733cd',
+                        scene: 'timeline',
+                        title: '加入副业帮,动动手指领现金!',
+                        description: '[副业帮] 拿着手机做悬赏任务,2元提现秒到账,在家躺着也赚钱!',
+                        //  thumb:  URL+'/Uploads/Admin/News/2019-12-13/5df34f8b67191.png',
+                        thumb: 'fs://image/fx_wx.jpg',
+                        contentUrl: urltt,
+                        // contentUrl: URL + 'Product/productDetails/pid/'+produceId+''
+                    }, function(ret, err) {
+
+                        if (ret.status) {
+
+                        } else {
+
+                        }
+                    });
+
+                });
+            } else {
+                api.toast({
+                    msg: '当前设备未安装微信客户端',
+                    duration: 2000,
+                    location: 'bottom'
+                });
+            }
+        });
+
+    }
+    //分享会话
+    function shareWx() {
+
+        var urlttt = $('#urlttt').val();
+        // alert(bb)
+        //判断是否安装了微信
+        var wx = api.require('wxPlus');
+        wx.isInstalled(function(ret, err) {
+            console.log(JSON.stringify(ret));
+            console.log(JSON.stringify(err));
+            if (ret.installed) {
+                api.download({
+                    url: URL + '/Uploads/Admin/News/2019-12-13/5df34f8b67191.png', // 图片地址
+                    savePath: 'fs://image/fx_wx.jpg', // 图片存储路径
+                    report: true,
+                    cache: true,
+                    allowResume: true
+                }, function(res, err) {
+                    // alert("当前设备已安装微信客户端");
+                    wx.shareWebpage({
+                        apiKey: 'wxe176834445c733cd',
+                        scene: 'session',
+                        title: '加入副业帮,动动手指领现金!',
+                        description: '[副业帮] 拿着手机做悬赏任务,2元提现秒到账,在家躺着也赚钱!',
+                        thumb: 'fs://image/fx_wx.jpg',
+                        // thumb:'widget://../image/about.png';
+                        contentUrl: urlttt,
+                    }, function(ret, err) {
+                        console.log(JSON.stringify(ret));
+                        console.log(JSON.stringify(err));
+                        // alert(JSON.stringify(ret))
+                        if (ret.status) {
+
+                        } else {
+                            // alert(err.code);
+                        }
+                        // alert(JSON.stringify(err))
+                    });
+
+                });
+            } else {
+                api.toast({
+                    msg: '当前设备未安装微信客户端',
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                // alert('当前设备未安装微信客户端');
+            }
+        });
+    }
+</script>
+
+
+</html>

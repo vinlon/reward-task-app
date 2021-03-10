@@ -1,0 +1,152 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>已完成订单</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/balance.css" />
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script src="../../script/swiper.min.js"></script>
+    <script src="../../script/common.js"></script>
+    <script src="../../script/url.js"></script>
+
+</head>
+<style>
+    /*.step3_pic{*/
+    /*    width: 5rem;*/
+    /*    height: 5rem;*/
+    /*}*/
+</style>
+
+<body>
+    <div class="b" id="header">
+        <div class="header">
+            <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+            <div class="header_text">
+                <h1>已完成订单</h1>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div id="listppp">
+        <!-- -->
+    </div>
+
+</body>
+
+<script>
+    apiready = function() {
+        token = $api.getStorage('token');
+        param = api.pageParam;
+        id = param.id; //所属分类
+
+        height()
+        get_list();
+        api.addEventListener({
+            name: 'scrolltobottom',
+            extra: {
+                threshold: 0 //设置距离底部多少距离时触发，默认值为0，数字类型
+            }
+        }, function(ret, err) {
+            if (pageEnd) {
+                api.toast({
+                    msg: '没有更多数据了'
+                })
+            } else {
+                get_list();
+            }
+        });
+
+    }
+
+    let page = 1
+    let pageEnd = false
+        //let orders = 0;
+
+    function get_list() {
+        /*api.showProgress({
+            title: '努力加载中...',
+            text: '请稍后...',
+            modal: true
+        });*/
+        showLoadMore(1);
+        api.ajax({
+            url: wancheng_task_url,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    id: id,
+                    page: page
+                }
+            }
+        }, function(ret, err) {
+            //console.log(JSON.stringify(ret));
+            var length = ret.data.length;
+            var lblist_type = '';
+            if (length > 0) {
+                for (var lb = 0; lb < length; lb++) {
+                    lblist_type += '<div class="finishlist m-t" onclick="finishlist_detail(' + ret.data[lb].id + ',' + id + ')">'
+                    lblist_type += '    <div class="finishlistpic"><img src="' + URL + ret.data[lb].user.u_headpic + '">'
+                    if (ret.data[lb].user.vip_level == 1) {
+                        lblist_type += '<span style="background-image: linear-gradient(to right, #87CEEB , #BFEFFF);">月卡</span>'
+                    } else if (ret.data[lb].user.vip_level == 2) {
+                        lblist_type += '<span style="background-image: linear-gradient(to right, #EE5C42 , #BFEFFF);">季卡</span>'
+                    } else if (ret.data[lb].user.vip_level == 3) {
+                        lblist_type += '<span style="background-image: linear-gradient(to right, #EE0000 , #BFEFFF);">年卡</span>'
+                    }
+                    lblist_type += '    </div>'
+                    lblist_type += '	<div class="finishtitle">'
+                    lblist_type += '		<span class="finishname">' + ret.data[lb].user.u_name + '</span>'
+                    lblist_type += '		<span class="finishid">(ID：' + ret.data[lb].uid + ')</span>'
+                    lblist_type += '		<p><span class="">审核时间：' + getLocalTime(ret.data[lb].shenhe_time) + '</span>'
+                    lblist_type += '        <span style="margin-left: 2rem;color: #1C86EE">已通过</span></p>';
+                    lblist_type += '	</div>'
+                    lblist_type += '	<div class="clearfix"></div>'
+                    lblist_type += '</div>'
+
+                }
+                if (page == 1) {
+                    $api.html(listppp, lblist_type);
+                } else {
+                    $api.append(listppp, lblist_type)
+                }
+            } else {
+                if (page == 1) {
+                    $api.html(tlistppp, "");
+                }
+                pageEnd = true
+            }
+            //$api.html(listppp, lblist_type);
+            //orders = status;
+            page++;
+            //api.hideProgress();
+            showLoadMore();
+
+        });
+
+    }
+
+    function finishlist_detail(a, b) {
+        api.openWin({
+            name: 'list_de',
+            url: '../publish/list_de.html',
+            allowEdit: true,
+            pageParam: {
+                id1: a,
+                id2: b
+            }
+        })
+    }
+
+    function go_back() {
+        api.closeWin({});
+    }
+</script>
+
+</html>

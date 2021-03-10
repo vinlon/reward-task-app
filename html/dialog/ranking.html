@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <!--    <meta name="viewport" content="height = [pixel_value | device-height] ,width = [pixel_value | device-width ] ,initial-scale = float_value ,minimum-scale = float_value ,maximum-scale = float_value ,user-scalable = [yes | no] ,target-densitydpi = [dpi_value | device-dpi | high-dpi | medium-dpi | low-dpi]"/>-->
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>排行榜</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <!--    <link rel="stylesheet" type="text/css" href="../../css/set.css"/>-->
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+    <script type="text/javascript"></script>
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/publish.css" />
+    <script src="../../script/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="../../css/ranking.css">
+    <!--    <link rel="stylesheet" href="../../script/aui/css/api.css">-->
+    <!--    <link rel="stylesheet" href="../../script/aui/css/aui.css">-->
+</head>
+<style>
+    /*img{display: block;width: 100%;}*/
+
+    .search {
+        width: 5.1%;
+        float: left;
+    }
+
+    .search>img {
+        width: 100%;
+        padding-top: 1rem;
+        box-sizing: border-box;
+    }
+</style>
+
+<body>
+
+    <div class="header" id="header">
+        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+        <h2 onclick="guizhes()">活动规则</h2>
+        <div class="header_text">
+            <h1>排行榜</h1>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="bodys">
+        <div class="ranking-head"></div>
+        <div class="ranking-top">
+            <div class="ranking-top-div ranking-top-div-one ranking-top-red" onclick="lists(0)">接单任务</div>
+            <div class="ranking-top-div ranking-top-div-two" onclick="lists(1)">接单赚钱</div>
+            <div class="ranking-top-div ranking-top-div-two" onclick="lists(2)">发布任务</div>
+            <div class="ranking-top-div ranking-top-div-two" onclick="lists(3)">邀请赚钱</div>
+        </div>
+        <div class="ranking-head-text-top"></div>
+        <div class="ranking-head-text">接单任务排行榜</div>
+
+        <!--    前三名-->
+        <div class="ranking-pai">
+            <div class="ranking-pai-div ranking-pai-div-dipai">
+                <div class="ranking-pai-div-img">
+                    <img class="ranking-two-img" src="http://www.syfuyebang.com//Public/code/1586870873.jpeg" alt="">
+                </div>
+                <div class="ranking-pai-div-text">
+                    <div class="ranking-pai-div-text-jiangli jiangli-two"> 奖100元</div>
+                    <div class="ranking-pai-div-text-name name-two">坎坎坷坷扩扩扩</div>
+                    <div class="ranking-pai-div-text-uid">UID: <span class="ranking-pai-div-text-uid-number number-two">12414512</span>
+                    </div>
+                    <div class="ranking-pai-div-text-num num-two"> 2100元</div>
+                </div>
+            </div>
+
+            <div class="ranking-pai-div ranking-pai-div-one">
+                <div class="ranking-pai-div-img">
+                    <img class="ranking-one-img" src="http://www.syfuyebang.com//Public/code/1586870873.jpeg" alt="">
+                </div>
+                <div class="ranking-pai-div-text">
+                    <div class="ranking-pai-div-text-jiangli jiangli-one"> 奖100元</div>
+                    <div class="ranking-pai-div-text-name name-one">坎坎坷坷扩扩扩</div>
+                    <div class="ranking-pai-div-text-uid">UID: <span class="ranking-pai-div-text-uid-number number-one">12414512</span>
+                    </div>
+                    <div class="ranking-pai-div-text-num num-one"> 2100元</div>
+                </div>
+            </div>
+            <div class="ranking-pai-div ranking-pai-div-dipai ranking-pai-div-three">
+                <div class="ranking-pai-div-img">
+                    <img class="ranking-three-img" src="http://www.syfuyebang.com//Public/code/1586870873.jpeg" alt="">
+                </div>
+                <div class="ranking-pai-div-text">
+                    <div class="ranking-pai-div-text-jiangli jiangli-three"> 奖100元</div>
+                    <div class="ranking-pai-div-text-name name-three">坎坎坷坷扩扩扩</div>
+                    <div class="ranking-pai-div-text-uid">UID: <span class="ranking-pai-div-text-uid-number number-three">12414512</span>
+                    </div>
+                    <div class="ranking-pai-div-text-num num-three"> 2100元</div>
+                </div>
+            </div>
+        </div>
+
+        <!--    排名-->
+        <div class="ranking-end-clear"></div>
+
+        <div class="ranking-end">
+            <div class="ranking-end-top" style="margin-bottom:0.3rem ;">
+                <div class="ranking-end-top-head">排名</div>
+                <div class="ranking-end-top-head">用户</div>
+                <div class="ranking-end-top-head ranking-end-top-head-bain">赚钱金额</div>
+                <div class="ranking-end-top-head">奖励</div>
+            </div>
+            <!--        中间部分-->
+            <div class="ranking-end-add">
+
+            </div>
+            <!--        我的排名-->
+            <div class="ranking-bottom">
+                <div class="ranking-end-center" style="margin-top:0.3rem ;">
+                    <div class="ranking-end-center-div ranking_my">我的排名: <span class="my-pai">0</span></div>
+                    <div class="ranking-end-center-div">
+                        <img class="my-one-img" src="http://www.syfuyebang.com//Public/code/1586870873.jpeg" alt="">
+                        <div class="ranking-end-center-div-name ranking-my-name">傻傻的啥实打实大阿福飒飒发粉色</div>
+                        <div class="ranking-end-center-div-uuid ranking-my-uid">UID: 6310</div>
+                    </div>
+                    <div class="ranking-end-center-div ranking-end-center-div-money my-money-num">2000元</div>
+                    <div class="ranking-end-center-div ranking-end-center-div-jiangli my-money">10元</div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</body>
+<script src="../../script/api.js" charset="utf-8"></script>
+<script src="../../script/swiper.min.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/url.js"></script>
+<script>
+    apiready = function() {
+        height()
+            //隐私和服务条款
+        lists(0)
+    }
+
+    // 改变样式
+    $(".ranking-top-div").click(function() {
+        // alert(1)
+        let parent = $(this).parent();
+        let brother = parent.children();
+        brother.removeClass("ranking-top-red")
+        $(this).addClass("ranking-top-red")
+    })
+
+    //活动规则
+    function guizhes() {
+        api.openWin({
+            name: 'guizhe.html',
+            url: 'guizhe.html',
+            // allowEdit: true,
+            pageParam: {}
+        })
+    }
+    // 获取数据
+    function lists(type) {
+
+        // 清除数据
+        $(".ranking-end-add").empty()
+
+        let ranking_head_text = "接单任务排行榜";
+        let names = "单"
+        let bian = "接单数量"
+        switch (type) {
+            case 0:
+                ranking_head_text = "接单任务排行榜";
+                bian = "接单数量"
+                break;
+            case 1:
+                ranking_head_text = "接单赚钱排行榜";
+                names = "元";
+                bian = "赚钱金额"
+                break;
+            case 2:
+                bian = "成交金额"
+                names = "元";
+                ranking_head_text = "发布任务排行榜";
+                break;
+            case 3:
+                names = "人";
+                bian = "有效人数"
+                ranking_head_text = "邀请赚钱排行榜";
+                break;
+        }
+        $(".ranking-head-text").html(ranking_head_text)
+        $(".ranking-end-top-head-bain").html(bian)
+        let token = $api.getStorage('token'); //获取token
+        api.ajax({
+            url: ranking,
+            method: 'post',
+            dataType: "json",
+            data: {
+                values: {
+                    token: token,
+                    type: type,
+                }
+            }
+        }, function(ret, err) {
+
+
+            if (ret.code != 1) {
+                api.toast({
+                    msg: "请登录后在查看",
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                setTimeout(function() {
+                    api.openWin({
+                        name: 'login',
+                        url: '../my/login.html',
+
+                    });
+                }, 500)
+
+                return false;
+            }
+
+
+
+            // 我的排名
+            let mys = ret.data.my;
+            // alert(JSON.stringify(mys))
+
+            $(".my-pai").html(mys.pai)
+            $(".my-one-img").attr("src", URL + mys.user_img)
+            $(".my-money-num").html(mys.num + names)
+            $(".my-money").html(mys.money + "元")
+            $(".ranking-my-name").html(mys.user_name)
+            $(".ranking-my-uid").html('UID:' + mys.uid)
+
+            // 排行榜
+            let list = ret.data.list;
+            //console.log(JSON.stringify(list))
+            // 前三名
+            let length = list.length
+
+            // 第一名
+            if (length > 1) {
+                $(".ranking-one-img").attr("src", URL + list[0].user_img)
+                $(".jiangli-one").html(list[0].money)
+                $(".name-one").html(list[0].user_name)
+                $(".number-one").html(list[0].uid)
+                $(".num-one").html(list[0].num + names)
+            } else {
+                $(".ranking-one-img").attr("src", "")
+                $(".jiangli-one").html(0)
+                $(".name-one").html("")
+                $(".number-one").html("")
+                $(".num-one").html("")
+            }
+
+            // 第二名
+            if (length > 2) {
+                $(".ranking-two-img").attr("src", URL + list[1].user_img)
+                $(".jiangli-two").html(list[1].money)
+                $(".name-two").html(list[1].user_name)
+                $(".number-two").html(list[1].uid)
+                $(".num-two").html(list[1].num + names)
+            } else {
+                $(".ranking-two-img").attr("src", "")
+                $(".jiangli-two").html(0)
+                $(".name-two").html("")
+                $(".number-two").html("")
+                $(".num-two").html("")
+            }
+
+            // 第三名
+            if (length > 3) {
+                $(".ranking-three-img").attr("src", URL + list[2].user_img)
+                $(".jiangli-three").html(list[2].money)
+                $(".name-three").html(list[2].user_name)
+                $(".number-three").html(list[2].uid)
+                $(".num-three").html(list[2].num + names)
+            } else {
+                $(".ranking-three-img").attr("src", "")
+                $(".jiangli-three").html("")
+                $(".name-three").html("")
+                $(".number-three").html("")
+                $(".num-three").html("")
+            }
+
+
+            // 4-10名称
+            if (list.length > 3) {
+                for (let i = 3; i < list.length;) {
+                    // console.log(i)
+                    let html = ' <div class="ranking-end-center">' +
+                        '                <div class="ranking-end-center-div "><span class="ranking-end-center-div-pai-back">' + list[i].pai + '</span></div>' +
+                        '                <div class="ranking-end-center-div">' +
+                        '                    <img class="ranking-one-img" src="' + URL + list[i].user_img + '" alt="">' +
+                        '                    <div class="ranking-end-center-div-name">' + list[i].user_name + '</div>' +
+                        '                    <div class="ranking-end-center-div-uuid">UID: ' + list[i].uid + '</div>' +
+                        '                </div>' +
+                        '                <div class="ranking-end-center-div ranking-end-center-div-money">' + list[i].num + names + '</div>' +
+                        '                <div class="ranking-end-center-div ranking-end-center-div-jiangli">' + list[i].money + '元</div>' +
+                        '            </div>'
+                    $(".ranking-end-add").append(html)
+                    i++;
+                }
+            }
+        })
+
+
+        // alert(type)
+    }
+
+    function go_back() {
+        api.closeWin({});
+    }
+</script>
+
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>微信绑定</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/wechat_binding.css" />
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script src="../../script/swiper.min.js"></script>
+    <script src="../../script/common.js"></script>
+    <script src="../../script/url.js"></script>
+</head>
+
+<body>
+    <div class="b" id="header">
+        <div class="header">
+            <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+            <div class="header_text">
+                <h1>微信绑定</h1>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="wechat">
+        <div class="logo"><img src="../../image/about.png"></div>
+        <h1>副业帮</h1>
+        <div class="text"><img src="../../image/wechat_text.png"></div>
+        <h2>做任务 赚赏金</h2>
+        <div class="button">
+            <div class="wechat_logo"><img src="../../image/wechat.png"></div>
+            <button onclick="wxlogin();">微信授权登录</button>
+        </div>
+        <p>* 账号与微信绑定后，此微信即与账号唯一对应，不可变更</p>
+    </div>
+
+</body>
+
+<script>
+    apiready = function() {
+        height()
+        token = $api.getStorage('token');
+    }
+
+    function go_back() {
+        api.closeWin({});
+    }
+</script>
+<script>
+    //微信登录
+    function wxlogin() {
+        var wx = api.require('wxPlus');
+        wx.isInstalled(function(ret, err) {
+            if (ret.installed) {
+                // alert("当前设备已安装微信客户端");
+                var wx = api.require('wxPlus');
+                wx.auth({
+                    apiKey: ''
+                }, function(ret, err) {
+                    if (ret.status) {
+                        // api.toast({
+                        // 	msg: '授权成功',
+                        // 	duration: 2000,
+                        // 	location: 'bottom'
+                        // });
+                        code = ret.code;
+                        wx.getToken({
+                            apiKey: '',
+                            apiSecret: '',
+                            code: code
+                        }, function(ret, err) {
+                            if (ret.status) {
+                                // console.log(JSON.stringify(ret))
+                                // alert(JSON.stringify(ret));
+                                wx.getUserInfo({
+                                    accessToken: ret.accessToken,
+                                    openId: ret.openId
+                                }, function(ret, err) {
+                                    if (ret.status) {
+
+                                        // alert(JSON.stringify(ret));
+                                        api.ajax({
+                                            url: bangding_weixin_url,
+                                            method: 'post',
+                                            data: {
+                                                values: {
+                                                    token: token,
+                                                    name: ret.nickname,
+                                                    openid: ret.openid,
+                                                    pic: ret.headimgurl,
+                                                    unionid: ret.unionid
+                                                },
+                                            }
+                                        }, function(ret, err) {
+                                            api.toast({
+                                                msg: ret.message,
+                                                duration: 2000,
+                                                location: 'bottom'
+                                            });
+                                            if (ret.code == 100) {
+                                                api.sendEvent({
+                                                    name: 'bangdingweixinxxx',
+
+                                                });
+                                                setTimeout(function() {
+                                                    api.openWin({
+                                                        name: 'set',
+                                                        url: 'set.html',
+                                                    });
+
+                                                }, 1000);
+                                            }
+
+
+                                        });
+
+                                    } else {
+
+                                        if (err.code == 6) {
+                                            api.toast({
+                                                msg: '网络超时',
+                                                duration: 2000,
+                                                location: 'bottom'
+                                            });
+                                        }
+                                        // alert(err.code);
+                                    }
+                                });
+                            } else {
+                                if (err.code == 4) {
+                                    api.toast({
+                                        msg: '网络超时',
+                                        duration: 2000,
+                                        location: 'bottom'
+                                    });
+                                }
+                                // alert(err.code);
+                            }
+                        });
+                        // alert(JSON.stringify(ret));
+                    } else {
+                        if (err.code == 1) {
+                            api.toast({
+                                msg: '用户取消',
+                                duration: 2000,
+                                location: 'bottom'
+                            });
+                        } else if (err.code == 2) {
+                            api.toast({
+                                msg: '用户拒绝授权',
+                                duration: 2000,
+                                location: 'bottom'
+                            });
+                        }
+                        // alert(err.code);
+                    }
+                });
+            } else {
+                api.toast({
+                    msg: '当前设备未安装微信客户端',
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                // alert('当前设备未安装微信客户端');
+            }
+        });
+    }
+</script>
+
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>启动页</title>
+    <script type="text/javascript"></script>
+    <script src="../script/jquery-1.8.3.min.js"></script>
+    <script src="../script/jquery-3.4.1.min.js"></script>
+    <style>
+        body {
+            /*width: 100%;*/
+            /*height: 100%!important;*/
+            /*background: url("../image/qidong.png") no-repeat;*/
+            /*overflow: hidden;*/
+            /*background-size: cover;*/
+        }
+        
+        .bg {
+            width: 100%;
+            position: relative
+        }
+        
+        .bg img {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+        }
+        
+        .jinr {
+            /*top: 35rem;*/
+            /*width: 100%;*/
+            /*height: 2rem;*/
+            /*position: absolute;*/
+            /*z-index: 120;*/
+            margin: 0 auto;
+            position: absolute;
+            top: 28rem;
+            font-size: 30px;
+            color: #0C0C0C;
+            width: 100%;
+            height: 5rem;
+            /*border: 1px solid black;*/
+        }
+        
+        .jinr-div {
+            margin: 0 auto;
+            width: 20rem;
+            height: 2rem;
+            /*border: 1px solid black;*/
+        }
+        
+        .login-bu-div-two {
+            font-size: 12px;
+            text-align: center;
+        }
+        
+        .login-bu-div-two span {
+            color: red;
+        }
+        
+        .login-bu-div-one-checkbox {
+            margin-top: 10px;
+        }
+        
+        .jinr-div-ds {
+            width: 15rem !important;
+        }
+        
+        .jinr-div-bun {
+            margin: 0 auto;
+            width: 10rem;
+            height: 2rem;
+            border-radius: 1rem;
+            background-color: #008B00;
+            color: white;
+            font-size: 20px;
+            text-align: center;
+            line-height: 2rem;
+        }
+        
+        img {
+            display: block;
+            width: 100%;
+        }
+        
+        .rules_pic {
+            overflow: hidden;
+            position: relative;
+            background-size: cover;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bg"><img src="../image/qidong.png" alt=""></div>
+    <!--<div class="rules_pic"><img src="../image/qidong.png"></div>-->
+    <div class="jinr">
+        <div class="jinr-div jinr-div-ds" onclick="gotin()">
+            <div class="jinr-div-bun">立即进入</div>
+        </div>
+        <div class="jinr-div">
+            <div class="login-bu-div login-bu-div-two">
+                <input type="checkbox" class="login-bu-div-one-checkbox" id="xys" value="1" checked> 同意
+                <span onclick="privates()">《隐私条款》</span> 和<span onclick="services()">《服务条款》</span>
+            </div>
+        </div>
+
+    </div>
+</body>
+<script src="../script/api.js" charset="utf-8"></script>
+
+<script src="../script/common.js"></script>
+<script src="../script/url.js"></script>
+<script>
+    apiready = function() {
+        height()
+    }
+
+    function gotin() {
+        $api.setStorage('is_app', '1'); //存token
+        openNavTabWin()
+    }
+
+    function openNavTabWin() {
+        var param = {
+            name: 'nav-tab',
+            bgColor: '#fff',
+            hideTabBar: false,
+            useWKWebView: false,
+            bounces: false,
+            historyGestureEnabled: false,
+            scrollEnabled: false,
+            slidBackEnabled: false,
+            tabBar: {
+                animated: true,
+                fontSize: 12,
+                selectedColor: '#fb5134',
+                scrollEnabled: false,
+                list: [{
+                    "text": "首页",
+                    "iconPath": "widget://image/icon/index.png",
+                    "selectedIconPath": "widget://image/icon/index2.png"
+                }, {
+                    "text": "任务",
+                    "iconPath": "widget://image/icon/renwu.png",
+                    "selectedIconPath": "widget://image/icon/renwu2.png"
+                }, {
+                    "text": "分红",
+                    // "iconPath": "widget://image/icon/fabu.png",
+                    "iconPath": "widget://image/icon/hongbao.png",
+                    // "selectedIconPath": "widget://image/icon/fabu2.png"
+                    "selectedIconPath": "widget://image/icon/hongbao2.png"
+                        // "selectedIconPath": "widget://image/icon/fabu2.png"
+                }, {
+                    "text": "推广",
+                    "iconPath": "widget://image/icon/tuiguang.png",
+                    "selectedIconPath": "widget://image/icon/tuiguang1.png"
+                }, {
+                    "text": "我的",
+                    "iconPath": "widget://image/icon/wode.png",
+                    "selectedIconPath": "widget://image/icon/wode1.png"
+                }],
+                frames: [{
+                        "title": "首页",
+                        "name": "tab_frm_1",
+                        "url": "widget://html/index/index.html",
+                        // bounces: true,
+                    }, {
+                        "title": "任务",
+                        "name": "tab_frm_2",
+                        "url": "widget://html/tasks/tasks.html"
+                    },
+
+                    //     {
+                    //     "title": "发布",
+                    //     "name": "tab_frm_3",
+                    //     "url": "widget://html/publish/publish.html"
+                    // },
+                    {
+                        "title": "分红",
+                        "name": "tab_frm_3",
+                        "url": "widget://html/dialog/bonus.html"
+                    }, {
+                        "title": "推广",
+                        "name": "tab_frm_4",
+                        "url": "widget://html/retail/rules.html"
+                    },
+                    //     {
+                    //     "title": "推广",
+                    //     "name": "tab_frm_4",
+                    //     "url": "widget://html/retail/retail.html"
+                    // },
+                    {
+                        "title": "我的",
+                        "name": "tab_frm_5",
+                        "url": "widget://html/my/my.html"
+                    }
+                ]
+            }
+        }
+        api.openTabLayout(param);
+    }
+
+    //隐私条款
+    function privates() {
+        api.openWin({
+            name: 'privacys',
+            url: './dialog/privacys.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+    }
+
+    //服务条款
+    function services() {
+        api.openWin({
+            name: 'services',
+            url: './dialog/services.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+    }
+</script>
+
+</html>

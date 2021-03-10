@@ -1,0 +1,235 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+	<meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+	<title>任务详情</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/submit_detail.css" />
+	<link rel="stylesheet" href="../../css/swiper.min.css">
+	<script src="../../script/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+	<div class="b" id="header">
+		<div class="header">
+	        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+			<div class="header_button"><img src="../../image/mroe.png"></div>
+	        <div class="header_text"><h1>任务详情</h1></div>
+	        <div class="clearfix"></div>
+	    </div>
+	</div>
+	<div class="covering"></div>
+
+	<div class="banner">
+		<!-- 右上角点击内容 -->
+		<div class="spread">
+			<div class="order" onclick="order_rules()">
+				<div class="order_pic"><img src="../../image/detail_rules.png"></div>
+				<h1>接单规则</h1>
+				<div class="clearfix"></div>
+			</div>
+			<div class="complain" onclick="complaints()">
+				<div class="complain_pic"><img src="../../image/complain.png"></div>
+				<h1>投诉悬赏</h1>
+				<div class="clearfix"></div>
+			</div>
+			<div class="share">
+				<div class="share_pic"><img src="../../image/share.png"></div>
+				<h1>分享悬赏</h1>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+		<!-- 任务内容 -->
+		<div class="list_text">
+			<h1>下载注册就可以，秒审核</h1>
+			<h2>下载注册</h2>
+			<h3> 掘金宝 </h3>
+			<div class="clearfix"></div>
+		</div>
+		<div class="banner_text">
+			<div class="text_pic"><img src="../../image/pu.png"></div>
+			<h1>+1.08</h1>
+			<div class="clearfix"></div>
+			<div class="banner_pic"><img src="../../image/vip.png"></div>
+			<h2>+1.39</h2>
+			<div class="clearfix"></div>
+		</div>
+		<div class="clearfix"></div>
+		<div class="detail_text">
+			<h1>11</h1>
+			<h2>剩余数量</h2>
+		</div>
+		<div class="detail_text">
+			<h1>26</h1>
+			<h2>完成数量</h2>
+		</div>
+		<div class="detail_text">
+			<h1>1小时</h1>
+			<h2>做单时间</h2>
+		</div>
+		<div class="detail_text">
+			<h1>1天</h1>
+			<h2>审核时间</h2>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+	<!-- 做单说明 -->
+	<div class="show">
+		<h1>做单说明</h1>
+		<p>1.发现诱导私加，私下交易，发布同类平台任务，举报重赏；<br>
+		   2.需要打钱投资的任务需谨慎，亏损自负；<br>
+		   3.请先报名再做任务，否则无赏金；</p>
+	</div>
+	<!-- 商家 -->
+	<div class="name">
+		<div class="name_pic"><img src="../../image/list.png"></div>
+		<div class="name_text">
+			<h1>王者つ莫紫萱-(566859)</h1>
+			<h2>普通商人</h2>
+		</div>
+		<div class="store" onclick="shop()"><img src="../../image/dianpu.png"><h3>店铺</h3></div>
+		<div class="clearfix"></div>
+	</div>
+	<!-- 任务评价 -->
+	<div class="appraise">
+		<h1>任务评价(158)</h1>
+		<div class="enter" onclick="all_evaluating()"><img src="../../image/means_enter.png"></div>
+		<h2 onclick="all_evaluating()">全部评价</h2>
+		<div class="clearfix"></div>
+	</div>
+	<!--vip  -->
+	<div class="upgrade">
+		<h1>升级VIP，该任务多赚20%</h1>
+		<div class="enter" onclick="member_center()"><img src="../../image/detail.png"></div>
+		<h2 onclick="member_center()">立即升级</h2>
+		<div class="clearfix"></div>
+	</div>
+	<!--  任务步骤-->
+	<div class="task">
+		<h1>任务步骤</h1>
+		<div class="step1">
+			<h2>1</h2>
+			<div class="step1_title">
+				<h3>步骤一（图文说明）</h3>
+				<p>微信扫码注册并下载（一定要用微信登录）</p>
+				<div class="step1_pic"><img src="../../image/detail1.png"></div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="step2">
+			<h2>2</h2>
+			<div class="step2_title">
+				<h3>步骤二（图文说明）</h3>
+				<p>登录进去点我的，找到填写邀请码19567928填写完再点一下就能截图</p>
+				<div class="step2_pic"><img src="../../image/detail2.png"></div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="step3">
+			<h2>3</h2>
+			<div class="step3_title">
+				<h3>步骤三（提交截图））</h3>
+				<p>邀请码输完再点一次就看到了</p>
+				<div class="step3_pic"><img src="../../image/detail3.png"></div>
+				<div class="add">
+
+					<div class="add_pic"><img src="../../image/xiangji1.png"></div>
+
+					<h1>添加图片</h1>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+	<!-- 提交数据 -->
+	<div class="submit">
+		<h1>提交数据</h1>
+		<div class="input"><input type="text" placeholder="请输入微信昵称"></div>
+		<div class="clearfix"></div>
+	</div>
+	<!-- 时间限制 -->
+
+	<div class="button">
+		<div class="time">
+			<h1>请在<span>&nbsp; 00:59:42&nbsp; </span>内提交完成任务</h1>
+		</div>
+		<div class="button_submit">
+			<button type="submit">取消任务</button>
+		</div>
+		<div class="button_cancel">
+			<button type="submit">提交任务</button>
+		</div>
+	</div>
+
+
+	</body>
+	<script src="../../script/api.js" charset="utf-8"></script>
+	<script src="../../script/swiper.min.js"></script>
+	<script src="../../script/common.js"></script>
+	<script>
+		apiready = function(){
+			height()
+			//var header = document.querySelector('#header'); //头帘高度
+			//$api.fixStatusBar(header);
+		}
+
+		$(function(){
+			$(".list li:eq(0) ").addClass('click');
+			$(".list li ").click(function(){
+				$(this).addClass('click').siblings().removeClass('click');
+			});
+		})
+
+
+		$(function(){
+			$(".spread").hide();
+			$(".header_button").click(function(){
+				$(".spread").slideDown();
+				$(".covering").show();
+			})
+			$(".covering").click(function(){
+				$(".spread").slideUp();
+				$(".covering").fadeOut();
+			})
+		})
+		function go_back() {
+		  api.closeWin({
+
+		  });
+		}
+		function order_rules(){													//接单规则
+		  api.openWin({
+			  name: 'order_rules',
+			  url: '../index/order_rules.html'
+		  })
+		}
+		function complaints(){													//投诉悬赏
+		  api.openWin({
+			  name: 'complaints',
+			  url: '../index/complaints.html'
+		  })
+		}
+		function shop(){														//店铺
+		  api.openWin({
+			  name: 'shop',
+			  url: '../index/shop.html'
+		  })
+		}
+		function all_evaluating(){												//全部评价
+		  api.openWin({
+			  name: 'all_evaluating',
+			  url: '../index/all_evaluating.html'
+		  })
+		}
+		function member_center(){												//会员中心
+		  api.openWin({
+			  name: 'member_center',
+			  url: 'member_center.html'
+		  })
+		}
+	</script>
+
+
+</html>

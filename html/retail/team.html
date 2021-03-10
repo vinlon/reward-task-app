@@ -1,0 +1,223 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>我的团队</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/team.css" />
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script src="../../script/swiper.min.js"></script>
+    <script src="../../script/common.js"></script>
+    <script src="../../script/url.js"></script>
+</head>
+
+<body>
+    <div class="b" id="header">
+        <div class="header">
+            <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+            <div class="header_text">
+                <h1>我的团队</h1>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <div class="award">
+        <div class="banner">
+            <div class="banner_bg"><img src="../../image/team_bg.png"></div>
+            <div class="banner_content">
+                <h1 id="tuandui">我的团队(人)</h1>
+                <h2 class="num" id="num">0</h2>
+            </div>
+        </div>
+        <div class="award_title">
+            <ul class="list_t">
+                <li onclick="get_list(0)">一级分销</li>
+                <li onclick="get_list(1)">二级分销</li>
+                <div class="clearfix"></div>
+            </ul>
+        </div>
+        <div class="line"></div>
+        <ul class="list" id="type_1">
+
+        </ul>
+        <ul class="list" id="type_2" style="display:none;">
+
+        </ul>
+
+    </div>
+
+</body>
+
+<script>
+    apiready = function() {
+        height();
+        //var header = document.querySelector('#header'); //头帘高度
+        //$api.fixStatusBar(header);
+        token = $api.getStorage('token'); //获取token
+        //	token='e628811cb3386346c3861a26781708d9';
+        get_list(0)
+        api.setRefreshHeaderInfo({
+            loadingImg: 'widget://image/refresh.png',
+            bgColor: '#ccc',
+            textColor: '#fff',
+            textDown: '下拉刷新...',
+            textUp: '松开刷新...'
+        }, function(ret, err) {
+            //在这里从服务器加载数据，加载完成后调用
+            //停止api.refreshHeaderLoadDone()方法恢复组件到默认状态
+            window.location.reload();
+            api.refreshHeaderLoadDone();
+        });
+
+        api.addEventListener({
+            name: 'scrolltobottom',
+            extra: {
+                threshold: 0 //设置距离底部多少距离时触发，默认值为0，数字类型
+            }
+        }, function(ret, err) {
+            if (pageEnd) {
+                api.toast({
+                    msg: '没有更多数据了'
+                })
+            } else {
+                get_list(orders);
+            }
+        });
+    }
+
+
+    let page = 1
+    let pageEnd = false
+    let orders = 0;
+
+    function get_list(type) {
+        /*api.showProgress({
+            title: '努力加载中...',
+            text: '请稍后...',
+            modal: false
+        });*/
+        showLoadMore(1);
+        if (type != orders) {
+            page = 1
+            pageEnd = false
+        }
+        if (type == 0) {
+            $("#tuandui").html("我的一级团队")
+        } else {
+            $("#tuandui").html("我的二级团队")
+        }
+
+        api.ajax({
+            url: my_team_1s,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    page: page,
+                    type: type,
+                    limit: 10,
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                if (type == 0) {
+                    htmlList1(ret.list);
+                } else {
+                    htmlList2(ret.list);
+                }
+                // alert(ret.num)
+                $api.html(num, ret.num);
+
+                orders = type
+            }
+        });
+
+    }
+
+    function htmlList1(data) {
+
+
+        if (page == 1) {
+            $api.html(type_1, "");
+        }
+        html = '';
+        var length = data.length;
+        if (length >= 0) {
+            for (var index = 0; index < length; index++) {
+                html += '<li class="award_row clearfix">'
+                html += '<div class="head_pic"><img src="' + URL + data[index].u_headpic + '"></div>'
+                html += '<div class="award_text">'
+                html += '<h1>UID:' + data[index].u_id + '</h1>'
+                html += '<h2>' + data[index].time_format + '</h2>'
+                html += '</div>'
+                html += '<div class="row_text">'
+                html += '<h1>' + data[index].money + '</h1>'
+                html += '</div>'
+                html += '</li>'
+            }
+            $api.append(type_1, html);
+        } else {
+
+            pageEnd = true
+        }
+
+        page++;
+        //api.hideProgress()
+        showLoadMore();
+    }
+
+
+    function htmlList2(data) {
+
+        if (page == 1) {
+            $api.html(type_2, "");
+        }
+        html = '';
+        //			my_team_1();
+        var length = data.length;
+        if (length >= 0) {
+            for (var index = 0; index < length; index++) {
+                html += '<li class="award_row clearfix">'
+                html += '<div class="head_pic"><img src="' + URL + data[index].u_headpic + '"></div>'
+
+                html += '<div class="award_text">'
+                html += '<h1>' + data[index].u_id + '</h1>'
+                html += '<h2>' + data[index].time_format + '</h2>'
+                html += '</div>'
+                html += '<div class="row_text">'
+                html += '<h1>' + data[index].money + '</h1>'
+                html += '</div>'
+                html += '</li>'
+            }
+
+            $api.append(type_2, html);
+        } else {
+            pageEnd = true
+        }
+        page++;
+        //api.hideProgress()
+        showLoadMore();
+    }
+
+
+    $(function() {
+        $(".list_t li:eq(0) ").addClass('click');
+        $(".list_t li ").click(function() {
+            $(this).addClass('click').siblings().removeClass('click');
+            var index = $(this).index();
+            $(".list").eq(index).show().siblings(".list").hide();
+        });
+    })
+
+    function go_back() {
+        api.closeWin({});
+    }
+</script>
+
+</html>

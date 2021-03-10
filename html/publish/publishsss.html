@@ -1,0 +1,1008 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>发布</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/publish.css"/>
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+    <link rel="stylesheet" type="text/css" href="../../css/release_task.css"/>
+
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script src="../../script/swiper.min.js"></script>
+    <script src="../../script/common.js"></script>
+    <script src="../../script/url.js"></script>
+</head>
+<body>
+<div class="header" id="header">
+    <h2 onclick="task_classify()">发布任务</h2>
+    <div class="header_text"><h1>发布</h1></div>
+    <div class="clearfix"></div>
+</div>
+<div class="banner_bg"><img src="../../image/publish_bg.png"></div>
+
+<div class="banner">
+
+    <div class="banner_content">
+        <div class="name_pic"><img src="../../image/logo1.png" id="headerpic"></div>
+        <div class="name">
+            <h1 id="user_name"></h1>
+            <h2 id="fyb_id">副业帮ID：01</h2>
+            <h3 id="shop_format">商家会员到期：未开通</h3>
+        </div>
+        <div class="banner_text" onclick="member_center()" id="banner_text" style="display:none;"><h1>开通会员&nbsp;&nbsp;&gt;</h1>
+        </div>
+        <div class="clearfix"></div>
+        <!--发布金额  -->
+        <div class="card">
+            <h1>发布金额</h1>
+            <div class="card_text">
+                <h2 id="money">0.00</h2>
+                <div class="recharge" onclick="cash_fb()">
+                    <button>提现</button>
+                </div>
+                <div class="cash" onclick="recharge()">
+                    <button>充值</button>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <!-- 刷新道具 -->
+        <div class="card">
+            <h1>刷新道具</h1>
+            <div class="card_text">
+                <span id="shua_num">0</span><span class="ge">（个）</span>
+                <div class="change" onclick="balance()">
+                    <button>用户余额转为发布金额</button>
+                </div>
+                <div class="buy" onclick="buy()">
+                    <button>购买</button>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="award">
+    <div class="award_title1">
+        <ul class="list">
+            <li onclick="get_task(0);" id="zpds_0">未上线</li>
+            <li onclick="get_task(1);" id="zpds_1">进行中</li>
+            <li onclick="get_task(2);" id="zpds_2">已结束</li>
+            <div class="clearfix"></div>
+        </ul>
+    </div>
+    <!-- 任务 -->
+    <div id="publish_task">
+        <!-- 任务 onclick="list_detail()"-->
+        <div class="release_task">
+            <div class="award_row1">
+                <span class="task_name">投票</span>
+                <p class="task_con">1263456</p>
+                <p class="task_con1">高价收微信马上结账</p>
+
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="task_b clearfix">
+                <span>单价：0.15元</span>
+                <span>单价</span>
+                <span>单价</span>
+                <span>单价</span>
+                <span>单价</span>
+                <span>单价</span>
+            </div>
+
+            <div class="task_box clearfix">
+
+                <div class="toutiao row f-c">
+                    <img src="../../image/sh.png" alt="">
+                    <span>审核</span>
+                </div>
+                <div class="shuaxin row f-c">
+                    <img src="../../image/release.png" alt="">
+                    <span>刷新</span>
+                </div>
+                <div class="zt row f-c">
+                    <div id="txps_1" onclick="get_style_id(1);" class="tx f-c row">
+                        <img src="../../image/zt.png" alt="">
+                        <span>暂停</span>
+                    </div>
+                    <div id="txps_2" onclick="get_style_id(2);" class="nodis tx f-c row">
+                        <img src="../../image/ks.png" alt="">
+                        <span>开始</span>
+                    </div>
+                </div>
+                <div class="shanchu row f-c">
+                    <img src="../../image/zj.png" alt="">
+                    <span>追加数量<span>
+                </div>
+            </div>
+            <div class="task_box clearfix">
+                <div class="shanchu row f-c">
+                    <img src="../../image/xiajia.png" alt="">
+                    <span>下架<span>
+                </div>
+                <div class="toutiao row f-c">
+                    <img src="../../image/stt.png" alt="">
+                    <span>上头条</span>
+                </div>
+                <div class="shuaxin row f-c">
+                    <img src="../../image/tuijian.png" alt="">
+                    <span>推荐</span>
+                </div>
+                <div class="shuaxin row f-c">
+                    <img src="../../image/jg.png" alt="">
+                    <span>追加价格</span>
+                </div>
+
+            </div>
+            <div class="time clearfix">
+                <p>发布：</p>
+                <p>截止</p>
+            </div>
+        </div>
+        <div class="release_task">
+            <div class="award_row1">
+                <span class="task_name">投票</span>
+                <p class="task_con">1263456</p>
+                <p class="task_con1">高价收微信马上结账</p>
+
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="task_b clearfix">
+                <span>单价：0.15元</span>
+                <span>单价</span>
+                <span>单价</span>
+                <span>单价</span>
+                <span>单价</span>
+                <span>单价</span>
+            </div>
+
+            <div class="task_box clearfix">
+
+                <div class="toutiao row f-c">
+                    <img src="../../image/sh.png" alt="">
+                    <span>审核</span>
+                </div>
+                <div class="shuaxin row f-c">
+                    <img src="../../image/release.png" alt="">
+                    <span>刷新</span>
+                </div>
+                <div class="zt row f-c">
+                    <div id="txps_1" onclick="get_style_id(1);" class="tx f-c row">
+                        <img src="../../image/zt.png" alt="">
+                        <span>暂停</span>
+                    </div>
+                    <div id="txps_2" onclick="get_style_id(2);" class="nodis tx f-c row">
+                        <img src="../../image/ks.png" alt="">
+                        <span>开始</span>
+                    </div>
+                </div>
+                <div class="shanchu row f-c">
+                    <img src="../../image/zj.png" alt="">
+                    <span>追加数量<span>
+                </div>
+            </div>
+            <div class="task_box clearfix">
+                <div class="shanchu row f-c">
+                    <img src="../../image/xiajia.png" alt="">
+                    <span>下架<span>
+                </div>
+                <div class="toutiao row f-c">
+                    <img src="../../image/stt.png" alt="">
+                    <span>上头条</span>
+                </div>
+                <div class="shuaxin row f-c">
+                    <img src="../../image/tuijian.png" alt="">
+                    <span>推荐</span>
+                </div>
+                <div class="shuaxin row f-c">
+                    <img src="../../image/jg.png" alt="">
+                    <span>追加价格</span>
+                </div>
+
+            </div>
+            <div class="time clearfix">
+                <p>发布：</p>
+                <p>截止</p>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<div class="cover"></div>
+<div class="zj_num" style="display:none;">
+    <div class="close" onclick="close_zj_num();"><img src="../../image/close1.png" alt=""></div>
+    <div class="zj_num_text">
+        <input type="number" id="zj_num_set" placeholder="请输入追加数量">
+    </div>
+    <button type="button" name="button" class="true" onclick="task_set_num();">确定</button>
+    <button type="button" name="button" class="quxiao" onclick="close_zj_num();">取消</button>
+</div>
+
+
+<div class="zj_pirce" style="display:none;">
+    <div class="close" onclick="close_zj_pirce();"><img src="../../image/close1.png" alt=""></div>
+    <div class="zj_pirce_text">
+        <input type="number" id="zj_money_set" placeholder="请输入追加价格">
+    </div>
+    <button type="button" name="button" class="true" onclick="task_set_money();">确定</button>
+    <button type="button" name="button" class="quxiao" onclick="close_zj_pirce();">取消</button>
+</div>
+
+
+<input type="hidden" value="" id="toutiao_money_name"></input>
+<input type="hidden" value="" id="tuijian_money_name"></input>
+<input type="hidden" value="0" id="idxzz"></input>
+
+
+<!--  上头条-->
+<div class="tout" id="shangtt">
+    <h1>上头条</h1>
+    <input type="hidden" value="" id="shangtt_id">
+    <div class="toutinput clearfix">
+        <input type="number" name="" id="shangtoutiao_hour" onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')">
+        <span>小时</span>
+    </div>
+    <h2>扣除余额：<span id="shangtoutiao_money">10.00</span></h2>
+    <h2><span>10</span>元/小时</h2>
+    <h2>一旦上头条不可退款</h2>
+    <div class="toutbottom clearfix">
+        <h2 id="shangttclose">取消</h2>
+        <h2 onclick="toutiao();">确定</h2>
+    </div>
+</div>
+
+<!--  推荐-->
+<div class="tout" id="tuijian">
+    <h1>推荐</h1>
+    <input type="hidden" value="" id="tuijianjj_id">
+    <div class="toutinput clearfix">
+        <input type="number" name="" id="tuijian_hour" onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')">
+        <span>小时</span>
+    </div>
+    <h2>扣除余额：<span id="tuijian_hour_money">5.00</span></h2>
+    <h2><span>5</span>元/小时</h2>
+    <h2>一旦推荐不可退款</h2>
+    <div class="toutbottom clearfix">
+        <h2 id="tuijianclose">取消</h2>
+        <h2 onclick="tuijian_set();">确定</h2>
+    </div>
+</div>
+</body>
+
+<script>
+    function zj_num(idxzz) {
+        $('#idxzz').val(idxzz);
+        $(".zj_num").show();
+        $(".cover").show();
+    }
+
+    function close_zj_num() {
+        $('#idxzz').val(0);
+        $(".zj_num").hide();
+        $(".cover").hide();
+    }
+
+    //追加价格
+    function task_set_money() {
+
+        var zzsj_id = $('#idxzz').val();
+
+        var money = $('#zj_money_set').val();
+        api.ajax({
+            url: task_append_money_url,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    id: zzsj_id,
+                    money: money,
+                }
+            }
+        }, function (ret, err) {
+            api.toast({
+                msg: ret.info,
+                duration: 2000,
+                location: 'bottom'
+            });
+
+            if (ret.code == 100) {
+                setTimeout(function () {
+                    window.location.reload();
+                }, 1000);
+            }
+
+        });
+    }
+
+    //追加数量
+    function task_set_num() {
+        var zzsj_id = $('#idxzz').val();
+        var num = $('#zj_num_set').val();
+        api.ajax({
+            url: task_append_num_url,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    id: zzsj_id,
+                    num: num,
+                }
+            }
+        }, function (ret, err) {
+            api.toast({
+                msg: ret.info,
+                duration: 2000,
+                location: 'bottom'
+            });
+
+            if (ret.code == 100) {
+                setTimeout(function () {
+                    window.location.reload();
+                }, 1000);
+            }
+
+        });
+    }
+
+    function zj_pirce(idxzz) {
+        $('#idxzz').val(idxzz);
+        $(".zj_pirce").show();
+        $(".cover").show();
+    }
+
+    function close_zj_pirce() {
+        $('#idxzz').val(0);
+        $(".zj_pirce").hide();
+        $(".cover").hide();
+    }
+
+
+    apiready = function () {
+        height();
+        api.setRefreshHeaderInfo({
+            loadingImg: 'widget://image/refresh.png',
+            bgColor: '#ccc',
+            textColor: '#fff',
+            textDown: '下拉刷新...',
+            textUp: '松开刷新...'
+        }, function (ret, err) {
+            //在这里从服务器加载数据，加载完成后调用
+            //停止api.refreshHeaderLoadDone()方法恢复组件到默认状态
+            window.location.reload();
+            api.refreshHeaderLoadDone();
+        });
+        // setTimeout(function() {
+        // 	window.location.reload();
+        // 		api.refreshHeaderLoadDone();
+        // }, 10000);
+        //	$api.setStorage('token','a936436f65ff3e27edf61054d416da28'); //存token
+        token = $api.getStorage('token');
+        //	token="";
+
+        user_info();//获取个人信息
+        get_task(1);
+        get_chanshu();
+
+    }
+    $("#shangtoutiao_hour").bind("input propertychange", function (event) {
+        var mmm = $('#shangtoutiao_hour').val();
+        var nnn = 10;
+        if (nnn != "" && mmm != "") {
+            var new_all_money = parseFloat(mmm) * parseInt(nnn);
+            $('#shangtoutiao_money').html(new_all_money);
+
+        } else {
+            $('#shangtoutiao_money').html("0.00");
+
+        }
+
+    });
+    $("#tuijian_hour").bind("input propertychange", function (event) {
+        var mmm = $('#tuijian_hour').val();
+        var nnn = 5;
+        if (nnn != "" && mmm != "") {
+            var new_all_money = parseFloat(mmm) * parseInt(nnn);
+            $('#tuijian_hour_money').html(new_all_money);
+
+        } else {
+            $('#tuijian_hour_money').html("0.00");
+
+        }
+
+    });
+
+    function get_chanshu() {
+        api.ajax({
+            url: fabu_canshu_url,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    status: status,
+                }
+            }
+        }, function (ret, err) {
+            $('#toutiao_money_name').val(ret.shangtoutiao);
+            $('#tuijian_money_name').val(ret.tuijian_money);
+
+        });
+    }
+
+    function list_detail(id) {													//列表详情
+        api.openWin({
+            name: 'list_detail',
+            url: '../index/list_detail.html',
+            allowEdit: true,
+            pageParam: {
+                id: id
+            }
+        })
+    }
+
+    function get_task(status) {
+        api.ajax({
+            url: my_task_renwu_url,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    status: status,
+                }
+            }
+        }, function (ret, err) {
+//		console.log(JSON.stringify(ret));console.log(JSON.stringify(err));
+            var length = ret.data.length;
+            //	 alert(length)
+            var lblist_type = '';
+            for (var lb = 0; lb < length; lb++) {
+
+                lblist_type += '	<div class="release_task">'
+                lblist_type += '		<div class="award_row1" >'//onclick="list_detail()"
+                lblist_type += '			<span class="task_name"  onclick="list_detail(' + ret.data[lb].id + ')">' + ret.data[lb].title + '</span>'
+                lblist_type += '				<p class="task_con"></p>'
+                lblist_type += '				<p class="task_con1">' + ret.data[lb].id + '</p>'
+                lblist_type += '				<span class="finish" onclick="list(' + ret.data[lb].id + ')">已完成订单列表</span>'
+                lblist_type += '			<div class="clearfix"></div>'
+                lblist_type += '			</div>'
+                lblist_type += '			<div class="task_b clearfix">'
+                lblist_type += '			<span>单价：' + ret.data[lb].money + '</span>'
+                lblist_type += '			<span>总量：' + ret.data[lb].all_num + '</span>'
+                lblist_type += '			<span>进行中：' + ret.data[lb].jinxingz + '</span>'
+                lblist_type += '			<span>剩余：' + ret.data[lb].num + '</span>'
+                lblist_type += '			<span>已完成：' + ret.data[lb].ywc + '</span>'
+                lblist_type += '			<span>待审核：' + ret.data[lb].dsh + '</span>'
+                lblist_type += '		</div>'
+                lblist_type += '	<div class="task_box clearfix">'
+                if (ret.data[lb].status == 1) {
+                    lblist_type += '		<div class="toutiao row f-c" onclick="chick_task(' + ret.data[lb].id + ')">'
+                    lblist_type += '		<img src="../../image/sh.png" alt="" >'
+                    lblist_type += '		<span>审核</span>'
+                    lblist_type += '	</div>'
+                    lblist_type += '	<div class="shuaxin row f-c"  onclick="shuaxin(' + ret.data[lb].id + ')">'
+                    lblist_type += '		<img src="../../image/release.png" alt="">'
+                    lblist_type += '		<span>刷新</span>'
+                    lblist_type += '	</div>'
+                    lblist_type += '		<div class="zt row f-c">'
+                    lblist_type += '			<div id="txps_1" onclick="set_c_status(' + ret.data[lb].id + ');" class="tx f-c row">'
+                    if (ret.data[lb].c_status == 1) {
+                        lblist_type += '			<img src="../../image/zt.png" alt="">'
+                        lblist_type += '			<span>暂停</span>'
+                    } else {
+                        lblist_type += '			<img src="../../image/ks.png" alt="">'
+                        lblist_type += '			<span>开始</span>'
+                    }
+                    lblist_type += '			</div>'
+
+                    lblist_type += '		</div>'
+                    lblist_type += '	<div class="shanchu row f-c" onclick="zj_num(' + ret.data[lb].id + ')">'
+                    lblist_type += '		<img src="../../image/zj.png" alt="">'
+                    lblist_type += '			<span>追加数量<span>'
+                    lblist_type += '		</div>'
+                    lblist_type += '	</div>'
+
+                    lblist_type += '	<div class="task_box clearfix">'
+                    lblist_type += '		<div class="shanchu row f-c" onclick="lower_shelfbytask(' + ret.data[lb].id + ')">'
+                    lblist_type += '			<img src="../../image/xiajia.png" alt="">'
+                    lblist_type += '			<span>下架<span>'
+                    lblist_type += '		</div>'
+                    lblist_type += '			<div class="toutiao row f-c" onclick="stoutiao(' + ret.data[lb].id + ')">'
+                    lblist_type += '				<img src="../../image/stt.png" alt="">'
+                    lblist_type += '			<span>上头条</span>'
+                    lblist_type += '		</div>'
+                    lblist_type += '		<div class="shuaxin row f-c"  onclick="tuij(' + ret.data[lb].id + ')">'
+                    lblist_type += '			<img src="../../image/tuijian.png" alt="">'
+                    lblist_type += '			<span>推荐</span>'
+                    lblist_type += '		</div>'
+
+                    lblist_type += '		<div class="shuaxin row f-c" onclick="zj_pirce(' + ret.data[lb].id + ')">'
+                    lblist_type += '			<img src="../../image/jg.png" alt="">'
+                    lblist_type += '			<span>追加价格</span>'
+                    lblist_type += '		</div>'
+                }
+
+                lblist_type += '	</div>'
+
+                lblist_type += '	<div class="time clearfix">'
+                lblist_type += '	<p>发布：' + ret.data[lb].add_time_format + '</p>'
+                lblist_type += '	<p>截止:' + ret.data[lb].end_time_format + '</p>'
+                lblist_type += '	</div>'
+                lblist_type += '	<div class="time clearfix">'
+                lblist_type += '	<h1>首页推荐：' + ret.data[lb].index_time_end_format + '</h1>'
+
+                if (ret.data[lb].status == 0) {
+                    lblist_type += '	<h1>当前状态：审核中</h1>'
+                }else if (ret.data[lb].status == 1){
+                    lblist_type += '	<h1>当前状态：进行中'</h1>'
+                } else if (ret.data[lb].status == 2){
+                    lblist_type += '	<h1>当前状态：已结束'</h1>'
+                }else if (ret.data[lb].status == -1){
+                    lblist_type += '	<h1>当前状态：审核失败</h1>'
+                    lblist_type += '	<h1>审核失败原因：'+ret.data[lb].fail_center+'</h1>'
+                }else {
+                    lblist_type += '	<h1>当前状态：</h1>'
+                }
+
+
+
+                lblist_type += '	</div>'
+                lblist_type += '	</div>'
+
+            }
+
+
+            $api.html(publish_task, lblist_type);
+
+
+            $('#zpds_0').removeClass("click");
+            $('#zpds_1').removeClass("click");
+            $('#zpds_2').removeClass("click");
+            $('#zpds_' + status).addClass("click");
+
+            // $(function(){
+            // 	$(".list li:eq(0) ").addClass('click');
+            // 	$(".list li ").click(function(){
+            // 		$(this).addClass('click').siblings().removeClass('click');
+            // 	});
+            // })
+        });
+
+    }
+
+    $(function () {
+
+        $("#shangttclose").click(function () {
+            $("#shangtt").hide();
+            $(".cover").hide();
+        })
+        $("#tuijianclose").click(function () {
+            $("#tuijian").hide();
+            $(".cover").hide();
+        })
+    })
+
+    function stoutiao(id) {
+
+        $('#shangtt_id').val(id);
+        $("#shangtt").show();
+        $(".cover").show();
+    }
+
+    function tuij(id) {
+        $('#tuijianjj_id').val(id);
+        $("#tuijian").show();
+        $(".cover").show();
+    }
+
+    //跳转到任务审核页面
+    function chick_task(id) {
+        api.ajax({
+            url: get_task_by_order_url,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    id: id,
+                }
+            }
+        }, function (ret, err) {
+            //	console.log(ret);
+            //	console.log(err);
+            if (ret.code == 100) {
+                //		setTimeout(function() {
+                api.openWin({
+                    name: 'order',
+                    url: '../my/order.html',
+                    pageParam: {
+                        id: id
+                    }
+                });
+                //		}, 1000);
+            } else if (ret.code == -302) {
+                api.toast({
+                    msg: ret.message,
+                    duration: 2000,
+                    location: 'bottom',
+                });
+            } else {
+                api.toast({
+                    msg: ret.info,
+                    duration: 2000,
+                    location: 'bottom',
+                });
+            }
+        });
+    }
+
+    function go_back() {
+        api.closeWin({});
+    }
+
+    function lower_shelfbytask(id) {
+        api.confirm({
+            title: '是否确认下架此任务',
+            msg: "进行中和待审核任务全部按照合格结算",
+            buttons: ['确定', '取消']
+        }, function (ret, err) {
+            var index = ret.buttonIndex;
+            if (index == 1) {
+
+                api.ajax({
+                    url: task_lower_shelf_url,
+                    method: 'post',
+                    data: {
+                        values: {
+                            token: token,
+                            id: id,
+                        }
+                    }
+                }, function (ret, err) {
+                    api.toast({
+                        msg: ret.info,
+                        duration: 2000,
+                        location: 'bottom'
+                    });
+
+                    if (ret.code == 100) {
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 1000);
+                    }
+                });
+
+
+            }
+        });
+
+    }
+
+    function shuaxin(id) {
+        api.confirm({
+            title: '是否使用刷新功能?',
+            msg: '每次消耗一个刷新币!',
+            buttons: ['确定', '取消']
+        }, function (ret, err) {
+            var index = ret.buttonIndex;
+            if (index == 1) {
+
+                api.ajax({
+                    url: use_shuaxin_url,
+                    method: 'post',
+                    data: {
+                        values: {
+                            token: token,
+                            id: id,
+                        }
+                    }
+                }, function (ret, err) {
+                    api.toast({
+                        msg: ret.info,
+                        duration: 2000,
+                        location: 'bottom'
+                    });
+
+                    if (ret.code == 100) {
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 1000);
+                    }
+                });
+
+
+            }
+        });
+
+    }
+
+    function tuijian_set() {
+        var tuijian_zxc_id = $('#tuijianjj_id').val();
+        var tuijian_zxc_hour = $('#tuijian_hour').val();
+        api.ajax({
+            url: set_task_indextuijian_url,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    id: tuijian_zxc_id,
+                    hour: tuijian_zxc_hour,
+                }
+            }
+        }, function (ret, err) {
+            api.toast({
+                msg: ret.info,
+                duration: 2000,
+                location: 'bottom',
+            });
+
+            if (ret.code == 100) {
+                // setTimeout(function() {
+                // 	api.openWin({
+                // 		name: 'headline',
+                // 		url: 'headline.html',
+                // 	});
+                // }, 1000);
+            }
+        });
+
+
+    }
+
+    function set_c_status(id) {
+        api.confirm({
+            title: '确定要操作此项么?',
+            msg: "",
+            buttons: ['确定', '取消']
+        }, function (ret, err) {
+            var index = ret.buttonIndex;
+            if (index == 1) {
+
+                api.ajax({
+                    url: task_c_statusbyid_url,
+                    method: 'post',
+                    data: {
+                        values: {
+                            token: token,
+                            id: id,
+                        }
+                    }
+                }, function (ret, err) {
+                    api.toast({
+                        msg: ret.info,
+                        duration: 2000,
+                        location: 'bottom',
+                    });
+
+                    if (ret.code == 100) {
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 1000);
+                    }
+                });
+
+
+            }
+        });
+
+    }
+
+    function toutiao() {
+        var toutiao_xx_id = $('#shangtt_id').val();
+        var toutiao_hour = $('#shangtoutiao_hour').val();
+        api.ajax({
+            url: shenqing_toutiao_url,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    id: toutiao_xx_id,
+                    hour: toutiao_hour,
+                }
+            }
+        }, function (ret, err) {
+            api.toast({
+                msg: ret.info,
+                duration: 2000,
+                location: 'bottom',
+            });
+
+            if (ret.code == 100) {
+                setTimeout(function () {
+                    api.openWin({
+                        name: 'headline',
+                        url: '../my/headline.html',
+                    });
+                }, 1000);
+            }
+        });
+
+
+    }
+
+    function shanchu_del(id) {
+        api.confirm({
+            title: '确定要删除此条任务么?',
+            msg: '删除任务无法恢复,慎重考虑',
+            buttons: ['确定', '取消']
+        }, function (ret, err) {
+            var index = ret.buttonIndex;
+            if (index == 1) {
+
+                api.ajax({
+                    url: task_del_url,
+                    method: 'post',
+                    data: {
+                        values: {
+                            token: token,
+                            id: id,
+                        }
+                    }
+                }, function (ret, err) {
+                    api.toast({
+                        msg: ret.info,
+                        duration: 2000,
+                        location: 'bottom'
+                    });
+
+                    if (ret.code == 100) {
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 1000);
+                    }
+                });
+
+
+            }
+        });
+
+    }
+
+    // function list_detail(){
+    // 		api.openWin({
+    // 			name: 'list_detail',
+    // 			url: '../index/list_detail.html',
+    //
+    // 		})
+    // 	}
+
+
+    function user_info() {
+        api.ajax({
+            url: personalInfo,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+
+
+                }
+            }
+        }, function (ret, err) {
+            //	console.log(JSON.stringify(ret));
+            //		console.log(JSON.stringify(err));
+
+            if (ret.code == -1) {
+                api.toast({
+                    msg: ret.message,
+                    duration: 2000,
+                    location: 'bottom'
+                });
+
+                api.openWin({
+                    name: 'login',
+                    url: '../my/login.html',
+
+                });
+                return false;
+            }
+
+
+            if (ret.code == 1) {
+                $api.text(money, ret.data.money);	//发布金额
+                $api.text(shua_num, ret.data.shua_num);//刷新道具
+                $api.text(fyb_id, '副业帮ID：' + ret.data.u_id);//副业帮ID
+                $api.text(user_name, ret.data.u_name);//昵称
+                if (ret.data.u_headpic == "") {
+                    $api.byId('headerpic').src = "../../image/personal.png";//头像
+                } else {
+                    $api.byId('headerpic').src = URL + ret.data.u_headpic;//头像
+                }
+                if (ret.data.shop_status == 1) {
+                    $api.text(shop_format, '商家到期：' + ret.data.shop_format);
+                    $("#banner_text").hide();
+                } else {
+                    $('#shop_format').hide();
+                    $("#banner_text").show();
+                }
+
+
+            }
+
+
+        });
+    }
+
+
+    $(function () {
+        $(".list li:eq(0) ").addClass('click');
+        $(".list li ").click(function () {
+            $(this).addClass('click').siblings().removeClass('click');
+        });
+    })
+
+    function member_center() {
+        api.openWin({
+            name: 'member_center',
+            url: '../my/member_center.html'
+        })
+    }
+
+    function recharge() {
+        api.openWin({
+            name: 'recharge',
+            url: '../my/recharge.html'
+        })
+    }
+
+    function cash_fb() {
+        api.openWin({
+            name: 'cash_fb',
+            url: '../my/cash_fb.html'
+        })
+    }
+
+    function balance() {
+        api.openWin({
+            name: 'balance',
+            url: 'balance.html'
+        })
+    }
+
+    function buy() {
+        api.openWin({
+            name: 'buy',
+            url: 'buy.html'
+        })
+    }
+
+    function go_back() {
+        api.closeWin({});
+    }
+
+    function task_classify() {
+        api.openWin({
+            name: 'task_classify',
+            url: 'task_classify.html'
+        })
+    }
+
+    // function list_detail(id){
+    // 	  api.openWin({
+    // 		  name: 'list_detail',
+    // 		  url: '../index/list_detail.html',
+    // 	  pageParam: {
+    // 	  id:id
+    // 	 }
+    // 	  })
+    // 	}
+    function list(id) {
+        api.openWin({
+            name: 'list',
+            url: 'list.html',
+            pageParam: {
+                id: id
+            }
+        })
+    }
+</script>
+
+</html>

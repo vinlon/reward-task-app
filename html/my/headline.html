@@ -1,0 +1,145 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+	<meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+	<title>头条申请记录</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/headline.css" />
+	<link rel="stylesheet" href="../../css/swiper.min.css">
+	<script src="../../script/jquery-1.8.3.min.js"></script>
+	<script src="../../script/api.js" charset="utf-8"></script>
+	<script src="../../script/swiper.min.js"></script>
+	<script src="../../script/common.js"></script>
+	<script src="../../script/url.js"></script>
+</head>
+<body>
+	<div class="b" id="header">
+		<div class="header">
+	        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+	        <div class="header_text"><h1>头条申请记录</h1></div>
+	        <div class="clearfix"></div>
+	    </div>
+	</div>
+
+	<div class="headline" id="list_x">
+
+		<div class="headline_row clearfix">
+			<div class="headline_text ">
+				<span class="task">分享阅读限时任务</span>
+				<div class="clearfix"></div>
+				<span class="task_time">2019-12-20</span>
+			</div>
+			<div class="f_r">
+				<span class="fuh">￥</span>
+				<span class="task_money">5.00</span>
+			</div>
+		</div>
+
+		<div class="headline_row clearfix">
+			<div class="headline_text ">
+				<span class="task">录一分钟宝宝的哭声</span>
+				<div class="clearfix"></div>
+				<span class="task_time">2019-12-20</span>
+			</div>
+			<div class="f_r">
+				<span class="fuh">￥</span>
+				<span class="task_money">5.00</span>
+			</div>
+		</div>
+
+
+	</div>
+
+
+</body>
+
+<script>
+	apiready = function(){
+				token = $api.getStorage('token');
+		height()
+		get_toutiao_list();
+		api.setRefreshHeaderInfo({
+			loadingImg: 'widget://image/refresh.png',
+			bgColor: '#ccc',
+			textColor: '#fff',
+			textDown: '下拉刷新...',
+			textUp: '松开刷新...'
+		}, function(ret, err) {
+			//在这里从服务器加载数据，加载完成后调用
+			//停止api.refreshHeaderLoadDone()方法恢复组件到默认状态
+			window.location.reload();
+			api.refreshHeaderLoadDone();
+		});
+	}
+	function get_toutiao_list() {
+		//$api.setStorage('token','a936436f65ff3e27edf61054d416da28');
+		token = $api.getStorage('token'); //获取token
+				// var ucode = $api.getStorage('code');
+		 //alert(token);
+		api.ajax({
+			url: shenq_toutiao_list_url,
+			method: 'post',
+			data: {
+				values: {
+					token: token,
+				}
+			}
+		}, function(ret, err) {
+				console.log(JSON.stringify(ret));
+				console.log(JSON.stringify(err));
+				// api.alert({ msg: JSON.stringify(ret) });
+				if (ret.code == -302) {
+					api.toast({
+						msg: ret.message,
+						duration: 2000,
+						location: 'bottom'
+					});
+					setTimeout(function() {
+						api.openWin({
+							name: 'login',
+							url: 'login.html',
+							pageParam: {
+								name: 'test'
+							}
+						});
+					}, 1000);
+					return false;
+				}
+				var	length = ret.data.length;
+				//	 alert(length)
+				var 	lblist_type = '';
+					for (var lb = 0; lb < length; lb++) {
+									lblist_type += '<div class="headline_row clearfix">'
+										lblist_type += '<div class="headline_text ">'
+									lblist_type += '		<p class="task">'+ ret.data[lb].name + '</p>'
+										lblist_type += '	<div class="clearfix"></div>'
+										lblist_type += '	<p class="task_time">'+ ret.data[lb].add_time_format + '</p>'
+									lblist_type += '	</div>'
+									lblist_type += '	<div class="f_r">'
+									lblist_type += '		<span class="fuh"></span>'//￥
+									lblist_type += '		<span class="task_money">结束时间:'+ ret.data[lb].status_format + '</span>'
+									lblist_type += '	</div>'
+								lblist_type += '	</div>'
+
+					}
+
+
+						$api.html(list_x,lblist_type);
+
+
+				// api.alert({ msg: JSON.stringify(err) });
+
+		});
+	}
+
+	function go_back() {
+		api.closeWin({
+
+		});
+	}
+</script>
+
+</html>

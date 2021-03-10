@@ -1,0 +1,819 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>登录</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/login.css" />
+    <link rel="stylesheet" href="../../css/swiper0.min.css">
+    <style>
+        .jc_s {
+            justify-content: flex-start;
+            display: flex;
+            margin: 0;
+        }
+        
+        .xieyi {
+            width: 40%;
+            float: left;
+        }
+        
+        .checkedmr {
+            margin-right: .5em;
+            vertical-align: middle;
+            opacity: 0;
+        }
+        /*input*/
+        
+        .car_put {
+            position: relative;
+        }
+        
+        .car_put .select {
+            display: none;
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            width: 1.1em;
+            height: 1.1em;
+        }
+        
+        .car_put .circle {
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            width: 1em;
+            height: 1em;
+            border: solid 1px #cbcaca;
+            border-radius: 50%;
+        }
+        
+        .car_put input:checked+img.select {
+            display: block;
+        }
+        
+        .car_put input:checked+img+.circle {
+            display: none;
+        }
+        
+        .kaler {
+            font-size: 0.8125rem;
+            color: #999999;
+            margin-top: 0.2rem;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="bg" id="header">
+        <img src="../../image/login.png">
+    </div>
+    <div class="login">
+        <div class="f1">
+            <h1>登录</h1>
+            <div></div>
+        </div>
+        <div class="f">
+            <h1>注册</h1>
+            <div></div>
+        </div>
+        <a class="clearfix"></a>
+    </div>
+    <!-- 登录页 -->
+    <div class="login_page">
+        <div class="login_phone">
+            <!-- 手机号 -->
+
+            <div class="phone_link"><img src="../../image/link.png"></div>
+            <input type="text" placeholder="请输入手机号码" id="domaccount">
+        </div>
+        <div class="login_password">
+            <!-- 密码 -->
+            <div class="password_link"><img src="../../image/password.png"></div>
+            <input type="password" placeholder="请输入密码" id="password">
+        </div>
+        <div class="login-div">
+            <div class="login-bu">
+                <div class="login-bu-div login-bu-div-one">
+                    <input type="checkbox" class="login-bu-div-one-checkbox" id="xy" value="1" checked="checked">
+                    <div>记住密码</div>
+                </div>
+                <div class="login-bu-div login-bu-div-two">
+                    <input type="checkbox" class="login-bu-div-one-checkbox" id="xys" value="1" checked> 同意
+                    <span onclick="privates()">《隐私条款》</span> 和<span onclick="services()">《服务条款》</span>
+                </div>
+                <div class="login-bu-div login-bu-div-three" onclick="forget_password()">
+                    忘记密码?
+                </div>
+            </div>
+        </div>
+
+        <div class="login_button" onclick="submit()">
+            <button type="submit">登录</button>
+        </div>
+
+        <div class="vchat" onclick="get_wxlogin();">
+            <div class="v_pic"><img src="../../image/vchat.png"></div>
+            <button type="button">微信登录</button>
+        </div>
+    </div>
+    <!-- 注册页 -->
+    <div class="reg_page">
+        <div class="reg_phone">
+            <div class="reg_phone_link"><img src="../../image/link.png"></div>
+            <!-- 手机号 -->
+            <input type="text" placeholder="请输入手机号码" id="account">
+        </div>
+
+        <div class="reg_content">
+            <!-- 验证码 -->
+            <div class="link"><img src="../../image/yzm.png"></div>
+            <input type="text" placeholder="图片验证码" id='yzms'>
+            <div style="width: 40%;height: 3rem;margin-top:-3rem;float: right;" id="divvs"><canvas id="canvas" width="100%"></canvas> </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="reg_content">
+            <!-- 验证码 -->
+            <div class="link"><img src="../../image/yzm.png"></div>
+            <input type="text" placeholder="请输入验证码" id='yzm'>
+            <input type="button" id="btn" value="获取验证码" onclick="sendemail()">
+            <div class="clearfix"></div>
+        </div>
+
+
+        <div class="reg_password">
+            <!-- 密码 -->
+            <div class="reg_password_link"><img src="../../image/password.png"></div>
+            <input type="password" placeholder="请输入密码" id="pwd">
+        </div>
+        <div class="true_password">
+            <!-- 确认密码 -->
+            <div class="true_password_link"><img src="../../image/password.png"></div>
+            <input type="password" placeholder="请确认密码" id="twopwd">
+        </div>
+
+        <div class="login-bu-div login-bu-div-two " style="margin-left: 5rem">
+            <input type="checkbox" class="login-bu-div-one-checkbox" id="xyss" value="1" checked> 同意
+            <span onclick="privates()">《隐私条款》</span> 和<span onclick="services()">《服务条款》</span>
+        </div>
+        <div class="reg_button" onclick="userReg()">
+            <button type="submit">注册</button>
+        </div>
+
+
+    </div>
+</body>
+<script src="../../script/api.js" charset="utf-8"></script>
+<script src="../../script/swiper.min.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/url.js"></script>
+
+<script src="../../script/jquery-1.8.3.min.js"></script>
+<script>
+    //隐私条款
+    function privates() {
+        api.openWin({
+            name: 'privacys',
+            url: '../dialog/privacys.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+    }
+
+    //服务条款
+    function services() {
+        api.openWin({
+            name: 'services',
+            url: '../dialog/services.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+    }
+
+    function indes() {
+        token = $api.getStorage('token'); //获取token
+        // var ucode = $api.getStorage('code');
+        //alert(token);
+        api.ajax({
+            url: personalInfo,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                }
+            }
+        }, function(ret, err) {
+
+            if (ret.code != 1) {
+                api.toast({
+                    msg: ret.message,
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                return false;
+            } else {
+                //console.log(JSON.stringify(ret.data))
+                api.closeWin({});
+                /*if (ret.data.u_unionid && ret.data.u_openid) {
+                    api.closeWin({});
+                } else {
+                    api.openWin({
+                        name: 'wechat_binding',
+                        url: 'wechat_binding.html'
+                    })
+                }*/
+            }
+            // api.alert({ msg: JSON.stringify(err) });
+
+        });
+        //api.closeWin({});
+    }
+
+    function get_wxlogin() {
+
+
+        let xys = $("#xys").is(':checked')
+            // alert(xys)
+        if (!xys) {
+            api.toast({
+                msg: '请勾选隐私条款和服务条款',
+                duration: 2000,
+                location: 'bottom'
+            });
+            return false;
+        }
+
+        var wx = api.require('wxPlus');
+        wx.isInstalled(function(ret, err) {
+            if (ret.installed) {
+                // alert("当前设备已安装微信客户端");
+                var wx = api.require('wxPlus');
+                wx.auth({
+                    apiKey: ''
+                }, function(ret, err) {
+                    if (ret.status) {
+                        code = ret.code;
+                        wx.getToken({
+                            apiKey: '',
+                            apiSecret: '',
+                            code: code
+                        }, function(ret, err) {
+                            // alert(JSON.stringify(ret))
+                            // return ;
+                            if (ret.status) {
+                                wx.getUserInfo({
+                                    accessToken: ret.accessToken,
+                                    openId: ret.openId
+                                }, function(ret, err) {
+
+
+                                    if (ret.status) {
+                                        api.ajax({
+                                            url: app_login_url,
+                                            method: 'post',
+                                            data: {
+                                                values: {
+
+                                                    name: ret.nickname,
+                                                    openid: ret.openid,
+                                                    pic: ret.headimgurl,
+                                                    unionid: ret.unionid
+                                                },
+                                            }
+                                        }, function(ret, err) {
+
+                                            api.toast({
+                                                msg: ret.message,
+                                                duration: 2000,
+                                                location: 'bottom'
+                                            });
+                                            $api.setStorage('token', ret.data.token); //存token
+                                            api.sendEvent({
+                                                name: 'guanguan',
+                                                extra: {}
+                                            });
+                                            if (ret.code == 1) {
+                                                api.sendEvent({
+                                                    name: 'index_lo',
+
+                                                });
+                                                setTimeout(function() {
+                                                    // api.closeWin({});
+                                                    indes()
+                                                }, 1000);
+                                            } else {
+                                                if (ret.code == 200) {
+                                                    // 去绑定手机号
+                                                    setTimeout(function() {
+                                                        api.openWin({
+                                                            name: 'bind_phone',
+                                                            url: 'bind_phone.html',
+                                                            pageParam: {
+                                                                name: 'test'
+                                                            }
+                                                        });
+                                                    }, 1000);
+                                                }
+                                                setTimeout(function() {
+                                                    // api.closeWin({});
+                                                    indes()
+                                                }, 1000);
+
+                                            }
+
+
+                                        });
+
+                                    } else {
+
+                                        if (err.code == 6) {
+                                            api.toast({
+                                                msg: '网络超时',
+                                                duration: 2000,
+                                                location: 'bottom'
+                                            });
+                                        }
+                                        // alert(err.code);
+                                    }
+                                });
+                            } else {
+                                if (err.code == 4) {
+                                    api.toast({
+                                        msg: '网络超时',
+                                        duration: 2000,
+                                        location: 'bottom'
+                                    });
+                                }
+                                // alert(err.code);
+                            }
+                        });
+                        // alert(JSON.stringify(ret));
+                    } else {
+                        if (err.code == 1) {
+                            api.toast({
+                                msg: '用户取消',
+                                duration: 2000,
+                                location: 'bottom'
+                            });
+                        } else if (err.code == 2) {
+                            api.toast({
+                                msg: '用户拒绝授权',
+                                duration: 2000,
+                                location: 'bottom'
+                            });
+                        }
+                        // alert(err.code);
+                    }
+                });
+            } else {
+                api.toast({
+                    msg: '当前设备未安装微信客户端',
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                // alert('当前设备未安装微信客户端');
+            }
+        });
+    }
+</script>
+<script>
+    apiready = function() {
+        height()
+
+        var pwd_old = $api.getStorage("pswd");
+        var user_name_old = $api.getStorage("user_name");
+        //alert(pwd_old);alert(user_name_old);
+        if (pwd_old) {
+            $('#password').val(pwd_old);
+        }
+        if (user_name_old) {
+            $('#domaccount').val(user_name_old);
+        }
+        // createCode();//验证码
+        drawPic(); //验证码
+        //var header = document.querySelector('#header'); //头帘高度
+        //$api.fixStatusBar(header);
+        //启动监听 addEventListener -> reloadCartList
+        /*api.addEventListener({
+            name: 'guanguan'
+        }, function(ret, err) {
+            if (ret) {
+                // api.closeWin({});
+                indes()
+            } else {}
+        });*/
+        //启动监听 END
+        api.addEventListener({
+            name: 'keyback'
+        }, function(ret, err) {});
+
+    }
+
+    function go_back() {
+        api.closeWin({});
+    }
+
+
+    // 账号登录
+    function submit() {
+
+        let xys = $("#xys").is(':checked')
+            // alert(xys)
+        if (!xys) {
+            api.toast({
+                msg: '请勾选隐私条款和服务条款',
+                duration: 2000,
+                location: 'bottom'
+            });
+            return false;
+        }
+        domaccount = $api.byId('domaccount').value;
+        password = $api.byId('password').value;
+        if ($("#xy").prop("checked") == true) {
+            $api.setStorage('pswd', password);
+            $api.setStorage('user_name', domaccount);
+        }
+        //return false;
+        // alert(checkbox);//true或false
+        if (domaccount == "" || password == "") {
+            api.toast({
+                msg: '提交为空',
+                duration: 2000,
+                location: 'bottom'
+            });
+            return false;
+        }
+        //alert(login)
+        api.ajax({
+            url: login,
+            method: 'post',
+            data: {
+                values: {
+                    tel: domaccount,
+                    pwd: password,
+                }
+            }
+        }, function(ret, err) {
+            //alert(JSON.stringify(ret))
+            //console.log(JSON.stringify(err));
+            api.toast({ //弹框
+                msg: ret.message, //提示语
+                duration: 2000, //提示时长
+                location: 'bottom' //提示位置
+            });
+            if (ret.code == 1) {
+                $api.setStorage('token', ret.data.token); //存token
+
+                setTimeout(function() {
+                        // api.closeWin({})
+                        indes()
+                    }, 1000)
+                    //发送监听sendEvent
+                api.sendEvent({
+                    name: 'guanguan',
+                    extra: {}
+                });
+                // setTimeout(function() { //时间函数
+                // 	api.closeWin({
+                // 		name: 'login',
+                // 	});
+                //
+                // }, 500)
+            } else {
+                return false;
+            }
+        });
+    }
+
+
+    // 注册
+
+
+    function userReg() {
+
+        let xys = $("#xyss").is(':checked')
+            // alert(xys)
+        if (!xys) {
+            api.toast({
+                msg: '请勾选隐私条款和服务条款',
+                duration: 2000,
+                location: 'bottom'
+            });
+            return false;
+        }
+        let yzms = $("#yzms").val()
+        if (!yzms) {
+            api.toast({
+                msg: '请输入验证码',
+                duration: 2000,
+                location: 'bottom'
+            });
+            drawPic();
+            return false;
+        }
+
+        if (yzms.toUpperCase() != verCode.toUpperCase()) {
+            api.toast({
+                msg: '请输入验证码有误',
+                duration: 2000,
+                location: 'bottom'
+            });
+            drawPic();
+            return false;
+        }
+
+        account = $api.byId('account').value;
+
+        pwd = $api.byId('pwd').value;
+        twoPwd = $api.byId('twopwd').value;
+        //  console.log(JSON.stringify(account));
+
+        code = $api.byId('yzm').value; //输入验证码
+        // 	alert(JSON.stringify(pwd))
+        // 		alert(JSON.stringify(twoPwd))
+        // 		alert(JSON.stringify(code))
+        //  return;
+        if (pwd != twoPwd) {
+            api.toast({
+                msg: '密码不一致',
+                duration: 2000,
+                location: 'bottom'
+            });
+            return false;
+        }
+        // alert(checkbox);//true或false
+        //   if(data_ma != yzm){
+        //       api.toast({//弹框
+        //         msg:'验证码错误',//提示语
+        //         duration: 2000,//提示时长
+        //         location: 'bottom'//提示位置
+        //       });
+        //       return false
+        //   }
+        if (account == '' || pwd == "" || code == "") {
+            api.toast({
+                msg: '提交为空',
+                duration: 2000,
+                location: 'bottom'
+            });
+            return false;
+        }
+        api.ajax({
+            url: register,
+            method: 'post',
+            data: {
+                values: {
+                    tel: account,
+                    pwd: pwd,
+                    code: code,
+                    //twoPwd: twoPwd
+                }
+            }
+        }, function(ret, err) {
+            api.toast({
+                msg: ret.message,
+                duration: 2000,
+                location: 'bottom'
+            });
+
+            if (ret.code == 1) {
+                window.location.reload();
+            }
+        });
+
+    }
+
+    var countdown = 60;
+
+    function sendemail() {
+        //   计时
+        var obj = $("#btn");
+        ///手机号
+        account = $api.byId('account').value;
+        if (account == '') {
+            api.toast({ //弹框
+                msg: '请填写手机号', //提示语
+                duration: 2000, //提示时长
+                location: 'bottom' //提示位置
+            });
+            return false
+        }
+        let yzms = $("#yzms").val()
+        if (!yzms) {
+            api.toast({
+                msg: '请输入图形验证码',
+                // duration: 2000,
+                // location: 'bottom'
+            });
+            // drawPic();
+            return false;
+        }
+
+        //console.log(verCode)
+        if (yzms.toUpperCase() != verCode.toUpperCase()) {
+            api.toast({
+                msg: yzms + '请输入图形验证码有误' + verCode,
+                // duration: 2000,
+                // location: 'bottom'
+            });
+            drawPic();
+            return false;
+        }
+
+        api.ajax({
+            url: sendCode,
+            method: 'post',
+            data: {
+                values: {
+                    tel: account,
+                    status: 1,
+                }
+            }
+        }, function(ret, err) {
+            if (ret.code == 1) {
+                api.toast({ //弹框
+                    msg: ret.message, //提示语
+                    duration: 2000, //提示时长
+                    location: 'bottom' //提示位置
+                });
+                //$api.byId('data_ma').value = ret.data;
+            } else {
+                api.toast({ //弹框
+                    msg: ret.message, //提示语
+                    duration: 2000, //提示时长
+                    location: 'bottom' //提示位置
+                });
+                return false
+            }
+            settime(obj);
+        });
+    }
+
+    function settime(obj) { //发送验证码倒计时
+        if (countdown == 0) {
+            obj.attr('disabled', false);
+            //obj.removeattr("disabled");
+            obj.val("获取验证码");
+            countdown = 60;
+            return;
+        } else {
+            obj.attr('disabled', true);
+            obj.val("重新发送(" + countdown + ")");
+            countdown--;
+        }
+        setTimeout(function() {
+            settime(obj)
+        }, 1000)
+    }
+
+
+    function go_back() {
+        indes()
+            // api.closeWin({});
+    }
+
+    $(function() {
+        $(".reg_page").hide();
+        $(".f1").addClass("title").siblings("div.f").addClass("titlt_s");
+        $(".f1").children("div").addClass("dian");
+
+        $(".f").click(function() {
+            $(this).addClass("title").removeClass("titlt_s").siblings("div.f1").removeClass("title").addClass("titlt_s");
+            $(this).children("div").addClass("dian");
+            $(this).siblings("div.f1").children("div").removeClass("dian");
+            $(".login_page").hide();
+            $(".reg_page").show();
+        });
+        $(".f1").click(function() {
+            $(this).addClass("title").removeClass("titlt_s").siblings("div.f").removeClass("title").addClass("titlt_s");
+            $(this).children("div").addClass("dian");
+            $(this).siblings("div.f").children("div").removeClass("dian");
+            $(".reg_page").hide();
+            $(".login_page").show();
+        });
+    })
+
+
+    function forget_password() {
+        api.openWin({
+            name: 'forget_password',
+            url: 'forget_password.html'
+        })
+    }
+    var code;
+
+    function createCode() { //函数体
+        code = "";
+        var codeLength = 5; //验证码的长度
+        var checkCode = document.getElementById("checkCode");
+        var codeChars = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'); //所有候选组成验证码的字符，当然也可以用中文的
+        for (var i = 0; i < codeLength; i++) {
+            var charNum = Math.floor(Math.random() * 52); //设置随机产生
+            code += codeChars[charNum];
+        }
+        if (checkCode) {
+            checkCode.className = "codess";
+            checkCode.innerHTML = code;
+        }
+    }
+
+
+    /**生成一个随机数**/
+    function randomNum(min, max) {
+        return Math.floor(Math.random() * (max - min) + min);
+    }
+
+    /**生成一个随机色**/
+    function randomColor(min, max) {
+        var r = randomNum(min, max);
+        var g = randomNum(min, max);
+        var b = randomNum(min, max);
+        return "rgb(" + r + "," + g + "," + b + ")";
+    }
+
+    /**绘制验证码图片**/
+
+    function drawPic() {
+        var canvas = document.getElementById("canvas");
+        var width = 400;
+        var height = 40;
+        //获取该canvas的2D绘图环境
+        code = "";
+        if (canvas != null) {
+            var ctx = canvas.getContext('2d');
+            ctx.textBaseline = 'bottom';
+            /**绘制背景色**/
+            ctx.fillStyle = randomColor(180, 240);
+            //颜色若太深可能导致看不清
+            ctx.fillRect(0, 0, width, height);
+            /**绘制文字**/
+            var str = 'ABCEFGHJKLMNPQRSTWXY123456789';
+
+            //生成四个验证码
+            for (var i = 1; i <= 4; i++) {
+                var txt = str[randomNum(0, str.length)];
+                code = code + txt;
+                ctx.fillStyle = randomColor(50, 160);
+                //随机生成字体颜色
+                ctx.font = randomNum(15, 40) + 'px SimHei';
+                //随机生成字体大小
+                // var x = 10 + i * 25;
+                var x = 1 + i * 10;
+                var y = randomNum(31, 35);
+                // var deg = randomNum(-45, 45);
+                var deg = randomNum(-45, 45);
+                //修改坐标原点和旋转角度
+                ctx.translate(x, y);
+                ctx.rotate(deg * Math.PI / 180);
+                ctx.fillText(txt, 0, 0);
+                //恢复坐标原点和旋转角度
+                ctx.rotate(-deg * Math.PI / 180);
+                ctx.translate(-x, -y);
+            }
+
+            /**绘制干扰线**/
+            for (var i = 0; i < 3; i++) {
+                ctx.strokeStyle = randomColor(40, 180);
+                ctx.beginPath();
+                ctx.moveTo(randomNum(0, width / 2), randomNum(0, height / 2));
+                ctx.lineTo(randomNum(0, width / 2), randomNum(0, height));
+                ctx.stroke();
+            }
+            /**绘制干扰点**/
+            for (var i = 0; i < 50; i++) {
+                ctx.fillStyle = randomColor(255);
+                ctx.beginPath();
+                ctx.arc(randomNum(0, width), randomNum(0, height), 1, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+        }
+        verCode = code;
+    }
+
+    let verCode = "";
+    $("#divvs").click(function() {
+            drawPic();
+        })
+        //
+        // //初始化验证码
+        // verCode = drawPic();
+        //
+        // var reflashCode =$("divvs");
+        // if (reflashCode != null) {
+        //     console.log("reflashCode", reflashCode)
+        //     document.getElementById("reflashCode").onclick = function (e) {
+        //         e.preventDefault();
+        //         verCode = drawPic();
+        //     }
+        // }
+</script>
+
+</html>

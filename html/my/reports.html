@@ -1,0 +1,195 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>举报维权</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/report.css" />
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+    <script type="text/javascript"></script>
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script src="../../script/swiper.min.js"></script>
+    <script src="../../script/common.js"></script>
+    <script src="../../script/url.js"></script>
+    <script src="../../script/jquery-3.4.1.min.js"></script>
+    <script src="../../script/aui/script/aui-dialog.js"></script>
+    <link rel="stylesheet" href="../../script/aui/css/api.css">
+    <link rel="stylesheet" href="../../script/aui/css/aui.css">
+
+</head>
+
+<body>
+    <div class="b" id="header">
+        <div class="header">
+            <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+            <div class="question" onclick="help()"><img src="../../image/bz.png"></div>
+            <div class="header_text">
+                <h1>举报维权</h1>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="aui-tab" id="tab">
+        <div class="aui-tab-item aui-active" onclick="my_ts(0)">我的举报</div>
+        <div class="aui-tab-item" onclick="my_ts(1)">我被举报</div>
+    </div>
+
+    <!--列表-->
+    <div class="child" id="child">
+
+    </div>
+
+
+</body>
+
+<script>
+    apiready = function() {
+        height()
+        token = $api.getStorage('token');
+        // token ="f3beb8daa6c279544555fab4b0c2d12d";
+
+        my_ts(0);
+
+        api.setRefreshHeaderInfo({
+            loadingImg: 'widget://image/refresh.png',
+            bgColor: '#ccc',
+            textColor: '#fff',
+            textDown: '下拉刷新...',
+            textUp: '松开刷新...'
+        }, function(ret, err) {
+            //在这里从服务器加载数据，加载完成后调用
+            //停止api.refreshHeaderLoadDone()方法恢复组件到默认状态
+            window.location.reload();
+            api.refreshHeaderLoadDone();
+        });
+
+        api.addEventListener({
+            name: 'scrolltobottom',
+            extra: {
+                threshold: 0 //设置距离底部多少距离时触发，默认值为0，数字类型
+            }
+        }, function(ret, err) {
+            if (pageEnd) {
+                api.toast({
+                    msg: '没有更多数据了'
+                })
+            } else {
+                my_ts(orders);
+            }
+        });
+    }
+    let page = 1
+    let pageEnd = false
+    let orders = 0;
+
+    function my_ts(type) {
+        /*api.showProgress({
+            title : '努力加载中...',
+            text : '请稍后...',
+            modal : false
+        });*/
+        showLoadMore(1);
+        if (type != orders) {
+            page = 1
+            pageEnd = false
+            $api.html(child, "");
+        }
+        api.ajax({
+            url: ts_lists,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    type: type,
+                    limit: 10,
+                    page: page,
+                }
+            }
+        }, function(ret, err) {
+            var length = ret.data.length;
+            if (length > 0) {
+                let html = '';
+                let data = ret.data;
+                data.map(function(item) {
+
+                    html += '<div class="aui-content aui-margin-b-15"onclick="gotos(' + item.task_id + ',' + item.id + ')">' +
+                        '        <ul class="aui-list aui-media-list">' +
+                        '            <li class="aui-list-item aui-list-item-middle">' +
+                        '                <div class="aui-media-list-item-inner">' +
+                        '                    <div class="aui-list-item-media" style="width: 3rem;">' +
+                        '                        <img src="' + URL + item.image + '" class="aui-img-round aui-list-img-sm">' +
+                        '                    </div>' +
+                        '                    <div class="aui-list-item-inner aui-list-item-arrow">' +
+                        '                        <div class="aui-list-item-text">' +
+                        '                            <div class="aui-list-item-title aui-font-size-14">' + item.task_name + '</div>'
+                    if (item.stat == 0) {
+                        html += '<div class="aui-list-item-right">' + item.status + '</div>'
+                    } else if (item.stat == 1) {
+                        html += '<div class="aui-list-item-right" style="color:#07b90b ">' + item.status + '</div>'
+                    } else {
+                        html += '<div class="aui-list-item-right" style="color:red ">' + item.status + '</div>'
+                    }
+                    html += '                        </div>' +
+                        '                        <div class="aui-list-item-text">举报用户:' + item.user_name + '</div>' +
+                        '                        <div class="aui-list-item-text">举报时间：' + item.add_time + ' </div>' +
+                        '                    </div>' +
+                        '                </div>' +
+                        '        </ul>' +
+                        '    </div>'
+                })
+                $api.append(child, html);
+            } else {
+                if (page == 1) {
+                    $api.html(child, "");
+                }
+                pageEnd = true
+            }
+            orders = type
+            page++;
+            //api.hideProgress()
+            showLoadMore();
+        })
+    }
+
+    function gotos(id, task_id) {
+        api.openWin({
+            name: 'jubao',
+            url: '../dialog/jubao.html',
+            allowEdit: true,
+            pageParam: {
+                ts_id: id,
+                task_id: task_id,
+            }
+        });
+    }
+
+    function go_back() {
+        api.closeWin({});
+    }
+
+    function help() {
+        api.openWin({
+                name: 'order_rul',
+                url: '../index/order_rul.html'
+            })
+            // api.openWin({
+            //     name: 'help',
+            //     url: 'help.html'
+            // })
+    }
+    // 改变样式
+    $(".aui-tab-item").click(function() {
+        // alert(1)
+        let parent = $(this).parent();
+        let brother = parent.children();
+        brother.removeClass("aui-active")
+        $(this).addClass("aui-active")
+    })
+</script>
+
+
+</html>

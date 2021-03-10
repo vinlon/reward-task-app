@@ -1,0 +1,240 @@
+.bonus-head{
+    margin: 0 auto;
+    height: 3rem;
+    width: 100%;
+   top: 5rem;
+    position: absolute;
+    box-sizing: border-box;
+
+    /*display: flex;*/
+}
+.bonus-head-div{
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content:space-between;
+    /*border: 1px solid black;*/
+
+}
+.bonus-head-div div{
+    /*width: 35%;*/
+    /*border: 1px solid black;*/
+}
+.bonus-head-div div p{
+    color: white;
+    /*color: black;*/
+}
+.bonus-head-div-p{
+    font-size: 20px;
+}
+.bonus-center-img{
+    width: 80%;
+    margin-left: 10%;
+    position: absolute;
+    top: 10rem;
+    z-index: 10;
+    /*border: 1px solid black;*/
+}
+
+
+.bonus-center{
+    display: flex;
+    flex-flow:column;
+    width: 80%;
+    /*height: 100px;*/
+    margin-left: 10%;
+    /*border: 1px solid black;*/
+    z-index: 100;
+
+}
+.bonus-center div{
+    /*width: 100%;*/
+    /*height: 3rem;*/
+    /*border: 1px solid black;*/
+    z-index: 100;
+
+}
+.bonus-center-one{
+    /*margin-top: -3rem;*/
+    height: 1.25rem;
+    position: absolute;
+    top: 10.5rem;
+    width: 80%;
+    /*border: 1px solid black;*/
+    color: brown;
+    text-align: center;
+}
+.bonus-center-rand{
+    /*height:8rem;*/
+    position: absolute;
+    /*top: 12.5rem;*/
+    margin-left: 10%;
+    width: 80%;
+    margin-top: 10px;
+    /*margin: 0 auto;*/
+    display: -webkit-flex;
+    display: flex;
+    justify-content:center;
+
+}
+
+.bonus-center-new{
+    height:1.5rem;
+    /*position: absolute;*/
+    /*top: 21.5rem;*/
+    /*width: 80%;*/
+    color: brown;
+    /*text-align: center;*/
+    text-align: center;
+    /*border: 1px solid black;*/
+}
+.bonus-center-button{
+    height:2rem;
+    /*position: absolute;*/
+    /*top: 24.5rem;*/
+    /*width: 80%;*/
+    /*color: white;*/
+    margin-top: 10px;
+    color: red;
+    text-align: center;
+    /*border: 1px solid black;*/
+}
+.bonus-center-button p{
+    /*color: white;*/
+    color: red;
+}
+.cent-img{
+    position: absolute;
+    top: 27.5rem;
+    z-index: 10;
+}
+.cent{
+    position: absolute;
+    top: 30.5rem;
+    width: 100%;
+    text-align: center;
+    /*display: flex;*/
+    /*flex-flow:column;*/
+    z-index: 100;
+    margin: 0 auto;
+    /*border: 1px solid black;*/
+}
+.cent div{
+
+    width: 100%;
+    color: white;
+    display: block;
+}
+.button{
+    position: absolute;
+    top: 17.5rem;
+    /*margin-left: 10%;*/
+    /*width: 100%;*/
+    /*bottom: 2rem;*/
+    /*border: 1px solid black;*/
+}
+.con {
+    position:relative;
+    /*display:inline-block;*/
+    height:150px;
+    width:150px;
+
+}
+
+
+.percent-circle {
+    position:absolute;
+    height:100%;
+    background:#f00;
+    overflow: hidden;
+}
+
+.percent-circle-right {
+    right:0;
+    width:75px;
+    /*width:25%;*/
+    border-radius: 0 75px 75px 0/0 75px 75px 0;
+    /*border-radius: 0 25% 25% 0/0 25%  25% 0;*/
+}
+
+.percent-circle-right .right-content{
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 100%;
+    transform-origin:left center;
+    transform: rotate(0deg);
+    border-radius: 0 75px 75px 0/0 75px 75px 0;
+    /*border-radius: 0 25% 25% 0/0 25% 25% 0;*/
+    background:#bbb;
+}
+
+.percent-circle-left {
+    width:75px;
+    /*width:25%;*/
+    border-radius: 75px 0 0 75px/75px 0 0 75px;
+    /*border-radius: 25% 0 0 25%/25% 0 0 25%;*/
+}
+
+.percent-circle-left .left-content {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 100%;
+    transform-origin:right center;
+    transform: rotate(0deg);
+    border-radius: 75px 0 0 75px/75px 0 0 75px;
+    /*border-radius: 25% 0 0 25%/25% 0 0 25%;*/
+    background:#bbb;
+}
+
+.text-circle {
+    position: absolute;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    height:80%;
+    width:80%;
+    left:10%;
+    top:10%;
+    border-radius:100%;
+    background:white;
+    color:#000;
+}
+
+
+/*测试*/
+.any-cen{
+    display: flex;
+    display: -webkit-flex;
+    justify-content: center;
+}
+
+.any-center{
+    /*background-image: url("../image/png/quan1.png");*/
+    /*z-index: 100;*/
+    height: 14rem;
+        background-color: white;
+    width: 80%;
+    position: absolute;
+    margin-left: 10%;
+    top:10rem;
+    /*height: 80%;*/
+
+    /*border: 1px solid black;*/
+
+}
+.any-center-one{
+        text-align: center;
+    font-size: 13px;
+    color: red;
+    margin-top: 10px;
+    /*border: 1px solid black*/
+}
+.center_bottom{
+    /*border: 1px solid red;*/
+    margin-top: 8rem;
+}
+#bonus{
+    /*background-color: #00acc1 !important;*/
+}

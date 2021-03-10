@@ -1,0 +1,164 @@
+*{font-size: 1rem;font-family:"苹方";}
+.clearfix{clear: both;}
+a{display: block;text-decoration: none;}
+h1,h2,h3,h4{font-weight: normal;}
+img{display: block;width: 100%;}
+.bg{width: 100%;}
+.login{width: 100%;margin: 0 auto;margin-bottom: 2rem; text-align: center;margin-left: 35%}
+.title{width: 20%;float: left;text-align: center;}
+
+.f{width: 20%;float: left;text-align: center;}
+.f1{width: 20%;float: left;text-align: center;}
+.dian{width: 0.375rem;height: 0.375rem;border-radius: 1rem;background-color: #f65c53;margin: 0 auto;margin-top: 0.2rem;}
+.title h1{font-size: 1.3125rem;font-weight: bold;color: #333333;}
+.titlt_s h1{font-size: 0.9375rem;color: #bfbfbf;padding-top: 0.35rem;box-sizing: border-box;}
+
+.login_phone{width: 84%;margin: 0 auto;border-bottom: 0.0625rem solid #e0e0e0;position: relative;line-height: 2rem;margin-bottom: 1.25rem;}
+.phone_link{width: 6.5%;position: absolute;left: 0.6rem;top: 0.2rem;}
+.login_phone input{width:60%;outline: none;padding-left: 3.125rem;margin-bottom: 0.5rem;}
+
+.login_password{width: 84%;margin: 0 auto;border-bottom: 0.0625rem solid #e0e0e0;position: relative;line-height: 2rem;margin-bottom: 1.25rem;}
+.password_link{width: 6.5%;position: absolute;left: 0.6rem;top: 0.2rem;}
+.login_password input{width:60%;outline: none;padding-left: 3.125rem;margin-bottom: 0.5rem;}
+
+.forget{width: 84%;margin: 0 auto;}
+.forget_pic{width: 4.5%;float: left;margin-right: 0.5rem;line-height: 1.375rem;}
+.forget h1{font-size: 0.8125rem;color: #999999;width: 20%;float: left;}
+.forget h2{font-size: 0.8125rem;color: #999999;width: 22%;float: right;margin-top: 0.2rem;}
+
+.login_button{width: 84%;margin: 0 auto;background-image: linear-gradient(to right, #fa9566 , #fb5134);border-radius: 3rem;text-align: center;margin-top: 2.625rem;}
+.login_button button{color: #fff;padding: 0.9375rem 0;font-weight: bold;font-size: 1.1875rem;width: 100%;outline: none;}
+
+.vchat{width: 84%;margin: 0 auto;border: #fb5134 solid 0.125rem; border-radius: 3rem;text-align: center;margin-top: 0.625rem;position: relative;box-sizing: border-box;}
+.v_pic{width: 7.5%;position: absolute;top: 1rem;left: 28%;}
+.vchat button{color: #fb5134;padding: 0.9375rem 0;font-weight: bold;font-size: 1.1875rem;width: 100%;outline: none;}
+
+.reg_phone{width: 84%;margin: 0 auto;border-bottom: 0.0625rem solid #e0e0e0;position: relative;line-height: 2rem;margin-bottom: 1.25rem;}
+.reg_phone_link{width: 6.5%;position: absolute;left: 0.6rem;top: 0.2rem;}
+.reg_phone input{width:60%;outline: none;padding-left: 3.125rem;margin-bottom: 0.5rem;}
+
+.reg_content{width: 84%;margin: 0 auto;border-bottom: 0.0625rem solid #e0e0e0;position: relative;line-height: 2rem;margin-bottom: 1.25rem;}
+.link{width: 6.5%;position: absolute;left: 0.6rem;top: 0.2rem;}
+.reg_content #yzm{width:55%;outline: none;padding-left: 3.125rem;margin-bottom: 0.5rem;float: left;padding-top: 0.4rem;}
+.reg_content #btn{font-size: 0.9375rem;color: #fb5134;box-sizing: border-box;border-bottom: 0.0625rem solid #fb5134;width: 28%;float: right;line-height: 1.6rem;outline: none;}
+.reg_content #yzms{width:55%;outline: none;padding-left: 3.125rem;margin-bottom: 0.5rem;float: left;padding-top: 0.4rem;}
+.reg_content #checkCode{
+    border: 1px solid red; width:40% ;height: 2rem;margin-top: -2rem;
+   float: right;}
+.codess
+{
+    background-color: silver;
+    font-family:Arial; /*设置字体*/
+    font-style:initial;
+    color:brown;
+    font-size:1.5rem;
+    border:0;
+    padding:2px 3px;
+    letter-spacing:3px;
+    font-weight:bolder;
+
+    width:81px;
+    height:23px;
+    margin-left: 120px;
+    margin-top: -35px;
+
+}
+.reg_password{width: 84%;margin: 0 auto;border-bottom: 0.0625rem solid #e0e0e0;position: relative;line-height: 2rem;margin-bottom: 1.25rem;}
+.reg_password_link{width: 6.5%;position: absolute;left: 0.6rem;top: 0.2rem;}
+.reg_password input{width:60%;outline: none;padding-left: 3.125rem;margin-bottom: 0.5rem;}
+
+.true_password{width: 84%;margin: 0 auto;border-bottom: 0.0625rem solid #e0e0e0;position: relative;line-height: 2rem;margin-bottom: 1.25rem;}
+.true_password_link{width: 6.5%;position: absolute;left: 0.6rem;top: 0.2rem;}
+.true_password input{width:60%;outline: none;padding-left: 3.125rem;margin-bottom: 0.5rem;}
+
+.reg_button{width: 84%;margin: 0 auto;background-image: linear-gradient(to right, #fa9566 , #fb5134);border-radius: 3rem;text-align: center;margin-top: 2.625rem;}
+.reg_button button{color: #fff;padding: 0.9375rem 0;font-weight: bold;font-size: 1.1875rem;width: 100%;outline: none;}
+
+
+
+.dis{display: none;}
+.login-div{
+    margin: 0 auto;
+    width: 100%;
+}
+.login-bu-div-one-checkbox:checked {
+    background:red;
+
+}
+.login-bu-div-one-checkbox {
+    width:1rem;
+    height:1rem;
+    background-color:#ffffff;
+    border:solid 1px #dddddd;
+    -webkit-border-radius:50%;
+    border-radius:50%;
+    font-size:0.3rem;
+    margin:0;
+    padding:0;
+    position:relative;
+    display:inline-block;
+    vertical-align:top;
+    cursor:default;
+    -webkit-appearance:none;
+    -webkit-user-select:none;
+    user-select:none;
+    -webkit-transition:background-color ease 0.1s;
+    transition:background-color ease 0.1s;
+}
+.login-bu-div-one-checkbox:checked::after {
+    content:'';
+    top:2px;
+    left:2px;
+    position:absolute;
+    background:transparent;
+    border:#fff solid 2px;
+    border-top:none;
+    border-right:none;
+    height:6px;
+    width:8px;
+    -moz-transform:rotate(-45deg);
+    -ms-transform:rotate(-45deg);
+    -webkit-transform:rotate(-45deg);
+    transform:rotate(-45deg);
+}
+
+.login-bu{
+
+    margin: 0 auto;
+    width: 100%;
+    height: 1rem;
+    display: flex;
+    margin-left: 5%;
+    /*border: 1px solid red;*/
+}
+.login-bu-div{
+    width: 30%;
+    height: 100%;
+    /*border: 1px solid red;*/
+}
+
+.login-bu-div-one{
+ width: 20%!important;
+    display: flex;
+}
+.login-bu-div-one div{
+    font-size: 10px;
+    color: #999999;
+}
+.login-bu-div-two span{
+    font-size: 10px;
+    color: red;
+}
+.login-bu-div-two{
+    font-size: 10px;
+    color: #999999;
+    width: 50% !important;
+    /*display: flex;*/
+    /*border: 1px solid red;*/
+}
+.login-bu-div-three{
+    font-size: 10px;
+    color: #999999;
+    /*border: 1px solid red;*/
+    text-align: center;
+}

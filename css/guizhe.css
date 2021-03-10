@@ -1,0 +1,45 @@
+.bodys{
+    margin: 0 auto;
+}
+.gui-dev{
+    margin:0 auto;
+    margin-bottom: 1rem;
+    width: 95%;
+    background: url("../image/icon/guizhe.png") no-repeat;
+    background-size:100% 100%;
+    background-attachment:fixed;
+    min-height: 20vh;
+    border-radius: 0.5rem;
+}
+.gui-dev-left{
+    float: left;
+    width: 20%;
+    height: 10.5rem;
+    /*border: 1px solid black;*/
+}
+.gui-dev-left-div{
+    margin-top: 2rem;
+}
+.gui-dev-left-div div{
+    font-weight: 400;
+    color: #f79316;
+    width: 20px;
+    margin: 0 auto;
+    font-size: 20px;
+    line-height: 24px;
+}
+.gui-dev-rig{
+    float: left;
+    width: 78%;
+    height: 10.5rem;
+    /*border: 1px solid blue;*/
+}
+.gui-dev-rig-div{
+    margin: 0 auto;
+    margin-top: 1.3rem;
+    width: 85%;
+    height: 8rem;
+    color: #f79316;
+    font-size: 14px;
+    /*border: 1px solid blue;*/
+}

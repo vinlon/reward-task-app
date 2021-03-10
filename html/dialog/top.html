@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>置顶</title>
+    <!--    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>-->
+    <!--    <link rel="stylesheet" type="text/css" href="../../css/set.css"/>-->
+    <!--    <link rel="stylesheet" href="../../css/swiper.min.css">-->
+    <!--    <script type="text/javascript"></script>-->
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <script src="../../script/jquery-3.4.1.min.js"></script>
+    <!--    <link rel="stylesheet" href="../../css/guanzu.css">-->
+    <script src="../../script/aui/script/aui-dialog.js"></script>
+    <link rel="stylesheet" href="../../script/aui/css/api.css">
+    <link rel="stylesheet" href="../../script/aui/css/aui.css">
+    <link rel="stylesheet" href="../../css/top.css">
+
+</head>
+<style>
+    .aui-col-xs-6 {
+        padding: 3%!important;
+    }
+</style>
+
+<body>
+    <header class="aui-bar aui-bar-nav" style="padding-top:25px;">
+        <a class="aui-pull-left" onclick="go_back()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">全天置顶</div>
+    </header>
+
+    <div class=" aui-margin-b-15">
+        <div class="aui-tips-title aui-text-center aui-font-size-18">全天置顶预算</div>
+    </div>
+    <div class="aui-content aui-margin-b-15">
+        <ul class="aui-list aui-form-list">
+            <li class="aui-list-header">首页位置</li>
+
+            <!--        <li class="aui-list-item">-->
+            <section class="aui-grid aui-margin-b-12 ">
+                <div class="aui-row " style="display: flex; flex-flow: row wrap;">
+                    <div class="aui-col-xs-6 aui-text-warning " style="font-weight:bold; border-bottom: 1px #f5f5f5 solid; border-right: 1px #f5f5f5 solid;">
+                        <div class="kong-one1">
+                            <h1 class="show-text1">虚位以待</h1>
+                            <div onclick="buytops(1)" class="aui-btn aui-btn-warning  aui-btn-block aui-btn-outlined aui-btn-sm aui-bar-btn-sm anneri1">
+                                我要购买
+                            </div>
+                        </div>
+                        <div class="kong-one1-show"> </div>
+
+                        <!--<div class="kong_con">
+                            <div class="kong_title">
+                                <img src="../../image/about.png">
+                                <h3>简单操作直接售卖</h3>
+                            </div>
+                            <div class="kong_text">
+                                <span>陌陌女号</span>|<span>陌陌女号</span><br>
+                                <span>66人已赚，剩余数：34</span>
+                                <span class="qian">+55元</span>
+                            </div>
+                        </div>-->
+
+
+                    </div>
+                    <div class="aui-col-xs-6 aui-text-warning " style="font-weight:bold;">
+                        <div class="kong-one2">
+                            <h1 class="show-text2">虚位以待</h1>
+                            <div onclick="buytops(2)" class="aui-btn aui-btn-warning  aui-btn-block aui-btn-outlined aui-btn-sm aui-bar-btn-sm anneri2">
+                                我要购买
+                            </div>
+                        </div>
+
+                        <div class="kong-one2-show"></div>
+                    </div>
+                    <div class="aui-col-xs-6 aui-text-warning " style="font-weight:bold;">
+                        <div class="kong-one3">
+                            <h1 class="show-text3">虚位以待</h1>
+                            <div onclick="buytops(3)" class="aui-btn aui-btn-warning  aui-btn-block aui-btn-outlined aui-btn-sm aui-bar-btn-sm anneri3">
+                                我要购买
+                            </div>
+                        </div>
+
+                        <div class="kong-one3-show"></div>
+                    </div>
+                    <div class="aui-col-xs-6 aui-text-warning " style="font-weight:bold;  border-left: 1px #f5f5f5 solid; border-top: 1px #f5f5f5 solid;">
+                        <div class="kong-one4">
+                            <h1 class="show-text4">虚位以待</h1>
+                            <div onclick="buytops(4)" class="aui-btn aui-btn-warning  aui-btn-block aui-btn-outlined aui-btn-sm aui-bar-btn-sm anneri4">
+                                我要购买
+                            </div>
+                        </div>
+                        <div class="kong-one4-show"></div>
+
+                    </div>
+                </div>
+            </section>
+            <!--        </li>-->
+
+            <li class="aui-list-header">悬赏大厅位置</li>
+
+            <section class="aui-grid aui-margin-b-15">
+
+                <div class="aui-row " style="display: flex; flex-flow: row wrap;">
+                    <div class="aui-col-xs-6 aui-text-warning  " style="font-weight:bold; ">
+                        <div class="kong-one5">
+                            <h1 class="show-text5">虚位以待</h1>
+                            <div onclick="buytops(5)" class="aui-btn aui-btn-warning  aui-btn-block aui-btn-outlined aui-btn-sm aui-bar-btn-sm anneri5">
+                                我要购买
+                            </div>
+                        </div>
+                        <div class="kong-one5-show"></div>
+                    </div>
+                    <div class="aui-col-xs-6 aui-text-warning " style="font-weight:bold;">
+                        <div class="kong-one6">
+                            <h1 class="show-text6">虚位以待</h1>
+                            <div onclick="buytops(6)" class="aui-btn aui-btn-warning  aui-btn-block aui-btn-outlined aui-btn-sm aui-bar-btn-sm anneri6 ">
+                                我要购买
+                            </div>
+                        </div>
+                        <div class="kong-one6-show"></div>
+                    </div>
+
+                </div>
+            </section>
+
+        </ul>
+
+
+        <p>展示时间:</p>
+        <p id="xianshitime"></p>
+    </div>
+
+
+</body>
+<script src="../../script/api.js" charset="utf-8"></script>
+<!--<script src="../../script/swiper.min.js"></script>-->
+<script src="../../script/common.js"></script>
+<script src="../../script/url.js"></script>
+
+<script>
+    var dialog = new auiDialog({})
+    apiready = function() {
+        height()
+        show_data();
+
+        api.addEventListener({
+            name: 'top_data'
+        }, function(ret, err) {
+            window.location.reload();
+        });
+    }
+
+
+    function show_data() {
+        let token = $api.getStorage('token'); //获取token
+        api.ajax({
+            url: show_top,
+            method: 'post',
+            dataType: "json",
+            data: {
+                values: {
+                    token: token
+                }
+            }
+        }, function(ret, err) {
+
+            let data = ret.data.topday;
+            let times = ret.data.times;
+            $("#xianshitime").html(times)
+            let html = ""
+            data.map(item => {
+
+                let task = item.task;
+                switch (Number(item.type)) {
+                    case 1:
+                        if (item.name != "") {
+                            // $(".show-text1").html(item.name);
+                            $(".kong-one1").hide();
+                            if (JSON.stringify(task) != "[]") {
+                                xuanran(task, 1)
+                            } else {
+                                $(".show-text1").html("虚位以待");
+                                $(".kong-one1").show();
+
+                                $(".kong-one1-show").hide();
+                            }
+                        } else {
+                            $(".show-text1").html("虚位以待");
+                            $(".kong-one1").show();
+
+                            $(".kong-one1-show").hide();
+                        }
+                        break;
+                    case 2:
+                        if (item.name != "") {
+                            // $(".show-text2").html(item.name);
+                            $(".kong-one2").hide();
+                            if (JSON.stringify(task) != "[]") {
+                                xuanran(task, 2)
+                            } else {
+                                $(".show-text2").html("虚位以待");
+                                $(".kong-one2").show();
+                                $(".kong-one2-show").hide();
+                            }
+                        } else {
+                            $(".show-text2").html("虚位以待");
+                            $(".kong-one2").show();
+                            $(".kong-one2-show").hide();
+                        }
+                        break;
+                    case 3:
+
+                        if (item.name != "") {
+                            // $(".show-text3").html(item.name);
+                            $(".kong-one3").hide();
+                            //console.log(JSON.stringify(task.length))
+                            if (JSON.stringify(task) != "[]") {
+
+                                xuanran(task, 3)
+                            } else {
+                                $(".show-text3").html("虚位以待");
+                                $(".kong-one3").show();
+                                $(".kong-one3-show").hide();
+                            }
+                        } else {
+                            $(".show-text3").html("虚位以待");
+                            $(".kong-one3").show();
+                            $(".kong-one3-show").hide();
+                        }
+                        break;
+                    case 4:
+                        if (item.name != "") {
+                            // $(".show-text4").html(item.name);
+                            $(".kong-one4").hide();
+                            if (JSON.stringify(task) != "[]") {
+                                xuanran(task, 4)
+                            } else {
+                                $(".show-text4").html("虚位以待");
+                                $(".kong-one4").show();
+                                $(".kong-one4-show").hide();
+                            }
+                        } else {
+                            $(".show-text4").html("虚位以待");
+                            $(".kong-one4").show();
+                            $(".kong-one4-show").hide();
+                        }
+                        break;
+                    case 5:
+                        if (item.name != "") {
+                            // $(".show-text5").html(item.name);
+                            $(".kong-one5").hide();
+                            if (JSON.stringify(task) != "[]") {
+                                xuanran(task, 5)
+                            } else {
+                                $(".show-text5").html("虚位以待");
+                                $(".kong-one5").show();
+                                $(".kong-one5-show").hide();
+                            }
+                        } else {
+                            $(".show-text5").html("虚位以待");
+                            $(".kong-one5").show();
+                            $(".kong-one5-show").hide();
+                        }
+                        break;
+                    case 6:
+                        if (item.name != "") {
+                            // $(".show-text6").html(item.name);
+
+                            $(".kong-one6").hide();
+                            if (JSON.stringify(task) != "[]") {
+                                xuanran(task, 6)
+                            } else {
+                                $(".show-text6").html("虚位以待");
+                                $(".kong-one6").show();
+                                $(".kong-one6-show").hide();
+                            }
+                        } else {
+                            $(".show-text6").html("虚位以待");
+                            $(".kong-one6").show();
+                            $(".kong-one6-show").hide();
+                        }
+                        break;
+                }
+
+                //console.log(JSON.stringify(item))
+            });
+
+        })
+    }
+
+    //  渲染数据
+    function xuanran(data, weizhi) {
+
+        //console.log(JSON.stringify(data))
+        // $(".kong-one"+weizhi+"-show").removeChild();
+        let html = '    <div class="kong_con" onclick="list_detail(' + data.id + ')">' +
+            '                   <div class="kong_title">' +
+            '                       <img src="' + URL + data.image + '">' +
+            '                       <h3>' + data.title + '</h3>' +
+            '                   </div>' +
+            '                   <div class="kong_text">' +
+            '                       <span>' + data.name + '</span>|<!--<span>' + data.type_name + '</span>--><span style="color:red">+' + data.money + '元</span><br>' +
+            '                       <span>' + data.yiyou_nums + '人已赚，剩余数：' + data.yiyou_numd + '</span>' +
+            '                       <!--<span class="qian">+' + data.money + '元</span>-->' +
+            '                   </div>' +
+            '                  </div>'
+        $(".kong-one" + weizhi + "-show").append(html)
+    }
+
+
+    function list_detail(id) {
+        api.openWin({
+            name: 'list_detail',
+            url: '../index/list_detail.html',
+            pageParam: {
+                id: id
+            }
+        })
+    }
+
+    function buytops(type) {
+        api.openWin({
+            name: 'buytop.html',
+            url: 'buytop.html',
+            pageParam: {
+                type: type
+            }
+        })
+    }
+
+    function go_back() {
+        // api.openWin({
+        //     name: 'publish.html',
+        //     url: 'publish.html',
+        //
+        // })
+
+        api.closeWin({});
+    }
+</script>
+
+</html>

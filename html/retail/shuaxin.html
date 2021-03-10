@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+	<meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+	<title>购买刷新记录</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/withdrawals_record.css" />
+	<link rel="stylesheet" href="../../css/swiper.min.css">
+	<script src="../../script/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+	<div class="b" id="header">
+		<div class="header">
+	        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+	        <div class="header_text"><h1>购买刷新记录</h1></div>
+	        <div class="clearfix"></div>
+	    </div>
+	</div>
+	<!-- 提现 -->
+<div class="cash" id="cash">
+	<!-- <div class="withdraw">
+		<div class="withdraw_text">
+			<h1>赏金提现</h1>
+			<h2>2019-11-13</h2>
+		</div>
+		<h3>-100.00</h3>
+		<div class="clearfix"></div>
+	</div> -->
+</div>
+
+	</body>
+	<script src="../../script/api.js" charset="utf-8"></script>
+	<script src="../../script/swiper.min.js"></script>
+	<script src="../../script/common.js"></script>
+	<script src="../../script/url.js"></script>
+	<script>
+		apiready = function(){
+			height()
+			getTixian()
+			//var header = document.querySelector('#header'); //头帘高度
+			//$api.fixStatusBar(header);
+			api.setRefreshHeaderInfo({
+				loadingImg: 'widget://image/refresh.png',
+				bgColor: '#ccc',
+				textColor: '#fff',
+				textDown: '下拉刷新...',
+				textUp: '松开刷新...'
+			}, function(ret, err) {
+				//在这里从服务器加载数据，加载完成后调用
+				//停止api.refreshHeaderLoadDone()方法恢复组件到默认状态
+				window.location.reload();
+				api.refreshHeaderLoadDone();
+			});
+		}
+
+		function getTixian() {
+			//$api.setStorage('token','a936436f65ff3e27edf61054d416da28');
+			token = $api.getStorage('token'); //获取token
+			// var ucode = $api.getStorage('code');
+			// alert(token)
+			api.ajax({
+				url: finance_list_url,
+				method: 'post',
+				data: {
+					values: {
+						token: token,
+					}
+				}
+			}, function(ret, err) {
+					console.log(JSON.stringify(ret));
+					//console.log(JSON.stringify(err));
+					// api.alert({ msg: JSON.stringify(ret) });
+						var	length = ret.data.length;
+							 //alert(length)
+						var lblist_type = '';
+						for (var lb = 0; lb < length; lb++) {
+						if(ret.data[lb].type == 37){
+							lblist_type += '	<div class="withdraw">'
+							lblist_type += '	<div class="withdraw_text">'
+							lblist_type += '	<h1>'+ret.data[lb].content+'</h1>'
+							lblist_type += '	<h2>'+ret.data[lb].add_time+'</h2>'
+							lblist_type += '	</div>'
+							lblist_type += '	<h3>-'+ret.data[lb].money+'</h3>'
+							lblist_type += '	<div class="clearfix"></div>'
+							lblist_type += '	</div>'
+
+							}
+							$api.html(cash,lblist_type);
+						}
+
+					// api.alert({ msg: JSON.stringify(err) });
+
+			});
+		}
+
+
+
+		function go_back() {
+		  api.closeWin({
+
+		  });
+		}
+	</script>
+
+</html>

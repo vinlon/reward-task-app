@@ -1,0 +1,436 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>设置</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/set.css"/>
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+    <script type="text/javascript"></script>
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+
+    <script src="../../script/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+<div class="b" id="header">
+    <div class="header">
+        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+        <div class="header_text"><h1>设置</h1></div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<div class="message">
+    <!-- 用户 -->
+    <div class="message_row" onclick="personal_information()">
+        <div class="message_pic"><img src="../../image/tx.png" id="img"><input type="hidden" id="uploadimg" value="">
+        </div>
+        <div class="message_text">
+            <h1 id="name">风中追风</h1>
+            <h2 id="id">ID：jg20190717</h2>
+        </div>
+        <div class="enter"><img src="../../image/enter.png"></div>
+        <div class="clearfix"></div>
+    </div>
+    <!-- 修改密码 -->
+    <div class="message_row1" onclick="change_password()">
+        <h3>修改密码</h3>
+        <div class="enter1"><img src="../../image/enter.png"></div>
+        <div class="clearfix"></div>
+    </div>
+    <!-- 微信绑定 -->
+    <div class="message_row1" id="wx_chart" onclick="wechat_binding()">
+        <h3>微信绑定</h3>
+        <div class="enter1"><img src="../../image/enter.png"></div>
+        <div id="weixin_bind">
+            <h2>未绑定</h2>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <!-- 支付宝 -->
+    <div class="message_row1" onclick="alipay_binding()">
+        <h3>支付宝绑定</h3>
+        <div class="enter1"><img src="../../image/enter.png"></div>
+        <div id="zfb_bind">
+            <h1>已绑定</h1>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <!-- 手机绑定 -->
+    <div class="message_row1" onclick="phone_binding()">
+        <h3>手机绑定</h3>
+        <div class="enter1"><img src="../../image/enter.png"></div>
+        <div id="sj_bangding">
+            <h2>未绑定</h2>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <!-- 关于我们 -->
+    <div class="message_row1" onclick="about_us()">
+        <h3>关于我们</h3>
+        <div class="enter1"><img src="../../image/enter.png"></div>
+        <div class="clearfix"></div>
+    </div>
+    <!-- 版本信息 -->
+    <div class="message_row1" onclick="version()">
+        <h3>版本信息</h3>
+        <div class="enter1"><img src="../../image/enter.png"></div>
+        <h2 id="version">V1.1.0</h2>
+        <div class="clearfix"></div>
+    </div>
+
+    <!-- 清除缓存 -->
+    <div class="message_row1" onclick="clearnCach()">
+        <h3>点击清除缓存</h3>
+        <div class="enter1"><img src="../../image/enter.png"></div>
+        <h2 id="cacheSize">2.46M</h2>
+
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="message_row1" onclick="privacys()">
+        <h3>隐私条款</h3>
+        <div class="enter1"><img src="../../image/enter.png"></div>
+
+        <div class="clearfix"></div>
+    </div>
+    <div class="message_row1" onclick="services()">
+        <h3>服务条款</h3>
+        <div class="enter1"><img src="../../image/enter.png"></div>
+
+
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+<div class="button" onclick="login_out()">
+    <button type="submit">退出登录</button>
+</div>
+</body>
+<script src="../../script/api.js" charset="utf-8"></script>
+<script src="../../script/swiper.min.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/url.js"></script>
+<script>
+    apiready = function () {
+        height()
+        api.getCacheSize(function (ret, err) {
+            //size:        //缓存大小，单位为Byte，数字类型。（-1：无存储设备、-2：正在准备USB存储设备、-3：无法访问存储设备）
+            var size = parseInt(ret.size / 1024) + 'KB';
+            var cacheSize = $api.byId('cacheSize');
+            cacheSize.innerHTML = size;
+
+        });
+        api.addEventListener({
+            name: 'bangdingweixinxxx'
+        }, function (ret, err) {
+            window.location.reload();
+            if (ret) {
+            } else {
+            }
+        });
+        privacy_service()
+        getUserInfo()
+    }
+
+    //隐私条款
+    function privacys() {
+        api.openWin({
+            name: 'privacys',
+            url: '../dialog/privacys.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+    }
+
+    //服务条款
+    function services() {
+        api.openWin({
+            name: 'services',
+            url: '../dialog/services.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+    }
+
+    //获取当前app 版本
+    function privacy_service() {
+        var appVersion = api.appVersion;
+        // alert( JSON.stringify( appVersion ) );
+        $api.byId('version').innerHTML ="V"+ appVersion
+
+        // api.ajax({
+        //     url: privacy_services,
+        //     method: 'post',
+        //     dataType: "json",
+        //     data: {
+        //         values: {}
+        //     }
+        // }, function (ret, err) {
+        //     let data = ret.data;
+        //     $api.byId('version').innerHTML = data.version
+        // })
+    }
+
+    // 获取检测新版本
+    function version() {
+
+        var mam = api.require('mam');
+        mam.checkUpdate(function( ret, err ){
+            if (ret) {
+                if (!ret.status) {
+                    api.toast({
+                        msg: '服务器繁忙，请稍后再试',
+                        duration: 2000,
+                        location: 'bottom',
+                    });
+                    // toast('服务器繁忙，请稍后再试');
+                    return;
+                }
+                if (ret.result.update) {
+                    var updateTip;
+                    updateTip = ret.result.updateTip.replace(/\r\n/g,"<BR>");
+                    updateTip =updateTip.replace(/\n/g,"<BR>");
+                    layer.confirm('有新版本啦！<br/>最新版本:'+ret.result.version+'<br/>更新描述:<br/>'+updateTip+'<br/>发布时间:'+ret.result.time,
+                        {
+                            title:'更新提示',
+                            btn: ['立即更新','取消'] //按钮
+                        }, function(){
+                            if (api.systemType == "android") {
+                                api.download({
+                                    url : ret.result.source,
+                                    report : true
+                                }, function(retdownload, err) {
+                                    if (retdownload && 0 == retdownload.state) {/* 下载进度 */
+                                        api.toast({
+                                            msg : "正在下载应用" + retdownload.percent + "%",
+                                            duration : 2000
+                                        });
+                                    }
+                                    if (retdownload && 1 == retdownload.state) {/* 下载完成 */
+                                        var savePath = retdownload.savePath;
+                                        api.installApp({
+                                            appUri : savePath
+                                        });
+                                    }
+                                });
+                            }
+                            if (api.systemType == "ios") {
+                                api.installApp({
+                                    appUri : ret.result.source
+                                });
+                            }
+                        }, function(){
+                        });
+                    return;
+                } else {
+                    api.toast({
+                        msg: '当前已是最新版本',
+                        duration: 2000,
+                        location: 'bottom',
+                    });
+                    // toast('当前已是最新版本');
+                    return;
+                }
+            } else{
+                api.toast({
+                    msg: '服务器繁忙，请稍后再试',
+                    duration: 2000,
+                    location: 'bottom',
+                });
+                // toast('服务器繁忙，请稍后再试');
+                return;
+            }
+        });
+    }
+    // 清楚缓存
+    function clearnCach() {
+        api.clearCache(function () {
+            api.toast({
+                msg: '清除完成'
+            });
+        });
+        api.getCacheSize(function (ret, err) {
+            var size = parseInt(ret.size / 1024) + 'KB';
+            var cacheSize = $api.byId('cacheSize');
+            cacheSize.innerHTML = size;
+        });
+    };
+
+    function getUserInfo() {
+        //$api.setStorage('token','a936436f65ff3e27edf61054d416da28');
+        token = $api.getStorage('token'); //获取token
+        // var ucode = $api.getStorage('code');
+        //alert(token);
+        api.ajax({
+            url: personalInfo,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                }
+            }
+        }, function (ret, err) {
+            // console.log(JSON.stringify(ret));
+            // console.log(JSON.stringify(err));
+            // api.alert({ msg: JSON.stringify(ret) });
+            if (ret.code != 1) {
+                api.toast({
+                    msg: ret.message,
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                setTimeout(function () {
+                    api.openWin({
+                        name: 'login',
+                        url: 'login.html',
+                        pageParam: {
+                            name: 'test'
+                        }
+                    });
+                }, 1000);
+                return false;
+            } else {
+                $('#name').html(ret.data.u_name);
+                $('#id').html('ID：' + ret.data.u_id);
+                if (ret.data.u_tel) {
+                    $api.html(sj_bangding, "<h1>已绑定</h1>");
+                } else {
+                    $api.html(sj_bangding, "<h2>未绑定</h2>");
+                }
+
+                if (ret.data.zfb_name != "") {
+                    $api.html(zfb_bind, "<h1>已绑定</h1>");
+                } else {
+                    $api.html(zfb_bind, "<h2>未绑定</h2>");
+                }
+                if (ret.data.u_openid) {
+
+                    if (ret.data.cousn > 1) {
+                        $api.html(weixin_bind, "<h1 onclick='clearwx()'>点击清除已绑定</h1>");
+                    } else {
+                        $api.html(weixin_bind, "<h1 >已绑定</h1>");
+                    }
+
+
+                    $("#wx_chart").removeAttr("onclick");
+
+
+                } else {
+                    $api.html(weixin_bind, "<h2>未绑定</h2>");
+                }
+
+
+                if (ret.data.u_headpic) {
+                    imgFile = URL + ret.data.u_headpic;
+                    //alert(imgFile);
+                    $("#img").attr('src', imgFile);
+                    $("#uploadimg").attr('value', ret.data.u_headpic);
+
+                } else {
+                    $api.byId('img').src = '../../image/personal.png';
+                }
+
+            }
+            // api.alert({ msg: JSON.stringify(err) });
+
+        });
+    }
+
+    // 清除微信
+    function clearwx() {
+        api.confirm({
+            title: '清除微信数据',
+            msg: '清除后无法绑定该微信号,慎重考虑',
+            buttons: ['确定', '取消']
+        }, function (ret, err) {
+            var index = ret.buttonIndex;
+            if (index == 1) {
+                token = $api.getStorage('token'); //获取token
+                api.ajax({
+                    url: clearwxs,
+                    method: 'post',
+                    data: {
+                        values: {
+                            token: token,
+                        }
+                    }
+                }, function (ret, err) {
+                    console.log(JSON.stringify(ret))
+                    api.toast({
+                        msg: ret.message,
+                        duration: 2000,
+                        location: 'bottom'
+                    });
+                    setTimeout(function () {
+                        window.location.reload();
+                    },500)
+
+                })
+            }
+        });
+    }
+
+    function login_out() {
+        $api.clearStorage('token');
+        api.openWin({
+            name: 'login',
+            url: 'login.html'
+        })
+    }
+
+    function go_back() {
+        api.closeWin({});
+    }
+
+    function personal_information() {										//个人信息
+        api.openWin({
+            name: 'personal_information',
+            url: 'personal_information.html'
+        })
+    }
+
+    function change_password() {												//修改密码
+        api.openWin({
+            name: 'change_password',
+            url: 'change_password.html'
+        })
+    }
+
+    function wechat_binding() {												//微信绑定
+        api.openWin({
+            name: 'wechat_binding',
+            url: 'wechat_binding.html'
+        })
+    }
+
+    function alipay_binding() {												//支付宝绑定
+        api.openWin({
+            name: 'alipay_binding',
+            url: 'alipay_binding.html'
+        })
+    }
+
+    function phone_binding() {												//手机绑定
+        api.openWin({
+            name: 'phone_binding',
+            url: 'phone_binding.html'
+        })
+    }
+
+    function about_us() {													//关于我们
+        api.openWin({
+            name: 'about_us',
+            url: 'about_us.html'
+        })
+    }
+
+</script>
+
+
+</html>

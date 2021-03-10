@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>发布任务</title>
+    <link rel="stylesheet" href="../../script/aui/css/api.css">
+    <link rel="stylesheet" href="../../script/aui/css/aui.css">
+
+</head>
+<style>
+
+</style>
+<body>
+<div id="header"></div>
+
+
+<header class="aui-bar aui-bar-nav aui-bar-light">
+    <a class="aui-pull-left aui-btn" onclick="go_back()">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">发布任务</div>
+</header>
+
+  <section class="aui-grid">
+      <ul class="aui-list aui-media-list">
+          <li class="aui-list-header">
+              请选择类型
+          </li>
+      </ul>
+      <div class="aui-row rw_task">
+
+
+
+      </div>
+  </section>
+
+
+</body>
+<script src="../../script/jquery-3.4.1.min.js"></script>
+<script src="../../script/api.js" charset="utf-8"></script>
+<script src="../../script/aui/script/aui-dialog.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/url.js"></script>
+<script>
+    var dialog = new auiDialog({})
+    apiready = function () {
+        height()
+
+        gettask()
+
+        // $api.fixStatusBar(".aui-grid");
+        // api.setStatusBarStyle({
+        //     style : 'dark',
+        //     color : '#5eb5fc'
+        // });
+    }
+
+
+    // 获取后台任务数据
+
+    function gettask() {
+
+        api.ajax({
+            url: product_type_list,
+            method: 'post',
+            data: {
+                values: {}
+            }
+        }, function (ret, err) {
+            // var length = ret.data.length;
+            data_list = ret.data
+            datas_lis(data_list)
+            // type_select_data = data_list[0]
+            // $("#money").val(type_select_data.pt_price)
+            // $("#num").val(type_select_data.pt_num)
+            // $("#heji").val(type_select_data.pt_num * type_select_data.pt_price)
+            // $("#all_money").html("￥" + type_select_data.pt_num * type_select_data.pt_price)
+        })
+    }
+
+    //数据渲染
+    function datas_lis(data) {
+        let html=''
+        data.map(item=>{
+            html+=' <div class="aui-col-xs-2" >\n' +
+                '              <div class="aui-grid-label " id="xuazn_'+item.pt_id+'"  onclick="xuanzhis('+item.pt_id+','+item.pt_price+','+item.pt_num+')">'+item.pt_name+'</div>\n' +
+                '          </div>';
+
+        })
+
+        $(".rw_task").append(html)
+    }
+
+
+    let pt_id=0;
+    let pt_price;
+    let pt_num;
+    function xuanzhis(id,price,num) {
+      let xuazn_=  $("#xuazn_"+id).html()
+        console.log(xuazn_)
+        pt_id=id
+        pt_price=price
+        pt_num=num
+
+    }
+    function go_back() {
+        api.closeWin({});
+    }
+</script>
+
+</html>

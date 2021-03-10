@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>联系客服</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/service.css" />
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script src="../../script/swiper.min.js"></script>
+    <script src="../../script/common.js"></script>
+    <script src="../../script/url.js"></script>
+</head>
+
+<body>
+    <div class="b" id="header">
+        <div class="header">
+            <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+            <div class="header_text">
+                <h1>联系客服</h1>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="banner">
+        <img src="../../image/service_bg.png">
+        <!-- banner图 -->
+        <p id="gzsj"></p>
+        <!-- 工作时间 -->
+    </div>
+    <!-- 服务热线 -->
+    <div class="service">
+        <div class="service_pic"><img src="../../image/service.png"></div>
+        <div class="servive_text">
+            <h1>24小时服务热线</h1>
+            <h2 id="rx_24"></h2>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <!-- 客服微信 -->
+    <div class="service">
+        <div class="service_pic"><img src="../../image/service1.png"></div>
+        <div class="servive_text">
+            <h1>客服微信</h1>
+            <h2 id="weixin"></h2>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <!-- 客服QQ -->
+    <div class="service">
+        <div class="service_pic"><img src="../../image/service2.png"></div>
+        <div class="servive_text">
+            <h1>客服QQ</h1>
+            <h2 id="qq"></h2>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <!-- 客服QQ群 -->
+    <div class="service">
+        <div class="service_pic"><img src="../../image/service3.png"></div>
+        <div class="servive_text">
+            <h1>副业帮官方QQ群</h1>
+            <h2 id="qqqun"></h2>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+</body>
+
+<script>
+    apiready = function() {
+        kefu = api.pageParam.url;
+        height()
+            //var header = document.querySelector('#header'); //头帘高度
+            //$api.fixStatusBar(header);
+            //get_ttt()
+        service()
+
+    }
+
+    function get_ttt() {
+        //	alert(get_contact_customer);return false;
+        //		token = $api.getStorage('token');
+        api.ajax({
+            //    url:"http://fyb.sysynet.com/app/About/get_contact_customer",
+            url: get_contact_customer,
+            method: 'post',
+            data: {
+                values: {
+                    //    token: token
+                }
+            }
+        }, function(ret, err) {
+            //  console.log(JSON.stringify(get_contact_customer));
+            //  console.log(JSON.stringify(ret));
+            //  console.log(JSON.stringify(err));
+            // if (ret.code != 1) {
+            //    api.toast({
+            // 	msg: "请登录",
+            // 	duration: 2000,
+            // 	location: 'bottom'
+            // });
+            // setTimeout(function() {
+            // 	api.openWin({
+            // 		name: 'login',
+            // 		url: 'login.html',
+            // 		pageParam: {
+            // 			name: 'test'
+            // 		}
+            // 	});
+            // }, 1000);
+            //
+            // return false;
+            // } else {
+
+            $api.html(gzsj, ret.gzsj);
+            $api.html(rx_24, ret.rx_24);
+            $api.html(weixin, ret.weixin);
+            $api.html(qq, ret.qq);
+            $api.html(qqqun, ret.qqqun);
+            // }
+
+
+        });
+    }
+
+
+    function go_back() {
+        api.closeWin({
+            // name: '',
+        })
+    }
+
+    function service() { //联系客服
+        var hn = $api.byId('header').offsetHeight;
+        api.openFrame({
+            name: 'service',
+            url: kefu,
+            rect: {
+                x: 0,
+                y: hn,
+                w: 'auto',
+                h: 'auto'
+            }
+        });
+    }
+</script>
+
+
+</html>

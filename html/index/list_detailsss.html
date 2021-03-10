@@ -1,0 +1,1017 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>任务详情</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/list_detail.css"/>
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script src="../../script/swiper.min.js"></script>
+    <script src="../../script/common.js"></script>
+    <script src="../../script/url.js"></script>
+    <script src="../../script/hammer.js"></script>
+</head>
+<body>
+<div class="b" id="header">
+    <div class="header">
+        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+        <div class="header_button"><img src="../../image/mroe.png"></div>
+        <div class="header_text"><h1>任务详情</h1></div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<div class="covering"></div>
+<div class="cover"></div>
+<div class="banner">
+    <!-- 右上角点击内容 -->
+    <div class="spread">
+        <div class="order" onclick="order_rules()">
+            <div class="order_pic"><img src="../../image/detail_rules.png"></div>
+            <h1>接单规则</h1>
+            <div class="clearfix"></div>
+        </div>
+        <div class="complain" onclick="complaints()">
+            <div class="complain_pic"><img src="../../image/complain.png"></div>
+            <h1>投诉悬赏</h1>
+            <div class="clearfix"></div>
+        </div>
+        <!-- <div class="share">
+            <div class="share_pic"><img src="../../image/share.png"></div>
+            <h1>分享悬赏</h1>
+            <div class="clearfix"></div>
+        </div> -->
+    </div>
+    <!-- 任务内容 -->
+    <div class="list_text">
+        <div class="clearfix"><p id="titles_task">下载注册就可以，秒审核</p></div>
+        <span class="con" id="fenleix">   微信实名 </span>
+        <span class="con" id="taskTitle">   微信实名 </span>
+        <div class="clearfix"></div>
+    </div>
+    <div class="banner_text">
+        <div class="text_pic"><img src="../../image/pu.png"></div>
+        <h1 id="taskmoney">+1.08</h1>
+        <div class="clearfix"></div>
+        <div class="banner_pic"><img src="../../image/vip.png"></div>
+        <h2 id="taskmoneyvip">+1.39</h2>
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="detail_text">
+        <h1 id="shengyu">11</h1>
+        <h2>剩余数量</h2>
+
+    </div>
+    <div class="detail_text">
+        <h1 id="wancheng">26</h1>
+        <h2>完成数量</h2>
+    </div>
+    <div class="detail_text">
+        <h1 id="zuodan">1小时</h1>
+        <h2>做单时间</h2>
+    </div>
+
+    <div class="detail_text">
+        <h1 id="shenhe">1天</h1>
+        <h2>审核时间</h2>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<!-- 做单说明 -->
+<div class="show">
+    <h1>做单说明</h1>
+    <p>1.发现诱导私加，私下交易，发布同类平台任务，举报重赏；<br>
+        2.需要打钱投资的任务需谨慎，亏损自负；<br>
+        3.请先报名再做任务，否则无赏金；</p>
+</div>
+
+<div class="copy clearfix">
+    <button type="button" name="button" onClick="frames();">点击</button>
+</div>
+<!-- 商家 -->
+<div class="name clearfix">
+    <div class="name_pic" id="storeImg"><img id="user_pic" src="../../image/list.png"></div>
+    <div class="name_text">
+        <h1 id="store_name">王者つ莫紫萱-(566859)</h1>
+        <h2 id="store_type">普通商人</h2>
+    </div>
+    <div class="store" onclick="shop()"><img src="../../image/dianpu.png">
+        <h3>店铺</h3></div>
+</div>
+<!-- 任务评价 -->
+<div class="appraise clearfix">
+    <h1>任务评价(
+        <psan id="appraiseNum">158</span>)
+    </h1>
+    <div class="enter" onclick="all_evaluating()"><img src="../../image/means_enter.png"></div>
+    <h2 onclick="all_evaluating()">全部评价</h2>
+
+</div>
+
+
+<!--升级成为vip  -->
+<div class="upgrade clearfix" id="vip_is_hefu" style="display:none">
+    <h1>升级VIP，该任务多赚20%</h1>
+    <div class="enter" onclick="member_center()"><img src="../../image/detail.png"></div>
+    <h2 onclick="member_center()">立即升级</h2>
+</div>
+<div id="lianjie">
+
+</div>
+<!--  任务步骤-->
+<div class="cover_alpha"></div>
+<div class="task" id="set_buzhou">
+
+    <h1>任务步骤</h1>
+    <div class="step1">
+        <h2>1</h2>
+        <div class="step1_title">
+            <h3>步骤一（图文说明）</h3>
+
+            <p id="step1Text">微信扫码注册并下载（一定要用微信登录）</p>
+
+            <div class="cover_alpha"></div>
+            <div class="step1_pic" id="step1Pic"><img src="../../image/detail1.png"></div>
+        </div>
+        <div class="clearfix"></div>
+
+    </div>
+
+    <div class="step2">
+        <h2>2</h2>
+        <div class="step2_title">
+            <h3>步骤二（图文说明）</h3>
+            <p id="step2Text">登录进去点我的，找到填写邀请码19567928填写完再点一下就能截图</p>
+            <div class="step2_pic" id="step2Pic"><img src="../../image/detail2.png"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="step3">
+        <h2>3</h2>
+        <div class="step3_title">
+            <h3>步骤三（提交截图）</h3>
+            <p id="step3Text">邀请码输完再点一次就看到了</p>
+            <div class="step3_pic" id="step3Pic"><img src="../../image/detail3.png"></div>
+            <div class="add">
+                <div class="add_pic"><img src="../../image/xj1.png"></div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+</div>
+<!-- 提交数据 -->
+<div class="submit">
+    <h1>提交数据</h1>
+    <div class="input"><input type="text" id="weixin_nick" placeholder="请输入微信昵称"></div>
+    <div class="clearfix"></div>
+</div>
+
+<div class="button">
+    <button type="submit" id="ppddd">领取任务</button>
+</div>
+<!-- 页面载入后弹出框 -->
+<div class="content" id="zxs_display" style="display:none">
+    <div class="close"><img src="../../image/close.png"></div>
+    <div class="clearfix"></div>
+    <div class="eject">
+        <div class="eject_title"><h1>赚悬赏，分三步</h1></div>
+        <div class="eject_content">
+            <div class="draw">
+                <h1>1</h1>
+                <div class="draw_content">
+                    <h2>领取任务</h2>
+                    <p>做任务前必须先点击页面底部领取任务，否则将会错失赏金。</p>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="operate">
+                <h1>2</h1>
+                <div class="operate_content">
+                    <h2>按步骤操作</h2>
+                    <p>根据任务步骤要求进行操作，并提交正确的任务收集截图或数据。</p>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="correct">
+                <h1>3</h1>
+                <div class="correct_content">
+                    <h2>正确提交</h2>
+                    <p>请正确提交任务要求的内容，恶意提交与任务无关的信息，将会受到平台封号处理，</p>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="notify">
+                <div class="notify_content" onclick="buzaitishi();">
+                    <input id="item2" type="radio" name="item" value="">
+                    <label for="item2"></label>
+
+                </div>
+                <h2 id="remind">不再提醒</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="rules" onclick="order_rules()">
+                <button>接单规则</button>
+            </div>
+            <div class="start">
+                <button>开始赚钱</button>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<input type="hidden" value="2" id="usr_hy_vip"></input>
+<!-- 点击领取任务弹出框 -->
+
+<div class="confirm">
+    <img src="../../image/close1.png" alt="" class="confirm_close">
+    <div class="clearfix"></div>
+    <h1 id="tcc_money">确定2.42元领取该任务</h1>
+    <h2 id="tcc_money_vip">升级黄金会员，该任务多赚0.70元</h2>
+    <div class="direct">
+        <button onclick="get_rw()">直接领取</button>
+    </div>
+    <div class="update" onclick="member_center()">
+        <button>升级后领取</button>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+</body>
+<input type="hidden" value="0" id="contant_copy"></input>
+<input type="hidden" value="0" id="shangchuan"></input>
+<input type="hidden" value="0" id="shop_id"></input>
+<input type="hidden" value="0" id="task_id"></input>
+<input type="hidden" value="-1" id="to_status"></input>
+<script>
+    $(function () {
+        $(".confirm_close").click(function () {
+            alert(11)
+            $(this).parent().hide();
+            $(".cover").hide();
+        })
+    })
+
+    apiready = function () {
+        height()
+        token = $api.getStorage('token');
+
+        param = api.pageParam;
+        id = param.id;//任务id
+        $('#task_id').val(id);
+        list_detail_buzaitishi = $api.getStorage('list_detail_buzaitishi');
+
+        if (list_detail_buzaitishi == 1) {
+            //  	$('#zxs_display').css({ "display": "block"});
+            $(".content").hide();
+            $(".cover").hide();
+
+        } else {
+
+            $(".content").show();
+            $(".cover").show();
+
+        }
+
+        //启动监听 addEventListener ->
+        api.addEventListener({
+            name: 'dddagain'
+        }, function (ret, err) {
+            // console.log(JSON.stringify(ret));
+            // console.log(JSON.stringify(err));
+            window.location.reload();
+            // if (ret) {
+            //
+            //
+            // } else {
+            // }
+        });
+
+        //启动监听 END
+        task_detail();
+        // 长按监听
+
+
+    }
+
+
+    function frames(img = "222") {
+        api.openFrame({
+            name: 'dian',
+            url: '../dialog/dian.html',
+            rect: {
+                x: 0,
+                y: 0,
+                // w: 'auto',
+                // h: 'auto'
+                w: api.winWidth,
+                h: api.winHeight
+            },
+            pageParam: {
+                img: img
+            },
+            bounces: false,
+            bgColor: 'rgba(0,0,0,0.2)',
+        });
+
+    }
+
+    //不再提示
+    function buzaitishi() {
+        $api.setStorage('list_detail_buzaitishi', '1'); //存token
+
+    }
+
+    function get_rw() {
+        stp = $api.getStorage('setp_s');
+
+        var lengths_l = stp.length;
+        var ppppp = "";
+        for (var lbx = 0; lbx < lengths_l; lbx++) {
+            console.log(JSON.stringify(stp[lbx].type));
+            if (stp[lbx].type == 2) {
+                //		console.log(JSON.stringify(stp[lbx].type));
+                //ppppp[lbx]=$('#uploadimg_'+stp[lbx].id).val();
+                ppppp += $('#uploadimg_' + stp[lbx].id).val();
+                ppppp += ",";
+            }
+        }
+        //	return false;
+        var weixin_nick = $('#weixin_nick').val();
+        console.log(JSON.stringify(ppppp));
+        //		console.log(JSON.stringify(stp));
+        api.ajax({
+            url: receive_tasks_url,
+            method: 'post',
+            data: {
+                values: {
+                    id: id,
+                    token: token,
+                    pics: ppppp,
+                    weixin_name: weixin_nick,
+                }
+            }
+        }, function (ret, err) {
+            console.log(JSON.stringify(ret));
+            console.log(JSON.stringify(err));
+
+            if (ret.code == -302) {
+                api.toast({
+                    msg: ret.message,
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                setTimeout(function () {
+                    api.openWin({
+                        name: 'login',
+                        url: '../my/login.html'
+                    });
+                }, 1000);
+                return false;
+                //跳转登录
+            } else if (ret.code == 200) {
+                api.toast({
+                    msg: ret.info,
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                setTimeout(function () {
+
+                    api.openWin({
+                        name: 'my_tasks',
+                        url: '../my/my_tasks.html'
+                    })
+                }, 1000);
+
+                return false;
+            } else if (ret.code == 100) {
+                api.toast({
+                    msg: ret.info,
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                setTimeout(function () {
+
+                    api.openWin({
+                        name: 'my_tasks',
+                        url: '../my/my_tasks.html',
+
+                    })
+
+                }, 1000);
+
+
+                return false;
+                //不处理
+            } else {
+                api.toast({
+                    msg: ret.info,
+                    duration: 2000,
+                    location: 'bottom'
+                });
+            }
+
+
+        });
+
+    }
+
+
+    function task_detail() {
+        api.ajax({
+            url: task_detail_url,
+            method: 'post',
+            data: {
+                values: {
+                    id: id,
+                    token: token
+                }
+            }
+        }, function (ret, err) {
+            if (ret.code == -302) {
+                api.toast({
+                    msg: "请登录",
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                setTimeout(function () {
+                    api.openWin({
+                        name: 'login',
+                        url: 'login.html',
+
+                    });
+                }, 1000);
+            }
+            // alert(token);
+            // console.log(JSON.stringify(ret));
+            // console.log(JSON.stringify(err));
+            //   if(ret.code == 200){
+
+            //task
+            //	 $api.html(taskidlistde,'('+ret.task.id+')');
+            $api.html(taskTitle, ret.task.name);
+            $api.html(taskmoney, ret.task_money);
+            $api.html(taskmoneyvip, ret.task_all_money);
+            $api.html(shengyu, ret.task.num);
+            $api.html(wancheng, ret.task.yiyou_num);
+            $api.html(zuodan, ret.task.ti_time + '小时');
+            $api.html(shenhe, ret.task.audit_time + '小时');
+            $api.html(appraiseNum, ret.comment_count + ')');
+            //	  $api.html(store_name,ret.user.u_name+'('+ret.user.u_id+')');
+            $("#weixin_nick").attr("placeholder", ret.task.content);
+            $api.html(store_name, '[悬赏ID：' + ret.task.id + ']');
+            $api.html(store_type, ret.user.shanghu);
+            $api.html(titles_task, ret.task.title);
+            $api.html(fenleix, ret.task.fenlei);
+            $api.val(shop_id, ret.user.u_id);
+
+            if (ret.task.connect) {
+
+                var pts_html = "";
+                pts_html += '<div class="copy clearfix">'
+                pts_html += '	<h1>任务链接</h1>'
+                pts_html += '	<button type="button" name="button" onClick="fuzhi();">复制链接</button>'
+                //		pts_html+='	<button type="button" name="button" onClick="dakailianjie();">打开链接</button>'
+                pts_html += '</div>'
+                pts_html += '<div class="cover_alpha"></div>'
+                $('#contant_copy').val(ret.task.connect);
+                $api.html(lianjie, pts_html);
+            }
+
+            if (ret.user.u_headpic) {
+                imgFile = URL + ret.user.u_headpic;
+                $("#user_pic").attr('src', imgFile);
+                //	$("#user_pic").attr('value', ret.data.qrcode_wx);
+            }
+            // else{
+            // 		$("#img").attr('src', '../../image/sc01.png');
+            // }
+            $api.setStorage('setp_s', ret.step);
+            var length = ret.step.length;
+            //	 alert(length)
+            var lblist_type = '	<h1>任务步骤</h1>';
+            var picsxx = new Array();
+            for (var lb = 0; lb < length; lb++) {
+
+
+                lblist_type += '	<div class="step3" id="changsgggs">'
+                lblist_type += '		<h2>' + ret.step[lb].st + '</h2>'
+                lblist_type += '		<div class="step3_title">'
+                //	lblist_type += '			<h3>步骤'+ ret.step[lb].st + '（图文说明）</h3>'
+                if (ret.step[lb].type == 1) {
+                    lblist_type += '			<h3>步骤' + ret.step[lb].st + '（图文说明）</h3>'
+                } else {
+                    lblist_type += '			<h3>步骤' + ret.step[lb].st + '（提交截图）</h3>'
+                }
+
+
+                var namss = ret.step[lb].id;
+
+                lblist_type += '			<p  id="step3Text" class="namse_' + ret.step[lb].id + '">' + ret.step[lb].name + '</p>'
+                lblist_type += '	<div class="copy clearfix"><button type="button" name="button" onClick="fuzhis(' + namss + ');">复制内容</button></div>'
+                lblist_type += '			<div class="step3_pic"  id="step3Pic" goods_id="' + URL + ret.step[lb].pic + '"><img   id="img_' + ret.step[lb].id + '" src="' + URL + ret.step[lb].pic + '"></div>'
+                picsxx[lb] = URL + ret.step[lb].pic;
+                if (ret.step[lb].type == 2) {
+                    lblist_type += '											<div class="add">'
+                    lblist_type += '											<div class="add_pic"><img  onclick="upLoad(' + ret.step[lb].id + ')"  id ="tttssss_' + ret.step[lb].id + '" src="../../image/xj1.png"></div>'
+                    lblist_type += '																				<input type="hidden" id="uploadimg_' + ret.step[lb].id + '">'
+
+                    lblist_type += '										</div>'
+                }
+                lblist_type += '		</div>'
+                lblist_type += '		<div class="clearfix"></div>'
+                lblist_type += '	</div>'
+
+
+            }
+
+
+            $api.html(set_buzhou, lblist_type);
+            $(function () {
+                // $(".step3_pic").on('touchstart', '.previewImg', function(e){
+                //     alert(211212)
+                // })
+
+                // var hammertime = new Hammer(document.getElementById("step3Pic"));
+                // hammertime.on("press", function (ev) {
+                //     //控制台输出
+                //     // var id = parseInt(ev.target.parentNode);
+                //     console.log("ev", JSON.stringify(ev))
+                //     alert(JSON.stringify(ev.srcEvent.touches))
+                // });
+
+                //
+                // $.fn.longPresss = function (fn,trsTime) {//长按监听
+                //     var $this = this;
+                //     for (var i = 0; i < $this.length; i++) {
+                //         (function (target) {
+                //             var timeout;
+                //             target.addEventListener('touchstart', function (event) {
+                //                 timeout = setTimeout(function () {
+                //                     //fn.apply(target);
+                //                     fn(event);
+                //                 }, trsTime ? trsTime : 500);
+                //             }, false);
+                //             target.addEventListener('touchend', function (event) {
+                //                 clearTimeout(timeout);
+                //             }, false);
+                //         })($this[i]);
+                //     }
+                // }
+                // $(".step3_pic").longPresss(function (e,times) {
+                //     let hm=$(this)
+                //     console.log(JSON.stringify(hm))
+                //
+                //     alert(JSON.stringify(hm))
+                //
+                // })
+
+
+                // 新修改方法
+                let timeOutEvent;
+                $(".step3_pic").on({
+                    touchstart:function(e){
+                        timeOutEvent=setTimeout(function () {
+                            timeOutEvent=0
+                            let srcs=e.target
+                            let imgs=srcs.src
+                            if (imgs){
+                                frames(imgs)
+                            } else {
+                                api.toast({
+                                    msg: "没有图片",
+                                    duration: 2000,
+                                    location: 'bottom'
+                                });
+                            }
+
+                            // alert(imgs)
+
+                            // console.log(JSON.stringify(e))
+                        },500);
+                    },
+                    touchmove:function () {
+                        clearTimeout(timeOutEvent)
+                        timeOutEvent=0
+                    },
+                    touchend:function (e) {
+                        clearTimeout(timeOutEvent);
+                        if (timeOutEvent!=0){
+                            let srcs=e.target
+                            let imgs=srcs.src
+                            let indes=  getIndex(picsxx,imgs);// 当前点击下标
+                            openImagess(indes);
+                        }
+
+                        // $(".step3_pic").click(function () {
+                            $(this).css({
+                                "width": "100%",
+                                "height": "auto",
+                                "position": "fixed",
+                                "top": "30%",
+                                "left": "0",
+                                "z-index": "100"
+                            });
+                            $(".cover").show();
+                            $(".cover_alpha").show();
+                        // });
+
+                        // return  false;
+                    }
+                });
+
+
+                $(".cover_alpha").click(function () {
+                    $(".step3_pic").css({"width": "", "height": "", "position": "", "top": "%", "left": "", "z-index": ""});
+                    $(".cover").hide();
+                    $(".cover_alpha").hide();
+                });
+
+
+
+                // 获取图片的第几个下标
+                function getIndex(arr,item){
+                    for(var i in arr){
+                        if(arr[i] == item){
+                            return i;
+                        };
+                    };
+                }
+                // 新方法 打开照骗
+                function openImagess(activeIndex=0) {
+                    var photoBrowser = api.require('photoBrowser');
+                    photoBrowser.open({
+                        images: picsxx,
+                        activeIndex:activeIndex,
+                        placeholderImg: 'widget://res/img/apicloud.png',
+                        bgColor: '#000'
+                    }, function(ret, err) {
+                        if (ret) {
+                            if (ret.eventType=="longPress"){
+                                let indexs=ret.index
+                                let imsgh=picsxx[indexs];
+                                // alert("长按:"+imsgh)
+                                frames(imsgh)
+                            }else {
+                                if (ret.eventType=="click"){
+                                    photoBrowser.close();
+                                }
+                                // alert(JSON.stringify(ret));
+                            }
+
+                        } else {
+                            photoBrowser.close();
+                            api.toast({
+                                msg: "打开图片失败",
+                                duration: 2000,
+                                location: 'bottom'
+                            });
+
+                        }
+                    });
+                }
+
+                // 打开相册
+                // $(".step3_pic").click(function () {
+                //
+                //     console.log(JSON.stringify(picsxx));
+                //     var imageBrowser = api.require('imageBrowser');
+                //     imageBrowser.openImages({
+                //         imageUrls: picsxx
+                //     });
+                // });
+
+            })
+
+            if (ret.hy_vip == 0) {//表示已经登录但是不是会员
+                $('#vip_is_hefu').css({"display": "block"});
+                $('#usr_hy_vip').val(ret.hy_vip);
+            } else if (ret.hy_vip == 1) {//表示已经登录 已经成为会员
+                $('#vip_is_hefu').css({"display": "none"});
+                $('#usr_hy_vip').val(ret.hy_vip);
+            } else {//表示未登录的2
+                $('#vip_is_hefu').css({"display": "block"});
+                $('#usr_hy_vip').val(ret.hy_vip);
+            }
+
+            //修改弹出层的数值
+            $api.html(tcc_money, '确定' + ret.task_money + '元领取该任务');
+
+            $api.html(tcc_money_vip, '升级黄金会员，该任务多赚' + ret.task_money_vip + '元');
+
+            //	ret.to_status////-1代表没登录,-2代表没申请过,0代表已经申请,1已经提交,2是已经完事儿
+            if (ret.to_status == 0) {
+                $('#shangchuan').val(1);
+                $('#ppddd').html('提交任务');
+            } else if (ret.to_status == 1) {
+                $('#ppddd').html('审核中');
+            }
+
+            $('#to_status').val(ret.to_status);
+
+        });
+
+    }
+
+    function upLoad(num) {
+        var shangchuan_num = $('#shangchuan').val();
+        if (shangchuan_num != 1) {
+            return false;
+        }
+        api.getPicture({
+            sourceType: 'library',
+            encodingType: 'jpg',
+            mediaValue: 'pic',
+            destinationType: 'url',
+            allowEdit: true,
+            quality: 100,
+            targetWidth: 1000,
+            targetHeight: 1000,
+            saveToPhotoAlbum: false
+        }, function (ret, err) {
+            if (ret) {
+
+                if (ret.data) {
+                    //将返回的路径放到id="img",为的是显示图片
+                    imgFile = ret.data;
+                    $("#tttssss_" + num).attr('src', imgFile);
+
+
+                    // alert(upload_Img)
+
+
+                    api.ajax({
+                        url: get_pic_1,
+                        method: 'post',
+                        data: {
+                            files: {
+                                image: imgFile,
+                                //			token:token,
+                            }
+                        }
+                    }, function (ret, err) {
+                        //		console.log(JSON.stringify(ret));
+                        //			console.log(JSON.stringify(err));
+                        if (ret) {
+
+                            if (ret.code == 1) {
+
+                                $("#tttssss_" + num).attr('src', URL + ret.data);
+                                $('#uploadimg_' + num).val(ret.data);
+
+                            }
+
+                            // 将返回的路径房费隐藏的 input id="yicang"中  提交时获
+                        } else {
+                        }
+                    });
+                    //
+
+                }
+            }
+        });
+    }
+
+    $(function () {
+
+        $(".cover").show();
+        $(".content").show();
+
+        $(".close,.start").click(function () {
+            $(".content").hide();
+            $(".cover").hide();
+        })
+    })									//页面载入
+    $(function () {
+        $(".spread").hide();
+        $(".header_button").click(function () {
+            $(".spread").slideDown();
+            $(".covering").show();
+        })
+        $(".covering").click(function () {
+            $(".spread").slideUp();
+            $(".covering").fadeOut();
+        })
+    })								//右上角交互效果
+    $(function () {
+        $(".confirm").hide();
+        $(".button").click(function () {
+
+            var to_status = $('#to_status').val();
+            var user_vip = $('#usr_hy_vip').val();
+
+            //	alert(to_status);alert(user_vip);
+            if (user_vip == 1) {//是会员状态 直接提交按钮
+                // if(to_status == 0){
+                //
+                // }
+                get_rw();
+            } else if (user_vip == 0) {//非会员状态 弹窗
+                // if(to_status == 0){
+                // 		$('#ppddd').html('提交任务');
+                // }
+                if (to_status == 2) {
+
+                    $(".confirm").show();
+                    $(".cover").show();
+                } else if (to_status == -2) {
+
+                    $(".confirm").show();
+                    $(".cover").show();
+                } else {
+                    get_rw();
+                }
+
+            } else {
+                //未登录状态  提示登录
+                api.toast({
+                    msg: '请登录',
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                setTimeout(function () {
+                    api.openWin({
+                        name: 'login',
+                        url: '../my/login.html'
+                    })
+                }, 1000);
+            }
+
+        })
+    })								//点击领取任务
+
+    function go_back() {
+        api.closeWin({});
+    }
+
+    function order_rules() {					//接单规则
+        api.openWin({
+            name: 'order_rules',
+            url: 'order_rules.html'
+        })
+    }
+
+    function complaints() {					//投诉悬赏
+        var task_id = $('#task_id').val();
+
+        api.openWin({
+            name: 'complaints',
+            url: 'complaints.html',
+            pageParam: {
+                task_id: task_id
+            }
+        })
+    }
+
+    function shop() {						//店铺
+
+        var shop_id = $('#shop_id').val();
+        api.sendEvent({
+            name: 'shop_htmlasd',
+
+        });
+
+        api.openWin({
+            name: 'shop',
+            url: 'shop.html',
+            pageParam: {
+                shop_id: shop_id,
+            }
+        })
+    }
+
+    function all_evaluating() {    //全部评价
+        var pj_id = $('#task_id').val();
+
+        api.openWin({
+            name: 'all_evaluating',
+            url: 'all_evaluating.html',
+            pageParam: {
+                pj_id: pj_id,
+            }
+        })
+    }
+
+    function member_center() {				//会员中心
+        api.openWin({
+            name: 'member_center',
+            url: '../my/member_center.html'
+        })
+    }
+
+    //dakailianjie
+    function dakailianjie() {
+        var urlsxs = $('#contant_copy').val();
+        //alert(urlsxs);
+        if (api.systemType == 'android') {
+            //Android中的使用方法如下：
+            api.openApp({
+                //             androidPkg: 'android.intent.action.VIEW',
+                //	            mimeType: 'text/html',
+                uri: urlsxs,
+            }, function (ret, err) {
+                if (err) {
+                    var browser = api.require('webBrowser');
+                    browser.open({
+                        url: urlsxs
+                    });
+
+                }
+                console.log(JSON.stringify(ret));
+                console.log(JSON.stringify(err));
+            });
+        } else {
+            //iOS中的使用方法如下：
+            api.openApp({
+                iosUrl: urlsxs,
+            });
+        }
+    }
+
+    function fuzhis(id) {
+        //text为需要复制的文本
+//	alert(123);
+
+        var text = $('.namse_' + id).html();
+        var clipBoard = api.require('clipBoard');
+        clipBoard.set({
+            value: text
+        }, function (ret, err) {
+            if (ret) {
+                //		alert(text);
+                api.toast({
+                    msg: "复制成功",
+                    duration: 2000,
+                    location: 'bottom'
+                });
+
+            } else {
+                api.toast({
+                    msg: "复制成功",
+                    duration: 2000,
+                    location: 'bottom'
+                });
+
+            }
+        });
+    }
+
+    //复制
+    function fuzhi() {
+        //text为需要复制的文本
+        //	alert(123);
+        var text = $('#contant_copy').val();
+
+        var clipBoard = api.require('clipBoard');
+        clipBoard.set({
+            value: text
+        }, function (ret, err) {
+            if (ret) {
+                //		alert(text);
+                api.toast({
+                    msg: "复制成功",
+                    duration: 2000,
+                    location: 'bottom'
+                });
+
+            } else {
+                api.toast({
+                    msg: "复制成功",
+                    duration: 2000,
+                    location: 'bottom'
+                });
+
+            }
+        });
+    }
+
+    $(function () {
+        // $(".step3_pic").click(function () {
+        //     $(this).css({
+        //         "width": "100%",
+        //         "height": "auto",
+        //         "position": "fixed",
+        //         "top": "30%",
+        //         "left": "0",
+        //         "z-index": "100"
+        //     });
+        //     $(".cover").show();
+        //     $(".cover_alpha").show();
+        // });
+        // $(".cover_alpha").click(function () {
+        //     $(".step3_pic").css({"width": "", "height": "", "position": "", "top": "%", "left": "", "z-index": ""});
+        //     $(".cover").hide();
+        //     $(".cover_alpha").hide();
+        // });
+    })
+</script>
+
+
+</html>

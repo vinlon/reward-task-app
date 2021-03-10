@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+	<meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+	<title>评价管理</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/evaluating.css" />
+	<link rel="stylesheet" href="../../css/swiper.min.css">
+	<script src="../../script/jquery-1.8.3.min.js"></script>
+	<script src="../../script/api.js" charset="utf-8"></script>
+	<script src="../../script/swiper.min.js"></script>
+	<script src="../../script/common.js"></script>
+	<script src="../../script/url.js"></script>
+</head>
+<body>
+	<div class="b" id="header">
+		<div class="header">
+	        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+	        <div class="header_text"><h1>评价管理</h1></div>
+	        <div class="clearfix"></div>
+	    </div>
+	</div>
+	<!-- 评价 -->
+	<div id="allEvaluating">
+
+
+</div>
+
+
+
+
+
+</body>
+
+	<script>
+		apiready = function(){
+			height()
+				token = $api.getStorage('token');
+				get_pingjia();
+				api.setRefreshHeaderInfo({
+					loadingImg: 'widget://image/refresh.png',
+					bgColor: '#ccc',
+					textColor: '#fff',
+					textDown: '下拉刷新...',
+					textUp: '松开刷新...'
+				}, function(ret, err) {
+					//在这里从服务器加载数据，加载完成后调用
+					//停止api.refreshHeaderLoadDone()方法恢复组件到默认状态
+					window.location.reload();
+					api.refreshHeaderLoadDone();
+				});
+		}
+
+		function get_pingjia(){
+					api.ajax({
+							url: my_Commentlist_url,
+							method: 'post',
+							data: {
+									values: {
+
+											token:token,
+
+								}
+							}
+					}, function(ret, err) {
+
+						console.log(JSON.stringify(ret));
+
+
+												var	length = ret.data.length;
+												//	 alert(length)
+												var 	lblist_type = '';
+													for (var lb = 0; lb < length; lb++) {
+
+
+																		lblist_type += '<div class="evaluating">'
+																		lblist_type += '<div class="evaluating_content">'
+																		if(ret.data[lb].t_status_pic == 1){
+																					lblist_type += '	 <div class="pic"><img src="'+URL+ret.data[lb].pics+'"></div>'
+																		}else{
+																					lblist_type += '	 <div class="pic"><img src="'+ret.data[lb].pics+'"></div>'
+																		}
+
+																		lblist_type += '	 <h1>'+ret.data[lb].nickname+'</h1>'
+																		if(ret.data[lb].c_star == 1){
+																			lblist_type += '	 <div class="xing"><img src="../../image/manyi1.png"><span>满意</span></div>'
+
+																		}else if(ret.data[lb].c_star == 2){
+																			lblist_type += '	  <div class="xing"><img src="../../image/yiban2.png"><span>一般</span></div>'
+																		}else if(ret.data[lb].c_star == 3){
+																			lblist_type += '	  <div class="xing"><img src="../../image/bumanyi2.png"><span>不满意</span></div>'
+																		}
+
+																		lblist_type += '			 <div class="clearfix"></div>'
+																		lblist_type += ' </div>'
+																		lblist_type += ' <p>'+ret.data[lb].c_content+'</p>'
+																		lblist_type += ' <div class="evaluating_row">'
+																		lblist_type += '		 <h2>'+ret.data[lb].add_time_format+'</h2>'
+																		lblist_type += '<div class="clearfix"></div>'
+																	lblist_type += '</div>'
+																	lblist_type += ' </div>'
+													}
+
+												//	var abc=lblist_type+lblist_type;
+												//	console.log(JSON.stringify(lblist_type))
+
+
+													$api.html(allEvaluating,lblist_type);
+
+										});
+		}
+		function go_back() {
+		  api.closeWin({
+
+		  });
+		}
+	</script>
+
+</html>

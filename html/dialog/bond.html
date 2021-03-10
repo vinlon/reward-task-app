@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>保证金</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/set.css"/>
+<!--    <link rel="stylesheet" href="../../css/swiper.min.css">-->
+    <script type="text/javascript"></script>
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <script src="../../script/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="../../css/bond.css">
+    <script src="../../script/layer/layer.js"></script>
+    <script src="../../script/aui/script/aui-dialog.js"></script>
+    <link rel="stylesheet" href="../../script/aui/css/api.css">
+    <link rel="stylesheet" href="../../script/aui/css/aui.css">
+
+
+
+</head>
+<body>
+<div class="b" id="header">
+    <div class="header">
+        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+        <div class="header_text"><h1>保证金</h1></div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+
+<div id="bond">
+        <div  class="bond-div">
+            <div class="bond-div-head"> 保证金金额(元)</div>
+            <div class="bond-div-money"> 100.00</div>
+            <div class="bond-div-bu">
+                <div onclick="add_money()">充值保证金额</div>
+                <div onclick="del_money()">申请退还</div>
+            </div>
+        </div>
+
+    <div class="bond-text">
+            <div class="bond-text-head"> 保证金额说明:</div>
+        <div class="bond-text-center">
+
+        </div>
+    </div>
+</div>
+</body>
+<script src="../../script/api.js" charset="utf-8"></script>
+<!--<script src="../../script/swiper.min.js"></script>-->
+<script src="../../script/common.js"></script>
+<script src="../../script/url.js"></script>
+<script>
+    var dialog = new auiDialog({})
+    apiready = function () {
+        height()
+        bond_shows()
+    }
+    // 退款
+    function del_money() {
+        let token = $api.getStorage('token'); //获取token
+        api.ajax({
+            url: bond_money_del,
+            method: 'post',
+            dataType:"json",
+            data: {
+                values: {
+                    token:token,
+                }
+            }
+        }, function (ret, err) {
+            api.toast( {
+                msg: ret.msg,
+                duration: 2000,
+                location: 'middle'
+            } )
+        })
+    }
+    // 添加金额
+    function add_money(){
+        let token = $api.getStorage('token'); //获取token
+        dialog.prompt({
+            title:"请输入充值金额",
+            text:'金额',
+            buttons:['取消','确定']
+        },function(ret){
+
+            if(ret.buttonIndex == 2){
+                let money=ret.text
+                let value = parseFloat(money).toFixed(2)
+                if (isNaN(value)) {
+                    dialog.alert({
+                        title:"提示",
+                        msg:"请输入整数",
+                        buttons:['确定']
+                    });
+                    return false;
+                }
+                var ex = /^\d+$/;
+                if (!ex.test(money)) {
+                    dialog.alert({
+                        title:"提示",
+                        msg:"请输入整数",
+                        buttons:['确定']
+                    });
+                    return false;
+                }
+                // alert(money)
+                if (Number(money)<Number(bond_money)){
+                    dialog.alert({
+                        title:"提示",
+                        msg:"最低金额是"+bond_money+"元",
+                        buttons:['确定']
+                    });
+                    return false;
+                }
+                let mo=Number(money)%Number(bond_money)
+                if (mo!=0){
+                    dialog.alert({
+                        title:"提示",
+                        msg:"请输入"+bond_money+"的倍数",
+                        buttons:['确定']
+                    });
+                    return false;
+                }
+                api.ajax({
+                    url: add_bond_money,
+                    method: 'post',
+                    dataType:"json",
+                    data: {
+                        values: {
+                            token:token,
+                            money:Number(money),
+                        }
+                    }
+                }, function (ret, err) {
+                        if (ret.code==1){
+                            $(".bond-div-money").html(Number(money))
+                            api.toast( {
+                                msg: ret.msg,
+                                duration: 2000,
+                                location: 'middle'
+                            } )
+                            return false;
+                        }else {
+                            api.toast( {
+                                msg: ret.msg,
+                                duration: 2000,
+                                location: 'middle'
+                            } )
+                        }
+
+                })
+
+            }
+        })
+    }
+
+
+
+    let bond_money;
+    function bond_shows() {
+        let token = $api.getStorage('token'); //获取token
+        api.ajax({
+            url: bond_show,
+            method: 'post',
+            dataType:"json",
+            data: {
+                values: {
+                    token:token,
+                }
+            }
+        }, function (ret, err) {
+
+            if (ret.code!=1){
+                api.toast({
+                    msg: "请登录后在查看",
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                setTimeout(function () {
+                    api.openWin({
+                        name: 'login',
+                        url: '../my/login.html',
+                    });
+                },500)
+
+                return false;
+            }
+            let money=ret.data.money
+             bond_money=ret.data.bond_money
+            let bond_center=htmlDecodeByRegExp(ret.data.bond_center)
+
+            $(".bond-div-money").html(money)
+            $(".bond-text-center").html(bond_center)
+        })
+    }
+
+
+    function htmlDecodeByRegExp (str){
+        var s = "";
+        if(str.length == 0) return "";
+        s = str.replace(/&amp;/g,"&");
+        s = s.replace(/&lt;/g,"<");
+        s = s.replace(/&gt;/g,">");
+        s = s.replace(/&nbsp;/g," ");
+        // s = s.replace(/&#39;/g,"\'");
+        s = s.replace(/&quot;/g,"\"");
+        return s;
+    }
+    function go_back() {
+        api.closeWin({});
+    }
+</script>
+</html>

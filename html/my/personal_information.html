@@ -1,0 +1,265 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>个人信息</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/personal_information.css" />
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script src="../../script/swiper.min.js"></script>
+    <script src="../../script/common.js"></script>
+    <script src="../../script/url.js"></script>
+</head>
+
+<body>
+    <div class="b" id="header">
+        <div class="header">
+            <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+            <div class="header_text">
+                <h1>个人信息</h1>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="phone">
+        <div class="head ">
+            <h1>头像</h1>
+            <div class="enter"><img src="../../image/means_enter.png"></div>
+            <div class="personal"><img src="../../image/personal.png" id="img" onclick="upLoad()"><input type="hidden" id="uploadimg" value=""></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="name">
+            <h1>用户昵称</h1>
+            <input type="text" id="u_name" placeholder="昵称">
+            <div class="clearfix"></div>
+        </div>
+        <div class="sex">
+            <h1>性别</h1>
+            <div class="a">
+                <input id="female" type="radio" name="sex" value="2" onclick="clicktype(this)">
+                <label for="female"></label>
+                <span>女</span>
+            </div>
+            <div class="a">
+                <input id="male" type="radio" name="sex" value="1" checked onclick="clicktype(this)">
+                <label for="male"></label>
+                <span>男</span>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <input type="hidden" name="" value="1" id="zftype">
+        <div class="number">
+            <h1>手机号码</h1>
+            <div class="input" id="tel">13658589696</div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="button" onclick="sub()">
+        <button>保存</button>
+    </div>
+
+</body>
+
+<script>
+    apiready = function() {
+        height()
+            //var header = document.querySelector('#header'); //头帘高度
+            //$api.fixStatusBar(header);
+        getUserInfo()
+        api.setRefreshHeaderInfo({
+            loadingImg: 'widget://image/refresh.png',
+            bgColor: '#ccc',
+            textColor: '#fff',
+            textDown: '下拉刷新...',
+            textUp: '松开刷新...'
+        }, function(ret, err) {
+            //在这里从服务器加载数据，加载完成后调用
+            //停止api.refreshHeaderLoadDone()方法恢复组件到默认状态
+            window.location.reload();
+            api.refreshHeaderLoadDone();
+        });
+    }
+
+    function clicktype(obj) {
+        $api.byId('zftype').value = $(obj).val();
+    }
+
+    //修改用户信息personalInfo
+    function sub() {
+
+        token = $api.getStorage('token'); //获取token
+        pic = $api.byId('uploadimg').value;
+        name = $api.byId('u_name').value;
+        sex = $api.byId('zftype').value;
+
+        /*console.log(JSON.stringify(sex));
+        console.log(JSON.stringify(name));
+        console.log(JSON.stringify(pic));*/
+        api.ajax({
+            url: save_info,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    pic: pic,
+                    name: name,
+                    sex: sex
+                }
+            }
+        }, function(ret, err) {
+            //console.log(JSON.stringify(ret));
+            //console.log(JSON.stringify(err));
+            //return false
+            if (ret.code == 1) {
+                api.toast({
+                    msg: ret.message,
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                api.sendEvent({
+                    name: 'guanguan',
+                    extra: {}
+                });
+
+                setTimeout(function() {
+                    api.closeWin({});
+                }, 2000);
+            }
+        });
+    }
+
+    //获取用户信息getUser_Info
+    function getUserInfo() {
+        //$api.setStorage('token','a936436f65ff3e27edf61054d416da28');
+        token = $api.getStorage('token'); //获取token
+        // var ucode = $api.getStorage('code');
+        // alert(token)
+        api.ajax({
+            url: personalInfo,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                }
+            }
+        }, function(ret, err) {
+            console.log(JSON.stringify(ret));
+            //console.log(JSON.stringify(err));
+            // api.alert({ msg: JSON.stringify(ret) });
+            if (ret.code != 1) {
+                api.toast({
+                    msg: ret.message,
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                setTimeout(function() {
+                    api.openWin({
+                        name: 'login',
+                        url: 'login.html',
+                        pageParam: {
+                            name: 'test'
+                        }
+                    });
+                }, 1000);
+                return false;
+            } else {
+                var nc = ret.data.u_name ? ret.data.u_name : '昵称'
+                    //alert(nc);
+                    //ret.data.u_sex//性别
+                if (ret.data.u_sex == 1) {
+                    //男
+                    $('#male').attr("checked", "checked");
+                    $('#female').removeAttr('checked');
+                } else {
+                    //女
+
+                    $('#male').removeAttr('checked');
+                    $('#female').attr("checked", "checked");
+                }
+                $api.byId('u_name').value = nc;
+                $api.text(tel, ret.data.u_tel);
+                if (ret.data.u_headpic) {
+                    imgFile = URL + ret.data.u_headpic;
+                    //alert(imgFile);
+                    $("#img").attr('src', imgFile);
+                    $("#uploadimg").attr('value', ret.data.u_headpic);
+
+                } else {
+                    $api.byId('img').src = '../../image/personal.png';
+                }
+
+            }
+            // api.alert({ msg: JSON.stringify(err) });
+
+        });
+    }
+
+
+    //修改图片
+    function upLoad() {
+        api.getPicture({
+            sourceType: 'library',
+            encodingType: 'jpg',
+            mediaValue: 'pic',
+            destinationType: 'url',
+            allowEdit: true,
+            quality: 100,
+            targetWidth: 100,
+            targetHeight: 100,
+            saveToPhotoAlbum: false
+        }, function(ret, err) {
+            if (ret) {
+                // alert(JSON.stringify(ret));
+                if (ret.data) {
+                    //将返回的路径放到id="img",为的是显示图片
+                    imgFile = ret.data;
+                    $("#img").attr('src', imgFile);
+                    // alert(upload_Img)
+                    api.ajax({
+                        url: get_pic_1,
+                        method: 'post',
+                        data: {
+                            files: {
+                                image: imgFile,
+                            }
+                        }
+                    }, function(ret, err) {
+                        if (ret) {
+                            if (ret.code == 1) {
+                                $("#img").attr('src', URL + ret.data);
+                                $("#uploadimg").val(ret.data);
+
+                            }
+                            // 将返回的路径房费隐藏的 input id="yicang"中  提交时获
+                        } else {}
+                    });
+
+                } else {
+                    api.toast({ //弹框
+                        msg: '未上传图片', //提示语
+                        duration: 3000, //提示时长
+                        location: 'bottom' //提示位置
+                    });
+                }
+            } else {
+                // alert(3)
+                // alert(JSON.stringify(err));
+            }
+        });
+    }
+
+
+    function go_back() {
+        api.closeWin({
+
+        });
+    }
+</script>
+
+
+</html>

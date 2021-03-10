@@ -1,0 +1,199 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+	<meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+	<title>全部评价</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/evaluating.css" />
+	<link rel="stylesheet" href="../../css/swiper.min.css">
+	<script src="../../script/jquery-1.8.3.min.js"></script>
+	<script src="../../script/api.js" charset="utf-8"></script>
+	<script src="../../script/swiper.min.js"></script>
+	<script src="../../script/common.js"></script>
+	<script src="../../script/url.js"></script>
+</head>
+<body>
+	<div class="b" id="header">
+		<div class="header">
+	        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+	        <div class="header_text"><h1>全部评价</h1></div>
+	        <div class="clearfix"></div>
+	    </div>
+	</div>
+	<!--评价-->
+<div class="allEvaluating" id="allEvaluating">
+	 <div class="evaluating">
+		<div class="evaluating_content">
+			<div class="pic"><img src="../../image/evaluating1.png"></div>
+			<h1>夕阳西下ソ</h1>
+			<div class="xing"><img src="../../image/xing.png"></div>
+			<div class="xing"><img src="../../image/xing.png"></div>
+			<div class="xing"><img src="../../image/xing.png"></div>
+			<div class="xing"><img src="../../image/xing.png"></div>
+			<div class="xing"><img src="../../image/xing.png"></div>
+	        <div class="clearfix"></div>
+		</div>
+		<p>任务非常好，轻松简单，只需要扫码注册，实名认证，已认证截图，就可以得到现金。</p>
+		<div class="evaluating_row">
+				<h2>2019-11-07 14:26</h2>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+	<!--评价-->
+	<!-- <div class="evaluating">
+		<div class="evaluating_content">
+			<div class="pic"><img src="../../image/evaluating2.png"></div>
+			<h1>飘荡の小叶子</h1>
+			<div class="xing"><img src="../../image/xing.png"></div>
+			<div class="xing"><img src="../../image/xing.png"></div>
+			<div class="xing"><img src="../../image/xing.png"></div>
+			<div class="xing"><img src="../../image/xing.png"></div>
+			<div class="xing"><img src="../../image/xing.png"></div>
+	        <div class="clearfix"></div>
+		</div>
+		<p>只需要扫码注册，实名认证，已认证截图，就可以得到现金任务非常好，轻松简单。</p>
+		<div class="evaluating_row">
+			<div class="row_pic"><img src="../../image/evaluating5.png"></div>
+			<h1>微信扫码领红包</h1>
+			<h2>2019-10-30 15:28</h2>
+			<div class="clearfix"></div>
+		</div>
+	</div> -->
+	<!--评价-->
+	<!-- <div class="evaluating">
+		<div class="evaluating_content">
+			<div class="pic"><img src="../../image/evaluating3.png"></div>
+			<h1>夏日里小碎花*</h1>
+			<div class="xing"><img src="../../image/xing.png"></div>
+			<div class="xing"><img src="../../image/xing.png"></div>
+			<div class="xing"><img src="../../image/xing.png"></div>
+			<div class="xing"><img src="../../image/xing.png"></div>
+			<div class="xing"><img src="../../image/xing.png"></div>
+	        <div class="clearfix"></div>
+		</div>
+		<p>轻松简单，只需要扫码注册，实名认证，已认证截图，就可以得到现金，任务非常好。</p>
+		<div class="evaluating_row">
+			<div class="row_pic"><img src="../../image/evaluating5.png"></div>
+			<h1>新单一分钟赚钱</h1>
+			<h2>2019-10-07 09:26</h2>
+			<div class="clearfix"></div>
+		</div>
+	</div> -->
+	<!--评价-->
+	<!-- <div class="evaluating">
+		<div class="evaluating_content">
+			<div class="pic"><img src="../../image/evaluating4.png"></div>
+			<h1>吃可爱▽长大</h1>
+			<div class="xing"><img src="../../image/xing.png"></div>
+			<div class="xing"><img src="../../image/xing.png"></div>
+			<div class="xing"><img src="../../image/xing.png"></div>
+			<div class="xing"><img src="../../image/xing.png"></div>
+			<div class="xing"><img src="../../image/xing.png"></div>
+	        <div class="clearfix"></div>
+		</div>
+		<p>实名认证，已认证截图，就可以得到现金，任务非常好,轻松简单，赚钱又快又多。</p>
+		<div class="evaluating_row">
+			<div class="row_pic"><img src="../../image/evaluating5.png"></div>
+			<h1>新单一分钟赚钱</h1>
+			<h2>2019-10-07 09:26</h2>
+			<div class="clearfix"></div>
+		</div>
+	</div> -->
+</div>
+
+</body>
+
+	<script>
+		apiready = function(){
+			height()
+		param = api.pageParam;
+
+		pj_id = param.pj_id;//任务id
+
+		 get_pingjia();
+		 api.setRefreshHeaderInfo({
+	 		loadingImg: 'widget://image/refresh.png',
+	 		bgColor: '#ccc',
+	 		textColor: '#fff',
+	 		textDown: '下拉刷新...',
+	 		textUp: '松开刷新...'
+	 	}, function(ret, err) {
+	 		//在这里从服务器加载数据，加载完成后调用
+	 		//停止api.refreshHeaderLoadDone()方法恢复组件到默认状态
+	 		window.location.reload();
+	 		api.refreshHeaderLoadDone();
+	 	});
+		}
+
+
+
+		function get_pingjia(){
+					api.ajax({
+							url: Commentlist_url,
+							method: 'post',
+							data: {
+									values: {
+
+											gid:pj_id,
+
+								}
+							}
+					}, function(ret, err) {
+
+						console.log(JSON.stringify(ret));
+
+
+												var	length = ret.data.length;
+												//	 alert(length)
+												var 	lblist_type = '';
+													for (var lb = 0; lb < length; lb++) {
+
+
+																		lblist_type += '<div class="evaluating">'
+																	 	lblist_type += '<div class="evaluating_content">'
+																		if(ret.data[lb].t_status_pic == 1){
+																					lblist_type += '	 <div class="pic"><img src="'+URL+ret.data[lb].pics+'"></div>'
+																		}else{
+																				 	lblist_type += '	 <div class="pic"><img src="'+ret.data[lb].pics+'"></div>'
+																		}
+
+																		lblist_type += '	 <h1>'+ret.data[lb].nickname+'</h1>'
+																		if(ret.data[lb].c_star == 1){
+																			lblist_type += '	  <div class="xing"><img src="../../image/manyi1.png"><span>满意</span></div>'
+
+																		}else if(ret.data[lb].c_star == 2){
+																			lblist_type += '	 <div class="xing"><img src="../../image/yiban2.png"><span>一般</span></div>'
+																		}else if(ret.data[lb].c_star == 3){
+																			lblist_type += '	 <div class="xing"><img src="../../image/bumanyi2.png"><span>不满意</span></div>'
+																		}
+
+																		lblist_type += '			 <div class="clearfix"></div>'
+																		lblist_type += ' </div>'
+																		lblist_type += ' <p>'+ret.data[lb].c_content+'</p>'
+																		lblist_type += ' <div class="evaluating_row">'
+																		lblist_type += '		 <h2>'+ret.data[lb].add_time_format+'</h2>'
+																		lblist_type += '<div class="clearfix"></div>'
+																	lblist_type += '</div>'
+																	lblist_type += ' </div>'
+													}
+
+												//	var abc=lblist_type+lblist_type;
+												//	console.log(JSON.stringify(lblist_type))
+
+
+													$api.html(allEvaluating,lblist_type);
+
+										});
+		}
+
+		function go_back() {
+		  api.closeWin({
+
+		  });
+		}
+	</script>
+
+</html>

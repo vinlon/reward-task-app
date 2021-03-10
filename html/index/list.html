@@ -1,0 +1,359 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>列表</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/list.css" />
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script src="../../script/swiper.min.js"></script>
+    <script src="../../script/common.js"></script>
+    <script src="../../script/url.js"></script>
+</head>
+
+<body>
+    <div class="b" id="header">
+        <div class="header">
+            <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+            <div class="header_button" onclick="publish()">
+                <button>发悬赏</button>
+            </div>
+            <div class="header_text">
+                <h1 id="title_html">下载注册</h1>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <!--滚动消息-->
+    <div class="slide-hidden">
+        <div class="slide-container">
+            <div class="left">
+                <img src="../../image/tt.png">
+            </div>
+            <ul class="slide-list js-slide-list" id="messageList">
+                <!-- <li><span class="l">录一分钟宝宝的哭声</span><span class="im">赏5.48元</span><span class="clearfix"></span></li>
+            <li><span class="l">录一分钟宝宝的哭声</span><span class="im">赏5.48元</span><span class="clearfix"></span></li>
+            <li><span class="l">录一分钟宝宝的哭声</span><span class="im">赏5.48元</span><span class="clearfix"></span></li> -->
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <div class="award" id="task">
+        <div class="award_title">
+            <ul class="list">
+                <li onclick="tas_list_list(1);" id="s_t_1">默认排序</li>
+                <li onclick="tas_list_list(2);" id="s_t_2">时间排序</li>
+                <li onclick="tas_list_list(3);" id="s_t_3">佣金排序</li>
+                <div class="clearfix"></div>
+            </ul>
+        </div>
+        <div class="line"></div>
+        <!--任务-->
+
+        <div id="list_tppp">
+            <!-- <div class="award_row" onclick="list_detail()">
+               <div class="head_pic"><img src="../../image/index1.png"></div>
+               <div class="award_text">
+                   <h1>高价收微信马上结账</h1>
+                   <span class="con">认证绑卡 微信实名   </span>
+                   <div class="clearfix"></div>
+                   <p>26人已赚，剩余13个</p>
+               </div>
+               <h4>赏5.48元</h4>
+               <div class="clearfix"></div>
+           </div>
+
+
+           <div class="award_row" onclick="list_detail()">
+                <div class="head_pic"><img src="../../image/index1.png"></div>
+                <div class="award_text">
+                    <h1>高价收微信马上结账</h1>
+                    <span class="con">认证绑卡 微信实名   </span>
+                    <div class="clearfix"></div>
+                    <p>26人已赚，剩余13个</p>
+                </div>
+                <h4>赏5.48元</h4>
+                <div class="clearfix"></div>
+            </div>
+
+
+            <div class="award_row" onclick="list_detail()">
+                <div class="head_pic"><img src="../../image/index1.png"></div>
+                <div class="award_text">
+                    <h1>高价收微信马上结账</h1>
+                    <span class="con">认证绑卡 微信实名   </span>
+                    <div class="clearfix"></div>
+                    <p>26人已赚，剩余13个</p>
+                </div>
+                <h4>赏5.48元</h4>
+                <div class="clearfix"></div>
+            </div>
+   </div> -->
+
+        </div>
+        <div class="form" onclick="my_tasks()">
+            <div class="order_list">
+                <span id="form_num"></span>
+                <img src="../../image/tasks.png">
+            </div>
+
+        </div>
+
+</body>
+
+<script>
+    apiready = function() {
+        height()
+            // var header = document.querySelector('#header'); //头帘高度
+            // $api.fixStatusBar(header);
+        token = $api.getStorage('token');
+        param = api.pageParam;
+        type = param.type;
+        position = param.position;
+
+        messagelist() //头条
+        tas_list_list(0); //任务列表(下载注册)
+        getform()
+        api.setRefreshHeaderInfo({
+            loadingImg: 'widget://image/refresh.png',
+            bgColor: '#ccc',
+            textColor: '#fff',
+            textDown: '下拉刷新...',
+            textUp: '松开刷新...'
+        }, function(ret, err) {
+            //在这里从服务器加载数据，加载完成后调用
+            //停止api.refreshHeaderLoadDone()方法恢复组件到默认状态
+            window.location.reload();
+            api.refreshHeaderLoadDone();
+        });
+
+        api.addEventListener({
+            name: 'scrolltobottom',
+            extra: {
+                threshold: 0 //设置距离底部多少距离时触发，默认值为0，数字类型
+            }
+        }, function(ret, err) {
+            if (pageEnd) {
+                api.toast({
+                    msg: '没有更多数据了'
+                })
+            } else {
+                tas_list_list(orders);
+            }
+        });
+    }
+
+    function getform() {
+        api.ajax({
+            url: get_task_url,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                }
+            }
+        }, function(ret, err) {
+            if (ret.code == 100) {
+
+                $(".form").show();
+                $api.html(form_num, ret.count);
+
+            } else {
+                $(".form").hide();
+            }
+        });
+
+    }
+
+    let page = 1
+    let pageEnd = false
+    let orders = 0;
+
+
+    function tas_list_list(c_type) {
+        var order = 0;
+        if (c_type == 2) {
+            order = 1;
+        } else if (c_type == 3) {
+            order = 2;
+        }
+        /*api.showProgress({
+            title: '努力加载中...',
+            text: '请稍后...',
+            modal: false
+        });*/
+        showLoadMore(1);
+        if (c_type != orders) {
+            page = 1
+        }
+        // alert(order)
+        //console.log(JSON.stringify(status_by_task_url));
+
+        api.ajax({
+            url: status_by_task_url,
+            method: 'post',
+            data: {
+                values: {
+                    type: type,
+                    order: order,
+                    position: position,
+                    page: page,
+                }
+            }
+        }, function(ret, err) {
+            // console.log(JSON.stringify(ret));
+            // console.log(JSON.stringify(err));
+            var length = ret.data.length;
+            if (length > 0) {
+                //	 alert(length)
+                var lblist_type = '';
+                for (var lb = 0; lb < length; lb++) {
+
+                    lblist_type += '						<div class="award_row" onclick="list_detail(' + ret.data[lb].id + ')">'
+                    lblist_type += '							 <div class="head_pic"><img src="' + URL + ret.data[lb].image + '">'
+                    if (ret.data[lb].vip_level == 1) {
+                        lblist_type += '<span style="position: absolute; font-size: 0.8rem;text-align: center;background-image: linear-gradient(to right, #87CEEB , #BFEFFF); margin-left: 0.8rem;color: white;">月卡</span>'
+                    } else if (ret.data[lb].vip_level == 2) {
+                        lblist_type += '<span style="position: absolute; font-size: 0.8rem;text-align: center;background-image: linear-gradient(to right, #EE5C42 , #BFEFFF); margin-left: 0.8rem;color: white;">季卡</span>'
+                    } else if (ret.data[lb].vip_level == 3) {
+                        lblist_type += '<span style="position: absolute; font-size: 0.8rem;text-align: center;background-image: linear-gradient(to right, #EE0000 , #BFEFFF); margin-left: 0.8rem;color: white;">年卡</span>'
+                    }
+
+                    lblist_type += '</div>'
+                    lblist_type += '							 <div class="award_text">'
+
+                    if (Number(ret.data[lb].is_tuijian) == 1) {
+                        lblist_type += '		<p class="task_name"><span style="background-color:#00CD00;color: white;font-size: 0.7rem">顶 </span>  ' + ret.data[lb].title + '</p>'
+                    } else {
+                        lblist_type += '		<p class="task_name"> ' + ret.data[lb].title + '</p>'
+                    }
+
+                    // lblist_type += '								 <p class="task_name">' + ret.data[lb].title + '</p>'
+                    lblist_type += '								 <p class="con">' + ret.data[lb].fenlei + '   ' + ret.data[lb].name + '  </p>'
+                    lblist_type += '								 <div class="clearfix"></div>'
+                    lblist_type += '								 <p class="yiyou_num">' + ret.data[lb].yiyou_num + '人已赚，剩余' + ret.data[lb].num + '个</p>'
+                        // lblist_type += '		<p class="yiyou_num"> 进行中:' + ret.data[lb].yiyou_nums + ' 已审核:'+ ret.data[lb].yiyou_numd+'</p>'
+                    lblist_type += '							 </div>'
+                    lblist_type += '							 <p class="shang">赏' + ret.data[lb].money + '元</p>'
+                    lblist_type += '							 <div class="clearfix"></div>'
+                    lblist_type += '						 </div>'
+                }
+
+                //	var abc=lblist_type+lblist_type;
+                //			console.log(JSON.stringify(lblist_type))
+
+                $api.html(title_html, ret.title_html);
+
+                if (page == 1 || c_type != orders) {
+
+                    page = 1
+                    $api.html(list_tppp, lblist_type);
+                } else {
+                    $api.append(list_tppp, lblist_type)
+                }
+
+            } else {
+                if (page == 1) {
+                    $api.html(list_tppp, "");
+                }
+                pageEnd = true
+            }
+            orders = c_type
+            page++;
+            //api.hideProgress()
+            showLoadMore();
+        });
+    }
+
+    //头条
+    function messagelist() {
+        api.ajax({
+            url: toutiao_url,
+            method: 'post',
+            data: {
+                values: {
+                    type: 1,
+                }
+            }
+        }, function(ret, err) {
+            // console.log(JSON.stringify(ret));
+
+            //
+            // }
+            length = ret.data.length;
+            // alert(length)
+            mgsslist = '';
+            for (var l = 0; l < length; l++) {
+                mgsslist += '<li onclick="list_detail(' + ret.data[l].task_id + ')" class="clearfix">'
+                mgsslist += '<span class="l">' + ret.data[l].name + '</span>'
+                mgsslist += '<span class="im">赏' + ret.data[l].money + '元</span>'
+                mgsslist += '</li>'
+            }
+            $api.html(messageList, mgsslist);
+
+        });
+
+    }
+
+
+    $(function() {
+        $(".list li:eq(0) ").addClass('click');
+        $(".list li ").click(function() {
+            $(this).addClass('click').siblings().removeClass('click');
+        });
+    })
+
+    function list_detail(id) { //列表详情
+        api.openWin({
+            name: 'list_detail',
+            url: 'list_detail.html',
+            allowEdit: true,
+            pageParam: {
+                id: id
+            }
+        })
+    }
+
+    function publish() { //发布
+        api.openWin({
+            name: 'publish',
+            url: '../publish/publish.html'
+        })
+    }
+
+    function my_tasks() {
+        api.openWin({
+            name: 'my_tasks',
+            url: '../my/my_tasks.html',
+        });
+
+    }
+
+    function go_back() {
+        api.closeWin({});
+    }
+</script>
+<script>
+    var doscroll = function() { //滚动消息
+        var $parent = $('.js-slide-list');
+        var $first = $parent.find('li:first');
+        var height = $first.height();
+        $first.animate({
+            marginTop: -height + 'px'
+        }, 500, function() {
+            $first.css('marginTop', 0)
+                .appendTo($parent);
+        });
+    };
+    setInterval(function() {
+        doscroll()
+    }, 3000);
+</script>
+
+</html>

@@ -1,0 +1,35 @@
+*{font-size: 1rem;font-family:"苹方";}
+.clearfix{clear: both;}
+body{background-color: #f3f3f3;}
+a{display: block;text-decoration: none;}
+h1,h2,h3{font-weight: normal;}
+img{display: block;width: 100%;}
+.header{padding: 0 0.9375rem;border-bottom: 0.0625rem solid #eaeaea;background-color: #fff;padding-top: 1rem;box-sizing: border-box;width: 100%;}
+.search{width: 5.1%;float: left;}
+.search img{width: 100%;padding-top: 1rem;box-sizing: border-box;}
+.header_text{text-align: center;width: 89.8%;float: left;line-height: 3.125rem;}
+.header_text h1{font-size: 1.125rem;color: #2a2b35;font-family:"苹方";font-weight: bold;}
+
+.recommend{width: 100%;overflow: hidden;overflow-x: auto;margin-bottom: 0.625rem;height: 2.8rem;border-bottom: 0.0625rem solid #eaeaea;background-color: #fff;}
+.list{width:200%;height: 2.8rem;position: relative;list-style: none;top:0;left: 0;line-height: 2.8rem;border-bottom: 0.0625rem solid #eaeaea;color: #333333;}
+.list li{width: 4.8rem;height: 2.8rem;margin-right: 0.625rem;float: left;vertical-align:middle;position: relative;text-align: center;font-size: 0.875rem;}
+.click{color: #fb5134;border-bottom: 0.125rem solid #fb5134;}
+@-webkit-keyframes mymove {
+	from {
+	left:0rem;
+}
+to {
+	left:-22.5rem;
+}
+}
+
+.help_content{border-bottom:  0.0625rem solid #eaeaea;box-sizing: border-box;}
+.help_content:nth-child(3){border-top:  0.0625rem solid #eaeaea;box-sizing: border-box;}
+.content{padding: 0 0.9375rem;box-sizing: border-box;line-height: 2.8125rem;background-color: #fff;}
+.help_pic{width: 3.5%;float: left;margin-right: 0.75rem;margin-top: 1rem}
+.content>h1{font-size: 0.9375rem; color: #333333;line-height: 2.8125rem;width:87%;float: left;}
+.help_text{padding: 0 2.735rem;margin: 0 auto;border-top:  0.0625rem solid #eaeaea;border-bottom:  0.0625rem solid #eaeaea;box-sizing: border-box;}
+.help_text p{padding-top: 1rem;font-size: 0.9375rem;color: #666666;line-height: 1.625rem;padding-bottom: 1rem;}
+.spread{width:3.7%;float: right;position: relative;margin-top: 1.4rem;}
+.down{width: 100%;}
+.up{width: 100%;position: absolute;top: 0;right: 0;}

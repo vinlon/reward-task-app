@@ -1,0 +1,38 @@
+*{font-size: 1rem;font-family:"苹方";}
+.clearfix{clear: both;}
+body{background-color: #f3f3f3;height: 100%;width: 100%;}
+a{display: block;text-decoration: none;}
+h1,h2,h3{font-weight: normal;}
+img{display: block;width: 100%;}
+.header{width: 100%;margin: 0 auto;position: relative;padding: 0 4%;background-color: #fff;padding-top: 1rem;box-sizing: border-box;}
+.search{width: 5.1%;float: left;}
+.search img{width: 100%;padding-top: 1rem;box-sizing: border-box;}
+.header_text{text-align: center;width: 40%;line-height: 3.125rem;position: absolute;bottom: 0;left: 30%;}
+.header_text h1{font-size: 1.125rem;color: #2a2b35;font-family:"苹方";font-weight: bold;}
+.header_right{width: 20%;text-align: right;float: right;line-height: 3.125rem;}
+.header_right h2{font-size: 0.875rem;color: #333333;}
+
+.task{width: 100%;position: relative;height: 42rem;}
+.bg{width: 100%;}
+.task_content{width: 92%;margin: 0 auto;background-color: #fff;border-radius: 0.4rem;padding-top: 1.6875rem;position: absolute;top:10rem;left:4%;}
+.task_content h1{padding: 0 0.9375rem;box-sizing: border-box;font-size: 1.125rem; color: #333333;font-weight: bold;margin-bottom: 1.625rem;}
+.task_row{padding: 1.125rem 0.9375rem;box-sizing: border-box;border-bottom: 0.0625rem solid #eeeeee;}
+.icon{width: 11.2%;float: left;margin-top: 0.1rem;}
+.task_text{width: 40%;float: left;margin-left: 0.9375rem;}
+.task_text h2{font-size: 0.9375rem;color: #333333;margin-bottom: 0.4rem;}
+.task_text h3{font-size:0.8125rem;color: #a3a3a3;}
+.task_text span{font-size:0.8125rem;color: #fb5134;}
+.button{width: 20.7%;float: right;margin-top: 0.2rem}
+.button button{width: 100%;background-color: #fb5134;color: #fff;border-radius: 0.3rem;padding: 0.5rem 0;outline: none;}
+.button1{width: 20.7%;float: right;margin-top: 0.2rem}
+.button1 button{width: 100%;background-color: #aaa;color: #fff;border-radius: 0.3rem;padding: 0.5rem 0;outline: none;}
+
+
+.agreement{width: 70%;height: 26rem;;background-color: #fff;border-radius: 0.5rem;position: fixed;left:15%;top: 20%;z-index: 101;}
+.agreement h1{font-size: 1rem;color: #333;font-weight: bold;text-align: center;width: 100%;line-height: 3rem;}
+.agreement_content{height: 18.8rem;overflow: hidden;overflow-y: auto;width: 100%;padding: 0 0.9375rem;box-sizing: border-box;}
+.agreement_content h2{font-size: 0.9375rem;color: #333;font-weight: bold;margin-bottom: 0.6rem;}
+.agreement_content>p{font-size:0.875rem;color: #333;margin-bottom: 0.6rem;text-align: justify;}
+.agreement_button{padding: 0 0.9375rem;height: 4.2rem;line-height: 4.2rem;width: 100%;text-align: center;box-sizing: border-box;background-color: #fff;border-radius: 0 0 0.5rem 0.5rem;outline: none;}
+.agreement_button button{background-color: #fb5134;font-size: 1rem;color: #fff;line-height: 2.5rem;margin:auto;font-weight: bold;width: 100%;border-radius: 3rem;}
+.covering{background-color: rgba(0,0,0,0.5);z-index: 100;position: fixed;top: 0;left: 0;width: 100%;height: 100%;display: none;}

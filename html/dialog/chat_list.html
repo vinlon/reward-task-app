@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>保证金</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" href="../../script/aui/css/aui.css">
+    <link rel="stylesheet" type="text/css" href="../../css/set.css" />
+    <!--    <link rel="stylesheet" href="../../css/swiper.min.css">-->
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <script src="../../script/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="../../css/bond.css">
+    <!--    <script src="../../script/layer/layer.js"></script>-->
+    <script src="../../script/aui/script/aui-dialog.js"></script>
+
+
+
+</head>
+
+<body>
+    <div class="b" id="header">
+        <div class="header">
+            <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+            <div class="header_text">
+                <h1>我的好友</h1>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <div id="chat_lists">
+
+    </div>
+
+</body>
+<script src="../../script/api.js" charset="utf-8"></script>
+<!--<script src="../../script/swiper.min.js"></script>-->
+<script src="../../script/common.js"></script>
+<script src="../../script/url.js"></script>
+<script>
+    // var dialog = new auiDialog({})
+    apiready = function() {
+        height()
+        token = $api.getStorage('token');
+        chat_lists()
+        api.addEventListener({
+            name: 'fanhui_chat_list'
+        }, function(ret, err) {
+            // chat_lists()
+            window.location.reload();
+        });
+
+        api.addEventListener({
+            name: 'scrolltobottom',
+            extra: {
+                threshold: 0 //设置距离底部多少距离时触发，默认值为0，数字类型
+            }
+        }, function(ret, err) {
+            if (pageEnd) {
+                api.toast({
+                    msg: '没有更多数据了'
+                })
+            } else {
+                chat_lists();
+            }
+        });
+    }
+
+    let page = 1
+    let pageEnd = false
+    let orders = 0;
+
+    function chat_lists() {
+        console.log(token)
+            /*api.showProgress({
+                title: '努力加载中...',
+                text: '请稍后...',
+                modal: false
+            });*/
+        showLoadMore(1);
+        api.ajax({
+            url: chat_list,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    // token: 222,
+                    limit: 8,
+                    page: page,
+                }
+            }
+        }, function(ret, err) {
+
+            var length = ret.data.length;
+            if (length > 0) {
+                let data = ret.data;
+                let html = '';
+                //console.log(JSON.stringify(ret.data))
+                data.map(function(item) {
+                    html += "<div class='aui-content aui-margin-b-15' onclick='chat_shows(" + item.id + ",\"" + item.name + "\")'>"
+
+                    html += '        <ul class="aui-list aui-media-list">' +
+                        '            <li class="aui-list-item aui-list-item-middle">' +
+                        '                <div class="aui-media-list-item-inner">' +
+                        '                    <div class="aui-list-item-media" style="width: 3rem;">' +
+                        '                        <img src="' + URL + item.image + '" class="aui-img-round aui-list-img-sm">' +
+                        '                    </div>' +
+                        '                    <div class="aui-list-item-inner aui-list-item-arrow">' +
+                        '                        <div class="aui-list-item-text">' +
+                        '                            <div class="aui-list-item-title aui-font-size-14">'
+
+                    if (Number(item.is_read) === 0) {
+                        html += '<span style="display:block;width: 10px;height: 10px ;border-radius: 10px;  background-color: #07b90b;"></span> ' + item.name + '</div>'
+                    } else {
+                        html += '<span ></span> ' + item.name + '</div>'
+                    }
+
+
+
+                    html += '                            <div class="aui-list-item-right">' + item.add_time + '</div>' +
+                        '                        </div>'
+                    if (item.type == 0) {
+                        html += '                        <div class="aui-list-item-text">' + item.content + '</div>'
+                    } else if (item.type == 1) {
+                        html += '                        <div class="aui-list-item-text">[图片]</div>'
+                    } else {
+                        html += '                        <div class="aui-list-item-text"></div>'
+                    }
+
+
+                    html += '                    </div>' +
+                        '                </div>' +
+                        '            </li>' +
+                        '        </ul>' +
+                        '    </div>';
+                })
+                $("#chat_lists").append(html)
+            } else {
+                if (page == 1) {
+                    $("#chat_lists").append("")
+                }
+                pageEnd = true
+            }
+            page++;
+            //api.hideProgress()
+            showLoadMore();
+        })
+    }
+
+    // 跳转聊天页面
+    function chat_shows(id, name) {
+        api.openWin({
+            name: 'chat_show',
+            url: './chat_show.html',
+            allowEdit: true,
+            pageParam: {
+                id: id,
+                name: name,
+            }
+        });
+        // console.log(JSON.stringify(item))
+    }
+
+    function go_back() {
+        api.closeWin({});
+    }
+</script>
+
+</html>

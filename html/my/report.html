@@ -1,0 +1,210 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>举报维权</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/report.css"/>
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+    <script type="text/javascript"></script>
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script src="../../script/swiper.min.js"></script>
+    <script src="../../script/common.js"></script>
+    <script src="../../script/url.js"></script>
+    <script src="../../script/jquery-3.4.1.min.js"></script>
+
+
+</head>
+<body>
+<div class="b" id="header">
+    <div class="header">
+        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+        <div class="question" onclick="help()"><img src="../../image/bz.png"></div>
+        <div class="header_text"><h1>举报维权</h1></div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<div class="report">
+    <div class="report_title">
+        <ul class="list">
+            <li onclick="my_ts();">举报我的任务</li>
+            <li onclick="jbmy();">我举报的任务</li>
+            <div class="clearfix"></div>
+        </ul>
+    </div>
+    <div id="jb">
+
+
+    </div>
+
+</div>
+
+
+</body>
+
+<script>
+    apiready = function () {
+        height()
+        token = $api.getStorage('token');
+        // token ="f3beb8daa6c279544555fab4b0c2d12d";
+
+        my_ts();
+
+        api.setRefreshHeaderInfo({
+            loadingImg: 'widget://image/refresh.png',
+            bgColor: '#ccc',
+            textColor: '#fff',
+            textDown: '下拉刷新...',
+            textUp: '松开刷新...'
+        }, function (ret, err) {
+            //在这里从服务器加载数据，加载完成后调用
+            //停止api.refreshHeaderLoadDone()方法恢复组件到默认状态
+            window.location.reload();
+            api.refreshHeaderLoadDone();
+        });
+    }
+		function gotos(id,task_id) {
+            api.openWin({
+                name: 'jubao',
+                url: '../dialog/jubao.html',
+                allowEdit: true,
+                pageParam: {
+                    ts_id: id,
+                    task_id: task_id,
+                }
+            });
+        }
+    function jbmy() {
+        api.ajax({
+            url: ts_my_url,
+            method: 'post',
+            data: {
+                values: {
+                    token: token
+                }
+            }
+        }, function (ret, err) {
+            // console.log(JSON.stringify(ret));
+            // console.log(JSON.stringify(err));
+            var length = ret.data.length;
+            //	 alert(length)
+            var lblist_type = '	';
+            for (var lb = 0; lb < length; lb++) {
+
+                if (ret.data[lb].now==1) {
+                    lblist_type += '<div class="report_content" onclick="gotos(' + ret.data[lb].id + ',' + ret.data[lb].task_id + ')">'
+                } else {
+                    lblist_type += '<div class="report_content" >'
+                }
+
+
+                lblist_type += '<div class="report_pic"><img src="' + URL + ret.data[lb].image + '"></div>'
+                lblist_type += '<div class="report_text">'
+                lblist_type += '	<div class="text_row">'
+                lblist_type += '		<h1>' + ret.data[lb].task_name + '</h1>'
+                lblist_type += '		<h2>' + ret.data[lb].status_format + '</h2>'//状态
+                lblist_type += '		<div class="clearfix"></div>'
+                lblist_type += '	</div>'
+                lblist_type += '	<h1>' + ret.data[lb].content + '</h1>'//原因
+                lblist_type += '	<div class="text_col">'
+                lblist_type += '		<h1><span>￥</span>' + ret.data[lb].money + '</h1>'
+                lblist_type += '		<h2>' + ret.data[lb].add_time_format + '</h2>'
+                if (ret.data[lb].is_show==1){
+                    lblist_type += '		<h2  style="color: red"> ' + ret.data[lb].end_time + ' 之前完成提交证据</h2>'
+                }
+
+                lblist_type += '		<div class="clearfix"></div>'
+                lblist_type += '	</div>'
+                lblist_type += '</div>'
+                lblist_type += '	<div class="clearfix"></div>'
+                lblist_type += '	</div>'
+            }
+
+
+            $api.html(jb, lblist_type);
+        });
+
+    }
+
+    function my_ts() {
+        api.ajax({
+            url: my_ts_url,
+            method: 'post',
+            data: {
+                values: {
+                    token: token
+                }
+            }
+        }, function (ret, err) {
+            // console.log(JSON.stringify(ret));
+            // console.log(JSON.stringify(err));
+            var length = ret.data.length;
+            //	 alert(length)
+            var lblist_type = '	';
+            for (var lb = 0; lb < length; lb++) {
+
+                if (ret.data[lb].now==1) {
+                    lblist_type += '<div class="report_content" onclick="gotos(' + ret.data[lb].id + ',' + ret.data[lb].task_id + ')">'
+                } else {
+                    lblist_type += '<div class="report_content" >'
+                }
+                // lblist_type += '<div class="report_content">'
+                lblist_type += '<div class="report_pic"><img src="' + URL + ret.data[lb].image + '"></div>'
+                lblist_type += '<div class="report_text">'
+                lblist_type += '	<div class="text_row">'
+                lblist_type += '		<h1>' + ret.data[lb].task_name + '</h1>'
+                lblist_type += '		<h2>' + ret.data[lb].status_format + '</h2>'//状态
+                lblist_type += '		<div class="clearfix"></div>'
+                lblist_type += '	</div>'
+                lblist_type += '	<h1>' + ret.data[lb].content + '</h1>'//原因
+                lblist_type += '	<div class="text_col">'
+                lblist_type += '		<h1><span>￥</span>' + ret.data[lb].money + '</h1>'
+                lblist_type += '		<h2>' + ret.data[lb].add_time_format + '</h2>'
+                if (ret.data[lb].is_show==1){
+                    lblist_type += '		<h2 style="color: red"> ' + ret.data[lb].end_time + ' 之前完成提交证据</h2>'
+                }
+                lblist_type += '		<div class="clearfix"></div>'
+                lblist_type += '	</div>'
+                lblist_type += '</div>'
+                lblist_type += '	<div class="clearfix"></div>'
+                lblist_type += '	</div>'
+            }
+
+
+            $api.html(jb, lblist_type);
+
+        });
+    }
+
+    function go_back() {
+        api.closeWin({});
+    }
+
+    function help() {
+        api.openWin({
+            name: 'order_rul',
+            url: '../index/order_rul.html'
+        })
+        // api.openWin({
+        //     name: 'help',
+        //     url: 'help.html'
+        // })
+    }
+
+
+    $(function () {
+        $(".list li:eq(0) ").addClass('click');
+        $(".list li ").click(function () {
+            $(this).addClass('click').siblings().removeClass('click');
+        });
+    })
+
+</script>
+
+
+</html>

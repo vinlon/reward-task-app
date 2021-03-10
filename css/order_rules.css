@@ -1,0 +1,17 @@
+*{font-size: 1rem;font-family:"苹方";font-family:"苹方";}
+.clearfix{clear: both;}
+body,html{background-color: #f3f3f3;}
+a{display: block;text-decoration: none;}
+h1,h2,h3,h4{font-weight: normal;}
+img{display: block;width: 100%;}
+button{outline: none;}
+.b{width: 100%;background-color: #fff;margin-bottom: 0.625rem;border-bottom: 0.0625rem solid #eaeaea;box-sizing: border-box;}
+.search{width: 5.1%;float: left;}
+.search img{width: 100%;padding-top: 1rem;box-sizing: border-box;}
+.header{padding: 0 0.9375rem;margin: 0 auto;box-sizing: border-box;background-color: #fff;}
+.header_text{text-align: center;width: 89.8%;float: left;line-height: 3.125rem;}
+.header_text h1{font-size: 1.125rem;color: #2a2b35;font-family:"苹方";font-weight: bold;}
+
+.order{padding: 0.9375rem;width: 100%;box-sizing: border-box;background-color: #fff;padding-top: 1.2rem;border-top: 0.0625rem solid #eaeaea;}
+.order p{margin-bottom: 1rem;font-size: 0.875rem;color: #333333;text-align: justify;}
+.order h1{font-size:0.875rem;margin-bottom: 1rem;color: 333333;font-weight: bold;}

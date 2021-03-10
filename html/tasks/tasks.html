@@ -1,0 +1,531 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>悬赏大厅</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/tasks.css" />
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script src="../../script/swiper.min.js"></script>
+    <script src="../../script/common.js"></script>
+    <script src="../../script/url.js"></script>
+    <script src="../../script/aui/script/aui-dialog.js"></script>
+    <link rel="stylesheet" href="../../script/aui/css/api.css">
+    <!--        <link rel="stylesheet" href="../../script/aui/css/aui.css">-->
+</head>
+<style>
+    .fenlang {
+        display: flex;
+        /*flex-direction:column;*/
+        justify-content: center;
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        /*border: 1px solid yellow;*/
+    }
+    
+    .fenlang .aui-grid-label {
+        width: 40%;
+        height: 2rem;
+        text-align: center;
+        font-size: 15px;
+        line-height: 2rem;
+        /*border: 1px solid black;*/
+    }
+    
+    #order_0 {
+        width: 20%!important;
+    }
+    
+    .yingchang {
+        display: none;
+    }
+    
+    .xuanzhon {
+        color: red;
+    }
+</style>
+
+<body>
+
+    <div class="b">
+        <div class="header" id="header">
+            <div class="header_button" onclick="publish()">
+                <button>发悬赏</button>
+            </div>
+            <div class="header_text">
+                <h1>悬赏大厅</h1>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <!--滚动消息-->
+    <div class="slide-hidden">
+        <div class="slide-container">
+            <div class="left">
+                <img src="../../image/tt.png">
+            </div>
+            <ul class="slide-list js-slide-list" id="messageList">
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="award">
+
+        <div class="award_title">
+            <ul class="list">
+                <li id="order_0" class="click fenleisb" onclick="xuanzhi()" style="background-color: white">选择分类
+                    <!--<span class="fenleisb">选择分类</span>-->
+                </li>
+                <li id="order_1" class="fenzhi" onclick="get_task(1);">最新</li>
+                <li id="order_2" class="fenzhi" onclick="get_task(2);">人气</li>
+                <li id="order_5" class="fenzhi" onclick="get_task(5);">关注</li>
+                <li id="order_3" class="fenzhi" onclick="get_task(3);">高价</li>
+                <li id="order_4" class="fenzhi" onclick="get_task(4);">简单</li>
+                <div class="clearfix"></div>
+            </ul>
+
+            <ul class="aui-row fenlang yingchang">
+                <!--        <div class="aui-row fenlang">-->
+                <li class="aui-grid-label ranking-top-div xuanzhon" onclick="get_tasks(0);">综合任务</li>
+
+            </ul>
+
+            <div class="home-tuijian" id="hometuijian">
+
+
+            </div>
+        </div>
+
+
+
+
+        <div class="line"></div>
+        <!-- 任务 -->
+        <div id="task_index">
+        </div>
+    </div>
+
+
+
+
+
+    <div class="form" onclick="list_detail()"><img src="../../image/tasks.png"></div>
+    <div class="form" onclick="my_tasks()">
+        <div class="order_list">
+            <span id="form_num"></span>
+            <img src="../../image/tasks.png">
+        </div>
+
+    </div>
+
+
+
+</body>
+<input type="hidden" value="0" id="pt_title"></input>
+<script>
+    apiready = function() {
+        height()
+        api.setRefreshHeaderInfo({
+            loadingImg: 'widget://image/refresh.png',
+            bgColor: '#ccc',
+            textColor: '#fff',
+            textDown: '下拉刷新...',
+            textUp: '松开刷新...'
+        }, function(ret, err) {
+            //在这里从服务器加载数据，加载完成后调用
+            //停止api.refreshHeaderLoadDone()方法恢复组件到默认状态
+            window.location.reload();
+            api.refreshHeaderLoadDone();
+        });
+        //		$api.setStorage('token','a936436f65ff3e27edf61054d416da28'); //存token
+        token = $api.getStorage('token');
+        param = api.pageParam;
+        title = param.title;
+        if (title != "") {
+            //		var name_title=title;
+            $('#pt_title').val(title);
+        } else {
+            //	var name_title=0;
+            $('#pt_title').val(0);
+        }
+        // console.log(JSON.stringify(param));
+
+        ReTask()
+        messagelist(); //头条
+        // get_task(0);
+        get_tasks(0);
+        getform();
+        retan()
+
+        api.addEventListener({
+            name: 'scrolltobottom',
+            extra: {
+                threshold: 0 //设置距离底部多少距离时触发，默认值为0，数字类型
+            }
+        }, function(ret, err) {
+            if (pageEnd) {
+                api.toast({
+                    msg: '没有更多数据了'
+                })
+            } else {
+                get_task(orders);
+            }
+        });
+    }
+
+
+    // 推荐任务
+    function ReTask() {
+        api.ajax({
+            // url: index_task_list_url,
+            url: task_html,
+            method: 'post',
+            data: {
+                values: {
+                    token: token
+                }
+            }
+        }, function(ret, err) {
+
+            htmlLists(ret.data);
+
+        });
+    }
+
+    function htmlLists(data) {
+        //console.log(JSON.stringify(data))
+        let html = "";
+        data.map((item, index) => {
+            html += '<div class="kong_con" onclick="list_detail(' + item.id + ')">' +
+                '       <div class="kong_title">' +
+                '           <img src="' + URL + item.image + '">' +
+                '           <h3>' + item.title + '</h3>' +
+                '       </div>' +
+                '       <div class="kong_text"><p>';
+            if (Number(item.is_tuijian) == 1) {
+                html += '<span style="background-color: #00CD00;">顶</span>';
+            } else {
+                html += '';
+            }
+            if (Number(item.is_zhiding) == 1) {
+                html += '<span style="background-color: #EE0000;">推</span>';
+            } else {
+                html += '';
+            }
+
+            html += '</p><p><span>' + item.name + '</span>|<!--<span>' + item.type_name + '</span>--><span style="color:red">+' + item.money + '元</span><br>' +
+                '           <span>' + item.yiyou_num + '人已赚，剩余数：' + item.num + '</span><br>' +
+                '           <!--<span class="qian">+' + item.money + '元</span>-->' +
+                '       </p></div>' +
+                '   </div>';
+        })
+        $api.html(hometuijian, html);
+    }
+
+
+    function taskon(id, name) {
+
+
+        $(".fenlang").addClass("yingchang")
+            //$(".fenleisb").val(name)
+            // alert(name)
+        page = 1
+        pageEnd = false
+        $api.html(task_index, "");
+        get_task("", id)
+
+    }
+
+
+    // 选择
+    function xuanzhi() {
+        $(".fenlang").removeClass("yingchang");
+
+    }
+
+    function get_tasks() {
+        page = 1
+        pageEnd = false
+        $(".fenlang").addClass("yingchang")
+        $api.html(task_index, "");
+        //$("#hometuijian").show()
+
+        get_task(0, 0);
+    }
+    // 任务类别
+    function retan() {
+        api.ajax({
+            url: product_type_list,
+            method: 'post',
+            data: {
+                values: {
+                    type: 1,
+                }
+            }
+        }, function(ret, err) {
+            let data = ret.data;
+            let da = [];
+            console.log(JSON.stringify(data));
+            let html = ""
+            data.map((item, index) => {
+                let shuj = {
+                    id: item.pt_id,
+                    name: item.pt_name,
+                }
+                da[index] = shuj
+                html += "  <li class='aui-grid-label ranking-top-div' data-id='" + item.pt_id + "' onclick='taskon(" + item.pt_id + ",\"" + item.pt_name + "\")'>" + item.pt_name + "</li>"
+            })
+            $(".fenlang").append(html)
+            $(".fenlang li ").click(function() {
+                $(this).addClass('xuanzhon').siblings().removeClass('xuanzhon');
+            });
+            //console.log(JSON.stringify(da));
+
+        });
+    }
+
+    let page = 1
+    let pageEnd = false
+    let orders = 0;
+
+    function get_task(order, orderid = 0) {
+        if (order != 0 || orderid != 0) {
+
+            //$("#hometuijian").hide();
+        }
+
+        $(".fenlang").addClass("yingchang")
+            /*api.showProgress({
+                title: '努力加载中...',
+                text: '请稍后...',
+                modal: true
+            });*/
+        showLoadMore(1);
+        // console.log(orders)
+        if (order != orders) {
+
+            page = 1
+            pageEnd = false
+        }
+        var name_title = $('#pt_title').val();
+        //alert(name_title);
+        api.ajax({
+            url: task_list_url,
+            // url: task_lists_new,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    order: order,
+                    position: orderid,
+                    name_title: name_title,
+                    page: page,
+                }
+            }
+
+        }, function(ret, err) {
+            var length = ret.data.length;
+            //console.log(JSON.stringify(ret))
+            if (length > 0) {
+                var lblist_type = '';
+                for (var lb = 0; lb < length; lb++) {
+
+                    lblist_type += '	<div class="award_row" onclick="list_detail(' + ret.data[lb].id + ')">'
+
+                    lblist_type += '	<div class="head_pic" style=""><img src="' + URL + ret.data[lb].image + '">'
+                    if (ret.data[lb].vip_level == 1) {
+                        lblist_type += '<span style="background-image: linear-gradient(to right, #87CEEB , #BFEFFF);">月卡</span>'
+                    } else if (ret.data[lb].vip_level == 2) {
+                        lblist_type += '<span style="background-image: linear-gradient(to right, #EE5C42 , #BFEFFF);">季卡</span>'
+                    } else if (ret.data[lb].vip_level == 3) {
+                        lblist_type += '<span style="background-image: linear-gradient(to right, #EE0000 , #BFEFFF);">年卡</span>'
+                    }
+
+                    lblist_type += '</div>'
+                    lblist_type += '	<div class="award_text"><p class="task_name">' + ret.data[lb].title + ''
+                    if (Number(ret.data[lb].is_tuijian) == 1) {
+                        lblist_type += '<span style="background-color: #00CD00;">顶</span>'
+
+                    }
+                    if (Number(ret.data[lb].is_zhiding) == 1) {
+                        lblist_type += '<span style="background-color: #EE0000;">推</span>'
+
+                    }
+                    lblist_type += '	</p><p class="shang">+' + ret.data[lb].money + '元</p><div class="clearfix"></div>'
+                    lblist_type += '		<span class="con">' + ret.data[lb].fenlei + '</span>'
+                    lblist_type += '		<span class="con">' + ret.data[lb].name + '</span>'
+                    lblist_type += '		<span>' + ret.data[lb].yiyou_num + '人已赚</span>|<span>剩余' + ret.data[lb].num + '个</span>'
+                        // lblist_type += '		<p class="yiyou_num"> 进行中:' + ret.data[lb].yiyou_nums + ' 已审核:'+ ret.data[lb].yiyou_numd+'</p>'
+                    lblist_type += '		</div>'
+                    lblist_type += '	<div class="clearfix"></div>'
+                    lblist_type += '</div>'
+                }
+
+                //	var abc=lblist_type+lblist_type;
+                //	console.log(JSON.stringify(lblist_type))
+                //$(".list li:eq(0) ").addClass('click');
+                $(".list li ").click(function() {
+                    $(this).addClass('click').siblings().removeClass('click');
+                });
+                if (page == 1 || order != orders) {
+                    page = 1
+                    $api.html(task_index, lblist_type);
+                } else {
+                    $api.append(task_index, lblist_type)
+                }
+
+            } else {
+                if (page == 1) {
+                    $api.html(task_index, "");
+                }
+                pageEnd = true
+            }
+
+            //console.log(page)
+            orders = order
+            page++;
+            //api.hideProgress()
+            showLoadMore();
+        });
+    }
+
+    function getform() {
+        api.ajax({
+            url: get_task_url,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                }
+            }
+        }, function(ret, err) {
+            if (ret.code == 100) {
+
+                $(".form").show();
+                $api.html(form_num, ret.count);
+
+            } else {
+                $(".form").hide();
+            }
+        });
+
+    }
+
+
+    //头条
+    function messagelist() {
+        api.ajax({
+            url: toutiao_url,
+            method: 'post',
+            data: {
+                values: {
+                    type: 1,
+                }
+            }
+        }, function(ret, err) {
+            // console.log(JSON.stringify(ret));
+
+            //
+            // }
+            length = ret.data.length;
+            // alert(length)
+            mgsslist = '';
+            for (var l = 0; l < length; l++) {
+                mgsslist += '<li onclick="list_detail(' + ret.data[l].task_id + ')" class="clearfix">'
+                mgsslist += '<span class="l">' + ret.data[l].name + '</span>'
+                mgsslist += '<span class="im">+' + ret.data[l].money + '元</span>'
+                mgsslist += '</li>'
+            }
+            $api.html(messageList, mgsslist);
+
+        });
+
+    }
+
+
+    $(function() {
+        var banOffTop = $(".award_title").offset().top; //获取到距离顶部的垂直距离
+        var scTop = 0; //初始化垂直滚动的距离
+        $(document).scroll(function() {
+            scTop = $(this).scrollTop(); //获取到滚动条拉动的距离
+            //console.log(scTop);查看滚动时，垂直方向上，滚动条滚动的距离
+            if (scTop >= banOffTop) {
+                //核心部分：当滚动条拉动的距离大于等于导航栏距离顶部的距离时，添加指定的样式
+                $(".award_title").addClass("fixDiv");
+                $("#hometuijian").hide();
+            } else {
+                $(".award_title").removeClass("fixDiv");
+                $("#hometuijian").show();
+            }
+
+        })
+
+    })
+
+    function go_back() {
+        api.closeWin({});
+    }
+
+    function list_detail(id) {
+        api.openWin({
+            name: 'list_detail',
+            url: '../index/list_detail.html',
+            allowEdit: true,
+            pageParam: {
+                id: id
+            }
+        });
+        return false;
+
+    }
+
+    function list() {
+        api.openWin({
+            name: 'list',
+            url: '../index/list.html'
+        })
+    }
+
+    function publish() {
+        api.openWin({
+            name: 'publish',
+            url: '../publish/publish.html'
+        })
+    }
+
+    function my_tasks() {
+        api.openWin({
+            name: 'my_tasks',
+            url: '../my/my_tasks.html'
+        })
+    }
+</script>
+<script>
+    var doscroll = function() {
+        var $parent = $('.js-slide-list');
+        var $first = $parent.find('li:first');
+        var height = $first.height();
+        $first.animate({
+            marginTop: -height + 'px'
+        }, 500, function() {
+            $first.css('marginTop', 0)
+                .appendTo($parent);
+        });
+    };
+    setInterval(function() {
+        doscroll()
+    }, 3000);
+</script>
+
+</html>

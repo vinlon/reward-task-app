@@ -1,0 +1,252 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>全部评价</title>
+
+
+<script src="../../script/jquery-1.8.3.min.js"></script>
+<script src="../../script/api.js" charset="utf-8"></script>
+<script src="../../script/swiper.min.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/url.js"></script>
+<script src="../../script/reqrcode.js"></script>
+<script src="../../script/jquery-3.4.1.min.js"></script>
+</head>
+<style>
+    .dian-hor-centers {
+        width: 100% !important;
+        /*width: 100px;*/
+        /*height: 30rem;*/
+        margin: 0 auto;
+    }
+
+    .dian-confirm {
+        width: 100% !important;
+        position: absolute;;
+        bottom: 0;
+        /*margin-left: 5%;*/
+    }
+
+    .dian-heands {
+        width: 95% !important;
+        height: 6rem !important;
+        line-height: 6rem !important;
+        border-radius: 0.5rem ;
+        background-color: #fff;
+        /*background-color: red;*/
+        opacity: 0.9;
+    }
+
+    .dian-button {
+        width: 100%;
+        height: 3rem !important;
+        display: block;
+        font-size: 1rem !important;
+        line-height: 3rem !important;
+        text-align: center;
+        color: #0099ff;
+    }
+
+    .dian_xiahuax {
+        border: 0.5px solid #bbb;
+        width: 100%;
+    }
+
+    .dian-but {
+        width: 95%;
+        height: 3rem !important;
+        line-height: 8.5rem !important;
+        border-radius: 0.5rem ;
+        background-color: #fff;
+        opacity: 0.9;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .dian-but-qux {
+        width: 100%;
+        height: 3rem !important;
+        display: block;
+        font-size: 1rem !important;
+        line-height: 3rem !important;
+        text-align: center;
+        color: #0099ff;
+    }
+</style>
+<body>
+
+
+<div class="dian-hor-centers">
+    <div class="dian-confirm">
+        <div class="dian-heands">
+            <div class="dian-button" onclick="baocheng()">保存图片到相册</div>
+            <div class="dian_xiahuax"></div>
+            <div class="dian-button" onclick="erweima()">识别二维码</div>
+
+        </div>
+        <div class="dian-but">
+            <div class="dian-but-qux" onclick="qunxiao()">取消</div>
+        </div>
+
+<!--        <div id="qrcode"></div>-->
+    </div>
+</div>
+
+ </body>
+
+<script>
+    let img
+    apiready = function () {
+        // height()
+        // get_help_fl();
+        // get_list(0);
+        let param = api.pageParam;
+        img = param.img;//任务id
+
+        $(document.body).on('touchend',function(e){
+            var dialog = $(".dian-confirm")[0];
+            if(!$.contains(dialog, e.target)){
+                // $('dian-hor-center').removeClass('in');
+                setTimeout(function(){
+                    api.closeFrame({name:"dian"})
+                },200);
+            }
+        });
+
+    }
+
+
+    // 保存图片
+    function baocheng() {
+        download(img)
+
+    }
+
+    // 识别二维码
+    function erweima() {
+        // alert(img)
+        erwmshib(img)
+    }
+
+    function qunxiao() {
+        // alert(111)
+        api.closeFrame({name:"dian"})
+        $(".dian-hor-center").hide()
+    }
+
+    // 二维码识别
+    function erwmshib(img) {
+        // alert("ermw")
+        var timestamp = new Date().getTime()
+
+        let ismn="fs://fuyebang/"+timestamp+".png";
+        api.download({
+            url:img,
+            savePath: ismn,
+            report: true,
+            cache: true,
+            allowResume: true
+        },function(ret, err) {
+
+            if (ret.state == 1) {
+
+                api.saveMediaToAlbum({
+                    path: ismn
+                }, function(rets, errs){
+                    if( rets ){
+                        var FNScanner = api.require('FNScanner');
+                        FNScanner.decodeImg({
+                            path: ismn
+                        }, function(ret, err) {
+
+                            if (ret.status) {
+                                let content=ret.content
+                                // alert(content);
+                                api.openWin({
+                                    name : 'win_show2',
+                                    url : content,
+                                    rect : {
+                                        x : 0,
+                                        y : 0,
+                                    }
+                                })
+                                qunxiao()
+                            } else {
+                                api.toast({
+                                    msg: "二维码识别失败",
+                                    duration: 2000,
+                                    location: 'bottom'
+                                });
+                                qunxiao()
+                                // alert(JSON.stringify(err));
+                            }
+                        });
+                        // api.toast({
+                        //     msg: "保存成功",
+                        //     duration: 2000,
+                        //     location: 'bottom'
+                        // });
+                        // qunxiao()
+                    }else{
+                        api.toast({
+                            msg: "二维码识别失败",
+                            duration: 2000,
+                            location: 'bottom'
+                        });
+                        qunxiao()
+                        // alert( JSON.stringify( err ) );
+                    }
+                });
+                // alert("下载")
+
+            }
+        })
+
+
+    }
+    // 下载图片
+    function download(url){
+        var timestamp = new Date().getTime()
+
+        api.download({
+            url:url,
+            savePath: 'fs://test'+timestamp+'.png',
+            report: true,
+            cache: true,
+            allowResume: true
+        },function(ret, err){
+            if(ret.state == 1){
+
+                api.saveMediaToAlbum({
+                    path: 'fs://test'+timestamp+'.png'
+                }, function(rets, errs){
+                    if( rets ){
+                        api.toast({
+                            msg: "保存成功",
+                            duration: 2000,
+                            location: 'bottom'
+                        });
+                        qunxiao()
+                }else{
+                        api.toast({
+                            msg: "保存失败",
+                            duration: 2000,
+                            location: 'bottom'
+                        });
+                        qunxiao()
+                    // alert( JSON.stringify( err ) );
+                    }
+                });
+            }
+
+        });
+
+    }
+</script>
+
+
+<!-- </html> -->

@@ -1,0 +1,42 @@
+*{font-size: 1rem;font-family:"苹方";font-family:"苹方";}
+.clearfix{clear: both;}
+body,html{background-color: #f3f3f3;}
+a{display: block;text-decoration: none;}
+h1,h2,h3,h4{font-weight: normal;}
+img{display: block;width: 100%;}
+button{outline: none;}
+.b{width: 100%;background-color: #fff;margin-bottom: 0.625rem;border-bottom: 0.0625rem solid #eaeaea;box-sizing: border-box;padding-top: 1rem;}
+.search{width: 5.1%;float: left;}
+.search img{width: 100%;padding-top: 1rem;box-sizing: border-box;}
+.header{padding: 0 0.9375rem;margin: 0 auto;box-sizing: border-box;background-color: #fff;}
+.header_text{text-align: center;width: 89.8%;float: left;line-height: 3.125rem;}
+.header_text h1{font-size: 1.125rem;color: #2a2b35;font-family:"苹方";font-weight: bold;}
+
+.order{padding: 0.9375rem;width: 100%;background-color: #fff;padding-top: 1.2rem;border-top: 0.0625rem solid #eaeaea;box-sizing: border-box;margin-bottom: 0.625rem;}
+.order h1{font-size:0.875rem;line-height: 2.25rem;color: 333333;font-weight: bold;}
+.order p{font-size: 0.875rem;color: #333333;text-align: justify;width: 80%;float: left;line-height: 2.25rem;}
+.content_pic{width: 1.06255rem;float: right;margin-top: 0.4rem;height: 1.0625rem;border-radius: 3rem;}
+.bor{border: 0.03125rem solid #bdbdbd;}
+
+.account{padding: 0.9375rem;width: 100%;background-color: #fff;padding-top: 1.2rem;border-top: 0.0625rem solid #eaeaea;box-sizing: border-box;margin-bottom: 0.625rem;}
+.account h1{font-size:0.875rem;line-height: 2.25rem;color: 333333;font-weight: bold;}
+.account textarea{width: 100%;height: 6.25rem;padding-top: 0.5rem;box-sizing: border-box;font-size: 0.9375rem;resize:none;outline: none;}
+textarea:-moz-placeholder {
+    color: #909090;
+}
+textarea:-ms-input-placeholder {
+    color: #909090;
+}
+textarea::-webkit-input-placeholder {
+    color: #909090;
+}
+
+.proof{padding: 0.9375rem;width: 100%;background-color: #fff;padding-top: 1.2rem;border-top: 0.0625rem solid #eaeaea;box-sizing: border-box;margin-bottom: 0.625rem;margin-bottom: 4rem;}
+.proof h1{font-size:0.875rem;line-height: 2.25rem;color: 333333;font-weight: bold;}
+.proof p{font-size: 0.9375rem;color: #909090;margin-top: 0.4rem;margin-bottom: 1.625rem;}
+.upload{width: 5.6875rem;height: 5.6875rem;text-align: center;margin-top: 1.8125rem;}
+.proof_pic{width: 27.5%;margin: 0 auto;margin-top: 1.625rem;margin-bottom: 0.875rem;}
+.upload h2{font-size: 0.75rem;color: #808080;}
+
+.button{width: 100%;text-align: center;background-color: #fb5134;position: fixed;bottom: 0;}
+.button button{font-size: 1.125rem;color: #fff;padding: 0.9375rem 0;font-weight: bold;}

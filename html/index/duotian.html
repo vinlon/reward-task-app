@@ -1,0 +1,207 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+	<meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+	<title>多天任务</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/list.css" />
+	<link rel="stylesheet" href="../../css/swiper.min.css">
+	<script src="../../script/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+	<div class="b" id="header">
+		<div class="header">
+	        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+			<div class="header_button" onclick="publish()"><button>发悬赏</button></div>
+	        <div class="header_text"><h1>多天任务</h1></div>
+	        <div class="clearfix"></div>
+	    </div>
+	</div>
+	<!--滚动消息-->
+	<div class="slide-hidden">
+		<div class="slide-container">
+			<div class="left">
+				<img src="../../image/tt.png">
+			</div>
+			<ul class="slide-list js-slide-list" id="messageList">
+				<!-- <li><span class="l">录一分钟宝宝的哭声</span><span class="im">赏5.48元</span><span class="clearfix"></span></li>
+				<li><span class="l">录一分钟宝宝的哭声</span><span class="im">赏5.48元</span><span class="clearfix"></span></li>
+				<li><span class="l">录一分钟宝宝的哭声</span><span class="im">赏5.48元</span><span class="clearfix"></span></li> -->
+			</ul>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+
+	<div class="award" id="task">
+		<div class="award_title">
+			<ul class="list">
+				<li>默认排序</li>
+				<li>时间排序</li>
+				<li>佣金排序</li>
+				<div class="clearfix"></div>
+			</ul>
+		</div>
+		<div class="line"></div>
+		<!--任务-->
+		<!-- <div class="award_row" onclick="list_detail()">
+			<div class="head_pic"><img src="../../image/index1.png"></div>
+			<div class="award_text">
+				<h1>高价收微信马上结账</h1>
+				<span class="con">认证绑卡 微信实名   </span>
+				<div class="clearfix"></div>
+				<p>26人已赚，剩余13个</p>
+			</div>
+			<h4>赏5.48元</h4>
+			<div class="clearfix"></div>
+		</div> -->
+
+	</div>
+	<div class="form"  onclick="list_detail()"><img src="../../image/tasks.png"></div>
+
+
+	</body>
+	<script src="../../script/api.js" charset="utf-8"></script>
+	<script src="../../script/swiper.min.js"></script>
+	<script src="../../script/common.js"></script>
+	<script src="../../script/url.js"></script>
+	<script>
+		apiready = function(){
+			height()
+			// var header = document.querySelector('#header'); //头帘高度
+			// $api.fixStatusBar(header);
+		$api.setStorage('token', ret.data.token);
+			messagelist() 			//滚动消息
+
+			duotian_Task()  		//任务列表
+		}
+
+
+
+		//滚动消息
+		function messagelist() {
+			api.ajax({
+				url: messagelist,
+				method: 'post',
+				data: {
+					values: {
+						type: 1,
+					}
+				}
+			}, function(ret, err) {
+				if (ret.code != 200) {
+					api.toast({
+						msg: ret.msg,
+						duration: 2000,
+						location: 'bottom'
+					});
+
+					return false
+				}
+				length = ret.data.length;
+				// alert(length)
+				mgsslist = '';
+				for (var l = 0; l < length; l++) {
+					mgsslist += '<li onclick="list()" class="clearfix">'
+					mgsslist += '<span class="l">'+ret.data[l].messname+'</span>'
+					mgsslist += '<span class="im">'+ret.data[l].mess_income+'</span>'
+					mgsslist += '</li>'
+				}
+				$api.html(messageList, mgsslist);
+
+			});
+
+		}
+
+
+
+
+
+
+		// 多天任务
+			function duotian_Task() {
+				api.ajax({
+				url: task_list,
+				method: 'post',
+				data: {
+					values: {
+						token:token
+					}
+				}
+			}, function (ret, err) {
+				console.log(JSON.stringify(ret))
+				if (ret.code == 200) {
+					html = '';
+					tlength = ret.data.length;
+					for (let index = 0; index < tlength; index++) {
+						// const element = array[index];
+						// ../image/dropdown_anim_00.png
+						html += '<div class="award_row clearfix" onclick="list_detail()">'
+						html += '<div class="head_pic">'
+						html += '<img src=" '+URL +ret.data[index].image+' ">'
+						html += '</div>'
+						html += '<div class="award_text">'
+						html += '<h1>'+ret.data[index].name+'</h1>'
+						html += '<span class="con"> '+ret.data[index].content+'</span>'
+						html += '<div class="clearfix"></div>'
+						html += '<p>'+ret.data[index].yiyou_num+'人已赚，<span class="yuan">剩余'+ret.data[index].yiyou_num+'个</span></p>'
+						html += '</div>'
+						html += '<h4>'+ret.data[index].money+'</h4>'
+						html += '</div>'
+
+
+					}
+
+					$api.html(task, html);
+				}
+			})
+		}
+
+
+
+
+
+		$(function(){
+			$(".list li:eq(0) ").addClass('click');
+			$(".list li ").click(function(){
+				$(this).addClass('click').siblings().removeClass('click');
+			});
+		})
+		function go_back() {
+		  api.closeWin({
+
+		  });
+		}
+		function list_detail(){
+		  api.openWin({
+			  name: 'list_detail',
+			  url: 'list_detail.html'
+		  })
+		}
+		function publish(){
+		  api.openWin({
+			  name: 'publish',
+			  url: '../publish/publish.html'
+		  })
+		}
+	</script>
+	<script>
+	    var doscroll = function () {
+	    var $parent = $( '.js-slide-list' );
+	    var $first = $parent.find( 'li:first' );
+	    var height = $first.height();
+	    $first.animate( {
+	    		marginTop: -height + 'px'
+	    	}, 500, function () {
+	    	$first.css( 'marginTop', 0 )
+	    	.appendTo( $parent );
+	        } );
+	    };
+	    setInterval( function () {
+	    	doscroll()
+	    }, 3000 );
+	    </script>
+
+</html>

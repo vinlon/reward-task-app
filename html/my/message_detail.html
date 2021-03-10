@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+	<meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+	<title id="title">系统通知</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/message_detail.css" />
+	<link rel="stylesheet" href="../../css/swiper.min.css">
+	<script type="text/javascript"></script>
+	<script src="../../script/jquery-1.8.3.min.js"></script>
+	<script src="../../script/jquery-3.4.1.min.js"></script>
+	<script src="../../script/api.js" charset="utf-8"></script>
+	<script src="../../script/swiper.min.js"></script>
+	<script src="../../script/common.js"></script>
+	<script src="../../script/url.js"></script>
+</head>
+<body>
+	<div class="b" id="header">
+		<div class="header">
+	        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+	        <div class="header_text"><h1 id="title_1">系统通知</h1></div>
+	        <div class="clearfix"></div>
+	    </div>
+	</div>
+	<div class="detail" id="x_list">
+
+		<!-- <div class="detail_row">
+			<div class="title">
+				<div class="detail_pic"><img src="../../image/dian.png"></div>
+				<h1>好友邀请成功</h1>
+				<h2>2019-05-20 15:20</h2>
+				<div class="clearfix"></div>
+			</div>
+			<p>您的资料已成功通过了我们的系统审核，请耐心等待仿款通知！</p>
+		</div> -->
+<!--
+		<div class="detail_row">
+			<div class="title">
+				<div class="detail_pic"><img src="../../image/dian.png"></div>
+				<h1>系统升级通知</h1>
+				<h2>2019-05-20 15:20</h2>
+				<div class="clearfix"></div>
+			</div>
+			<p>您的资料已成功通过了我们的系统审核，请耐心等待仿款通知！您的资料已成功通过了我们的系统审核，请耐心等待仿款通知！</p>
+		</div> -->
+
+	</div>
+
+
+	</body>
+
+	<script>
+		apiready = function(){
+			height()
+		token = $api.getStorage('token');
+			param = api.pageParam;
+			type = param.type;
+			get_list(type);
+			api.setRefreshHeaderInfo({
+				loadingImg: 'widget://image/refresh.png',
+				bgColor: '#ccc',
+				textColor: '#fff',
+				textDown: '下拉刷新...',
+				textUp: '松开刷新...'
+			}, function(ret, err) {
+				//在这里从服务器加载数据，加载完成后调用
+				//停止api.refreshHeaderLoadDone()方法恢复组件到默认状态
+				window.location.reload();
+				api.refreshHeaderLoadDone();
+			});
+		}
+		function get_list(type){
+			api.ajax({
+					url: notice_list_url,
+					method: 'post',
+					data: {
+							values: {
+									token: token,
+									type:type,
+
+
+						}
+					}
+			}, function(ret, err) {
+						// $("#title").html(ret.data.title);
+						// $('#title_1').html(ret.data.title);
+							$api.html(title, ret.title);
+								$api.html(title_1, ret.title);
+						var	length = ret.data.length;
+						//	 alert(length)
+						var 	lblist_type = '';
+							for (var lb = 0; lb < length; lb++) {
+
+
+
+								  	lblist_type += '	<div class="detail_row">'
+								  	lblist_type += '		<div class="title">'
+										lblist_type += '		<div class="detail_pic"><img src="../../image/dian.png"></div>'
+										lblist_type += '		<h1>'+ret.title+'</h1>'
+							    	lblist_type += '				<h2>'+ret.data[lb].add_time+'</h2>'
+							  		lblist_type += '			<div class="clearfix"></div>'
+							    	lblist_type += '			</div>'
+							    	lblist_type += '			<p>'+ret.data[lb].content+'</p>'
+							    	lblist_type += '		</div>'
+							}
+
+						//	var abc=lblist_type+lblist_type;
+				//			console.log(JSON.stringify(lblist_type))
+
+							$api.html(x_list,lblist_type);
+			});
+		}
+		function go_back() {
+		  api.closeWin({
+
+		  });
+		}
+
+	</script>
+
+
+</html>

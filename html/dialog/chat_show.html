@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>保证金</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/set.css" />
+    <!--    <link rel="stylesheet" href="../../css/swiper.min.css">-->
+    <script type="text/javascript"></script>
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <script src="../../script/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="../../css/bond.css">
+    <!--    <script src="../../script/layer/layer.js"></script>-->
+    <script src="../../script/aui/script/aui-dialog.js"></script>
+    <link rel="stylesheet" href="../../script/aui/css/api.css">
+    <link rel="stylesheet" href="../../script/aui/css/aui.css">
+
+
+</head>
+<style>
+    .shang-imge {
+        width: 2rem;
+        height: 2rem;
+    }
+    
+    .liaotian {
+        /*border: 1px solid red;*/
+        /*margin-bottom: 5rem;*/
+    }
+    
+    .head_tis {
+        text-align: center;
+        background-color: white;
+        width: 100%;
+        height: 1rem;
+        color: #00FF00;
+        font-size: 13px;
+    }
+    
+    .head_tips {
+        background: #eaeaea;
+        border: 1px #eaeaea solid;
+        border-radius: 0.5rem;
+        margin: 3%;
+        padding: 1% 3%;
+    }
+    
+    .head_tips p {
+        font-size: 0.6rem;
+        text-indent: 1.2rem;
+    }
+    
+    .head_tips h3 {
+        font-size: 0.6rem;
+        color: #fb5134;
+    }
+</style>
+
+<body>
+    <div class="b" id="header">
+        <div class="header">
+            <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+            <div class="header_text">
+                <h1 id="pro">我的好友</h1>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="head_tips">
+        <h3>请注意：</h3>
+        <p>私下加好友留微信QQ号最低扣20元，两次及以上扣50元，私拉群扣50元，多次拉群扣100元。</p>
+        <p>对方有以上情况请举报，有奖励！（奖励根据悬赏主此单任务币以及保证金多少来定，只奖励最先举报的。）</p>
+    </div>
+    <div class="head_tis"> 沟通中请文明用语,谨防诈骗,拒绝私下交易</div>
+    <section class="aui-chat liaotian" id="chat_lists">
+
+    </section>
+
+</body>
+<script src="../../script/api.js" charset="utf-8"></script>
+<!--<script src="../../script/swiper.min.js"></script>-->
+<script src="../../script/common.js"></script>
+<script src="../../script/url.js"></script>
+<script>
+    // var dialog = new auiDialog({})
+    let paing = 0
+    apiready = function() {
+        height()
+
+        token = $api.getStorage('token');
+        UIChatTools = api.require('UIChatTools');
+        chatTools()
+
+        param = api.pageParam;
+        id = param.id; //任务id
+        let name = param.name; //任务id
+        let type_lian = param.type_lian; //联系雇主 跳转来
+        let type_lians = 0;
+        if (type_lian == 1) {
+            $(".head_tis").show()
+            type_lians = 1;
+        } else {
+            $(".head_tis").hide()
+            type_lians = 0;
+        }
+        chat_shows()
+        $("#pro").html(name)
+
+        api.setRefreshHeaderInfo({
+            loadingImg: 'widget://image/refresh.png',
+            bgColor: '#ccc',
+            textColor: '#fff',
+            textDown: '下拉刷新...',
+            textUp: '松开刷新...'
+        }, function(ret, err) {
+            //在这里从服务器加载数据，加载完成后5调用
+            //停止api.refreshHeaderLoadDone()方法恢复组件到默认状态
+            chat_shows()
+            paing = paing + 650;
+            $('html, body').animate({
+
+                scrollTop: $(document).height() + paing //need help here
+            }, 400);
+            api.refreshHeaderLoadDone();
+        });
+
+
+        // 监听发送图片
+        api.addEventListener({
+            name: 'sendImage'
+        }, function(ret, err) {
+            // alert(JSON.stringify(ret))
+            // 发送消息后, 添加消息内容到页面
+            let html = '';
+            html += '<div class="aui-chat-item aui-chat-right" >'
+            html += '   <div class="aui-chat-media">' +
+                '           <img  onclick="show_img()" class="step3_pic" src="' + URL + image + '" />' +
+                '       </div>' +
+                '       <div class="aui-chat-inner">' +
+                '           <div class="aui-chat-content">' +
+                '               <div class="aui-chat-arrow"></div>' +
+                '               <div class="aui-chat-media">' +
+                '                   <img class="step3_pic" src="' + URL + ret.value.image + '" />' +
+                '               </div>' +
+                '           </div>' +
+                '       </div>' +
+                '    </div>'
+
+            // $api.append($api.dom('.main'),'<div class="oneself clearfix"><img class="fr" src="../../image/tx_2.jpg"><p class="fr"> ' + ret.value.msg + ' </p></div>');
+            $api.append($api.dom('#chat_lists'), html);
+        });
+    }
+
+    // 聊天界面
+    function chatTools() {
+        // let  UIChatTools = api.require('UIChatTools');
+        UIChatTools.open({
+            chatBox: {
+                placeholder: '聊天内容',
+                autoFocuse: true,
+                maxRows: 6
+            },
+            styles: {
+                bgColor: '#D1D1D1',
+                margin: 10,
+            },
+            tools: {
+                h: 35,
+                iconSize: 30,
+
+                // recorder: {
+                //     normal: 'fs://UIChatTolls/recorder.png',
+                //     selected: 'fs://UIChatTolls/recorder1.png'
+                // },
+                image: {
+                    normal: 'fs://UIChatTolls/image.png',
+                    selected: 'fs://UIChatTolls/image1.png'
+                },
+                video: {
+                    normal: 'fs://UIChatTolls/video.png',
+                    selected: 'fs://UIChatTolls/video1.png'
+                },
+                // face: {
+                //     normal: 'fs://UIChatTolls/face2.png',
+                //     selected: 'fs://UIChatTolls/face1.png'
+                // }
+                // ,
+                // append: {
+                //     normal: 'fs://UIChatTolls/append.png',
+                //     selected: 'fs://UIChatTolls/append1.png'
+                // }
+            },
+
+            // 表情
+            // emotions:['widget://image/chatPage/emoticons/basic','widget://image/chatPage/emoticons/append1','widget://image/chatPage/emoticons/append2']
+        }, function(ret) {
+
+            // console.log(JSON.stringify(ret))
+            if (ret) {
+
+                if (ret.eventType === 'send') {
+                    UIChatTools.clearText()
+                        // 发送消息
+                    send_text(ret.msg, 0);
+                }
+            }
+        });
+        //选择图片
+        UIChatTools.imageListener(function(ret) {
+
+            if (ret.eventType === "send") {
+
+                let image = ret.images;
+                UIChatTools.closeBoard();
+                image.map(function(item) {
+                    xiangces(item)
+                })
+
+
+            }
+        });
+        // 监听功能按钮
+        UIChatTools.toolsListener(function(ret) {
+            console.log(JSON.stringify(ret))
+            if (ret.eventType == 'video') { // 使用相机
+                paizhao()
+            }
+            if (ret.eventType == 'face') {
+
+            }
+        })
+
+
+    }
+
+    //拍照
+    function paizhao() {
+        var FNPhotograph = api.require('FNPhotograph');
+        FNPhotograph.open({
+            path: 'fs://savePath',
+            album: false,
+            qualityValue: 20,
+            usePreview: true,
+            useAdvanceFeature: true,
+            // isShowAlbum: true,
+        }, function(ret) {
+            if (ret.eventType = "takePhoto") {
+                let imgFile = ret.imagePath; // 图片
+                // 上传图片
+                // $(".add_img" + num).attr('src', imgFile);
+
+                api.ajax({
+                    url: get_pic_1,
+                    method: 'post',
+                    data: {
+                        files: {
+                            image: imgFile,
+                        }
+                    }
+                }, function(ret, err) {
+                    if (ret) {
+                        if (ret.code == 1) {
+                            FNPhotograph.close(function(ret) {});
+                            api.sendEvent({
+                                name: 'sendImage',
+                                extra: {
+                                    image: ret.data
+                                }
+                            });
+                            send_text(ret.data, 1);
+
+                        }
+                        // 将返回的路径房费隐藏的 input id="yicang"中  提交时获
+                    } else {}
+                })
+
+            }
+            // alert(JSON.stringify(ret));
+        });
+
+    }
+    let shangimage
+        // 上传图片
+        // 选中相册
+    function xiangces(imgFile) {
+        api.ajax({
+            url: get_pic_1,
+            method: 'post',
+            data: {
+                files: {
+                    image: imgFile,
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                if (ret.code == 1) {
+                    api.sendEvent({
+                        name: 'sendImage',
+                        extra: {
+                            image: ret.data
+                        }
+                    });
+                    send_text(ret.data, 1);
+                }
+                // 将返回的路径房费隐藏的 input id="yicang"中  提交时获
+            } else {}
+        });
+        // return ;
+    }
+
+    $(function() {
+        setInterval(function() {
+            new_chat()
+
+        }, 3000)
+    })
+
+    // 获取最新的聊天内容
+    function new_chat() {
+
+        api.ajax({
+            url: shi_chat,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    pid: pid,
+                    id: bigid,
+                }
+            }
+        }, function(ret, err) {
+            let list = ret.data.list;
+            let leg = JSON.stringify(list)
+            console.log(leg)
+                // return;
+            if (leg != '[]') {
+                bigid = ret.data.bigid;
+                let html = '';
+                list.map(function(item) {
+
+                    html += '<div class="aui-chat-item aui-chat-left" style="margin-bottom: 4rem">'
+                    html += '            <div class="aui-chat-media">' +
+                        '                <img onclick="show_img()"  class="step3_pic" src="' + URL + item.image + '" />' +
+                        '            </div>' +
+                        '            <div class="aui-chat-inner">' +
+                        '                <div class="aui-chat-content"> <div class="aui-chat-arrow"></div>'
+                    if (item.type == 0) {
+                        html += item.content
+                    } else if (item.type == 1) {
+                        html += '<div class="aui-chat-media"> <img onclick="show_img()"  class="step3_pic"  src="' + URL + item.content + '" /></div>'
+                    } else {
+                        html += ''
+                    }
+                    html += '         </div>   </div>' +
+                        '        </div>'
+                })
+                $("#chat_lists").append(html)
+
+            }
+        })
+    }
+
+    function show_img() {
+        // alert(1111111111)
+    }
+
+    function trim(str) {
+
+        return str.replace(/(^\s*)|(\s*$)/g, "");
+
+    }
+    let pid;
+    let bigid; // 引用实时聊天
+    let image = ""
+
+    // 发送内容
+    function send_text(content, type) {
+
+        // let content=$("#search-input").val();
+        let html = '';
+        if (!content) {
+            api.toast({
+                msg: "请输入内容",
+                duration: 2000,
+                location: 'middle'
+            })
+            return
+        }
+        if (trim(content) == "") {
+            api.toast({
+                msg: "请输入内容",
+                duration: 2000,
+                location: 'middle'
+            })
+            return
+        }
+
+
+        api.ajax({
+            url: add_chat,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    // token: 222,
+                    pid: pid,
+                    type: type ? type : 0,
+                    content: content,
+                }
+            }
+        }, function(ret, err) {
+            // console.log(JSON.stringify(ret));
+            // return ;
+
+
+            if (type == 0) {
+                $('html, body').animate({
+                    scrollTop: $(document).height() - 40 //need help here
+                }, 400);
+                // UIChatTools.close();
+                $("#search-input").val("")
+                let html = '';
+                html += '<div class="aui-chat-item aui-chat-right" style="margin-bottom: 4rem">'
+                html += '            <div class="aui-chat-media">' +
+                    '                <img onclick="show_img()"  class="step3_pic" src="' + URL + image + '" />' +
+                    '            </div>' +
+                    '            <div class="aui-chat-inner">' +
+                    '                <div class="aui-chat-content">' +
+                    '                    <div class="aui-chat-arrow"></div> ' + content + '</div>' +
+                    '            </div>' +
+                    '        </div>'
+                $("#chat_lists").append(html)
+            }
+
+        })
+    }
+
+    // 获取聊天内容
+    let page = 1
+    let pageEnd = false
+
+    function chat_shows() {
+
+        /*api.showProgress({
+            title: '努力加载中...',
+            text: '请稍后...',
+            modal: false
+        });*/
+        showLoadMore(1);
+        api.ajax({
+            url: chat_show,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    // token: 222,
+                    limit: 6,
+                    id: id,
+                    page: page,
+                }
+            }
+        }, function(ret, err) {
+
+            // let leg=JSON.stringify(ret)
+            // console.log(leg)
+            pid = ret.data.pid
+            image = ret.data.image
+            bigid = ret.data.bigid
+                // console.log(JSON.stringify(ret))
+            var length = ret.data.list.length;
+            if (length > 0) {
+                let html = '';
+                let data = ret.data.list;
+
+                //倒转后的新数组
+                var colorNew = $.map(data, function(v, i) { // map方法匿名函数传的值v是值、i是索引。
+                    return data[length - 1 - i];
+                })
+                console.log(length)
+                colorNew.map(function(item, index) {
+
+                    if (item.send_type == 1) {
+                        if (length == index) {
+                            html += '<div class="aui-chat-item aui-chat-right" style="margin-bottom:4rem">'
+                        } else {
+                            html += '<div class="aui-chat-item aui-chat-right" >'
+                        }
+
+                    } else {
+                        if (length == index) {
+                            html += '<div class="aui-chat-item aui-chat-left" style="margin-bottom:4rem">'
+                        } else {
+                            html += '<div class="aui-chat-item aui-chat-left">'
+                        }
+                    }
+                    html += '            <div class="aui-chat-media">' +
+                        '                <img onclick="show_img()"  class="step3_pic" src="' + URL + item.image + '" />' +
+                        '            </div>' +
+                        '            <div class="aui-chat-inner">' +
+                        '                <div class="aui-chat-content"> <div class="aui-chat-arrow"></div>'
+
+
+                    if (Number(item.type) === 0) {
+                        html += item.content
+                    } else if (item.type == 1) {
+                        html += ' <img onclick="show_img()"  class="step3_pic" src="' + URL + item.content + '" />'
+                    } else {
+                        html += ''
+                    }
+                    html += '            </div>  </div>' +
+                        '        </div>'
+                })
+
+                $("#chat_lists").prepend(html)
+
+                $(function() {
+                        // 新修改方法
+                        let timeOutEvent;
+                        $(".step3_pic").on({
+                            touchstart: function(e) {
+                                timeOutEvent = setTimeout(function() {
+                                    timeOutEvent = 0
+                                    let srcs = e.target
+                                    let imgs = srcs.src
+                                    if (imgs) {
+                                        frames(imgs)
+                                    } else {
+                                        api.toast({
+                                            msg: "没有图片",
+                                            duration: 2000,
+                                            location: 'bottom'
+                                        });
+                                    }
+
+                                    // alert(imgs)
+
+                                    // console.log(JSON.stringify(e))
+                                }, 500);
+                            },
+                            touchmove: function() {
+                                clearTimeout(timeOutEvent)
+                                timeOutEvent = 0
+                            },
+                            touchend: function(e) {
+                                clearTimeout(timeOutEvent);
+                                if (timeOutEvent != 0) {
+                                    let srcs = e.target
+                                    let imgs = srcs.src
+                                        // let indes = getIndex(picsxx, imgs);// 当前点击下标
+                                    openImagess(imgs);
+                                }
+
+                            }
+                        });
+
+                        //
+                        $(".cover_alphas").click(function() {
+                            // $(".step3_pic").css({"width": "", "height": "", "position": "", "top": "%", "left": "", "z-index": ""});
+                            // $(".cover").hide();
+                            $(".cover_alphas").hide();
+                        });
+
+
+                        // 新方法 打开照骗
+                        function openImagess(activeIndex = 0, picsxx) {
+                            var photoBrowser = api.require('photoBrowser');
+                            photoBrowser.open({
+                                images: [activeIndex],
+                                activeIndex: 0,
+                                placeholderImg: 'widget://res/img/apicloud.png',
+                                bgColor: '#000'
+                            }, function(ret, err) {
+                                if (ret) {
+                                    if (ret.eventType == "longPress") {
+                                        // let indexs = ret.index
+                                        // let imsgh = picsxx[indexs];
+                                        // alert("长按:"+imsgh)
+                                        frames(activeIndex)
+                                    } else {
+                                        if (ret.eventType == "click") {
+                                            photoBrowser.close();
+                                        }
+                                        // alert(JSON.stringify(ret));
+                                    }
+
+                                } else {
+                                    photoBrowser.close();
+                                    api.toast({
+                                        msg: "打开图片失败",
+                                        duration: 2000,
+                                        location: 'bottom'
+                                    });
+
+                                }
+                            });
+                        }
+                    })
+                    // $("#chat_lists").append(html)
+            } else {
+                if (page == 1) {
+                    $api.append(chat_lists, "");
+                }
+                pageEnd = true
+            }
+            page++;
+            //api.hideProgress()
+            showLoadMore();
+        })
+    }
+
+    function frames(img = "222") {
+        api.openFrame({
+            name: 'dians',
+            url: '../dialog/dians.html',
+            rect: {
+                x: 0,
+                y: 0,
+                w: api.winWidth,
+                h: api.winHeight
+            },
+            pageParam: {
+                img: img
+            },
+            bounces: false,
+            bgColor: 'rgba(0,0,0,0.2)',
+        });
+
+    }
+
+    function go_back() {
+        api.sendEvent({
+            name: 'fanhui_chat_list',
+            extra: {
+                // image: ret.data
+            }
+        });
+
+        api.closeWin({});
+    }
+</script>
+
+</html>

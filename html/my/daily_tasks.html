@@ -1,0 +1,214 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+	<meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+	<title>每周任务</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/daily_tasks.css" />
+	<link rel="stylesheet" href="../../css/swiper.min.css">
+	<script src="../../script/jquery-1.8.3.min.js"></script>
+	<script src="../../script/api.js" charset="utf-8"></script>
+	<script src="../../script/swiper.min.js"></script>
+	<script src="../../script/common.js"></script>
+	<script src="../../script/url.js"></script>
+</head>
+<body>
+	<div class="header" id="header">
+        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+        <div class="header_text"><h1>每周任务</h1></div>
+		<div class="header_right"><h2>规则</h2></div>
+        <div class="clearfix"></div>
+    </div>
+	<!-- 规则 -->
+	<div class="covering"></div>
+	<div class="agreement">
+		<h1>每周任务规则</h1>
+		<div class="agreement_content">
+			<p>注册后的用户每周均有资格参加并领取任务，完成后请手动领取奖励。如当天领取提交任务，次日审核通过也可获得奖励。</p>
+		</div>
+		<div class="agreement_button"><button>确定</button></div>
+	</div>
+
+	<div class="task">
+		<div class="bg"><img src="../../image/task_bg.png"></div>
+		<div class="task_content">
+			<h1>周常任务</h1>
+<div id="rc_task">
+			<!-- <div class="task_row">
+				<div class="icon"><img src="../../image/task_icon.png"></div>
+				<div class="task_text">
+					<h2>完成一个任务</h2>
+					<h3>现金奖励<span>+0.2</span>元</h3>
+				</div>
+				<div class="button1"><button type="submit">已完成</button></div>
+				<div class="clearfix"></div>
+			</div>
+
+			<div class="task_row">
+				<div class="icon"><img src="../../image/task_icon1.png"></div>
+				<div class="task_text">
+					<h2>完成三个任务</h2>
+					<h3>现金奖励<span>+0.4</span>元</h3>
+				</div>
+				<div class="button"><button type="submit">去完成</button></div>
+				<div class="clearfix"></div>
+			</div>
+
+			<div class="task_row">
+				<div class="icon"><img src="../../image/task_icon2.png"></div>
+				<div class="task_text">
+					<h2>完成八个任务</h2>
+					<h3>现金奖励<span>+2.0</span>元</h3>
+				</div>
+				<div class="button"><button type="submit">去完成</button></div>
+				<div class="clearfix"></div>
+			</div>
+
+			<div class="task_row">
+				<div class="icon"><img src="../../image/task_icon3.png"></div>
+				<div class="task_text">
+					<h2>完成十个任务</h2>
+					<h3>现金奖励<span>+2.4</span>元</h3>
+				</div>
+				<div class="button"><button type="submit">去完成</button></div>
+				<div class="clearfix"></div>
+			</div> -->
+
+		</div>
+		</div>
+	</div>
+
+	</body>
+
+	<script>
+		apiready = function(){
+			height()
+		// var header = document.querySelector('#header'); //头帘高度
+		// $api.fixStatusBar(header);
+		//获取每日任务信息
+			token = $api.getStorage('token');
+			get_today_task_list();
+			api.setRefreshHeaderInfo({
+				loadingImg: 'widget://image/refresh.png',
+				bgColor: '#ccc',
+				textColor: '#fff',
+				textDown: '下拉刷新...',
+				textUp: '松开刷新...'
+			}, function(ret, err) {
+				//在这里从服务器加载数据，加载完成后调用
+				//停止api.refreshHeaderLoadDone()方法恢复组件到默认状态
+				window.location.reload();
+				api.refreshHeaderLoadDone();
+			});
+		}
+function get_today_task_list(){
+	api.ajax({
+			url: get_today_task_url,
+			method: 'post',
+			data: {
+					values: {
+							token: token,
+
+				}
+			}
+	}, function(ret, err) {
+		console.log(JSON.stringify(ret));
+			console.log(JSON.stringify(err));
+			var	length = ret.data.length;
+			//	 alert(length)
+			var 	lblist_type = '';
+				for (var lb = 0; lb < length; lb++) {
+
+
+					lblist_type += '			<div class="task_row">'
+					lblist_type += '				<div class="icon"><img src="' +URL+ret.data[lb].pic + '"></div>'
+					lblist_type += '				<div class="task_text">'
+					lblist_type += '					<h2>'+ret.data[lb].name+'</h2>'
+					lblist_type += '					<h3>现金奖励<span>+'+ret.data[lb].money+'</span>元</h3>'
+					lblist_type += '				</div>'
+					if(ret.data[lb].y == 1){
+					lblist_type += '				<div class="button1" id="ttpppp_'+ret.data[lb].id+'">'
+			  	}else{
+					lblist_type += '				<div class="button" id="ttpppp_'+ret.data[lb].id+'">'
+			  	}
+
+					lblist_type += '<button type="button" onclick="go_complete('+ ret.data[lb].id + ')" >'
+					if(ret.data[lb].y == 1){
+						lblist_type +=	'已完成</button></div>'
+					}else{
+							lblist_type +=	'去完成</button></div>'
+					}
+					lblist_type += '				<div class="clearfix"></div>'
+					lblist_type += '			</div>'
+
+				}
+
+			//	var abc=lblist_type+lblist_type;
+	//			console.log(JSON.stringify(lblist_type))
+
+
+				$api.html(rc_task,lblist_type);
+
+	});
+
+}
+function go_complete(id){
+
+
+			api.ajax({
+					url: today_tasks_do_url,
+					method: 'post',
+					data: {
+							values: {
+									token: token,
+									id:id,
+
+						}
+					}
+			}, function(ret, err) {
+				console.log(JSON.stringify(ret));
+					console.log(JSON.stringify(err));
+					api.toast({
+							msg: ret.info,
+							duration: 2000,
+							location: 'bottom'
+					});
+
+
+					if(ret.code == 100){//表示成功 需要把按钮改成已完成
+
+							$('#ttpppp_'+id).removeClass("button");
+							$('#ttpppp_'+id).addClass("button1");
+					}
+
+
+
+
+			});
+}
+
+		 function go_back() {
+		  api.closeWin({
+
+		  });
+		}
+		// 会员协议
+		$(function(){
+			$(".agreement").hide();
+			$(".header_right").click(function(){
+				$(".agreement").show();
+				$(".covering").show();
+			})
+			$(".agreement_button").click(function(){
+				$(".agreement").hide();
+				$(".covering").hide();
+			})
+		})
+	</script>
+
+
+
+</html>

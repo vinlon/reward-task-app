@@ -1,0 +1,640 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>订单列表</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/order.css" />
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script src="../../script/swiper.min.js"></script>
+    <script src="../../script/common.js"></script>
+    <script src="../../script/url.js"></script>
+</head>
+<style>
+    #account a {
+        font-size: 0.8rem;
+        float: right;
+        color: #fb5134;
+        margin-top: 0.3rem;
+        font-weight: bold;
+    }
+</style>
+
+<body>
+    <div class="b" id="header">
+        <div class="header">
+            <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+            <div class="header_text">
+                <h1>订单列表</h1>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+
+    <div class="award">
+
+        <div class="line"></div>
+
+
+        <!-- 我的任务 -->
+        <div class="coving"></div>
+        <div class="cover"></div>
+        <div id="list_x">
+            <div class="tasks">
+                <div class="award_row">
+                    <div class="yhm">
+                        <p id="account">用户名：</p>
+                        <p id="timesc">时间：</p>
+                    </div>
+                    <div class="award_text">
+                        <h1 id="content">提交内容:</h1>
+
+                        <div class="clearfix"></div>
+                        <!-- <h3 id="add_times">创建时间：</h3> -->
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="tasks_row" id="pics">
+
+                    <!-- <div class="jt"><img src="../../image/task2.png" alt=""></div>
+                <div class="jt"><img src="../../image/task2.png" alt=""></div>
+                <div class="jt"><img src="../../image/task2.png" alt=""></div>
+                <div class="jt"><img src="../../image/task2.png" alt=""></div>
+                <div class="clearfix"></div> -->
+                </div>
+            </div>
+            <div class="sh">
+
+                <button type="button" name="button" class="qts" onclick="go_tousu();">去投诉</button>
+                <div class="but">
+                    <div class="tongguo">
+                        <button type="button" name="button" onclick="queren_shenhe();">通过</button>
+                    </div>
+                    <div class="bohui">
+
+                        <!-- <input type="text" id="bohui_content" placeholder="请输入驳回理由"></input> -->
+                        <button type="button" name="button">驳回</button>
+                    </div>
+                    <div class="tongguo">
+                        <button type="button" name="button" onclick="get_orders_by_status_getid();">下一个</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <input type="hidden" value="0" id="task_order_id">
+
+    <!-- 驳回弹窗 -->
+    <div class="bh">
+        <textarea name="name" id="bohui_content" placeholder="请输入驳回理由..."></textarea>
+        <div class="add"><img src="../../image/add1.png" style="height:120px;width:120px;" id="img" onclick="upLoad();"><input type="hidden" id="uploadimg"></input>
+        </div>
+        <p>如接单用户所提交的验证图无后台数据或其他可以证明其没有完成任务的，可上传相关截图</p>
+        <div class="bott_button">
+            <button type="button" name="button" class="qux">取消</button>
+            <button type="button" name="button" class="qued" onclick="check_bohui();">确认</button>
+
+        </div>
+    </div>
+
+</body>
+<script type="text/javascript">
+    $(function() {
+        $(".bohui button").click(function() {
+            $(".bh").show();
+            $(".cover").show();
+        })
+        $(".bott_button .qux").click(function() {
+            $(".bh").hide();
+            $(".cover").hide();
+        })
+
+    })
+</script>
+
+<script>
+    apiready = function() {
+        token = $api.getStorage('token');
+        height()
+        param = api.pageParam;
+        id = param.id; //任务id
+
+        get_orders_by_status();
+        api.setRefreshHeaderInfo({
+            loadingImg: 'widget://image/refresh.png',
+            bgColor: '#ccc',
+            textColor: '#fff',
+            textDown: '下拉刷新...',
+            textUp: '松开刷新...'
+        }, function(ret, err) {
+            //在这里从服务器加载数据，加载完成后调用
+            //停止api.refreshHeaderLoadDone()方法恢复组件到默认状态
+            window.location.reload();
+            api.refreshHeaderLoadDone();
+        });
+    }
+
+    function upLoad() {
+        api.getPicture({
+            sourceType: 'library',
+            encodingType: 'jpg',
+            mediaValue: 'pic',
+            destinationType: 'url',
+            allowEdit: true,
+            quality: 100,
+            targetWidth: 1000,
+            targetHeight: 1000,
+            saveToPhotoAlbum: false
+        }, function(ret, err) {
+            if (ret) {
+
+                if (ret.data) {
+                    //将返回的路径放到id="img",为的是显示图片
+                    imgFile = ret.data;
+                    $("#img").attr('src', imgFile);
+
+                    api.ajax({
+                        url: get_pic_1,
+                        method: 'post',
+                        data: {
+                            files: {
+                                image: imgFile,
+                                //			token:token,
+                            }
+                        }
+                    }, function(ret, err) {
+                        console.log(JSON.stringify(ret));
+                        console.log(JSON.stringify(err));
+                        if (ret) {
+
+                            if (ret.code == 1) {
+
+                                $("#img").attr('src', URL + ret.data);
+                                $('#uploadimg').val(ret.data);
+                            }
+                            // 将返回的路径房费隐藏的 input id="yicang"中  提交时获
+                        } else {}
+                    });
+
+                } else {
+                    api.toast({ //弹框
+                        msg: '未上传图片', //提示语
+                        duration: 3000, //提示时长
+                        location: 'bottom' //提示位置
+                    });
+                }
+            }
+        });
+
+    }
+
+
+    function go_tousu() {
+        var task_order_id = $('#task_order_id').val();
+
+        api.openWin({
+            name: 'complaints_shop',
+            url: '../index/complaints_shop.html',
+            pageParam: {
+                task_id: id,
+                task_order_id: task_order_id
+            }
+        });
+    }
+
+    function get_orders_by_status_getid() {
+        var task_order_id = $('#task_order_id').val();
+        //	alert(task_order_id);
+        api.ajax({
+            url: get_task_by_order_url,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    id: id,
+                    pt_id: task_order_id,
+                }
+            }
+        }, function(ret, err) {
+            //	console.log(JSON.stringify(ret));
+            //			console.log(JSON.stringify(err));
+            // api.alert({ msg: JSON.stringify(ret) });
+            if (ret.code == -302) {
+                api.toast({
+                    msg: ret.message,
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                setTimeout(function() {
+                    api.openWin({
+                        name: 'login',
+                        url: 'login.html',
+                        pageParam: {
+                            name: 'test'
+                        }
+                    });
+                }, 1000);
+                return false;
+            }
+            if (ret.code != 100) {
+                api.toast({
+                    msg: ret.info,
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                return false;
+            }
+            var picsxx = new Array();
+            //	$('#content').html(ret.tijiao_content);
+            let tijiao_content = ret.tijiao_content
+            let ins = ' <span  onClick="fuzhis(\'' + tijiao_content + '\')" style="margin-left: 2rem;color: #1C86EE">复制内容</span>';
+            $api.html(content, "提交数据:" + ret.tijiao_content + ins);
+            $api.html(timesc, "时间:" + ret.data.tijiao_time_format);
+            $api.html(account, "用户名:" + ret.user.u_name + '<a href="javascript:chat_sho(' + ret.user.u_id + ')">联系用户</a>');
+            //	$api.val(task_order_id,ret.data.id);
+            $('#task_order_id').val(ret.data.id);
+            //	alert(ret.data.id);
+            console.log(JSON.stringify(ret.data))
+            var length = ret.data.tod.length;
+            //	 alert(length)
+            var lblist_type = '';
+            for (var lb = 0; lb < length; lb++) {
+                picsxx[lb] = URL + ret.data.tod[lb].pic;
+                lblist_type += '<div class="jt"><img src="' + URL + ret.data.tod[lb].pic + '" alt=""></div>'
+            }
+            lblist_type += '<div class="clearfix"></div>';
+            $api.html(pics, lblist_type);
+            $(function() {
+                $(".jt").click(function() {
+
+                    //console.log(JSON.stringify(picsxx));
+                    var imageBrowser = api.require('imageBrowser');
+                    imageBrowser.openImages({
+                        imageUrls: picsxx
+
+                    });
+
+                });
+            })
+
+
+        });
+    }
+
+    function get_orders_by_status() {
+        api.ajax({
+            url: get_task_by_order_url,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    id: id,
+                }
+            }
+        }, function(ret, err) {
+            if (ret.code == -302) {
+                api.toast({
+                    msg: ret.message,
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                setTimeout(function() {
+                    api.openWin({
+                        name: 'login',
+                        url: 'login.html',
+                        pageParam: {
+                            name: 'test'
+                        }
+                    });
+                }, 1000);
+                return false;
+            }
+            var picsxx = new Array();
+            let tijiao_content = ret.tijiao_content
+
+            let shpans = "<span  onClick='fuzhis(\"" + tijiao_content + "\")' style='margin-left: 2rem;color: #1C86EE'>复制内容</span>";
+            // alert(tijiao_content)
+            //console.log(JSON.stringify(ret.data))
+            $api.html(content, "提交数据:" + tijiao_content + shpans);
+            $api.html(timesc, "时间:" + ret.data.tijiao_time_format);
+            $api.html(account, "用户名:" + ret.user.u_name + '<a href="javascript:chat_sho(' + ret.user.u_id + ')">联系用户</a>');
+            // $api.val(, ret.data.id);
+            $("#task_order_id").val(ret.data.id)
+            var length = ret.data.tod.length;
+            //	 alert(length)
+            var lblist_type = '';
+            for (var lb = 0; lb < length; lb++) {
+                picsxx[lb] = URL + ret.data.tod[lb].pic;
+                lblist_type += '<div class="jt"><img  class="step3_pic" src="' + URL + ret.data.tod[lb].pic + '" alt=""></div>'
+            }
+            lblist_type += '<div class="clearfix"></div>';
+            $api.html(pics, lblist_type);
+            let timeOutEvent;
+            $(".step3_pic").on({
+                touchstart: function(e) {
+                    // alert(111)
+                    timeOutEvent = setTimeout(function() {
+                        timeOutEvent = 0
+                        let srcs = e.target
+                        let imgs = srcs.src
+                        if (imgs) {
+                            frames(imgs)
+                        } else {
+                            api.toast({
+                                msg: "没有图片",
+                                duration: 2000,
+                                location: 'bottom'
+                            });
+                        }
+                    }, 500);
+                },
+                touchmove: function() {
+                    clearTimeout(timeOutEvent)
+                    timeOutEvent = 0
+                },
+                touchend: function(e) {
+                    let srcs = e.target
+                    let imgs = srcs.src
+                    openImagess(imgs)
+                    clearTimeout(timeOutEvent);
+                }
+            });
+        });
+    }
+    // 新方法 打开照骗
+    function openImagess(imgs) {
+        var photoBrowser = api.require('photoBrowser');
+        photoBrowser.open({
+            images: [imgs],
+            activeIndex: 0,
+            placeholderImg: 'widget://res/img/apicloud.png',
+            bgColor: '#000'
+        }, function(ret, err) {
+            if (ret) {
+                if (ret.eventType == "longPress") {
+                    // let indexs = ret.index
+                    // let imsgh = picsxx[indexs];
+                    // alert("长按:"+imsgh)
+                    frames(imgs)
+                } else {
+                    if (ret.eventType == "click") {
+                        photoBrowser.close();
+                    }
+                    // alert(JSON.stringify(ret));
+                }
+
+            } else {
+                photoBrowser.close();
+                api.toast({
+                    msg: "打开图片失败",
+                    duration: 2000,
+                    location: 'bottom'
+                });
+
+            }
+        });
+    }
+    // 识别图片
+    function frames(img = "222") {
+        api.openFrame({
+            name: 'dians',
+            url: '../dialog/dians.html',
+            rect: {
+                x: 0,
+                y: 0,
+                w: api.winWidth,
+                h: api.winHeight
+            },
+            pageParam: {
+                img: img
+            },
+            bounces: false,
+            bgColor: 'rgba(0,0,0,0.2)',
+        });
+
+    }
+
+    function fuzhis(text) {
+
+        // let text=$("#content").html()
+        // alert(text)
+        // var text = $('.namse_' + id).html();
+        var clipBoard = api.require('clipBoard');
+        clipBoard.set({
+            value: text
+        }, function(ret, err) {
+            if (ret) {
+                //		alert(text);
+                api.toast({
+                    msg: "复制成功",
+                    duration: 2000,
+                    location: 'bottom'
+                });
+
+            } else {
+                api.toast({
+                    msg: "复制成功",
+                    duration: 2000,
+                    location: 'bottom'
+                });
+
+            }
+        });
+    }
+
+    function go_back() {
+        api.closeWin({});
+    }
+
+    function check_bohui() {
+        var task_order_id = $('#task_order_id').val();
+        var bohui_content = $('#bohui_content').val();
+        var uploadimg = $('#uploadimg').val();
+        api.ajax({
+            url: check_reject_url,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    id: task_order_id,
+                    content: bohui_content,
+                    pic: uploadimg,
+                }
+            }
+        }, function(ret, err) {
+            console.log(JSON.stringify(ret));
+            console.log(JSON.stringify(err));
+            // api.alert({ msg: JSON.stringify(ret) });
+            if (ret.code == -302) {
+                api.toast({
+                    msg: ret.message,
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                setTimeout(function() {
+                    api.openWin({
+                        name: 'login',
+                        url: 'login.html',
+                        pageParam: {
+                            name: 'test'
+                        }
+                    });
+                }, 1000);
+                return false;
+            } else if (ret.code == 100) {
+
+                api.toast({
+                    msg: ret.info,
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                if (ret.next == 1) {
+                    setTimeout(function() {
+                        window.location.reload();
+                    }, 1000);
+                } else {
+                    setTimeout(function() {
+                        api.closeWin({});
+                    }, 1000);
+
+                }
+
+            } else {
+
+                api.toast({
+                    msg: ret.info,
+                    duration: 2000,
+                    location: 'bottom'
+                });
+
+            }
+        });
+    }
+
+    function queren_shenhe() {
+        var task_order_id = $('#task_order_id').val();
+        //
+        // alert(task_order_id);
+        // return ;
+        //	alert(task_order_id);return false;
+        // console.log(task_order_id)
+        api.ajax({
+            url: check_task_url,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    id: task_order_id,
+                }
+            }
+        }, function(ret, err) {
+            //		console.log(JSON.stringify(ret));
+            //		console.log(JSON.stringify(err));
+            // api.alert({ msg: JSON.stringify(ret) });
+            if (ret.code == -302) {
+                api.toast({
+                    msg: ret.message,
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                setTimeout(function() {
+                    api.openWin({
+                        name: 'login',
+                        url: 'login.html',
+                        pageParam: {
+                            name: 'test'
+                        }
+                    });
+                }, 1000);
+                return false;
+            } else if (ret.code == 100) {
+
+                api.toast({
+                    msg: ret.info,
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                if (ret.next == 1) {
+                    setTimeout(function() {
+                        window.location.reload();
+                    }, 1000);
+                } else {
+                    setTimeout(function() {
+                        api.closeWin({});
+                    }, 1000);
+
+                }
+
+            } else {
+
+                api.toast({
+                    msg: ret.info,
+                    duration: 2000,
+                    location: 'bottom'
+                });
+
+            }
+        });
+
+    }
+
+    //let pids;
+    //打开聊天
+    function chat_sho(pids) {
+        /*api.openWin({
+            name: 'chat_show',
+            url: '../dialog/chat_show.html',
+            allowEdit: true,
+            pageParam: {
+                id: id,
+                name: name,
+            }
+        });*/
+        api.ajax({
+            url: chat_open,
+            method: 'post',
+            dataType: 'json',
+            data: {
+                values: {
+                    pid: pids,
+                    token: token,
+                }
+            }
+        }, function(ret, err) {
+            //console.log(JSON.stringify(ret))
+
+            if (ret.code == 200) {
+
+                let data = ret.data;
+                api.openWin({
+                    name: 'chat_show',
+                    url: '../dialog/chat_show.html',
+                    allowEdit: true,
+                    pageParam: {
+                        id: data.pid,
+                        type_lian: 1,
+                        name: data.user_name,
+                    }
+                });
+            } else {
+                // alert(JSON.stringify(ret))
+                api.toast({
+                    msg: ret.msg,
+                    duration: 2000,
+                    location: 'bottom'
+                });
+
+                return false;
+            }
+        })
+    }
+</script>
+
+</html>

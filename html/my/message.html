@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+	<meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+	<title>消息</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/message.css" />
+	<link rel="stylesheet" href="../../css/swiper.min.css">
+	    <script type="text/javascript"></script>
+	<script src="../../script/jquery-1.8.3.min.js"></script>
+
+		<script src="../../script/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+	<div class="b" id="header">
+		<div class="header">
+	        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+	        <div class="header_text"><h1>消息</h1></div>
+	        <div class="clearfix"></div>
+	    </div>
+	</div>
+	<div class="message">
+		<!--系统消息-->
+		<div class="message_row" onclick="message_detail(0);">
+			<div class="message_pic"><img src="../../image/xit.png"></div>
+			<div class="message_text">
+				<h1>系统消息</h1>													<!--消息类型-->
+				<h2>及时查看系统消息</h2>											<!--消息内容简介-->
+			</div>
+			<div class="enter"><img src="../../image/enter.png"></div>				<!--更多-->
+			<!-- <div class="unread"><img src="../../image/dian.png"></div>			 -->
+				<!--未读标记-->
+			<div class="clearfix"></div>
+		</div>
+		<!--活动消息-->
+		<div class="message_row" onclick="message_detail_guanfang();">
+			<div class="message_pic"><img src="../../image/hd.png"></div>
+			<div class="message_text">
+				<h1>官方消息</h1>
+				<h2>及时查看官方消息</h2>
+			</div>
+			<div class="enter"><img src="../../image/enter.png"></div>
+			<div class="clearfix"></div>
+		</div>
+		<!--订单消息-->
+		<div class="message_row" onclick="message_detail(1);">
+			<div class="message_pic"><img src="../../image/dd.png"></div>
+			<div class="message_text">
+				<h1>订单消息</h1>
+				<h2>随时了解订单进程</h2>
+			</div>
+			<div class="enter"><img src="../../image/enter.png"></div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+
+
+	</body>
+	<script src="../../script/api.js" charset="utf-8"></script>
+	<script src="../../script/swiper.min.js"></script>
+	<script src="../../script/common.js"></script>
+	<script>
+		apiready = function(){
+			height()
+			api.setRefreshHeaderInfo({
+				loadingImg: 'widget://image/refresh.png',
+				bgColor: '#ccc',
+				textColor: '#fff',
+				textDown: '下拉刷新...',
+				textUp: '松开刷新...'
+			}, function(ret, err) {
+				//在这里从服务器加载数据，加载完成后调用
+				//停止api.refreshHeaderLoadDone()方法恢复组件到默认状态
+				window.location.reload();
+				api.refreshHeaderLoadDone();
+			});
+		}
+
+		function go_back() {
+		  api.closeWin({
+
+		  });
+		}
+		function message_detail(type){												//消息详情
+		  api.openWin({
+			  name: 'message_detail',
+			  url: 'message_detail.html',
+				pageParam: {
+				type:type
+			 }
+		  })
+		}
+		function message_detail_guanfang(){												//消息详情
+			api.openWin({
+				name: 'message_detail_guanfang',
+				url: 'message_detail_guanfang.html',
+
+			})
+		}
+
+	</script>
+
+
+</html>

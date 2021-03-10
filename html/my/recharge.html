@@ -1,0 +1,360 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>充值</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/recharge.css" />
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <script src="../../script/jquery-3.4.1.min.js"></script>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script src="../../script/swiper.min.js"></script>
+    <script src="../../script/common.js"></script>
+    <script src="../../script/url.js"></script>
+</head>
+
+<body>
+    <div class="b" id="header">
+        <div class="header">
+            <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+            <div class="header_text">
+                <h1>充值</h1>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="recharge">
+        <h1>充值金额</h1>
+        <div class="button100" onclick="set_money(100);">
+            <button>￥<i>100</i></button>
+        </div>
+        <div class="button100" onclick="set_money(500);">
+            <button>￥<i>500</i></button>
+        </div>
+        <div class="button100" onclick="set_money(1000);">
+            <button>￥<i>1000</i></button>
+        </div>
+        <div class="button100" onclick="set_money(0)" ;>
+            <button>其他金额</button>
+        </div>
+        <div class="clearfix"></div>
+        <h3>输入充值金额</h3>
+        <div class="import">
+            <h2>￥</h2>
+            <input type="number" class="shuru" id="shuru">
+        </div>
+    </div>
+    <!-- 支付方式 -->
+    <div class="way">
+        <!-- 支付宝支付 -->
+        <div class="way_title">
+            <h1>选择充值方式</h1>
+        </div>
+        <div class="way_content">
+            <div class="way_pic"><img src="../../image/zhifubao.png"></div>
+            <h1>支付宝支付</h1>
+            <div class="content_pic">
+                <input onclick="clicktype(this)" id="zfb" type="radio" name="sex" value="2">
+                <label for="zfb"></label>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <!-- 微信支付 -->
+        <div class="wechat">
+            <div class="wechat_way_pic"><img src="../../image/weixin.png"></div>
+            <h1>微信支付</h1>
+            <div class="wechat_content_pic">
+                <input onclick="clicktype(this)" id="wxzf" type="radio" name="sex" checked value="1">
+                <label for="wxzf"></label>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+
+    <div class="button" onclick="info()">
+        <button>充值</button>
+    </div>
+
+    <input type="hidden" id="cost">
+    <input type="hidden" name="" value="1" id="zftype">
+</body>
+
+<script>
+    function set_money(money) {
+
+        if (money == 0) {
+            //取消input属性为readonly
+            $('#shuru').attr('disabled', false);
+        } else {
+            //设置input属性为readonly
+            $('#shuru').val(money);
+            $('#shuru').attr('disabled', true);
+
+        }
+
+    }
+
+
+    apiready = function() {
+        height()
+            //var header = document.querySelector('#header'); //头帘高度
+            //$api.fixStatusBar(header);
+            // $api.setStorage('token','a936436f65ff3e27edf61054d416da28'); //存token
+        token = $api.getStorage('token');
+    }
+
+    function clicktype(obj) {
+        $api.byId('zftype').value = $(obj).val();
+    }
+
+    function info() {
+
+
+        way = $api.byId('zftype').value;
+        money = $api.byId('shuru').value;
+        //alert(money);return false;
+        api.ajax({
+            url: pay_cz,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    type: way,
+                    money: money
+                }
+            }
+        }, function(ret, err) {
+            // console.log( JSON.stringify( ret ) );
+
+
+            if (ret.code != 100) {
+                //alert( JSON.stringify( ret ) );return false;
+                api.toast({
+                    msg: ret.message,
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                return false;
+                setTimeout(function() {
+                    api.closeWin({
+                        name: 'recharge'
+                    });
+                }, 1000)
+            }
+
+
+            //微信支付
+            if (ret.data.type == 1) {
+                //   api.toast({
+                //       msg: '即将开通',
+                //       duration: 2000,
+                //       location: 'bottom'
+                //   });
+                //   return false;
+
+                api.ajax({
+                    url: wx_pay,
+                    method: 'post',
+                    data: {
+                        values: {
+                            order: ret.data.order_num,
+                            token: token,
+                            type: 1,
+                        },
+                    }
+                }, function(ret, err) {
+                    console.log(JSON.stringify(ret));
+                    console.log(JSON.stringify(err))
+                    if (ret) {
+
+                        var wxPay = api.require('wxPayPlus');
+                        wxPay.payOrder({
+                            apiKey: ret.data.appid,
+                            orderId: ret.data.prepayid,
+                            mchId: ret.data.partnerid,
+                            nonceStr: ret.data.noncestr,
+                            timeStamp: ret.data.timestamp,
+                            sign: ret.data.sign
+                        }, function(retx, err) {
+                            //	alert(JSON.stringify( retx))
+                            //	alert(JSON.stringify( err))
+                            if (retx.status) {
+                                // 支付成功
+                                // alert(JSON.stringify( ret))
+                                api.toast({
+                                    msg: '支付成功',
+                                    duration: 2000,
+                                    location: 'bottom'
+                                });
+                                // api.sendEvent({
+                                // 		name: 'ordertype'
+                                // });
+                                // api.sendEvent({
+                                // 		name: 'mycoupn',
+                                // });
+                                // setTimeout(function() {
+                                // 		api.openWin({
+                                // 		name: 'cg',
+                                // 			 url: './chenggong.html',
+                                // 			 pageParam: {
+                                // 					 pid: ordernum,
+                                // 			 }
+                                // 		});
+                                // }, 500)
+                            } else {
+                                api.toast({
+                                    msg: '支付失败',
+                                    duration: 2000,
+                                    location: 'bottom'
+                                });
+                                //   alert( JSON.stringify( ret ) );
+                                // alert( JSON.stringify( err ) );
+                            }
+                        });
+                        //   alert( JSON.stringify( ret ) );
+                    } else {
+                        //   alert( JSON.stringify( err ) );
+                    }
+                });
+            }
+
+
+            if (ret.data.type == 2) {
+                api.ajax({
+                    url: pay_order,
+                    method: 'post',
+                    data: {
+                        values: {
+                            order: ret.data.order_num,
+                            token: token,
+                            type: 1,
+                        },
+                    }
+                }, function(ret, err) {
+                    console.log(JSON.stringify(ret));
+                    console.log(JSON.stringify(err));
+                    if (ret) {
+                        var aliPayPlus = api.require('aliPayPlus');
+                        aliPayPlus.payOrder({
+                            orderInfo: ret.data
+                        }, function(ret, err) {
+                            console.log(JSON.stringify(ret));
+                            console.log(JSON.stringify(err));
+                            if (ret.code == 9000) {
+                                api.toast({
+                                    msg: '支付成功',
+                                    duration: 2000,
+                                    location: 'bottom'
+                                });
+                                // api.sendEvent({
+                                // 		name: 'ordertype'
+                                // });
+                                // api.sendEvent({
+                                // 		name: 'mycoupn',
+                                // });
+                                // setTimeout(function() {
+                                // 		api.openWin({
+                                // 		name: 'cg',
+                                // 			 url: './chenggong.html',
+                                // 			 pageParam: {
+                                // 					 pid: ordernum,
+                                // 			 }
+                                // 		});
+                                // }, 500)
+                            } else if (ret.code == 6001) {
+                                api.toast({
+                                    msg: '取消支付',
+                                    duration: 2000,
+                                    location: 'bottom'
+                                });
+                            } else if (ret.code == 6002) {
+                                api.toast({
+                                    msg: '网络连接出错',
+                                    duration: 2000,
+                                    location: 'bottom'
+                                });
+                            } else if (ret.code == 8000) {
+                                api.toast({
+                                    msg: '正在处理中，请查询订单的支付状态',
+                                    duration: 2000,
+                                    location: 'bottom'
+                                });
+                            } else if (ret.code == 5000) {
+                                api.toast({
+                                    msg: '重复请求',
+                                    duration: 2000,
+                                    location: 'bottom'
+                                });
+                            } else if (ret.code == 4000) {
+                                api.toast({
+                                    msg: '订单支付失败',
+                                    duration: 2000,
+                                    location: 'bottom'
+                                });
+                            }
+                        });
+                        // alert( JSON.stringify( ret ) );
+                    } else {
+                        // alert( JSON.stringify( err ) );
+                    }
+                });
+            }
+        });
+
+
+    }
+
+    // 支付方式
+    // $(function(){
+    // 	$(".content_pic").children().hide();
+    // 	$(".content_pic").addClass("bor");
+    // 	$(".wechat ").children(".wechat_content_pic").children().show();
+    // 	$(".wechat ").children(".wechat_content_pic").removeClass("bor");
+    // 	$(".way_content").click(function(){
+    // 		$(this).children(".content_pic").children().show();
+    // 		$(this).children(".content_pic").removeClass("bor");
+    // 		$(this).siblings(".wechat").children(".wechat_content_pic").children().hide();
+    // 		$(this).siblings(".wechat").children(".wechat_content_pic").addClass("bor");
+    // 	});
+    // 	$(".wechat").click(function(){
+    // 		$(this).children(".wechat_content_pic").children().show();
+    // 		$(this).children(".wechat_content_pic").removeClass("bor");
+    // 		$(this).siblings(".way_content").children(".content_pic").children().hide();
+    // 		$(this).siblings(".way_content").children(".content_pic").addClass("bor");
+    // 	});
+    // })
+    // 充值金额
+    $(function() {
+        $(".button100:eq(3)").children().addClass("back");
+        $(".button100:eq(3)").siblings("div.button100").children().addClass("none");
+        $("input").focus();
+        $(".button100").click(function() {
+            var index = $(this).index();
+            $(this).children().addClass("back");
+            $(this).children().removeClass("none");
+            $(this).siblings("div.button100").children().removeClass("back");
+            $(this).siblings("div.button100").children().addClass("none");
+            if (index == 4) {
+                $(".shuru").focus();
+
+            } else {
+                $(".shuru").blur();
+            }
+        })
+    })
+
+
+    function go_back() {
+        api.closeWin({
+            // name: '',
+        })
+    }
+</script>
+
+
+</html>

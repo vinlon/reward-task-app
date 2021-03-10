@@ -1,0 +1,246 @@
+* {
+    font-size: 1rem;
+    font-family: "苹方";
+}
+
+html {
+    background-color: #f3f3f3;
+}
+
+.clearfix {
+    clear: both;
+}
+
+h1,
+h2,
+h3,
+p {
+    font-weight: normal;
+    margin: 0
+}
+
+img {
+    display: block;
+    width: 100%;
+}
+
+a {
+    text-decoration: none;
+    display: block;
+}
+
+.header {
+    width: 100%;
+}
+
+.set {
+    width: 92%;
+    margin: 0 auto;
+    position: relative;
+    padding-top: 1.2rem;
+}
+
+.message {
+    width: 7.3%;
+    float: right;
+}
+
+.message img {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.bg {
+    width: 100%;
+    position: absolute;
+}
+
+.bg img {
+    width: 100%;
+}
+
+.name {
+    width: 100%;
+}
+
+.name_pic {
+    width: 3.5rem;
+    height: 3.5rem;
+    float: left;
+}
+
+.name_pic>img {
+    width: 100%;
+    height: 100%;
+    border-radius: 5rem;
+}
+
+.name-guanz {
+    margin-top: 0.5rem;
+    color: white;
+    width: 4rem;
+    background-color: #f79316;
+    font-size: 12px;
+    text-align: center;
+}
+
+.name-guanzs {
+    margin-top: 0.5rem;
+    margin-left: 0.5rem!important;
+    color: white;
+    /*width: 5rem;*/
+    background-color: #f79316;
+    font-size: 12px;
+    text-align: center;
+    /*border: 1px solid black;*/
+}
+
+.name_text {
+    /*border: 1px solid blue;*/
+}
+
+.name_text {
+    width: 55%;
+    float: left;
+    margin-left: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.name_text h1 {
+    font-size: 0.9375rem;
+    margin-bottom: 0.4rem;
+    color: #fff;
+    font-weight: normal;
+}
+
+.name_text h2 {
+    font-size: 0.75rem;
+    color: #fff;
+    font-weight: normal;
+}
+
+.name_text h3 {
+    font-size: 0.7rem;
+    color: #fff;
+    margin-top: 0.2rem;
+}
+
+.kait {
+    width: 30%;
+    text-align: center;
+    line-height: 1.2rem;
+}
+
+.kait button {
+    width: 100%;
+    line-height: 1.2rem;
+    background-color: #e24429;
+    border-radius: 5rem;
+    color: #fff;
+    font-size: 0.7rem;
+    outline: none;
+}
+
+.name_more {
+    width: 1.6%;
+    float: right;
+    margin-top: 1.6rem;
+}
+
+.name_more img {
+    width: 100%;
+    display: block;
+}
+
+.card {
+    padding: 0 1.25rem;
+    box-sizing: border-box;
+    background-color: #fff;
+    border-radius: 0.6rem;
+    margin-top: 1.25rem;
+    padding-bottom: 1.625rem;
+}
+
+.card h1 {
+    font-size: 0.9375rem;
+    color: #333333;
+    padding-top: 1.75rem;
+    margin-bottom: 1rem;
+}
+
+.card h2 {
+    font-size: 1.625rem;
+    color: #fb5134;
+    width: 18%;
+    float: left;
+}
+
+.button {
+    width: 4.25rem;
+    background-color: #fb5134;
+    border-radius: 2rem;
+    float: right;
+    text-align: center;
+    margin-left: 0.6rem;
+}
+
+.button button {
+    font-size: 0.875rem;
+    color: #fff;
+    padding: 0.5rem 0;
+    outline: none;
+}
+
+.button1 {
+    background-color: #ffe5e0;
+    border: 0.0625rem solid #fb5134;
+    border-radius: 2rem;
+    width: 4.25rem;
+    float: right;
+    text-align: center;
+}
+
+.button1 button {
+    color: #fb5134;
+    font-size: 0.875rem;
+    padding: 0.5rem 0;
+    outline: none;
+}
+
+.card p {
+    font-size: 0.8125rem;
+    color: #808080;
+    margin-top: 1.625rem;
+}
+
+.content {
+    padding: 0 1.25rem;
+    box-sizing: border-box;
+    padding-top: 2.5rem;
+    background-color: #fff;
+    border-radius: 0.6rem;
+    margin-top: 0.625rem;
+}
+
+.content_col {
+    width: calc((100% - 2.4rem) / 4);
+    margin-right: .8rem;
+    float: left;
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.content_col:nth-child(4n) {
+    margin-right: 0;
+}
+
+.pic {
+    width: 52%;
+    margin: 0 auto;
+    margin-bottom: 0.625rem;
+}
+
+.content_col h1 {
+    font-size: 0.8125rem;
+    color: #333333;
+}

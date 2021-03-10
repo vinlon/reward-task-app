@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+	<meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+	<title>黑户名单</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/black_list.css" />
+	<link rel="stylesheet" href="../../css/swiper.min.css">
+	<script src="../../script/jquery-1.8.3.min.js"></script>
+	<script src="../../script/api.js" charset="utf-8"></script>
+	<script src="../../script/swiper.min.js"></script>
+	<script src="../../script/common.js"></script>
+	<script src="../../script/url.js"></script>
+</head>
+<body>
+	<div class="b" id="header">
+		<div class="header">
+	        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+	        <div class="header_text"><h1>黑户名单</h1></div>
+	        <div class="clearfix"></div>
+	    </div>
+	</div>
+<div id="set_buzhou">
+
+</div>
+	<!-- <div class="list">
+		<div class="text">
+			<div class="user"><img src="../../image/user.png"></div>
+			<h1>159****4612</h1>
+			<h2>永不恢复</h2>
+			<div class="clearfix"></div>
+		</div>
+		<p>用户存在刷单行为</p>
+		<div class="list_text"><h3>禁止做悬赏、禁止发布任务</h3></div>
+	</div>
+	<div class="list">
+		<div class="text">
+			<div class="user"><img src="../../image/user.png"></div>
+			<h1>189****2468</h1>
+			<h2>永不恢复</h2>
+			<div class="clearfix"></div>
+		</div>
+		<p>用户存在刷单行为</p>
+		<div class="list_text"><h3>禁止发布任务</h3></div>
+	</div> -->
+
+	</body>
+
+	<script>
+		apiready = function(){
+			height()
+		get_balck_list();
+		api.setRefreshHeaderInfo({
+			loadingImg: 'widget://image/refresh.png',
+			bgColor: '#ccc',
+			textColor: '#fff',
+			textDown: '下拉刷新...',
+			textUp: '松开刷新...'
+		}, function(ret, err) {
+			//在这里从服务器加载数据，加载完成后调用
+			//停止api.refreshHeaderLoadDone()方法恢复组件到默认状态
+			window.location.reload();
+			api.refreshHeaderLoadDone();
+		});
+		}
+		function get_balck_list(){
+
+						api.ajax({
+							url:black_list_url,
+							method: 'post',
+							data: {
+								values: {
+
+								}
+							}
+						},function(ret, err){
+							var	length = ret.data.length;
+							//	 alert(length)
+							var 	lblist_type = '';
+								for (var lb = 0; lb < length; lb++) {
+										lblist_type += '	<div class="list">'
+										lblist_type += '		<div class="text">'
+										lblist_type += '			<div class="user"><img src="../../image/user.png"></div>'
+										lblist_type += '			<h1>'+ret.data[lb].phone+'</h1>	'
+										lblist_type += '			<h2>恢复时间：'+ret.data[lb].huifu+'</h2>'
+										lblist_type += '			<div class="clearfix"></div>'
+										lblist_type += '		</div>'
+										lblist_type += '		<p>'+ret.data[lb].content+'</p>'
+										lblist_type += '		<div class="list_text"><h3>'
+										if(ret.data[lb].type_1 == 1){
+											lblist_type +=	'禁止发布任务、'
+										}
+										if(ret.data[lb].type_2 == 1){
+											lblist_type +=	'禁止做悬赏、'
+										}
+
+										lblist_type += '</h3></div>	</div>'
+									}
+												$api.html(set_buzhou,lblist_type);
+						});
+		}
+		function go_back() {
+	        api.closeWin({
+	            // name: '',
+	        })
+	    }
+	</script>
+
+</html>

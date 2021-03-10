@@ -1,0 +1,205 @@
+*{font-size: 1rem;font-family:"苹方";}
+.clearfix{clear: both;}
+body,html{background-color: #f3f3f3;}
+a{display: block;text-decoration: none;}
+h1,h2,h3,h4{font-weight: normal;}
+img{display: block;width: 100%;}
+
+.header{width: 100%;padding: 0 0.9375rem;z-index: 102;position: absolute;top:1.5rem;left:0rem;box-sizing: border-box;padding-top: 1rem;}
+.search{width: 5.1%;float: left;}
+.search img{width: 100%;padding-top: 1rem;box-sizing: border-box;}
+.header_text{text-align: right;width: 40%;float:right;line-height: 3.125rem;margin: 0 auto;}
+.header_text h1{font-size: 1.125rem;color: #2a2b35;font-family:"苹方";font-weight: bold;color: #fff;}
+.question{width: 40%;float: right;line-height: 3.125rem;text-align: right;}
+.question h1{font-size: 0.875rem;color: #ffffff;}
+.center_bg{width: 100%;}
+
+.agreement{width: 70%;height: 26rem;;background-color: #fff;border-radius: 0.5rem;position: fixed;left:15%;top: 20%;z-index: 1000;}
+.agreement h1{font-size: 1rem;color: #333;font-weight: bold;text-align: center;width: 100%;line-height: 3rem;}
+.agreement_content{height: 18.8rem;overflow: hidden;overflow-y: auto;width: 100%;padding: 0 0.9375rem;box-sizing: border-box;}
+.h{width: 100%;box-sizing: border-box;height: 100rem;}
+.h h2{font-size: 0.9375rem;color: #333;font-weight: bold;margin-bottom: 0.6rem;}
+.h>p{font-size:0.875rem;color: #333;margin-bottom: 0.6rem;text-align: justify;}
+.agreement_text p{font-size:0.875rem;color: #333;font-weight: bold;margin-bottom: 0.6rem;text-align: justify;}
+.agreement_button{padding: 0 0.9375rem;height: 4.2rem;line-height: 4.2rem;width: 100%;text-align: center;box-sizing: border-box;background-color: #fff;border-radius: 0 0 0.5rem 0.5rem;}
+.agreement_button button{background-color: #fb5134;font-size: 1rem;color: #fff;line-height: 2.5rem;margin:auto;font-weight: bold;width: 100%;border-radius: 3rem;outline: none;}
+.covering{background-color: rgba(0,0,0,0.5);z-index: 1000;position: fixed;top: 0;left: 0;width: 100%;height: 100%;display: none;}
+
+.report{width: 100%;}
+.report_title{width: 100%;background-color: #fff;border-bottom: 0.0625rem solid #eaeaea;}
+.list{width: 100%;margin: 0 auto;color: #9c9c9c;}
+.list li{width: 50%;float: left;text-align: center;line-height: 2.8125rem;font-size: 1.2375rem;}
+.click{color: #fb5134;border-bottom: 0.125rem solid #fb5134;}
+
+.prerogative{width: 100%;padding: 0 0.9375rem;box-sizing: border-box;background-color: #fff;padding-bottom: 1.25rem;margin-bottom: 0.625rem;}
+.prerogative_title{padding: 1.375rem 0;}
+.prerogative_title h1{font-size: 1.5rem;color: #333333;font-weight: bold;}
+.prerogative_content{width: calc((100% - 6rem) / 4);margin: 0 0.75rem;float: left;}
+.prerogative_pic{width: 71%;margin: 0 auto;}
+.prerogative_content h2{font-size: 0.75rem;color: #808080;text-align: center;margin-top: 0.625rem;}
+
+.recharge{width: 100%;padding: 0 0.9375rem;box-sizing: border-box;background-color: #fff;padding-bottom: 1.25rem;}
+.recharge_title{padding: 1.375rem 0;background-color: #fff;}
+.recharge_title h1{font-size: 1rem;color: #333333;font-weight: bold;}
+.recharge_content{width: calc((100% - 1.125rem) / 3);margin-right: 0.5625rem;background-color: #f4f4f4;border-radius: 0.4rem;text-align: center;padding-bottom: 1rem;float: left;}
+.recharge_content:nth-child(3){margin-right: 0;}
+.recharge_text{background-color: #ff6040;border-radius: 0.4rem 0 0.4rem 0;width: 71%;}
+.recharge_text h1{font-size: 1.025rem;color: #fff;padding: 0.25rem 0;}
+.recharge_content h2{margin-top: 1.875rem;margin-bottom: 0.9375rem;font-size: 1.5375rem;color: #333333;}
+.recharge_content h3{font-size: 1.25rem;color: #fb5134;font-weight: bold;}
+.recharge_content span{font-size: 1rem;}
+.recharge_content h4{font-size: 0.75rem;color: #999999;text-decoration: line-through;margin-top: 0.625rem;}
+
+.way{width: 100%;margin-bottom: 4rem;}
+.way_title{padding: 1.375rem 0.9375rem;box-sizing: border-box;}
+.way_title h1{font-size: 1.5rem;color: #333333;font-weight: bold;}
+.way_content{background-color: #fff;line-height: 3.2rem;padding: 0 0.9375rem;box-sizing: border-box;}
+.way_pic{width: 6.4%;float: left;margin-top: 1.5rem;}
+.way_content h1{width: 60%;margin-left: 0.9375rem;font-size: 0.9375rem;color: #808080;float: left;}
+/*.content_pic{width: 1.1875rem;float: right;margin-top: 0.9rem;height: 1.1875rem;border-radius: 3rem;}*/
+.bor{border: 0.0625rem solid #bdbdbd;}
+
+.button{width: 100%;text-align: center;background-color: #fb5134;position: fixed;bottom: 0;}
+.button button{font-size: 1.125rem;color: #fff;padding: 0.9375rem 0;font-weight: bold;outline: none;}
+
+.vip{width: 100%;padding: 0 0.9375rem;box-sizing: border-box;background-color: #fff;padding-bottom: 1.25rem;margin-bottom: 0.625rem;}
+.vip_title{padding: 1.375rem 0;}
+.vip_title h1{font-size: 1rem;color: #333333;font-weight: bold;}
+.vip_content{width: calc((100% - 6rem) / 4);margin: 0 0.75rem;float: left;}
+.vip_pic{width: 71%;margin: 0 auto;}
+.vip_content h2{font-size: 1.05rem;color: #808080;text-align: center;margin-top: 0.625rem;}
+
+.member_recharge{width: 100%;padding: 0 0.9375rem;box-sizing: border-box;background-color: #fff;padding-bottom: 1.25rem;}
+.member_recharge_title{padding: 1.375rem 0;}
+.member_recharge_title h1{font-size: 1rem;color: #333333;font-weight: bold;}
+.member_recharge_content{width: calc((100% - 1.125rem) / 3);margin-right: 0.5625rem;background-color: #f4f4f4;border-radius: 0.4rem;text-align: center;padding-bottom: 1rem;float: left;}
+.member_recharge_content:nth-child(3){margin-right: 0;}
+.member_recharge_text{background-color: #ff6040;border-radius: 0.4rem 0 0.4rem 0;width: 71%;}
+.member_recharge_text h1{font-size: 1.025rem;color: #fff;padding: 0.25rem 0;}
+.member_recharge_content h2{margin-top: 0.875rem;margin-bottom: 0.9375rem;font-size: 1.5375rem;color: #333333;}
+.member_recharge_content h3{font-size: 1.25rem;color: #fb5134;font-weight: bold;}
+.member_recharge_content span{font-size: 1rem;}
+.member_recharge_content h4{font-size: 0.75rem;color: #999999;text-decoration: line-through;margin-top: 0.625rem;}
+
+.member_way{width: 100%;margin-bottom: 4rem;}
+.member_way_title{padding: 1.375rem 0.9375rem;box-sizing: border-box;}
+.member_way_title h1{font-size: 1rem;color: #333333;font-weight: bold;}
+.member_way_content{background-color: #fff;line-height: 3.2rem;padding: 0 0.9375rem;box-sizing: border-box;}
+.member_way_pic{width: 6.4%;float: left;margin-top: 0.9rem}
+.member_way_content h1{width: 60%;margin-left: 0.9375rem;font-size: 0.9375rem;color: #808080;float: left;}
+/*.member_pic{width: 1.1875rem;float: right;margin-top: 0.9rem;height: 1.1875rem;border-radius: 3rem;}*/
+.bor{border: 0.0625rem solid #bdbdbd;}
+
+.button{width: 100%;text-align: center;background-color: #fb5134;position: fixed;bottom: 0;}
+.button button{font-size: 1.125rem;color: #fff;padding: 0.9375rem 0;font-weight: bold;outline: none;}
+
+
+/*超级商人支付*/
+
+
+/*支付宝支付*/
+.way{width: 100%;border-bottom: 0.0625rem solid #eaeaea;box-sizing: border-box;}
+.way_title{padding: 0 0.9375rem;box-sizing: border-box;}
+.way_title h1{font-size: 0.875rem;color: #808080;font-weight: bold;line-height: 2.6875rem;}
+.way_content{background-color: #fff;line-height: 3rem;padding: 0 0.9375rem;border-top: 0.0625rem solid #eaeaea;box-sizing: border-box;}
+.way_pic{width: 6.4%;float: left;margin-top: 0.5rem}
+.way_content h1{width: 60%;margin-left: 0.9375rem;font-size: 0.9375rem;color: #333;float: left;}
+/*微信支付*/
+.wechat{background-color: #fff;line-height: 3rem;padding: 0 0.9375rem;box-sizing: border-box;border-bottom: 0.0625rem solid #eaeaea;}
+.wechat_way_pic{width: 6.4%;float: left;margin-top: 0.5rem}
+.wechat h1{width: 60%;margin-left: 0.9375rem;font-size: 0.9375rem;color: #333;float: left;}
+
+.bor{border: 0.0625rem solid #bdbdbd;}
+
+
+.content_pic {
+          position: relative;
+          line-height:3.125rem;
+
+          float: right;
+          right: 4%
+      }
+.content_pic span{font-size: 0.875rem;color: #808080;margin-left: 0.5rem;}
+
+    .content_pic  input[type="radio"] {
+          width: 1.25rem;
+          height: 1.25rem;
+          opacity: 0;
+
+      }
+
+    .content_pic  label {
+          position: absolute;
+          left: 0.3125rem;
+          top: 0.1875rem;
+          width: 1.25rem;
+          height:1.25rem;
+          border-radius: 50%;
+          border: 0.0625rem solid #bdbdbd;
+　　　　　　　cursor: pointer;  margin-top: 0.625rem;
+      }
+
+      /*设置选中的input的样式*/
+      /* + 是兄弟选择器,获取选中后的label元素*/
+     .content_pic input:checked+label {
+          background-color: #fb5134;
+          border: 0.0625rem solid #fb5134;
+      }
+       /*添加的加号与label进行拼接(一个矩形边框去掉上和左的边框),再旋转45度*/
+     .content_pic input:checked+label::after {
+          position: absolute;
+          content: "";
+          width: 0.3125rem;
+          height: 0.625rem;
+          top: 0.1875rem;
+          left: 0.375rem;
+          border: 0.125rem solid #fff;
+          border-top: none;
+          border-left: none;
+          transform: rotate(45deg);}
+
+
+          .wechat_content_pic {
+                    position: relative;
+                    line-height:3.125rem;
+                    float: right;
+                    right: 4%
+                }
+        .wechat_content_pic span{font-size: 0.875rem;color: #808080;margin-left: 0.5rem;}
+
+                .wechat_content_pic input[type="radio"] {
+                    width: 1.25rem;
+                    height: 1.25rem;
+                    opacity: 0;
+
+                }
+
+                .wechat_content_pic label {
+                    position: absolute;
+                    left: 0.3125rem;
+                    top: 0.1875rem;
+                    width: 1.25rem;
+                    height:1.25rem;
+                    border-radius: 50%;
+                    border: 0.0625rem solid #bdbdbd;
+          　　　　　　cursor: pointer;  margin-top: 0.625rem;
+                }
+
+                /*设置选中的input的样式*/
+                /* + 是兄弟选择器,获取选中后的label元素*/
+                .wechat_content_pic input:checked+label {
+                    background-color: #fb5134;
+                    border: 0.0625rem solid #fb5134;
+                }
+                 /*添加的加号与label进行拼接(一个矩形边框去掉上和左的边框),再旋转45度*/
+                .wechat_content_pic input:checked+label::after {
+                    position: absolute;
+                    content: "";
+                    width: 0.3125rem;
+                    height: 0.625rem;
+                    top: 0.1875rem;
+                    left: 0.375rem;
+                    border: 0.125rem solid #fff;
+                    border-top: none;
+                    border-left: none;
+                    transform: rotate(45deg);}

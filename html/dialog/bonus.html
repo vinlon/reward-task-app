@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>保证金</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/set.css"/>
+    <!--    <link rel="stylesheet" href="../../css/swiper.min.css">-->
+    <script type="text/javascript"></script>
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <script src="../../script/jquery-3.4.1.min.js"></script>
+
+    <script src="../../script/aui/script/aui-dialog.js"></script>
+    <link rel="stylesheet" href="../../script/aui/css/api.css">
+    <link rel="stylesheet" href="../../script/aui/css/aui.css">
+
+    <style>
+        .clearfix {
+            clear: both;
+        }
+
+        .header {
+            padding: 0 0.9375rem;
+            margin: 0 auto;
+            box-sizing: border-box;
+            border-bottom: 0.0625rem solid #eaeaea;
+            background-color: #fff;
+            padding-top: 1rem;
+            width: 100%;
+        }
+
+        .header_text {
+            text-align: center;
+            width: 60%;
+            float: right;
+            line-height: 3.125rem;
+        }
+
+        .header_text h1 {
+            font-size: 1rem;
+            color: #2a2b35;
+            font-family: "苹方";
+            font-weight: bold;
+        }
+
+        .header h4 {
+            /*width: 20%;*/
+            float: right;
+            line-height: 3.125rem;
+            font-size: 0.875rem;
+            color: #fb5134;
+            text-align: right;
+        }
+
+    </style>
+    <link rel="stylesheet" href="../../css/bonus.css">
+
+</head>
+<body>
+
+<div class="header" id="header">
+<!--    <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>-->
+    <h4 onclick="task_classifys()">奖池规则</h4>
+    <div class="header_text"><h1>每周任务分红</h1></div>
+    <div class="clearfix"></div>
+</div>
+
+<div id="bonus">
+    <div class="aui-content">
+        <img src="../../image/png/head.png"/></div>
+
+    <!--        头部-->
+    <div class="aui-content bonus-head">
+        <div class="bonus-head-div">
+            <div>
+                <p>总金币</p>
+                <p class="bonus-head-div-p bonus-head-div-p-zong">10000</p>
+            </div>
+            <div>
+                <p>有效金币</p>
+                <p class="bonus-head-div-p bonus-head-div-p-you">10000</p>
+            </div>
+            <div>
+                <p>我的金币</p>
+                <p class="bonus-head-div-p bonus-head-div-p-my">10000</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!--    中间-->
+
+
+    <div class="aui-content any-cen">
+        <!--        <img class="bonus-center-img" src="../../image/png/quan1.png"/>-->
+    </div>
+    <!--        测试-->
+    <div class="any-center">
+        <div class="any-center-one">本周分红池</div>
+        <div class="bonus-center-rand">
+            <div class="con">
+                <div class="percent-circle percent-circle-left">
+                    <div class="left-content"></div>
+                </div>
+                <div class="percent-circle percent-circle-right">
+                    <div class="right-content"></div>
+                </div>
+                <div class="text-circle">0%</div>
+            </div>
+        </div>
+        <div class="center_bottom">
+            <div class="bonus-center-new">当前单价0.001元/金币</div>
+            <div class="bonus-center-button">
+                <p class="bonus-center-button-pp">收益100元</p>
+                <p class="bonus-center-button-span"></p>
+            </div>
+        </div>
+    </div>
+
+
+    <!--        <div class="aui-content bonus-center">-->
+    <!--            <div class="bonus-center-one">本周分红池</div>-->
+
+    <!--            <div class="bonus-center-rand">-->
+    <!--                <div class="con">-->
+    <!--                    <div class="percent-circle percent-circle-left">-->
+    <!--                        <div class="left-content"></div>-->
+    <!--                    </div>-->
+    <!--                    <div class="percent-circle percent-circle-right">-->
+    <!--                        <div class="right-content"></div>-->
+    <!--                    </div>-->
+    <!--                    <div class="text-circle">0%</div>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--            <div class="center_bottom">-->
+    <!--                <div class="bonus-center-new">当前单价0.001元/金币</div>-->
+    <!--                <div class="bonus-center-button">-->
+    <!--                    <p class="bonus-center-button-pp">收益100元</p>-->
+    <!--                    <p class="bonus-center-button-span"></p>-->
+    <!--                </div>-->
+    <!--            </div>-->
+</div>
+</div>
+
+<!--     中部-->
+<!--    <div class="aui-content cent-img">-->
+<!--        <img class="" src="../../image/png/quan2.png"/>-->
+<!--    </div>-->
+<!--    <div class="aui-content cent">-->
+<!--        <div>新人七天奖励</div>-->
+<!--        <div class="day_num">今天第1天</div>-->
+<!--        &lt;!&ndash;        <div></div>&ndash;&gt;-->
+<!--    </div>-->
+<!--    循环-->
+<div class="aui-content aui-margin-b-15 button">
+    <ul class="aui-list aui-media-list  add_child">
+    </ul>
+</div>
+
+
+</body>
+<script src="../../script/api.js" charset="utf-8"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/url.js"></script>
+<script>
+    var dialog = new auiDialog({})
+    apiready = function () {
+        height()
+        api.setRefreshHeaderInfo({
+            loadingImg: 'widget://image/refresh.png',
+            bgColor: '#ccc',
+            textColor: '#fff',
+            textDown: '下拉刷新...',
+            textUp: '松开刷新...'
+        }, function(ret, err) {
+            //在这里从服务器加载数据，加载完成后调用
+            //停止api.refreshHeaderLoadDone()方法恢复组件到默认状态
+            window.location.reload();
+            api.refreshHeaderLoadDone();
+        });
+
+        week_shows()
+    }
+
+    // 奖池页面显示
+    function week_shows() {
+        let token = $api.getStorage('token'); //获取token
+        // let token ="71eb3ea534e735d7a00c79a2018f6853"; //获取token
+        api.ajax({
+            url: week_show,
+            method: 'post',
+            dataType: "json",
+            data: {
+                values: {
+                    token: token,
+                }
+            }
+        }, function (ret, err) {
+            if (ret.code == 302) {
+                api.toast({
+                    msg: "请重新登录",
+                    duration: 2000,
+                    location: 'middle'
+                })
+                return
+            }
+            let data = ret.data
+            $(".bonus-head-div-p-zong").html(data.gold)
+            $(".bonus-head-div-p-you").html(data.golds)
+            $(".bonus-head-div-p-my").html(data.ugold)
+            $(".bonus-center-new").html("当前单价" + data.price + "元/金币")
+            $(".bonus-center-button-pp").html("收益" + data.myprice + "元")
+            $(".bonus-center-button-span").html("拥有" + data.num + "金币即可参与分红,中断不清空")
+            $(".text-circle").html(data.money + "元")
+            if (data.week_user_task > 7) {
+                $(".day_num").html("已完成")
+            } else {
+                $(".day_num").html("今天第" + data.week_user_task + "天")
+            }
+
+            let list = data.list;
+            let html = ''
+            list.map(function (item) {
+                html += '<li class="aui-list-item aui-list-item-middle">' +
+                    '                <div class="aui-media-list-item-inner">' +
+                    '                    <div class="aui-list-item-media" style="width: 2rem;">' +
+                    '                        <img src="../../image/png/tu.png" class=" aui-list-img-sm">' +
+                    '                    </div>' +
+                    '                    <div class="aui-list-item-inner " style="width: 8rem">' +
+                    '                        <div class="aui-list-item-text">'
+                let sting = "第一天做任务"
+
+                switch (item.day) {
+                    case "1":
+                        sting = "第一天做任务";
+                        break;
+                    case "2":
+                        sting = "第二天做任务";
+                        break;
+                    case "3":
+                        sting = "第三天做任务";
+                        break;
+                    case "4":
+                        sting = "第四天做任务";
+                        break;
+                    case "5":
+                        sting = "第五天做任务";
+                        break;
+                    case "6":
+                        sting = "第六天做任务";
+                        break;
+                    case "7":
+                        sting = "第七天做任务";
+                        break;
+                }
+
+                if (item.is_show == 0) {
+                    sting += " <span style='color: red'>(0/1)</span>   "
+                } else {
+                    sting += " <span style='color: red'>(1/1)</span>   "
+                }
+
+                html += '                            <div class="aui-list-item-title aui-font-size-14" >' + sting + '</div>' +
+                    '                        </div>' +
+                    '                        <div class="aui-list-item-text">任务总金额大于1元</div>' +
+                    '                    </div>'
+                html += '<div class="aui-list-item-right aui-info-item" style="color: red">+ ' + item.money + ' 元</div>'
+
+                html += '                    <div class="aui-list-item-right">'
+                // '                        <p>' +
+                // '                        <div class="aui-btn aui-btn-warning aui-btn-info">去完成</div>' +
+                // '                        </p>' +
+                if (item.is_show == 2) {
+                    html += ' <p> <div class="aui-btn ">已完成</div></p>'
+                } else if (item.is_show == 1) {
+                    html += ' <p> <div class="aui-btn   aui-btn-info" onclick="lingqs(' + item.id + ')">领取</div></p>'
+                } else {
+                    html += ' <p> <div class="aui-btn aui-btn-warning aui-btn-info" onclick="go_task()">去完成</div></p>'
+                }
+
+
+                html += '                    </div>' +
+                    '                </div>' +
+                    '            </li>'
+            })
+            $(".add_child").append(html)
+            // api.toast({
+            //     msg: ret.msg,
+            //     duration: 2000,
+            //     location: 'middle'
+            // })
+        })
+    }
+
+    // 领取任务
+    function lingqs(id) {
+        let token = $api.getStorage('token'); //获取token
+        // let token ="71eb3ea534e735d7a00c79a2018f6853"; //获取token
+        api.ajax({
+            url: week_ling,
+            method: 'post',
+            dataType: "json",
+            data: {
+                values: {
+                    token: token,
+                    id: id,
+                }
+            }
+        }, function (ret, err) {
+            // console.log(JSON.stringify(ret))
+            // alert(ret.code)
+            if (ret.code == 302) {
+                api.toast({
+                    msg: "请重新登录",
+                    duration: 2000,
+                    location: 'middle'
+                })
+                return
+            } else if (ret.code == 400) {
+                api.toast({
+                    msg: ret.msg,
+                    duration: 2000,
+                    location: 'middle'
+                })
+                return;
+            } else {
+                api.toast({
+                    msg: ret.msg,
+                    duration: 2000,
+                    location: 'middle'
+                })
+                setTimeout(function () {
+                    window.location.reload();
+                }, 500)
+            }
+        })
+    }
+
+    // 跳转任务
+    function go_task() {
+        api.openWin({
+            name: 'tasks.html',
+            url: '../tasks/tasks.html',
+            // allowEdit: true,
+            pageParam: {
+                // id: id,
+                // name: name,
+            }
+        });
+    }
+
+    function go_back() {
+        api.closeWin({});
+    }
+
+
+    var leftContent = document.querySelector(".left-content");
+    var rightContent = document.querySelector(".right-content");
+    // var textCircle   = document.querySelector(".text-circle");
+
+    //先是leftContent旋转角度从0增加到180度，
+    //然后是rightContent旋转角度从0增加到180度
+    var angle = 0;
+
+    var timerId = setInterval(function () {
+        angle += 30;
+        if (angle > 360) {
+            clearInterval(timerId);
+        } else {
+            if (angle > 180) {
+                // rightContent.setAttribute('style', 'transform: rotate('+(angle-180)+'deg)');
+                rightContent.setAttribute('style', 'transform: rotate(' + (angle - 180) + 'deg)');
+            } else {
+                leftContent.setAttribute('style', 'transform: rotate(' + angle + 'deg)');
+            }
+            setPercent(angle);
+
+        }
+    }, 500);
+
+    function setPercent(angle) {
+        // textCircle.innerHTML = parseInt(angle*100/360) +'%';
+    }
+
+    // 跳转规则页面
+    function task_classifys() {
+        api.openWin({
+            name: 'jianggzl',
+            url: './jianggz.html',
+            // allowEdit: true,
+            pageParam: {
+                // id: id,
+                // name: name,
+            }
+        });
+    }
+</script>
+</html>

@@ -1,0 +1,86 @@
+ <widget id="A6152503416233"  version="0.0.1">
+
+    <name>副业帮</name>
+
+    <description>
+
+        Example For APICloud.
+
+    </description>
+
+    <author email="developer@apicloud.com" href="http://www.apicloud.com">
+
+        Developer
+
+    </author>
+
+    <content src="index.json" />
+<!--    <content src="./html/my/login.html" />-->
+
+    <access origin="*" />
+
+    <preference name="pageBounce" value="false"/>
+
+	<preference name="appBackground" value="rgba(0,0,0,0.0)"/>
+
+	<preference name="windowBackground" value="rgba(0,0,0,0.0)"/>
+
+	<preference name="frameBackgroundColor" value="rgba(0,0,0,0.0)"/>
+
+	<preference name="hScrollBarEnabled" value="false"/>
+
+	<preference name="vScrollBarEnabled" value="false"/>
+
+	<preference name="autoLaunch" value="true"/>
+
+	<preference name="fullScreen" value="false"/>
+
+	 <preference name="autoUpdate" value="true" />
+     
+	<preference name="smartUpdate" value="true" />
+
+	<preference name="debug" value="true"/>
+
+	<preference name="statusBarAppearance" value="true"/>
+
+	<permission name="readPhoneState" />
+
+	<permission name="camera" />
+
+	<permission name="record" />
+
+	<permission name="location" />
+
+	<permission name="fileSystem" />
+
+	<permission name="internet" />
+
+	<permission name="bootCompleted" />
+
+	<permission name="hardware" />
+  <!--<feature name="wxPay">
+      <param name="urlScheme" value="wxe176834445c733cd"/>
+      <param name="apiKey" value="wxe176834445c733cd"/>
+      <param name="apiSecret" value="4a11bdacf3fe8c6557820d456eea8ae6"/>
+  </feature>-->
+  <feature name="wxPayPlus">
+    <param name="urlScheme" value="wxe176834445c733cd"/>
+    <param name="apiKey" value="wxe176834445c733cd"/>
+    <param name="apiSecret" value="4a11bdacf3fe8c6557820d456eea8ae6"/>
+    <param name="universalLink" value="https://bjtest.apicloud.com"/>
+  </feature>
+  <!--<feature name="wx">
+        <param name="urlScheme" value="wxe176834445c733cd"/>
+        <param name="apiKey" value="wxe176834445c733cd"/>
+        <param name="apiSecret" value="4a11bdacf3fe8c6557820d456eea8ae6"/>
+    </feature>-->
+    <feature name="wxPlus">
+    <param name="urlScheme" value="wxe176834445c733cd"/>
+    <param name="apiKey" value="wxe176834445c733cd"/>
+    <param name="apiSecret" value="4a11bdacf3fe8c6557820d456eea8ae6"/>
+    <param name="universalLink" value="https://bjtest.apicloud.com"/>
+  </feature>
+    <feature name="aliPayPlus">
+        <param name="urlScheme" value="AliPayPlusA6027499527659" />
+    </feature>
+</widget>

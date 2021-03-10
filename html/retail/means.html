@@ -1,0 +1,167 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+	<meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+	<title>我的资产</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/means.css" />
+	<link rel="stylesheet" href="../../css/swiper.min.css">
+	<script src="../../script/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+<div class="b" id="header">
+	<div class="header">
+        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+        <div class="header_text"><h1>我的资产</h1></div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+
+	<div class="banner">
+		<div class="banner_bg"><img src="../../image/means_bg.png"></div>
+		<div class="banner_content">
+			<div class="name">
+				<h1>可提现金额(元)</h1>
+				<h2 id="yongjin_money"></h2>
+			</div>
+			<div class="card">
+				<div class="card_text">
+					<h1 id="sum_money"></h1>
+					<h2>账户余额(元)</h2>
+				</div>
+				<div class="card_text">
+					<h1 id="t_money"></h1>
+					<h2>已提现金额(元)</h2>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="content">
+				<!-- <div class="content_box" onclick="application_cash()">
+					<div class="box_pic"><img src="../../image/tixian.png"></div>
+					<div class="content_text">
+						<h1>申请提现</h1>
+					</div>
+					<div class="content_pic"><img src="../../image/means_enter.png"></div>
+					<div class="clearfix"></div>
+				</div> -->
+				<div class="content_box" onclick="receipts()">
+					<div class="box_pic"><img src="../../image/shouzhi.png"></div>
+					<div class="content_text">
+						<h1>收支明细</h1>
+					</div>
+					<div class="content_pic"><img src="../../image/means_enter.png"></div>
+					<div class="clearfix"></div>
+				</div>
+				<div class="content_box" onclick="record()">
+					<div class="box_pic" ><img src="../../image/jilu.png"></div>
+					<div class="content_text">
+						<h1>提现记录</h1>
+					</div>
+					<div class="content_pic"><img src="../../image/means_enter.png"></div>
+					<div class="clearfix"></div>
+				</div>
+				<div class="content_box" onclick="shuaxin()">
+					<div class="box_pic" ><img src="../../image/shuaxin.png"></div>
+					<div class="content_text">
+						<h1>购买刷新记录</h1>
+					</div>
+					<div class="content_pic"><img src="../../image/means_enter.png"></div>
+					<div class="clearfix"></div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	</body>
+	<script src="../../script/api.js" charset="utf-8"></script>
+	<script src="../../script/swiper.min.js"></script>
+	<script src="../../script/common.js"></script>
+	<script src="../../script/url.js"></script>
+	<script>
+		apiready = function(){
+			height()
+			//var header = document.querySelector('#header'); //头帘高度
+			//$api.fixStatusBar(header);
+			get_zican()
+			api.setRefreshHeaderInfo({
+				loadingImg: 'widget://image/refresh.png',
+				bgColor: '#ccc',
+				textColor: '#fff',
+				textDown: '下拉刷新...',
+				textUp: '松开刷新...'
+			}, function(ret, err) {
+				//在这里从服务器加载数据，加载完成后调用
+				//停止api.refreshHeaderLoadDone()方法恢复组件到默认状态
+				window.location.reload();
+				api.refreshHeaderLoadDone();
+			});
+		}
+
+		function get_zican() {
+	//console.log(JSON.stringify(get_zican));
+			//		token = $api.getStorage('token');
+			//$api.setStorage('token','a936436f65ff3e27edf61054d416da28'); //存token
+			token = $api.getStorage('token');
+			api.ajax({
+				url:my_zican,
+				method: 'post',
+				data: {
+					values: {
+					   token: token
+					}
+				}
+			},function(ret, err) {
+			 var y_money = ret.info.yongjin_money ;
+			 var s_money =  ret.info.money;
+			 var z_money = parseFloat(y_money) + parseFloat(s_money);
+			 num = z_money.toFixed(2);
+			 console.log(JSON.stringify(y_money));
+			 console.log(JSON.stringify(s_money));
+					$api.html(yongjin_money, ret.info.yongjin_money);
+					$api.html(sum_money, num);
+					$api.html(t_money, ret.info.t_money);
+
+
+		});
+	}
+
+		function go_back() {
+	        api.closeWin({
+	            // name: '',
+	        })
+	    }
+		function application_cash(){
+		  api.openWin({
+			//   name: 'application_cash',
+			//   url: 'application_cash.html'
+			name: 'cash',
+			url: '../my/cash.html'
+		  })
+		}
+		function receipts(){
+		  api.openWin({
+			  name: 'receipts',
+			  url: 'receipts.html'
+		  })
+		}
+		function record(){
+		  api.openWin({
+			  name: 'record',
+			  url: 'record.html'
+		  })
+		}
+		function shuaxin(){
+		  api.openWin({
+			  name: 'shuaxin',
+			  url: 'shuaxin.html'
+		  })
+		}
+	</script>
+
+
+</html>

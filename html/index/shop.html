@@ -1,0 +1,306 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>店铺</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/shop.css"/>
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script src="../../script/swiper.min.js"></script>
+    <script src="../../script/common.js"></script>
+    <script src="../../script/url.js"></script>
+
+</head>
+<style>
+    #user_nname span {
+        width: 3rem;
+        height: 1rem;
+        font-size: 12px;
+        background-color: #EEB422;
+        text-align: center;
+    }
+</style>
+<body>
+
+<div class="header" id="header">
+    <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+    <div class="header_text"><h1>店铺</h1></div>
+    <div class="clearfix"></div>
+</div>
+<div class="banner_bg"><img src="../../image/publish_bg.png"></div>
+
+
+<div class="banner">
+    <div class="banner_content">
+        <div class="shop-head">
+            <div class="shop-head-img">
+                <img src="../../image/shop.png" id="headerpic">
+                <span id="nian_ka">年卡商户</span>
+            </div>
+            <div class="shop-head-center">
+                <div class="shop-head-center-name" id="user_nname">仰望丶那一缕微光12121212</div>
+                <div class="shop-head-center-name shop-head-center-name-oid" >副业帮ID: <span
+                        class="shop-head-center-name-uid" id="shop_idasd">121212121212</span></div>
+                <div class="shop-head-center-name">
+                    <input type="hidden" id="pid">
+                    <span class="name-text-guan name-text-guan-back" onclick="guanz(0)">关注</span>
+                </div>
+            </div>
+<!--            <div class="shop-head-banner_text" onclick="member_center()"><h1 id="u_vip_format">白银会员</h1></div>-->
+            <div class="shop-head-banner_text" onclick="member_center()"><h1 id="u_vip_format">白银会员</h1> </div>
+        </div>
+
+
+        <!-- 店铺情况-->
+        <div class="card">
+            <div class="card_text">
+                <h1 id="faburenwu">75</h1>
+                <h2>发任务(个)</h2>
+            </div>
+
+            <div class="deal">
+                <h1 id="zongchengjiao">169</h1>
+                <h2>总成交(单)</h2>
+            </div>
+
+            <div class="Receive">
+                <h1 id="jiedan_num">0</h1>
+                <h2>接任务(单)</h2>
+            </div>
+
+            <div class="reported">
+                <h1 id="jubao_num">2</h1>
+                <h2>被举报(次)</h2>
+            </div>
+
+            <div class="tip">
+                <h1 id="bei_jubao">9</h1>
+                <h2>举报(次)</h2>
+            </div>
+            <div class="opinion">
+                <h1 id="haopinlv">99.00%</h1>
+                <h2>好评率</h2>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+<!-- 任务列表 -->
+<div class="award" id="award">
+
+</div>
+
+
+</body>
+
+<script>
+    apiready = function () {
+
+
+        //启动监听 addEventListener ->
+        api.addEventListener({
+            name: 'shop_htmlasd'
+        }, function (ret, err) {
+            window.location.reload();
+            if (ret) {
+
+
+            } else {
+            }
+        });
+
+        //启动监听 END
+        height()
+        param = api.pageParam;
+        shop_id = param.shop_id;//任务id
+
+        get_shop_user()
+        api.setRefreshHeaderInfo({
+            loadingImg: 'widget://image/refresh.png',
+            bgColor: '#ccc',
+            textColor: '#fff',
+            textDown: '下拉刷新...',
+            textUp: '松开刷新...'
+        }, function (ret, err) {
+            //在这里从服务器加载数据，加载完成后调用
+            //停止api.refreshHeaderLoadDone()方法恢复组件到默认状态
+            window.location.reload();
+            api.refreshHeaderLoadDone();
+        });
+    }
+
+    function guanz(type) {
+
+        let pid = $("#pid").val()
+        let token = $api.getStorage('token'); //获取token
+        api.ajax({
+            url: add_follow,
+            method: 'post',
+            dataType: 'json',
+            data: {
+                values: {
+                    pid: pid,
+                    token: token,
+                    rw_id: 0,
+                }
+            }
+        }, function (ret, err) {
+            if (ret.code ==2) {
+                api.toast({
+                    msg: ret.msg,
+                    duration: 2000,
+                    location: 'bottom'
+                });
+
+                return false;
+            } else if (ret.code !=1) {
+                api.toast({
+                    msg: "请登录后操作",
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                setTimeout(function () {
+                    api.openWin({
+                        name: 'login',
+                        url: '../my/login.html'
+                    });
+                }, 1000);
+                return false;
+                //跳转登录
+            }
+
+            else {
+                let data = ret.data;
+                if (data == 0) { // 关注
+                    $(".name-text-guan").removeClass("name-text-guan-back")
+                    $(".name-text-guan").addClass("name-text-guan-backs")
+                    $(".name-text-guan").html("取消关注")
+                    // brother.removeClass("ranking-top-red")
+                    // $(this).addClass("ranking-top-red")
+                } else {// 取消关注
+                    $(".name-text-guan").removeClass("name-text-guan-backs")
+                    $(".name-text-guan").addClass("name-text-guan-back")
+                    $(".name-text-guan").html("关注")
+                }
+            }
+        })
+    }
+
+    function get_shop_user() {
+        let token = $api.getStorage('token'); //获取token
+        api.ajax({
+            url: shop_username_url,
+            method: 'post',
+            data: {
+                values: {
+                    shop_id: shop_id,
+                    token: token,
+
+                }
+            }
+        }, function (ret, err) {
+
+            let follow = ret.follow
+            let follow_pid = ret.follow_pid;
+            $("#pid").val(follow_pid)
+            if (follow == 1) { // 关注
+                $(".name-text-guan").removeClass("name-text-guan-back")
+                $(".name-text-guan").addClass("name-text-guan-backs")
+                $(".name-text-guan").html("取消关注")
+
+            } else {// 取消关注
+                $(".name-text-guan").removeClass("name-text-guan-backs")
+                $(".name-text-guan").addClass("name-text-guan-back")
+                $(".name-text-guan").html("关注")
+            }
+            let sname = ret.sname
+            // let shmtls = "<span>" + sname + "</span>" + ret.shop_user.u_name
+
+            $api.html(nian_ka, sname);
+            $api.html(user_nname, ret.shop_user.u_name);
+            $api.html(shop_idasd, ret.shop_user.u_id);
+            $api.html(u_vip_format, ret.shop_user.u_vip_format + '&nbsp;&nbsp;&gt;');
+            $api.html(faburenwu, ret.fabu_num);
+            $api.html(zongchengjiao, ret.zongchengjiao);
+
+            $api.html(jiedan_num, ret.jiedan_num);
+
+            // $api.html(jubao_num, ret.jubao_num);
+            // $api.html(bei_jubao, ret.bei_jubao);
+            $api.html(jubao_num, ret.bei_jubao);
+            $api.html(bei_jubao, ret.jubao_num);
+
+
+            $api.html(haopinlv, ret.haopinlv + "%");
+            if (ret.shop_user.u_headpic == "") {
+                $api.byId('headerpic').src = "../../image/personal.png";//头像
+            } else {
+                $api.byId('headerpic').src = URL + ret.shop_user.u_headpic;//头像
+            }
+
+            var length = ret.task_list.length;
+            //	 alert(length)
+            var lblist_type = '';
+            for (var lb = 0; lb < length; lb++) {
+
+
+                lblist_type += '	<div class="award_row" onclick="list_detail(' + ret.task_list[lb].id + ')">'
+                lblist_type += '		<div class="head_pic"><img src="' + URL + ret.task_list[lb].image + '"></div>'
+                lblist_type += '		<div class="award_text">'
+                lblist_type += '			<p class="task_name">' + ret.task_list[lb].title + '</p>'
+                lblist_type += '			<p  class="task_con">' + ret.task_list[lb].position + '</p>'
+                lblist_type += '			<p class="task_con1">' + ret.task_list[lb].name + '</p>'
+                lblist_type += '			<div class="clearfix"></div>'
+                lblist_type += '			<p class="yiyou_num">' + ret.task_list[lb].yiyou_num + '人已赚，剩余' + ret.task_list[lb].num + '个</p>'
+                lblist_type += '		</div>'
+                lblist_type += '		<p class="shang">赏' + ret.task_list[lb].money + '元</p>'
+                lblist_type += '		<div class="clearfix"></div>'
+                lblist_type += '	</div>'
+
+            }
+
+
+            $api.html(award, lblist_type);
+
+        });
+    }
+
+
+    function member_center() {												//会员中心
+        api.openWin({
+            name: 'member_center',
+            url: '../my/member_center.html'
+        })
+    }
+
+    function go_back() {													//返回
+        api.sendEvent({
+            name: 'guanzu',
+        });
+        api.closeWin({});
+
+    }
+
+    function list_detail(id) {													//列表详情
+        api.sendEvent({
+            name: 'dddagain',
+
+        });
+        api.openWin({
+            name: 'list_detail',
+            url: 'list_detail.html',
+            pageParam: {
+                id: id
+            }
+        })
+    }
+</script>
+
+</html>

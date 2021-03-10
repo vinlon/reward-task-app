@@ -1,0 +1,72 @@
+/*.table{border:2rem solid #add9c0; border-width:1px 1px 1px 1px;}*/
+/*.td{border:solid #0020ff; border-width:0px 1px 1px 0px; padding-left:10px;}*/
+table {
+    text-align: center;
+    vertical-align: middle;
+    border-collapse: collapse;
+    position: relative;
+    width: 100%;
+}
+
+table thead {
+    /*height: 35px;*/
+    background-color: #E6F9F5;
+}
+
+table td {
+    border: 0;
+    /*padding: 15px;*/
+    width: 20.58%;
+    position: relative;
+}
+
+table td::after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    width: 200%;
+    height: 200%;
+    border: 1px solid #8be7e4;
+    border-top: none;
+    border-right: none;
+    transform-origin: 0 0;
+    transform: scale(0.5);
+}
+
+table::after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    width: 200%;
+    height: 200%;
+    border: 1px solid #8be7e4;
+    border-left: none;
+    border-bottom: none;
+    transform-origin: 0 0;
+    transform: scale(0.5);
+}
+
+.tr_head{
+    /*background-color: #0040ff;color: white;*/
+        height: 3rem;
+}
+.tr_head th{
+    font-size: 1.2rem;
+}
+.tr_but{
+    height: 5rem;
+    /*background-color: white;*/
+
+}
+.tr_but td{
+    font-size: 1.1rem;
+    /*text-align: center;*/
+    /*border: 1px;*/
+}
+.td_bulr{
+    color: blue;
+}

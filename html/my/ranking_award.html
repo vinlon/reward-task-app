@@ -1,0 +1,207 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+	<meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+	<title>排行奖励</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ranking_award.css" />
+	<link rel="stylesheet" href="../../css/swiper.min.css">
+	<script src="../../script/jquery-1.8.3.min.js"></script>
+	<script src="../../script/api.js" charset="utf-8"></script>
+	<script src="../../script/swiper.min.js"></script>
+	<script src="../../script/common.js"></script>
+	<script src="../../script/url.js"></script>
+</head>
+<body>
+	<div class="header" id="header">
+        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+        <div class="header_text"><h1>排行奖励</h1></div>
+		<div class="header_pic"><img src="../../image/question.png"></div>
+		<div class="header_right"><h2>&nbsp;</h2></div><!--上月 -->
+        <div class="clearfix"></div>
+    </div>
+
+	<div class="award">
+		<div class="bg"><img src="../../image/award_bg.png"></div>
+		<div class="award_title">
+			<ul class="list">
+				<li onclick="get_phb(1,1);">接单奖励</li>
+				<li onclick="get_phb(2,1);">推广奖励</li>
+				<div class="clearfix"></div>
+			</ul>
+		</div>
+		<div class="line"></div>
+
+		<div id="set_buzhou">
+		<!-- 用户排名 -->
+		<!-- <div class="award_row">
+			<div class="list_pic"><img src="../../image/1.png"></div>
+			<div class="head_pic"><img src="../../image/award_tx.png"></div>
+			<div class="award_text">
+				<p>仰望丶那一缕微光</p>
+				<h2>完成<span>312</span>个任务</h2>
+			</div>
+			<div class="row_text">
+				<p>+ 588.00</p>
+			</div>
+
+			<div class="jiang"><span>奖</span></div>
+			<div class="clearfix"></div>
+		</div> -->
+</div>
+		<!-- <div class="award_row">
+			<div class="list_pic"><img src="../../image/2.png"></div>
+			<div class="head_pic"><img src="../../image/award_tx1.png"></div>
+			<div class="award_text">
+				<h1>白了少年头。</h1>
+				<h2>完成<span>312</span>个任务</h2>
+			</div>
+			<div class="row_text">
+				<h1>+ 588.00</h1>
+			</div>
+			<div class="clearfix"></div>
+		</div> -->
+		<!-- <div class="award_row">
+			<div class="list_pic"><img src="../../image/3.png"></div>
+			<div class="head_pic"><img src="../../image/award_tx2.png"></div>
+			<div class="award_text">
+				<h1>抹茶味的百奇</h1>
+				<h2>完成<span>312</span>个任务</h2>
+			</div>
+			<div class="row_text">
+				<h1>+ 588.00</h1>
+			</div>
+			<div class="clearfix"></div>
+		</div> -->
+		<!-- <div class="award_row">
+			<div class="list_pic"><img src="../../image/4.png"></div>
+			<div class="head_pic"><img src="../../image/award_tx3.png"></div>
+			<div class="award_text">
+				<h1>怪我太萌v、</h1>
+				<h2>完成<span>312</span>个任务</h2>
+			</div>
+			<div class="row_text">
+				<h1>+ 588.00</h1>
+			</div>
+			<div class="clearfix"></div>
+		</div> -->
+		<!-- <div class="award_row">
+			<div class="list_pic"><img src="../../image/5.png"></div>
+			<div class="head_pic"><img src="../../image/award_tx4.png"></div>
+			<div class="award_text">
+				<h1>蓝天拥抱白绵云≈</h1>
+				<h2>完成<span>312</span>个任务</h2>
+			</div>
+			<div class="row_text">
+				<h1>+ 588.00</h1>
+			</div>
+			<div class="clearfix"></div>
+		</div> -->
+	</div>
+	<div class="cover"></div>
+<div class="wxts">
+	<div class="wxti_title clearfix">
+		<span>温馨提示</span>
+		<img src="../../image/close2.png" alt="" class="close">
+	</div>
+	<p>排行榜的结算周期为一个月，即以每个月最后一天23:59分是排名情况为最终排名，平台将于第二天按照排名名次发放额外奖励；按照名次高低额外奖励从高至底，快去力争名次上游，多赚多得吧！</p>
+</div>
+	</body>
+
+	<script>
+		apiready = function(){
+			height()
+			get_phb(1,1);
+		}
+		$(function(){
+				$(".header_pic").click(function(){
+					$(".wxts").show();
+					$(".cover").show();
+				});
+			$(".close").click(function(){
+			$(".wxts").hide();
+				$(".cover").hide();
+			})
+		})
+		function	get_phb(type,orx){
+
+			api.ajax({
+				url:get_rankinglist_url,
+				method: 'post',
+				data: {
+					values: {
+						type: type,
+						orx:orx,
+					}
+				}
+			},function(ret, err){
+				console.log(JSON.stringify(ret));
+			//	console.log(JSON.stringify(err));
+
+				var	length = ret.data.length;
+				//	 alert(length)
+				var 	lblist_type = '';
+					for (var lb = 0; lb < length; lb++) {
+
+
+							lblist_type += '	<div class="award_row">'
+							if(ret.data[lb].axc == 1){
+		            lblist_type += '		<div class="list_pic"><img src="../../image/1.png"></div>'
+							}else if(ret.data[lb].axc == 2){
+								lblist_type += '		<div class="list_pic"><img src="../../image/2.png"></div>'
+							}else if(ret.data[lb].axc == 3){
+								lblist_type += '		<div class="list_pic"><img src="../../image/3.png"></div>'
+							}else{
+								lblist_type += '		<div class="list_pic"><img src="../../image/5.png"></div>'
+							}
+							if(!ret.data[lb].user.u_headpic){
+										lblist_type += '		<div class="head_pic"><img src="'+URL+ret.data[lb].user.u_headpic+'"></div>'
+
+							}else{
+									lblist_type += '		<div class="head_pic"><img src="../../image/award_tx2.png"></div>'
+							}
+
+							lblist_type += '		<div class="award_text">'
+							lblist_type += '			<p>'+ret.data[lb].user.u_name+'</p>'
+							if(type == 1){
+								lblist_type += '			<h2>完成<span>'+ret.data[lb].nums+'</span>个任务</h2>'
+							}else{
+										lblist_type += '			<h2>获得<span>'+ret.data[lb].nums+'</span>佣金奖励</h2>'
+							}
+
+						lblist_type += '			</div>'
+							lblist_type += '		<div class="row_text">'
+							lblist_type += '			<p>+'+ret.data[lb].jiang+'</p>'
+							lblist_type += '		</div>'
+							lblist_type +='<div class="jiang"><span>奖</span></div>'
+						lblist_type += '			<div class="clearfix"></div>'
+						lblist_type += '		</div>'
+					}
+
+
+						$api.html(set_buzhou,lblist_type);
+			});
+		}
+		$(function(){
+			$(".list li:eq(0) ").addClass('click');
+			$(".list li ").click(function(){
+				$(this).addClass('click').siblings().removeClass('click');
+			});
+		})
+		function go_back() {
+		  api.closeWin({
+
+		  });
+		}
+		function help(){														//常见问题
+		  api.openWin({
+			  name: 'help',
+			  url: 'help.html'
+		  })
+		}
+	</script>
+
+</html>

@@ -1,0 +1,816 @@
+* {
+    font-size: 1rem;
+    font-family: "苹方";
+}
+
+.clearfix {
+    clear: both;
+}
+
+a {
+    display: block;
+    text-decoration: none;
+}
+
+h1,
+h2,
+h3 {
+    font-weight: normal;
+}
+
+img {
+    display: block;
+    width: 100%;
+}
+
+.b {
+    width: 100%;
+    background-color: #fff;
+}
+
+.header {
+    padding: 0 0.9375rem;
+    margin: 0 auto;
+    box-sizing: border-box;
+    border-bottom: 0.0625rem solid #eaeaea;
+    width: 100%;
+    padding-top: 1rem;
+}
+
+.search {
+    width: 5.1%;
+    float: left;
+}
+
+.search img {
+    width: 100%;
+    padding-top: 1rem;
+    box-sizing: border-box;
+}
+
+.header_text {
+    text-align: center;
+    width: 89.8%;
+    float: left;
+    line-height: 3.125rem;
+}
+
+.header_text h1 {
+    font-size: 1.125rem;
+    color: #2a2b35;
+    font-family: "苹方";
+    font-weight: bold;
+}
+
+.rules {
+    width: 100%;
+}
+
+.rules_pic {
+    width: 100%;
+    position: relative;
+}
+
+
+/*.title{width: 53.6%;line-height: 2rem;text-align: center;border-radius: 0.4rem;position: absolute;top: 25.3125rem;left:23.2%;background-color: #f4361a;z-index: 100;}*/
+
+.title {
+    width: 53.6%;
+    line-height: 2rem;
+    text-align: center;
+    border-radius: 0.4rem;
+    position: absolute;
+    top: 30rem;
+    left: 23.2%;
+    background-color: #f4361a;
+    z-index: 100;
+}
+
+.title h1 {
+    font-size: 1.0625rem;
+    color: #fff;
+}
+
+
+/*.rules_bg{width: 87%;margin: 0 auto;background-color: #fee2c7;border-radius: 0.6rem;border: 0.125rem solid #f4361a;position: absolute;top: 26.4rem;left: 6.5%;}*/
+
+.rules_bg {
+    width: 87%;
+    margin: 0 auto;
+    background-color: #fee2c7;
+    border-radius: 0.6rem;
+    border: 0.125rem solid #f4361a;
+}
+
+.bg {
+    width: 65.8%;
+    margin: 0 auto;
+    margin-top: 2.5rem;
+}
+
+.rules_bg>h1 {
+    font-size: 1.0625rem;
+    color: #fb5134;
+    text-align: center;
+    font-weight: bold;
+    width: 40%;
+    margin: -1.25rem auto 0;
+}
+
+.box {
+    margin-top: 1.5rem;
+    padding: 0 0.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 0.0625rem dashed #fd7535;
+}
+
+.page {
+    width: 30%;
+    float: left;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.red_page {
+    width: 70%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.red_page h2 {
+    position: absolute;
+    bottom: 0.5rem;
+    left: 20%;
+}
+
+.red_page h2 .mon {
+    font-size: 0.8rem;
+    color: #fff;
+    font-weight: bold;
+}
+
+.red_page h2 .yu {
+    font-size: 0.55rem;
+    color: #fff;
+}
+
+.red_page>img {
+    width: 100%;
+}
+
+.page>h1 {
+    font-size: 0.75rem;
+    color: #fd6f05;
+}
+
+.jia {
+    width: 5%;
+    float: left;
+    margin-top: 1.2rem;
+}
+
+.bg1 {
+    width: 65.8%;
+    margin: 0 auto;
+    margin-top: 1.5rem;
+}
+
+.rules_bg>h2 {
+    font-size: 1.0625rem;
+    color: #fb5134;
+    text-align: center;
+    font-weight: bold;
+    width: 40%;
+    margin: -1.25rem auto 0;
+}
+
+.rules_bg>p {
+    font-size: 0.875rem;
+    color: #333333;
+    padding: 0 1.2rem;
+    text-align: center;
+    margin-top: 0.875rem;
+    margin-bottom: 1.625rem;
+}
+
+.rules_bg span {
+    font-size: 0.875rem;
+    color: #fb5134;
+}
+
+.percentage {
+    width: 100%;
+    margin-bottom: 0.4rem;
+}
+
+.percentage .ru {
+    width: calc((100% - 7.5rem) / 4);
+    margin: 0 0.9375rem;
+    float: left;
+    text-align: center;
+}
+
+.percentage .ru>img {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.percentage .ru p {
+    font-size: 0.875rem;
+    color: #fd6f05
+}
+
+.percentage .ru h1 {
+    font-size: 0.875rem;
+    color: #fd6f05
+}
+
+.percentage .ru h2 {
+    font-size: 0.875rem;
+    color: #fd6f05
+}
+
+.percentage .ru h3 {
+    font-size: 0.875rem;
+    color: #fd6f05
+}
+
+.text>p {
+    font-size: 0.75rem;
+    color: #fd6f05;
+    margin-top: 0.4rem;
+    text-align: center;
+    width: calc((100% - 7.5rem) / 4);
+    margin: 0 0.9375rem;
+    float: left;
+}
+
+.buttom {
+    height: 6.875rem;
+    width: 100%;
+    vertical-align: bottom;
+    padding-bottom: 1.5rem;
+    border-bottom: 0.0625rem dashed #fd7535;
+}
+
+.bg2 {
+    width: 65.8%;
+    margin: 0 auto;
+    margin-top: 1.5rem;
+}
+
+.rules_bg>h3 {
+    font-size: 1.0625rem;
+    color: #fb5134;
+    text-align: center;
+    font-weight: bold;
+    width: 40%;
+    margin: -1.25rem auto 0;
+}
+
+.yi {
+    width: 30%;
+    height: 4.0625rem;
+    padding: 0.625rem;
+    box-sizing: border-box;
+    text-align: center;
+    background-color: #ffcfb9;
+    border-radius: 0.4rem;
+    float: left;
+    margin-left: 15%;
+}
+
+.yi h1 {
+    font-size: 1.125rem;
+    color: #fb5134;
+    margin-bottom: 0.2rem;
+}
+
+.yi h2 {
+    font-size: 0.875rem;
+    color: #333333;
+}
+
+.er {
+    width: 30%;
+    height: 4.0625rem;
+    padding: 0.625rem;
+    box-sizing: border-box;
+    text-align: center;
+    background-color: #ffcfb9;
+    border-radius: 0.4rem;
+    float: right;
+    margin-right: 15%;
+    margin-bottom: 2.125rem
+}
+
+.er h1 {
+    font-size: 1.125rem;
+    color: #fb5134;
+    margin-bottom: 0.2rem;
+}
+
+.er h2 {
+    font-size: 0.875rem;
+    color: #333333;
+}
+
+
+/*.zhuyi_title{width: 53.6%;line-height: 2rem;text-align: center;border-radius: 0.4rem;position: absolute;top: 78.025rem;left:23.2%;background-color: #f4361a;z-index: 100;}*/
+
+.zhuyi_title {
+    width: 53.6%;
+    line-height: 2rem;
+    text-align: center;
+    border-radius: 0.4rem;
+    background-color: #f4361a;
+    margin: .3rem auto 0;
+}
+
+.zhuyi_title>h1 {
+    font-size: 1.0625rem;
+    color: #fff;
+}
+
+
+/*.zhuyi_bg{width: 87%;margin: 0 auto;background-color: #fee2c7;border-radius: 0.6rem;border: 0.125rem solid #f4361a;position: absolute;top: 78.5rem;left: 6.5%;}*/
+
+.zhuyi_bg {
+    width: 87%;
+    margin: 0 auto;
+    background-color: #fee2c7;
+    border-radius: 0.6rem;
+    border: 0.125rem solid #f4361a;
+}
+
+.zhuyi_bg p {
+    padding: 2.5rem 1rem;
+    font-size: 0.875rem;
+    color: #fb5134;
+    text-align: justify;
+}
+
+.rules-fenxiang {
+    width: 87%;
+    margin: -2.1rem auto 0;
+    border-radius: 0.6rem;
+    display: flex;
+}
+
+.rules-fenxiang-div {
+    /*background-color: white;*/
+    margin: 0 auto;
+    width: 4rem;
+    height: 5.5rem;
+    /*border: 1px solid blue;*/
+}
+
+.rules-fenxiang-div span {
+    color: white;
+    font-size: 12px;
+    text-align: center;
+    width: 100%;
+}
+
+.rules-fenxiang-div img {
+    border-radius: 4rem;
+    background-color: white;
+}
+
+.erwm {
+    width: 100%;
+    height: 122.5rem;
+    /*border: 1px solid blue;*/
+    z-index: 1200;
+    background-color: black;
+    opacity: 0.6;
+    position: absolute;
+    top: 0px;
+    /*margin: 0 auto;*/
+}
+
+.erwm-div {
+    /*margin: 0 auto;*/
+    width: 15rem;
+    height: 15rem;
+    position: fixed;
+    bottom: 20rem;
+    left: 5rem;
+    z-index: 1300;
+    /*text-align: center;*/
+    /*border: 1px solid yellow;*/
+}
+
+.erwm-div img {
+    width: 15rem;
+    height: 15rem;
+    background-color: white !important;
+    opacity: 1;
+}
+
+.myshi {
+    margin-top: 18.45rem;
+    width: 100%;
+    height: 2rem;
+    /*border: 1px solid blue;*/
+}
+
+.myshi-div {
+    margin: 0 auto;
+    width: 15rem;
+    height: 2rem;
+    /*border: 1px solid blue;*/
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: 700;
+    color: white;
+    text-align: center;
+}
+
+.myshi-div-span {
+    font-size: 25px;
+}
+
+.labels {
+    /*margin: 0 auto;*/
+    width: 87%;
+    height: 3rem;
+    margin: 1rem auto 0;
+    border-radius: 0.6rem;
+    background-color: #FBAB00;
+    display: flex;
+    /*border: 1px solid blue;*/
+}
+
+.labels-left {
+    border-top-left-radius: 0.6rem;
+    border-bottom-left-radius: 0.6rem;
+}
+
+.labels-rigth {
+    border-bottom-right-radius: 0.6rem;
+    border-top-right-radius: 0.6rem;
+}
+
+.labels div {
+    width: 50%;
+    height: 3rem;
+    /*border: 1px solid black;*/
+    /*border-radius: 0.6rem;*/
+    text-align: center;
+    font-size: 1.2rem;
+    line-height: 3rem;
+    color: white;
+}
+
+.labels-text-back {
+    background-color: white!important;
+    color: #FBAB00!important;
+}
+
+.myf {
+    width: 87%;
+    margin: 0 auto;
+    border-radius: 0.6rem;
+    display: none;
+    background-color: white;
+    border: 0.125rem solid #f4361a;
+}
+
+.myf-head {
+    width: 100%;
+    height: 100%;
+    /*display: flex;*/
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.myf-head-div {
+    width: 45%;
+    height: 6rem;
+    border: 0.1rem solid #C6D1CD;
+    margin-top: 0.8rem;
+}
+
+.myf-head-div-child {
+    height: 3rem;
+    font-size: 15px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 60px;
+    color: #76707A;
+    /*border: 1px solid blue;*/
+}
+
+.myf-head-div-child-ons-span {
+    font-size: 30px;
+}
+
+.myf-head-div-child-ons {
+    color: red;
+    height: 2rem!important;
+}
+
+.myf-erji {
+    margin: 0 auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: 80%;
+    height: 2rem;
+    display: flex;
+}
+
+.myf-erji-label {
+    width: 45%;
+    height: 2rem;
+    border: 1.5px solid #FBAB00;
+    background-color: #FBAB00;
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 30px;
+    /*border: 1px solid blue;*/
+}
+
+.myf-erji-label-left {
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+}
+
+.myf-erji-label-rigth {
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+}
+
+.myf-erji-label-color {
+    color: #FBAB00!important;
+    background-color: white!important;
+}
+
+.myf-center {
+    width: 100%;
+    /*border: 3px solid #FBAB00;*/
+    /*height: 28rem;*/
+    /*overflow-y:scroll;*/
+    /*overflow-x:scroll;*/
+}
+
+.myf-center-div {
+    margin: 0 auto;
+    width: 95%;
+    height: 3rem;
+    display: flex;
+    border-bottom: 1px solid #76707A;
+    /*border: 1px solid blue;*/
+}
+
+.myf-center-div-div {
+    width: 33%;
+    /*border: 1px solid blue;*/
+}
+
+.myf-center-div-div-imgs {
+    margin-top: 0.5rem;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 2rem;
+}
+
+.myf-center-div-div-imgs img {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 2rem;
+}
+
+.myf-center-div-div-names {
+    width: 50%;
+}
+
+.myf-center-div-div-names div {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 40%;
+    font-size: 13px;
+    text-align: center;
+}
+
+.myf-center-div-div-money {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 40px;
+    text-align: center;
+    color: #fb5134;
+}
+
+.myf-center-div-div-ytx {
+    font-size: 0.8rem;
+    font-weight: 700;
+    line-height: 40px;
+    text-align: center;
+    color: #b3b3b3;
+}
+
+.myf-center-div-div-wtx {
+    font-size: 0.8rem;
+    font-weight: 700;
+    line-height: 40px;
+    text-align: center;
+    color: #fb5134;
+}
+
+.myf-xihua {
+    width: 100%;
+    font-size: 10px;
+    color: #76707A;
+    text-align: center;
+}
+
+.myf-search {
+    display: -webkit-flex;
+    /* Safari */
+    -webkit-flex-wrap: wrap;
+    /* Safari 6.1+ */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    vertical-align: top;
+    margin: 1rem 3% 0;
+    background-color: #fee2c7;
+    padding: 2% 3%;
+    font-size: 0.8rem;
+    color: #fb5134;
+    border-radius: 0.6rem;
+}
+
+.myf-search img {
+    width: 1rem;
+    height: 1rem;
+}
+
+.myf-search input {
+    width: 80%;
+    outline: none;
+}
+
+.myf-search span {
+    font-size: 0.8rem;
+}
+
+.erji {
+    width: 87%;
+    margin: 0 auto;
+    border-radius: 0.6rem;
+    background-color: white;
+    border: 0.125rem solid #f4361a;
+    display: none;
+}
+
+.erji ul {
+    margin: 0.8rem;
+}
+
+.erji ul li {
+    display: -webkit-flex;
+    /* Safari */
+    -webkit-flex-wrap: wrap;
+    /* Safari 6.1+ */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    vertical-align: text-top;
+    margin-bottom: 1rem;
+}
+
+.erji ul li>span {
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: #fee2c7;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #fb5134;
+    line-height: 1.5rem;
+    border: 0.05rem solid #f4361a;
+    box-sizing: content-box;
+    padding: 0.2rem;
+}
+
+.erji ul li>a {
+    width: 2rem;
+    height: 1rem;
+    background-color: #fee2c7;
+    border-radius: 2rem;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #fb5134;
+    line-height: 1rem;
+    border: 0.05rem solid #f4361a;
+    box-sizing: content-box;
+    padding: 0.2rem;
+}
+
+.erji ul li>a.active {
+    color: #76707A;
+    background-color: #f3f3f3;
+    border: 0.05rem solid #76707A;
+}
+
+.erji ul li div {
+    text-align: left;
+    width: 65%;
+    vertical-align: top;
+    display: -webkit-flex;
+    /* Safari */
+    -webkit-flex-wrap: wrap;
+    /* Safari 6.1+ */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.erji ul li div h4 {
+    font-size: 0.8rem;
+    color: #fb5134;
+    font-weight: normal;
+}
+
+.erji ul li div p {
+    color: #fb5134;
+    font-size: 0.5rem;
+    width: 75%;
+    vertical-align: text-bottom;
+}
+
+.erji ul li div progress {
+    background-color: #fee2c7;
+    border-radius: 0.2rem;
+    width: 70%;
+    height: 0.3rem;
+    color: #fb5134;
+    font-size: 0.6rem;
+    margin-right: 0.3rem;
+}
+
+
+/* 表示总长度背景色 */
+
+.erji ul li div progress::-webkit-progress-bar {
+    background-color: #fee2c7;
+    border-radius: 0.2rem;
+}
+
+.erji ul li div progress::-webkit-progress-value {
+    background: #fb5134;
+    border-radius: 0.2rem;
+}
+
+.erji ul li div span {
+    color: #fb5134;
+    font-size: 0.8rem;
+    margin-top: -1.2rem;
+}
+
+.erji>div {
+    background-color: #fee2c7;
+    border-bottom-left-radius: 0.6rem;
+    border-bottom-right-radius: 0.6rem;
+}
+
+.erji>div>div {
+    vertical-align: top;
+    display: -webkit-flex;
+    /* Safari */
+    -webkit-flex-wrap: wrap;
+    /* Safari 6.1+ */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    width: 87%;
+    margin: 0 auto;
+    padding: 5% 0
+}
+
+.erji>div div img {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+
+.erji>div div h4 {
+    font-size: 0.85rem;
+    font-weight: normal;
+}
+
+.erji>div div p {
+    color: #fb5134;
+    font-size: 0.8rem;
+}
+
+.erji>div div span {
+    font-size: 0.8rem;
+}

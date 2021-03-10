@@ -1,0 +1,515 @@
+* {
+    font-size: 1rem;
+    font-family: "苹方";
+    font-family: "苹方";
+}
+
+.clearfix {
+    clear: both;
+}
+
+body,
+html {
+    background-color: #f3f3f3;
+}
+
+a {
+    display: block;
+    text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-weight: normal;
+}
+
+img {
+    display: block;
+    width: 100%;
+}
+
+button {
+    outline: none;
+}
+
+.b {
+    width: 100%;
+    background-color: #fff;
+}
+
+.search {
+    width: 5.1%;
+    float: left;
+}
+
+.search img {
+    width: 100%;
+    padding-top: 1rem;
+    box-sizing: border-box;
+}
+
+.header {
+    padding: 0 0.9375rem;
+    margin: 0 auto;
+    box-sizing: border-box;
+    background-color: #fff;
+    padding-top: 1rem;
+    width: 100%
+}
+
+.header_text {
+    text-align: center;
+    width: 89.8%;
+    float: left;
+    line-height: 3.125rem;
+}
+
+.header_text h1 {
+    font-size: 1.125rem;
+    color: #2a2b35;
+    font-family: "苹方";
+    font-weight: bold;
+}
+
+.award {
+    width: 100%;
+}
+
+.award_title {
+    width: 100%;
+    border-bottom: 0.0625rem solid #eaeaea;
+    background-color: #fff;
+}
+
+.list {
+    width: 100%;
+    color: #808080;
+}
+
+.list li {
+    width: calc(100% / 5);
+    float: left;
+    text-align: center;
+    line-height: 2.8125rem;
+    font-size: 0.9375rem;
+}
+
+.click {
+    color: #fb5134;
+    border-bottom: 0.125rem solid #fb5134
+}
+
+.line {
+    width: 100%;
+    height: 0.625rem;
+    background-color: #f3f3f3;
+}
+
+.tasks {
+    background-color: #fff;
+    width: 100%;
+    margin-bottom: 0.625rem;
+}
+
+.task {
+    width: 100%;
+    padding: 0.9375rem 4%;
+    box-sizing: border-box;
+    border-bottom: 0.03125rem solid #eaeaea;
+    background-color: #fff;
+    margin-bottom: 0.625rem;
+}
+
+.task_pic {
+    width: 3.375rem;
+    height: 3.375rem;
+    border-radius: 5rem;
+    float: left;
+    overflow: hidden;
+    position: relative;
+}
+
+.task_pic>img {
+    width: 100%;
+    height: 100%;
+}
+
+.task_pic>span {
+    position: absolute;
+    bottom: 0;
+    font-size: 0.6rem;
+    text-align: center;
+    /*margin-left: 0.8rem;*/
+    color: white;
+    width: 100%;
+}
+
+.task_text {
+    width: 80%;
+    padding-left: 0.8125rem;
+    box-sizing: border-box;
+    float: left;
+    font-size: 0.75rem;
+    color: #808080;
+}
+
+.task_text .task_name {
+    font-size: 1rem;
+    color: #333333;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    margin-top: -0.1rem;
+    width: 75%;
+    float: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.task_text .task_name span {
+    background-color: #00CD00;
+    color: white;
+    font-size: 0.7rem;
+    padding: 0 0.1rem;
+}
+
+.task_text>.shang {
+    font-size: 0.875rem;
+    width: 25%;
+    color: #fb5134;
+    float: right;
+    font-weight: bold;
+    text-align: right;
+    vertical-align: top;
+    margin-top: -0.2rem;
+}
+
+.task_text .con {
+    font-size: 0.625rem;
+    color: white;
+    /*float: left;*/
+    background-color: #808080;
+    border-radius: 0.2rem;
+    padding: 0 0.1rem 0.1rem;
+}
+
+.task_text span {
+    font-size: 0.75rem;
+    color: #808080;
+    margin-right: 0.4rem;
+}
+
+.task_text span:last-child {
+    margin-left: 0.4rem;
+    margin-right: 0;
+}
+
+.task_text p {
+    font-size: 0.75rem;
+    color: #808080;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.task_text .statu {
+    color: #00CD00;
+    float: right;
+    margin-right: 0.5rem;
+}
+
+.task_butt {
+    font-size: 0.75rem;
+    color: #808080;
+    width: 100%;
+    margin-top: 0.8rem;
+    border-top: 0.03125rem solid #eaeaea;
+    padding: 5% 0 0;
+}
+
+.task_butt span {
+    float: right;
+    border: 0.03125rem solid #eaeaea;
+    font-size: 0.65rem;
+    margin-top: -1%;
+    margin-left: 0.5rem;
+    border-radius: 5%;
+    padding: 1% 2%;
+}
+
+.task_butt b {
+    font-size: 0.7rem;
+    color: red;
+    font-weight: normal;
+    margin: 0 0.2rem;
+}
+
+.task_butt a {
+    clear: both;
+    font-size: 0.65rem;
+    color: #fb5134;
+    padding-top: 0.3rem;
+    width: 100%;
+    text-align: right;
+}
+
+.award_row {
+    padding: 0.9375rem 0.9375rem;
+    box-sizing: border-box;
+    border-bottom: 0.0625rem solid #eaeaea;
+    border-top: 0.0625rem solid #eaeaea;
+}
+
+.head_pic {
+    width: 4.375rem;
+    height: 4.375rem;
+    border-radius: 5rem;
+    float: left;
+    overflow: hidden;
+}
+
+.head_pic>img {
+    width: 100%;
+    height: 100%;
+}
+
+.award_text {
+    width: 76.8%;
+    float: left;
+    margin-top: 0.2rem;
+    padding-left: 0.75rem;
+    box-sizing: border-box;
+}
+
+.award_text h1 {
+    font-size: 1rem;
+    color: #333333;
+    margin-bottom: 0.3rem;
+    font-weight: bold;
+    float: left;
+    width: 60%;
+}
+
+.award_text h4 {
+    font-size: 0.875rem;
+    color: #fb5134;
+    width: 40%;
+    float: right;
+    text-align: right;
+}
+
+.award_text h3 {
+    font-size: 0.75rem;
+    color: #b7b8c0;
+    margin-bottom: 0.4rem;
+}
+
+.award_text span {
+    font-size: 0.8125rem;
+    color: #fb5134;
+}
+
+.award_text h2 {
+    font-size: 1.1875rem;
+    color: #fb5134;
+    float: left;
+    font-weight: bold;
+    width: 70%;
+}
+
+.award_text .pingjia {
+    width: 30%;
+    float: right;
+    border: 0.0625rem solid #b8b8b8;
+    border-radius: 0.3rem;
+    text-align: center;
+    line-height: 1.8rem;
+    margin: 0.3rem 0;
+}
+
+.button button {
+    font-size: 0.85rem;
+    color: #333333;
+}
+
+.tasks_row {
+    padding: 0 0.9375rem;
+    box-sizing: border-box;
+    border-bottom: 0.0625rem solid #eaeaea;
+}
+
+.time {
+    width: 4%;
+    float: left;
+    margin-top: 1.8rem;
+}
+
+.tasks_row p {
+    font-size: 0.75rem;
+    float: left;
+    color: #333333;
+    width: 58%;
+    margin-left: 0.25rem;
+    line-height: 4.6rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tasks_row span {
+    font-size: 0.75rem;
+    color: #fb5134;
+}
+
+.button {
+    width: 16%;
+    float: right;
+    border: 0.0625rem solid #b8b8b8;
+    border-radius: 0.3rem;
+    text-align: center;
+    line-height: 1.9rem;
+    margin: 0.3rem 0;
+    margin-top: 1.35rem
+}
+
+.button button {
+    font-size: 0.75rem;
+    color: #333333;
+}
+
+.cover {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+.coving {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    z-index: 2
+}
+
+.evaluate {
+    width: 80%;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    position: fixed;
+    left: 10%;
+    top: 30%;
+    box-sizing: border-box;
+    padding-bottom: 2rem;
+}
+
+.close {
+    width: 1.25rem;
+    float: right;
+    position: relative;
+    top: -0.6rem;
+    right: -0.6rem;
+}
+
+.evaluate_rank {
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.rank {
+    width: calc(100% / 3);
+    float: left;
+    text-align: center;
+}
+
+.rank .my {
+    width: 2.125rem;
+    margin: 0 auto;
+    margin-bottom: 0.2rem;
+}
+
+.rank .my1 {
+    width: 2.125rem;
+    margin: 0 auto;
+    margin-bottom: 0.2rem;
+    display: none;
+}
+
+.rank h1 {
+    font-size: 0.9375rem;
+    color: #333;
+}
+
+.evaluate_text {
+    width: 90%;
+    margin: 0 auto;
+    padding-bottom: 2rem
+}
+
+.evaluate_text textarea {
+    width: 100%;
+    height: 5rem;
+    resize: none;
+    margin-top: 2rem;
+    color: #808080;
+    font-size: 0.875rem;
+    background-color: #f3f3f3;
+    padding-top: 0.6rem;
+    padding-left: 0.6rem;
+    box-sizing: border-box;
+    border: 0.03125rem solid #eaeaea;
+    outline: none;
+}
+
+.evaluate .quxiao {
+    width: 30%;
+    line-height: 2.5rem;
+    color: #333;
+    border-radius: 0.4rem;
+    border: 0.03125rem solid #eaeaea;
+    float: left;
+    margin-left: 5%;
+    font-size: 0.9375rem;
+}
+
+.evaluate .true {
+    width: 30%;
+    line-height: 2.5rem;
+    color: #fff;
+    border-radius: 0.4rem;
+    float: right;
+    margin-right: 5%;
+    background-color: #FB5235;
+    font-size: 0.9375rem
+}
+
+.bohui_tp {
+    width: 3.75rem;
+    height: 3.75rem;
+    overflow: hidden;
+}
+
+.bohui_tp>img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.tp {
+    width: 100%;
+    position: fixed;
+    top: 15%;
+    left: 0;
+}
+
+.tp>img {
+    width: 100%;
+    height: 100%;
+}

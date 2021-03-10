@@ -1,0 +1,162 @@
+*{font-size: 1rem;font-family:"苹方";}
+.clearfix{clear: both;}
+a{display: block;text-decoration: none;}
+body,html{background-color: #f3f3f3;}
+h1,h2,h3,h4{font-weight: normal;}
+img{display: block;width: 100%;}
+.b{width: 100%;background-color: #fff;margin-bottom: 0.625rem;}
+.header{padding: 0 0.9375rem;margin: 0 auto;box-sizing: border-box;border-bottom: 0.0625rem solid #eaeaea;padding-top: 1rem;width: 100%}
+.search{width: 5.1%;float: left;}
+.search img{width: 100%;padding-top: 1rem;box-sizing: border-box;}
+.header_text{text-align: center;width: 87.2%;float: right;line-height: 3.125rem;margin: 0 auto;}
+.header_text h1{font-size: 1.125rem;color: #2a2b35;font-family:"苹方";font-weight: bold;}
+.question{width: 6.4%;float: right;margin-top: 0.8rem;}
+
+.phone{width: 100%;}
+.code{padding: 0 0.9375rem;box-sizing: border-box;border-bottom: 0.0625rem solid #eaeaea;line-height: 3.125rem;background-color: #fff}
+.code h1{width: 25%;float: left;font-size: 0.9375rem;color: #333333;font-weight: bold;}
+.code span{font-size: 0.9375rem;color: #fb5134;}
+.input{width: 65%;float: left;position: relative;}
+.input input{outline: none;line-height: 3.125rem;width: 100%;z-index: 1002;position: absolute;top: 0;left: 0;}
+.text{width: 100%;position: absolute;left:0;top:0;}
+.text h2{color: #808080;font-size: 0.9375rem;width: 50%;float: left;}
+.text h3{color: #cacaca;font-size: 0.875rem;width: 50%;float: left;}
+.code h4{font-size: 0.9375rem;color: #878383;width: 10%;float: right;text-align: right;}
+
+
+.code_sum{padding: 0 0.9375rem;box-sizing: border-box;border-bottom: 0.0625rem solid #eaeaea;line-height: 3.125rem;background-color: #fff}
+.code_sum h1{width: 25%;float: left;font-size: 0.9375rem;color: #333333;font-weight: bold;}
+.code_sum span{font-size: 0.9375rem;color: #fb5134;}
+.sum_input{width: 65%;float: left;position: relative;}
+.sum_input input{outline: none;line-height: 3.125rem;width: 100%;z-index: 1002;position: absolute;top: 0;left: 0;}
+.sum_text{width: 100%;position: absolute;left:0;top:0;}
+.sum_text h2{color: #808080;font-size: 0.9375rem;width: 50%;float: left;}
+.sum_text h3{color: #cacaca;font-size: 0.875rem;width: 50%;float: left;}
+.code_sum h4{font-size: 0.9375rem;color: #878383;width: 10%;float: right;text-align: right;}
+
+.throw{padding: 0 0.9375rem;box-sizing: border-box;border-bottom: 0.0625rem solid #eaeaea;line-height: 3.125rem;background-color: #fff}
+.throw h1{width: 25%;float: left;font-size: 0.9375rem;color: #333333;font-weight: bold;}
+.throw span{font-size: 0.9375rem;color: #fb5134;}
+.throw_input{width: 65%;float: left;position: relative;}
+.throw_input input{outline: none;line-height: 3.125rem;width: 100%;z-index: 1002;position: absolute;top: 0;left: 0;}
+.throw_text{width: 100%;position: absolute;left:0;top:0;}
+.throw_text h2{color: #808080;font-size: 0.9375rem;width: 30%;float: left;}
+.throw_text h3{color: #cacaca;font-size: 0.875rem;width: 70%;float: left;}
+.throw h4{font-size: 0.9375rem;color: #878383;width: 10%;float: right;text-align: right;}
+
+.time{padding: 0 0.9375rem;box-sizing: border-box;border-bottom: 0.0625rem solid #eaeaea;line-height: 3.125rem;background-color: #fff}
+.time h1{width: 25%;float: left;font-size: 0.9375rem;color: #333333;font-weight: bold;}
+.time span{font-size: 0.9375rem;color: #fb5134;}
+.sel{width: 75%;float: left;position: relative;}
+.time_pic{width: 2%;position: absolute;right: 0;top: 1.2rem;}
+select{
+                    width: 100%;
+                    border: none;
+                   appearance:none;
+                   -moz-appearance:none;
+                   -webkit-appearance:none; /*兼容苹果手机*/
+                   -ms-appearance:none;
+                   outline:none;
+                   -webkit-tap-highlight-color: #fff;
+                   width:rem(100);
+                   height: rem(50);
+                   line-height: rem(50);
+                   /*防止紧紧靠在边上*/
+                   text-indent:rem(4);
+                   background-color: transparent;
+               }
+option{font-size: 0.875rem;color: #808080;}
+.sel_data{width: 90%;}
+.data{width: calc(100% / 3);float: left;border: none;line-height: 3.125rem;font-size: 0.875rem;color: #808080;
+appearance:none;
+-moz-appearance:none;
+-webkit-appearance:none; /*兼容苹果手机*/
+-ms-appearance:none;
+outline:none;
+-webkit-tap-highlight-color: #fff;
+width:rem(100);
+height: rem(50);
+line-height: rem(50);
+/*防止紧紧靠在边上*/
+text-indent:rem(4);
+background-color: transparent;}
+
+.review{padding: 0 0.9375rem;box-sizing: border-box;border-bottom: 0.0625rem solid #eaeaea;line-height: 3.125rem;background-color: #fff}
+.review h1{width: 25%;float: left;font-size: 0.9375rem;color: #333333;font-weight: bold;}
+.review span{font-size: 0.9375rem;color: #fb5134;}
+.review_sel{width: 75%;float: left;position: relative;}
+.review_pic{width: 2%;position: absolute;right: 0;top: 1.2rem;}
+
+.submit{padding: 0 0.9375rem;box-sizing: border-box;border-bottom: 0.0625rem solid #eaeaea;line-height: 3.125rem;background-color: #fff}
+.submit h1{width: 25%;float: left;font-size: 0.9375rem;color: #333333;font-weight: bold;}
+.submit span{font-size: 0.9375rem;color: #fb5134;}
+.submit_sel{width: 75%;float: left;position: relative;}
+.submit_pic{width: 2%;position: absolute;right: 0;top: 1.2rem;}
+
+
+.reform{padding: 0 0.9375rem;box-sizing: border-box;border-bottom: 0.0625rem solid #eaeaea;line-height: 3.125rem;background-color: #fff}
+.reform h1{width: 40%;float: left;font-size: 0.9375rem;color: #333333;font-weight: bold;}
+.reform span{font-size: 0.9375rem;color: #fb5134;}
+
+.true{width: 14%;float: right;}
+.true h2{font-size: 0.9375rem;color: #878383;width: 50%;float: right}
+.content_pic{width: 1.1875rem;float: left;margin-top: 0.9rem;height: 1.1875rem;border-radius: 3rem;float: left;}
+.false{width: 14%;float: right;background-color: #fff;margin-left: 0.6rem;}
+.false h2{font-size: 0.9375rem;color: #878383;width: 50%;float: right}
+.content_pic1{width: 1.1875rem;float: left;margin-top: 0.9rem;height: 1.1875rem;border-radius: 3rem;float: left;}
+
+
+.reform .a {
+          position: relative;
+          line-height:3.125rem;
+          width: 18%;
+          float: right;
+          margin-left: 0.3rem;
+      }
+     .reform .a span{font-size: 0.875rem;color: #808080;margin-left: 0.5rem;}
+
+      input[type="radio"] {
+          width: 1.25rem;
+          height: 1.25rem;
+          opacity: 0;
+
+      }
+
+      label {
+          position: absolute;
+          left: 0.3125rem;
+          top: 0.375rem;
+          width: 1rem;
+          height:1rem;
+          border-radius: 50%;
+          border: 0.0625rem solid #bdbdbd;
+　　　　　　　cursor: pointer;  margin-top: 0.625rem;
+      }
+
+      /*设置选中的input的样式*/
+      /* + 是兄弟选择器,获取选中后的label元素*/
+      input:checked+label {
+          background-color: #fb5134;
+          border: 0.0625rem solid #fb5134;
+      }
+       /*添加的加号与label进行拼接(一个矩形边框去掉上和左的边框),再旋转45度*/
+      input:checked+label::after {
+          position: absolute;
+          content: "";
+          width: 0.2125rem;
+          height: 0.5rem;
+          top: 0.15rem;
+          left: 0.375rem;
+          border: 0.125rem solid #fff;
+          border-top: none;
+          border-left: none;
+          transform: rotate(45deg);}
+
+
+.bor{border: 0.0625rem solid #808080;}
+
+.form{line-height: 3rem;width: 100%;border-top:  0.0625rem solid #eaeaea;position: fixed;bottom: 0;background-color: #f3f3f3;}
+.form h1{margin-left: 0.9375rem;font-size: 0.9375rem;color: #333333;width: 30%;float: left;}
+.form span{font-size: 1rem;color: #fb5134;}
+.button1{width: 36.6%;line-height: 3rem;background-color: #fb5134;text-align: center;float: right;}
+.button1 button{color: #fff;font-size: 1.125rem;outline: none;}

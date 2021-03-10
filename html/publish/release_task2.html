@@ -1,0 +1,459 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+	<meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+	<title>发布任务2/2</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/release_task2.css" />
+	<link rel="stylesheet" href="../../css/swiper.min.css">
+
+	<script src="../../script/jquery-1.8.3.min.js"></script>
+	<script src="../../script/api.js" charset="utf-8"></script>
+	<script src="../../script/swiper.min.js"></script>
+	<script src="../../script/common.js"></script>
+	<script src="../../script/url.js"></script>
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<script type="text/javascript" src="../../script/YMDClass.js"></script>
+</head>
+<body>
+	<div class="b">
+		<div class="header" id="header">
+	        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+			<div class="question" onclick="help()"><img src="../../image/question.png"></div>
+	        <div class="header_text"><h1>发布任务2/2</h1></div>
+	        <div class="clearfix"></div>
+	    </div>
+	</div>
+	<div class="phone">
+		<div class="code">
+			<h1>投放单价<span>*</span></h1>
+			<div class="input">
+				<div class="text">
+					<h2>请输入投放单价</h2>
+					<h3 class="danjias">(最低0.21元)</h3>
+					<div class="clearfix"></div>
+				</div>
+				<input type="number" class="a"  id="money">
+			</div>
+			<h4>元</h4>
+			<div class="clearfix"></div>
+		</div>
+		<div class="code_sum">
+			<h1>投放数量<span>*</span></h1>
+			<div class="sum_input">
+				<div class="sum_text">
+					<h2>请输入投放数量</h2>
+					<h3 class="danshu">(最少50单)</h3>
+					<div class="clearfix"></div>
+				</div>
+				<input type="number" class="a1" id="num">
+			</div>
+			<h4>单</h4>
+			<div class="clearfix"></div>
+		</div>
+
+ 		<div class="time">
+			<h1>结束时间<span>*</span></h1>
+			<div class="sel" >
+				<select id="end_time"  onchange="zidong()">
+					<option value="0">数量完成自动结束</option>
+					<option value="1" >设定结束时间</option>
+				</select>
+
+				<div class="sel_data" style="display:none;">
+					<select name="year1" id="year_data" class="data"></select>
+					<select name="month1" id="month_data"  class="data"></select>
+					<select name="day1" id="day_data"  class="data"></select>
+				</div>
+				<div class="time_pic"><img src="../../image/means_enter.png"></div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="submit">
+			<h1>提交限时</h1>
+			<div class="submit_sel">
+				<select id="ti_time">
+					<option value="2">2小时</option>
+					<option value="3">3小时</option>
+					<option value="4">4小时</option>
+					<option value="5">5小时</option>
+					<option value="6">6小时</option>
+					<option value="24">24小时</option>
+					<option value="48">48小时</option>
+					<option value="72">72小时</option>
+					<option value="96">96小时</option>
+
+				</select>
+				<div class="submit_pic"><img src="../../image/means_enter.png"></div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="review">
+			<h1>审核周期</h1>
+			<div class="review_sel">
+				<select id="audit_time">
+					<option value="24">24小时</option>
+					<option value="48">48小时</option>
+					<option value="72">72小时</option>
+				</select>
+				<div class="review_pic"><img src="../../image/means_enter.png"></div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+
+		<div class="throw">
+			<h1>投放合计<span>*</span></h1>
+			<div class="throw_input">
+				<div class="throw_text">
+			<input placeholder="" id="heji" readonly="readonly"></input>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+			<h4>元</h4>
+			<div class="clearfix"></div>
+		</div>
+
+		<div class="reform">
+			<h1>同号可以重做<span>*</span></h1>
+			<!-- <div class="false">
+				<div class="content_pic1"><img src="../../image/center_xz.png"></div>
+				<h2>否</h2>
+				<div class="clearfix"></div>
+			</div>
+			<div class="true">
+				<div class="content_pic"><img src="../../image/center_xz.png"></div>
+				<h2>是</h2>
+				<div class="clearfix"></div>
+			</div> -->
+			<div class="a">
+ 		        <input id="female" type="radio" name="sex" value="0" checked>
+ 		        <label for="female"></label>
+ 		        <span>否</span>
+ 	    	</div>
+			<div class="a">
+	           <input id="male" type="radio" name="sex" value="1" >
+	           <label for="male"></label>
+			   <span>是</span>
+	        </div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+
+	<div class="form">
+		<h1>合计: <span id="all_money">￥0.00</span></h1>
+		<div class="button1" type="submit" onclick="sub_t()">
+			<button>提交订单</button>
+		</div>
+	</div>
+	</body>
+	<script type="text/javascript">
+		var winHeight = $(window).height();   //获取当前页面高度
+		$(window).resize(function(){
+		var thisHeight=$(this).height();
+		if(winHeight - thisHeight >50){
+		//当软键盘弹出，在这里面操作
+		$(".form").css("position","static")
+		}else{
+		//当软键盘收起，在此处操作
+		$(".form").css("position","fixed")
+		}
+		});
+
+	</script>
+	<script type="text/javascript">
+	new YMDselect('year1','month1','day1');
+	</script>
+	<script>
+
+	function zidong(){
+		if ( $("#end_time ").val() == 0) {
+			$(".sel_data").hide();
+		}else {
+				$(".sel_data").show();
+		}
+
+	}
+
+	$("#money").bind("input propertychange",function(event){
+		var mmm=	$('#money').val();
+    var nnn=$('#num').val();
+		if(nnn != "" && mmm != ""){
+			   var new_all_money=parseFloat(mmm)*parseInt(nnn);
+				  $('#all_money').html(new_all_money);
+					$('#heji').val(new_all_money);
+		}else{
+			 $('#all_money').html("￥0.00");
+			 	$('#heji').val("");
+		}
+
+});
+$("#num").bind("input propertychange",function(event){
+	var mmm=	$('#money').val();
+	var nnn=$('#num').val();
+	if(nnn != "" && mmm != ""){
+			 var new_all_money=parseFloat(mmm)*parseInt(nnn);
+				$('#all_money').html(new_all_money);
+					$('#heji').val(new_all_money);
+	}else{
+		 $('#all_money').html("￥0.00");
+		 	$('#heji').val("");
+	}
+
+});
+	apiready = function(){
+		height()
+	//var header = document.querySelector('#header'); //头帘高度
+	//$api.fixStatusBar(header);
+
+
+		token = $api.getStorage('token');
+		param = api.pageParam;
+		type_id = param.type_id;//所属分类
+		console.log(JSON.stringify(param));
+		name=param.name;//项目名称
+		title=param.title;//项目标题
+		connect=param.connect;//链接
+		content=param.content;//描述
+		pics=param.pics;//步骤图片
+		titles=param.titles;//步骤标题
+		types=param.types;//步骤类型
+
+		prices=param.price;//最低价格
+			nums=param.num;//最低单数
+			$(".danjias").html("(最低"+prices+"元)");
+			$(".danshu").html("(最少"+nums+"单)")
+	// var	type_id=8;
+	// var	name='多大的';
+	// var	title='QQ群';
+	// var	connect='www';
+	// var	content='哒哒哒';
+	// var	pics=[null,"/Public/Admin/kind/attached/image/20191212/5df1dbfe8feba.jpg"];
+	// var	titles=[null,"多大的人了"];
+	// var	types=[null,"1"];
+	}
+
+
+	function sub_t(){
+
+
+				var year_data=$('#year_data').val();//结束时间
+					var month_data=$('#month_data').val();//结束时间
+						var day_data=$('#day_data').val();//结束时间
+
+	var money=$('#money').val();//单价
+	var num=$('#num').val();//数量
+	var end_time=$('#end_time').val();//结束时间
+	var ti_time=$('#ti_time').val();//提交时限
+	var audit_time=$('#audit_time').val();//审核周期
+		if (money<prices) {
+			api.toast({
+					msg:"(最低"+prices+"元)",
+					duration: 2000,
+					location: 'bottom'
+			});
+			return false;
+		}
+		if (num<nums) {
+			api.toast({
+					msg:"(最少"+nums+"单)",
+					duration: 2000,
+					location: 'bottom'
+			});
+			return false;
+		}
+
+	// var end_time = $("#end_time option:selected").options.val();
+
+	// var ti_time = $("#ti_time option:selected").options.val();
+	// var audit_time = $("#audit_time option:selected").options.val();
+	var one_use=$("input[type='radio']:checked").val();
+
+			api.ajax({
+          url: add_task,
+          method: 'post',
+          data: {
+              values: {
+                  token: token,
+								  money: money,//价格
+                  num: num,//数量
+									end_time: end_time,//结束日期
+                  ti_time: ti_time,//提交时长
+							  	audit_time: audit_time,//审核时长
+							  	one_use: one_use,//是否允许重复提交 1为允许
+									position:type_id,//分类id
+									name:name,//项目名称
+									title:title,//标题
+									connect:connect,//链接
+									content:content,//描述内容 选填
+									pics:pics,
+									titles:titles,
+									types:types,
+									year_data:year_data,
+									month_data:month_data,
+									day_data:day_data,
+
+
+              }
+          }
+      }, function(ret, err) {
+				console.log(JSON.stringify(ret));
+					console.log(JSON.stringify(err));
+          api.toast({
+              msg: ret.info,
+              duration: 2000,
+              location: 'bottom'
+          });
+
+          if (ret.status == 100) {
+              // setTimeout(function() {
+              //     api.openWin({
+              //         name: 'publish',
+              //         url: 'publish.html'
+              //     })
+              // }, 1000)
+							api.sendEvent({
+
+										 name: 'close',
+										 extra: {
+
+										 }
+									 });
+									 api.closeWin({
+	 								 });
+          }
+      });
+	//此处写ajax 以及费用
+//	alert(money);alert(num);alert(end_time);alert(ti_time);alert(audit_time);alert(one_use);
+
+	}
+
+		// function sub() {
+	  //       token = $api.getStorage('token');
+	  //       money = $api.byId('money').value;
+	  //       num = $api.byId('num').value;
+		// 	var end_time = $("#end_time option:selected").options.val();
+		// 	var ti_time = $("#ti_time option:selected").options.val();
+		// 	var audit_time = $("#audit_time option:selected").options.val();
+		// 	var one_use=$("input[type='radio']:checked").val();
+	  //       if (money || num || end_time == '') {
+	  //           api.toast({
+	  //               msg: '请确认投放单价、投放数量、结束时间是否填写',
+	  //               duration: 2000,
+	  //               location: 'bottom'
+	  //           });
+	  //           return false;
+	  //       }
+		//
+	  //       api.ajax({
+	  //           url: add_task,
+	  //           method: 'post',
+	  //           data: {
+	  //               values: {
+	  //                   token: token,
+		// 								  money: money,
+	  //                   num: num,
+		// 									end_time: end_time,
+	  //                   ti_time: ti_time,
+		// 							  	audit_time: audit_time,
+		// 							  	one_use: one_use,
+		//
+	  //               }
+	  //           }
+	  //       }, function(ret, err) {
+	  //           api.toast({
+	  //               msg: ret.message,
+	  //               duration: 2000,
+	  //               location: 'bottom'
+	  //           });
+		//
+	  //           if (msg.status == 100) {
+	  //               setTimeout(function() {
+	  //                   api.openWin({
+	  //                       name: 'publish',
+	  //                       url: 'publish.html'
+	  //                   })
+	  //               }, 1000)
+	  //           }
+	  //       });
+		//
+	  //   }
+
+
+
+	function help(){
+	  api.openWin({
+		  name: 'help',
+		  url: '../my/help.html'
+	  })
+	}
+	function go_back() {
+	  api.closeWin({
+
+	  });
+	}
+	$(function(){
+		$(".a").focus(function(){
+			$(this).siblings(".text").hide();
+		})
+
+      $(".a").blur(function() {
+        if ($(".a").val() == "")
+        	{ $(".text").show(); }
+        else{
+          $(".text").hide();
+	 		 }
+     	 })
+	 })
+
+	 $(function(){
+ 		$(".a1").focus(function(){
+ 			$(this).siblings(".sum_text").hide();
+ 		})
+
+       $(".a1").blur(function() {
+         if ($(".a1").val() == "")
+         	{ $(".sum_text").show(); }
+         else{
+           $(".sum_text").hide();
+ 	 		 }
+      	 })
+ 	 })
+
+	 $(function(){
+ 		$(".a2").focus(function(){
+ 			$(this).siblings(".throw_text").hide();
+ 		})
+
+       $(".a2").blur(function() {
+         if ($(".a2").val() == "")
+         	{ $(".throw_text").show(); }
+         else{
+           $(".throw_text").hide();
+ 	 		 }
+      	 })
+ 	 })
+	//  $(function(){
+ // 		$(".content_pic1").addClass("bor").children().hide();
+ // 		$(".content_pic").removeClass("bor").children().show();
+ // 		$(".true").click(function(){
+	// 		$(this).children(".content_pic").removeClass("bor").children().show();
+	// 		$(this).siblings(".false").children(".content_pic1").addClass("bor").children().hide();
+	//
+	//
+ // 		});
+	// 	$(".false").click(function(){
+ // 			$(this).children(".content_pic1").removeClass("bor").children().show();
+	// 		$(this).siblings(".true").children(".content_pic").addClass("bor").children().hide();
+	//
+	//
+ // 		});
+ // 	})
+
+	</script>
+	<script type="text/javascript">
+	new YMDselect('year1','month1','day1');
+	</script>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>极速榜单</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/tasks.css" />
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script src="../../script/swiper.min.js"></script>
+    <script src="../../script/common.js"></script>
+    <script src="../../script/url.js"></script>
+    <script src="../../script/aui/script/aui-dialog.js"></script>
+    <link rel="stylesheet" href="../../script/aui/css/api.css">
+    <!--        <link rel="stylesheet" href="../../script/aui/css/aui.css">-->
+</head>
+<style>
+    .search {
+        width: 5.1%;
+        float: left;
+    }
+    
+    .search>img {
+        width: 100%;
+        padding-top: 1rem;
+        box-sizing: border-box;
+    }
+    
+    .header_text {
+        float: left;
+        width: 89.8%
+    }
+    
+    .list li {
+        width: calc(100%/3);
+    }
+</style>
+
+<body>
+
+    <div class="b">
+        <div class="header" id="header">
+            <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+            <div class="header_text">
+                <h1>极速审核榜单</h1>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="award">
+        <div class="award_title">
+            <ul class="list">
+                <li id="order_1" class="click fenzhi" onclick="get_task(3);">1小时</li>
+                <li id="order_2" class="fenzhi" onclick="get_task(2);">30分钟</li>
+                <li id="order_5" class="fenzhi" onclick="get_task(1);">15分钟</li>
+                <div class="clearfix"></div>
+            </ul>
+        </div>
+        <div class="line"></div>
+        <!-- 任务 -->
+        <div id="task_index">
+        </div>
+    </div>
+
+</body>
+<input type="hidden" value="0" id="pt_title"></input>
+<script>
+    apiready = function() {
+        height()
+        api.setRefreshHeaderInfo({
+            loadingImg: 'widget://image/refresh.png',
+            bgColor: '#ccc',
+            textColor: '#fff',
+            textDown: '下拉刷新...',
+            textUp: '松开刷新...'
+        }, function(ret, err) {
+            //在这里从服务器加载数据，加载完成后调用
+            //停止api.refreshHeaderLoadDone()方法恢复组件到默认状态
+            window.location.reload();
+            api.refreshHeaderLoadDone();
+        });
+        //		$api.setStorage('token','a936436f65ff3e27edf61054d416da28'); //存token
+        token = $api.getStorage('token');
+        get_task(3);
+
+        api.addEventListener({
+            name: 'scrolltobottom',
+            extra: {
+                threshold: 0 //设置距离底部多少距离时触发，默认值为0，数字类型
+            }
+        }, function(ret, err) {
+            if (pageEnd) {
+                api.toast({
+                    msg: '没有更多数据了'
+                })
+            } else {
+                get_task(orders);
+            }
+        });
+    }
+
+
+
+    let page = 1
+    let pageEnd = false
+    let orders = 0;
+
+    function get_task(type) {
+
+        /*api.showProgress({
+            title: '努力加载中...',
+            text: '请稍后...',
+            modal: true
+        });*/
+        showLoadMore(1);
+
+        if (type != orders) {
+
+            page = 1
+            pageEnd = false
+        }
+        if (page == 1) {
+            $api.html(task_index, "");
+        }
+        api.ajax({
+            url: get_jisurankinglist_url,
+            // url: task_lists_new,
+            method: 'post',
+            data: {
+                values: {
+                    //token: token,
+                    type: type,
+                    page: page,
+                }
+            }
+
+        }, function(ret, err) {
+            var length = ret.data.length;
+            //console.log(JSON.stringify(ret.data))
+            if (length > 0) {
+                var lblist_type = '';
+                for (var lb = 0; lb < length; lb++) {
+
+                    lblist_type += '	<div class="award_row" onclick="list_detail(' + ret.data[lb].id + ')">'
+
+                    lblist_type += '	<div class="head_pic" style=""><img src="' + URL + ret.data[lb].image + '">'
+                    if (ret.data[lb].vip_level == 1) {
+                        lblist_type += '<span style="background-image: linear-gradient(to right, #87CEEB , #BFEFFF);">月卡</span>'
+                    } else if (ret.data[lb].vip_level == 2) {
+                        lblist_type += '<span style="background-image: linear-gradient(to right, #EE5C42 , #BFEFFF);">季卡</span>'
+                    } else if (ret.data[lb].vip_level == 3) {
+                        lblist_type += '<span style="background-image: linear-gradient(to right, #EE0000 , #BFEFFF);">年卡</span>'
+                    }
+
+                    lblist_type += '</div>'
+                    lblist_type += '	<div class="award_text"><p class="task_name">' + ret.data[lb].title + ''
+                    if (Number(ret.data[lb].is_tuijian) == 1) {
+                        lblist_type += '<span style="background-color: #00CD00;">顶</span>'
+
+                    }
+                    if (Number(ret.data[lb].is_zhiding) == 1) {
+                        lblist_type += '<span style="background-color: #EE0000;">推</span>'
+
+                    }
+                    lblist_type += '	</p><p class="shang">+' + ret.data[lb].money + '元</p><div class="clearfix"></div>'
+                    lblist_type += '		<span class="con">' + ret.data[lb].fenlei + '</span>'
+                    lblist_type += '		<span class="con">' + ret.data[lb].name + '</span>'
+                    lblist_type += '		<span>' + ret.data[lb].yiyou_num + '人已赚</span>|<span>剩余' + ret.data[lb].num + '个</span>'
+                        // lblist_type += '		<p class="yiyou_num"> 进行中:' + ret.data[lb].yiyou_nums + ' 已审核:'+ ret.data[lb].yiyou_numd+'</p>'
+                    lblist_type += '		</div>'
+                    lblist_type += '	<div class="clearfix"></div>'
+                    lblist_type += '</div>'
+                }
+                $(".list li ").click(function() {
+                    $(this).addClass('click').siblings().removeClass('click');
+                });
+                if (page == 1 || type != orders) {
+                    page = 1
+                    $api.html(task_index, lblist_type);
+                } else {
+                    $api.append(task_index, lblist_type)
+                }
+
+            } else {
+                if (page == 1) {
+                    $api.html(task_index, "");
+                }
+                pageEnd = true
+            }
+
+            //console.log(page)
+            orders = type
+            page++;
+            //api.hideProgress()
+            showLoadMore();
+        });
+    }
+
+
+
+    $(function() {
+        var banOffTop = $(".award_title").offset().top; //获取到距离顶部的垂直距离
+        var scTop = 0; //初始化垂直滚动的距离
+        $(document).scroll(function() {
+            scTop = $(this).scrollTop(); //获取到滚动条拉动的距离
+            //console.log(scTop);查看滚动时，垂直方向上，滚动条滚动的距离
+            if (scTop >= banOffTop) {
+                //核心部分：当滚动条拉动的距离大于等于导航栏距离顶部的距离时，添加指定的样式
+                $(".award_title").addClass("fixDiv");
+            } else {
+                $(".award_title").removeClass("fixDiv");
+            }
+
+        })
+
+    })
+
+    function go_back() {
+        api.closeWin({});
+    }
+
+    function list_detail(id) {
+        api.openWin({
+            name: 'list_detail',
+            url: '../index/list_detail.html',
+            allowEdit: true,
+            pageParam: {
+                id: id
+            }
+        });
+        return false;
+
+    }
+</script>
+
+</html>

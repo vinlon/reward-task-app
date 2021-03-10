@@ -1,0 +1,750 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>投诉悬赏</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/complaints.css"/>
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script src="../../script/swiper.min.js"></script>
+    <script src="../../script/common.js"></script>
+    <script src="../../script/url.js"></script>
+    <style>
+
+        .upload_img {
+            width: 5rem;
+            height: 5rem;
+            border-radius: 0.2rem;
+            margin-bottom: 0.875rem;
+            float: left;
+            margin-right: 0.8rem;
+        }
+
+        .upload_img_wrap {
+            width: 90%;
+            max-height: 10rem;
+        }
+    </style>
+</head>
+<body>
+<div class="b" id="header">
+    <div class="header">
+        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+        <div class="header_text"><h1>投诉悬赏</h1></div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!-- 举报原因 -->
+<div class="order" id="content">
+    <h1>举报原因</h1>
+    <div class="xuan"><p>悬赏不合理，根本无法达到要求</p>
+        <div class="content_pic bor" onclick="check_t(1);"><img id="c_t1" src="../../image/center_xz.png"
+                                                                style="display:none;"></div>
+        <input type="hidden" value="0" id="c_num_1"></input>
+        <div class="clearfix"></div>
+    </div>
+    <div class="xuan"><p>悬赏描述与实际操作过程不符，有隐藏步骤</p>
+        <div class="content_pic bor" onclick="check_t(2);"><img id="c_t2" src="../../image/center_xz.png"
+                                                                style="display:none;"></div>
+        <input type="hidden" value="0" id="c_num_2"></input>
+        <div class="clearfix"></div>
+    </div>
+    <div class="xuan"><p>悬赏分类不正确或有其他违规行为</p>
+        <div class="content_pic bor" onclick="check_t(3);"><img id="c_t3" src="../../image/center_xz.png"
+                                                                style="display:none;"></div>
+        <input type="hidden" value="0" id="c_num_3"></input>
+        <div class="clearfix"></div>
+    </div>
+    <div class="xuan"><p>联系悬赏主没有任何回应</p>
+        <div class="content_pic bor" onclick="check_t(4);"><img id="c_t4" src="../../image/center_xz.png"
+                                                                style="display:none;"></div>
+        <input type="hidden" value="0" id="c_num_4"></input>
+        <div class="clearfix"></div>
+    </div>
+    <div class="xuan"><p>悬赏主要求私下交易</p>
+        <div class="content_pic bor" onclick="check_t(5);"><img id="c_t5" src="../../image/center_xz.png"
+                                                                style="display:none;"></div>
+        <input type="hidden" value="0" id="c_num_5"></input>
+        <div class="clearfix"></div>
+    </div>
+    <div class="xuan"><p>悬赏关键词与实际不符</p>
+        <div class="content_pic bor" onclick="check_t(6);"><img id="c_t6" src="../../image/center_xz.png"
+                                                                style="display:none;"></div>
+        <input type="hidden" value="0" id="c_num_6"></input>
+        <div class="clearfix"></div>
+    </div>
+    <div class="xuan"><p>悬赏主恶意审核</p>
+        <div class="content_pic bor" onclick="check_t(8);"><img id="c_t8" src="../../image/center_xz.png"
+                                                                style="display:none;"></div>
+        <input type="hidden" value="0" id="c_num_8"></input>
+        <div class="clearfix"></div>
+    </div>
+    <div class="xuan"><p>其他</p>
+        <div class="content_pic bor" onclick="check_t(7);"><img id="c_t7" src="../../image/center_xz.png"
+                                                                style="display:none;"></div>
+        <input type="hidden" value="0" id="c_num_7"></input>
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+</div>
+
+<!-- 举报理由 -->
+<div class="account">
+    <h1>举报理由</h1>
+    <textarea placeholder="请填写您的举报理由，10-100字" type="text" id="content_neirong"></textarea>
+</div>
+<!-- 举报证据图片 -->
+<div class="proof">
+    <h1>举报证据图片</h1>
+    <p>请上传相关证据截图，以使管理员核实处理</p>
+
+    <!-- <div class="proof_pic"><img src="../../image/xiangji.png"></div> -->
+    <div class="upload_img_wrap">
+        <div id="imgBox"></div>
+        <div id="pox">
+            <img class="upload_img" onclick="upLoad(1)" data-id="1" id="fileyi1" src="../../image/xiangji.png"/><input
+                type="hidden" value="" id="yicang1"></input>
+
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+</div>
+
+<div class="button" onclick="tj();">
+    <button>确定举报</button>
+</div>
+
+<input type="hidden" value="1" id="for_num"></input>
+
+</body>
+
+<script>
+    function check_t(num) {
+        //	alert(num);
+        var xpds = $('#c_num_' + num).val();
+        if (xpds == 1) {
+            $('#c_num_' + num).val(0);
+            $('#c_t' + num).css({"display": "none"});
+        } else {
+            $('#c_num_' + num).val(1);
+            $('#c_t' + num).css({"display": "block"});
+        }
+    }
+
+    // $(function(){
+    // $(".content_pic").children().hide();
+    // 	$(".content_pic").addClass("bor");
+    // 	$(".xuan").click(function(){
+    // 		$(this).children(".content_pic").children().toggle();
+    //
+    // 	});
+    // })
+    apiready = function () {
+        //	height()
+        token = $api.getStorage('token');
+        param = api.pageParam;
+        task_id = param.task_id;//任务id
+        task_order_id = param.task_order_id;
+        //	alert(task_id);
+//		alert(task_order_id);
+
+    }
+
+    function tj() {
+        token = $api.getStorage('token');//获取token
+        var content_neirong = $('#content_neirong').val();//获得举报理由
+
+
+        var ppppp = "";//checkbox的值
+        for (var lbx = 1; lbx <= 8; lbx++) {
+            if ($('#c_num_' + lbx).val() != 0) {
+                ppppp += ',' + lbx;
+            }
+        }
+        var x_num = $('#for_num').val();
+        var t_numsxcx = parseInt(x_num);
+        var pics = [];//举报证据图片
+        for (var i = 1; i < t_numsxcx + 1; i++) {
+            pics[i] = $('#yicang' + i).val();
+        }
+
+        // console.log(JSON.stringify(pics));
+        // console.log(JSON.stringify(ppppp));
+        api.ajax({
+            url: complaints_report_url,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    content: content_neirong,
+                    task_id: task_id,
+                    checkbox: ppppp,
+                    pics: pics,
+                    task_order_id: task_order_id,
+                }
+            }
+        }, function (ret, err) {
+            console.log(JSON.stringify(ret));
+            console.log(JSON.stringify(err));
+
+
+            if (ret.code == -1) {
+                api.toast({
+                    msg: ret.message,
+                    duration: 2000,
+                    location: 'bottom',
+                    global: true,
+                });
+
+                api.openWin({
+                    name: 'my',
+                    url: '../my/login.html',
+
+                })
+            } else {
+                api.toast({
+                    msg: ret.info,
+                    duration: 2000,
+                    location: 'bottom',
+                    global: true,
+                });
+                if (ret.code == 100) {
+                    api.openWin({
+                        name: 'reports',
+                        url: '../my/reports.html',
+
+                    })
+                }
+            }
+
+            return false;
+
+
+        });
+
+
+    }
+
+    // $api.one(xinti, 'click', function(){
+    // 	token = $api.getStorage('token');//获取token
+    // 	var content = $api.byId('content').value;
+    //
+    // 	// var yicang = $api.byId('yicang').value;
+    // 	// var ercang = $api.byId('ercang').value;
+    // 	// var sancang = $api.byId('sancang').value;
+    // 	// alert(yicang);
+    // 	// alert(ercang);
+    // 	// alert(sancang);
+    // 	if(content == ''){
+    // 	  api.toast({
+    // 		  msg: '请填写举报原因或理由',
+    // 		  duration: 2000,
+    // 		  location: 'bottom',
+    // 		  global:true,
+    // 	  });
+    // 	  api.closeWin({
+    // 		  // name: 'page1'
+    // 	  });
+    // 	  return false;
+    // 	}
+    // 	api.ajax({
+    // 		url:compiaints,
+    // 		method: 'post',
+    // 		data: {
+    // 			values: {
+    // 				token: token,
+    // 				content:content,
+    // 				img1:yicang,
+    // 				img2:ercang,
+    // 				img3:sancang,
+    // 			}
+    // 		}
+    // 	},function(ret, err){
+    // 	  $('#xinti').hide();
+    // 	  if(ret.code != 200){
+    // 		api.toast({
+    // 			msg: ret.msg,
+    // 			duration: 2000,
+    // 			location: 'bottom',
+    // 			global:true,
+    // 		});
+    // 		return false;
+    // 	  }else{
+    //
+    // 		  api.toast({
+    // 			msg: ret.msg,
+    // 			duration: 2000,
+    // 			location: 'bottom',
+    // 			global:true,
+    // 		  });
+    // 		  api.closeWin({
+    // 			  // name: 'page1'
+    // 		  });
+    // 	  }
+    // 	});
+    //
+    // //do something
+    // });
+
+    function go_back() {
+        api.closeWin({
+            // name: 'kf',
+        })
+    }
+</script>
+<script>
+
+    function upLoad(num) {
+        api.getPicture({
+            sourceType: 'library',
+            encodingType: 'jpg',
+            mediaValue: 'pic',
+            destinationType: 'url',
+            allowEdit: true,
+            quality: 100,
+            targetWidth: 1000,
+            targetHeight: 1000,
+            saveToPhotoAlbum: false
+        }, function (ret, err) {
+            if (ret) {
+
+                if (ret.data) {
+                    //将返回的路径放到id="img",为的是显示图片
+                    imgFile = ret.data;
+                    $("#img_" + num).attr('src', imgFile);
+
+                    api.ajax({
+                        url: get_pic_1,
+                        method: 'post',
+                        data: {
+                            files: {
+                                image: imgFile,
+                                //			token:token,
+                            }
+                        }
+                    }, function (ret, err) {
+                        console.log(JSON.stringify(ret));
+                        console.log(JSON.stringify(err));
+                        if (ret) {
+
+                            if (ret.code == 1) {
+                                var x_num = parseInt(num) + 1;
+                                var str = '<img class="upload_img" onclick="upLoad(' + x_num + ')" data-id="1" id="fileyi' + x_num + '" src="../../image/xiangji.png" /><input type="hidden"  value="" id="yicang' + x_num + '"></input>'
+                                $("#fileyi" + num).attr('src', URL + ret.data);
+                                $('#yicang' + num).val(ret.data);
+                                $('#for_num').val(x_num);
+                                if (x_num <= 6) {
+                                    $('#pox').append(str);
+                                }
+
+                            }
+                            // 将返回的路径房费隐藏的 input id="yicang"中  提交时获
+                        } else {
+                        }
+                    });
+
+                } else {
+                    api.toast({ //弹框
+                        msg: '未上传图片', //提示语
+                        duration: 3000, //提示时长
+                        location: 'bottom' //提示位置
+                    });
+                }
+            } else {
+                // alert(3)
+                // alert(JSON.stringify(err));
+            }
+        });
+    }
+
+    // var imgNum = 0;
+    // function fileyi(index){
+    // 	// console.log(index)
+    // 	var that = this;
+    // 	if(index == 1) {
+    // 		api.getPicture({
+    // 			sourceType: 'library',
+    // 			encodingType: 'jpg',
+    // 			mediaValue: 'pic',
+    // 			destinationType: 'url',
+    // 			allowEdit: true,
+    // 			quality: 50,
+    // 			targetWidth: 200,
+    // 			targetHeight: 200,
+    // 			saveToPhotoAlbum: false
+    // 		}, function(ret, err) {
+    //
+    // 			  if(ret.data){
+    // 				  imgFile = ret.data;
+    // 				//   alert(imgFile)
+    //
+    // 				api.ajax({
+    // 					  url: get_pic_1,
+    // 					  method: 'post',
+    // 					  data: {
+    // 						values: {
+    //
+    // 						},
+    // 						  files: {
+    // 							  file:imgFile,
+    // 						  }
+    // 					  }
+    // 				  }, function(ret, err) {
+    // 						if(ret.code != 200){
+    // 						  api.toast({//弹框
+    // 							msg: ret.msg,//提示语
+    // 							duration: 2000,//提示时长
+    // 							location: 'bottom'//提示位置
+    // 						  });
+    // 							return false
+    // 						}
+    // 						if(ret.code == 200){
+    // 							api.toast({//弹框
+    // 								msg: ret.msg,//提示语
+    // 								duration: 2000,//提示时长
+    // 								location: 'bottom'//提示位置
+    // 							});
+    // 						}
+    // 						$("#fileyi1").attr('src',imgFile);
+    // 						$("#yicang").attr('value',ret.url);
+    // 					});
+    // 					$(that).hide();
+    // 					imgNum++;
+    // 					if(imgNum<6){
+    // 						$(".upload_img").eq(1).show();
+    // 					}
+    // 				}else{
+    // 					api.toast({//弹框
+    // 						msg: '未上传图片',//提示语
+    // 						duration: 3000,//提示时长
+    // 						location: 'bottom'//提示位置
+    // 					});
+    // 				}
+    // 			});
+    //
+    //
+    //
+    // 			// $(".upload_img_length").html(imgNum);
+    // 	}else if(index == 2) {
+    // 		api.getPicture({
+    // 			sourceType: 'library',
+    // 			encodingType: 'jpg',
+    // 			mediaValue: 'pic',
+    // 			destinationType: 'url',
+    // 			allowEdit: true,
+    // 			quality: 50,
+    // 			targetWidth: 200,
+    // 			targetHeight: 200,
+    // 			saveToPhotoAlbum: false
+    // 		}, function(ret, err) {
+    // 			  if(ret.data){
+    // 				  imgFile2 = ret.data;
+    // 				//   alert(imgFile2)
+    // 				api.ajax({
+    // 					  url: get_pic_1,
+    // 					  method: 'post',
+    // 					  data: {
+    // 						values: {
+    //
+    // 						},
+    // 						  files: {
+    // 							  file:imgFile2,
+    // 						  }
+    // 					  }
+    // 				  }, function(ret, err) {
+    // 						if(ret.code != 200){
+    // 						  api.toast({//弹框
+    // 							msg: ret.msg,//提示语
+    // 							duration: 2000,//提示时长
+    // 							location: 'bottom'//提示位置
+    // 						  });
+    // 							return false
+    // 						}
+    // 						if(ret.code == 200){
+    // 							api.toast({//弹框
+    // 								msg: ret.msg,//提示语
+    // 								duration: 2000,//提示时长
+    // 								location: 'bottom'//提示位置
+    // 							});
+    // 						}
+    // 						$("#fileyi2").attr('src',imgFile2);
+    // 						$("#ercang").attr('value',ret.url);
+    // 					});
+    // 					$(that).hide();
+    // 					imgNum++;
+    // 					if(imgNum<6){
+    // 						$(".upload_img").eq(2).show();
+    // 					}
+    // 				}else{
+    // 					api.toast({//弹框
+    // 						msg: '未上传图片',//提示语
+    // 						duration: 3000,//提示时长
+    // 						location: 'bottom'//提示位置
+    // 					});
+    // 				}
+    // 			});
+    //
+    // 				// $(".upload_img_length").html(imgNum);
+    // 		} else if(index == 3) {
+    // 			api.getPicture({
+    // 				sourceType: 'library',
+    // 				encodingType: 'jpg',
+    // 				mediaValue: 'pic',
+    // 				destinationType: 'url',
+    // 				allowEdit: true,
+    // 				quality: 50,
+    // 				targetWidth: 200,
+    // 				targetHeight: 200,
+    // 				saveToPhotoAlbum: false
+    // 			}, function(ret, err) {
+    // 				  if(ret.data){
+    // 					  imgFile3 = ret.data;
+    // 					//   alert(imgFile3)
+    // 					api.ajax({
+    // 						  url: upload_Img,
+    // 						  method: 'post',
+    // 						  data: {
+    // 							values: {
+    //
+    // 							},
+    // 							  files: {
+    // 								  file:imgFile3,
+    // 							  }
+    // 						  }
+    // 					  }, function(ret, err) {
+    // 							if(ret.code != 200){
+    // 							  api.toast({//弹框
+    // 								msg: ret.msg,//提示语
+    // 								duration: 2000,//提示时长
+    // 								location: 'bottom'//提示位置
+    // 							  });
+    // 								return false
+    // 							}
+    // 							if(ret.code == 200){
+    // 								api.toast({//弹框
+    // 									msg: ret.msg,//提示语
+    // 									duration: 2000,//提示时长
+    // 									location: 'bottom'//提示位置
+    // 								});
+    // 							}
+    // 							$("#fileyi3").attr('src',imgFile3);
+    // 							$("#sancang").attr('value',ret.url);
+    // 						});
+    // 						$(that).hide();
+    // 						imgNum++;
+    // 					if(imgNum<6){
+    //   						$(".upload_img").eq(3).show();
+    //   					}
+    // 					}else{
+    // 						api.toast({//弹框
+    // 							msg: '未上传图片',//提示语
+    // 							duration: 3000,//提示时长
+    // 							location: 'bottom'//提示位置
+    // 						});
+    // 					}
+    // 				});
+    //
+    //
+    // 				// $(".upload_img_length").html(imgNum);
+    // 		}
+    // 	else if(index == 4) {
+    //   		api.getPicture({
+    //   			sourceType: 'library',
+    //   			encodingType: 'jpg',
+    //   			mediaValue: 'pic',
+    //   			destinationType: 'url',
+    //   			allowEdit: true,
+    //   			quality: 50,
+    //   			targetWidth: 200,
+    //   			targetHeight: 200,
+    //   			saveToPhotoAlbum: false
+    //   		}, function(ret, err) {
+    //   			  if(ret.data){
+    //   				  imgFile4 = ret.data;
+    //   				//   alert(imgFile2)
+    //   				api.ajax({
+    //   					  url: upload_Img,
+    //   					  method: 'post',
+    //   					  data: {
+    //   						values: {
+    //
+    //   						},
+    //   						  files: {
+    //   							  file:imgFile4,
+    //   						  }
+    //   					  }
+    //   				  }, function(ret, err) {
+    //   						if(ret.code != 200){
+    //   						  api.toast({//弹框
+    //   							msg: ret.msg,//提示语
+    //   							duration: 2000,//提示时长
+    //   							location: 'bottom'//提示位置
+    //   						  });
+    //   							return false
+    //   						}
+    //   						if(ret.code == 200){
+    //   							api.toast({//弹框
+    //   								msg: ret.msg,//提示语
+    //   								duration: 2000,//提示时长
+    //   								location: 'bottom'//提示位置
+    //   							});
+    //   						}
+    //   						$("#fileyi4").attr('src',imgFile4);
+    //   						$("#sicang").attr('value',ret.url);
+    //   					});
+    //   					$(that).hide();
+    //   					imgNum++;
+    //   					if(imgNum<6){
+    //   						$(".upload_img").eq(4).show();
+    //   					}
+    //   				}else{
+    //   					api.toast({//弹框
+    //   						msg: '未上传图片',//提示语
+    //   						duration: 3000,//提示时长
+    //   						location: 'bottom'//提示位置
+    //   					});
+    //   				}
+    //   			});
+    //
+    //   				// $(".upload_img_length").html(imgNum);
+    //   		}
+    // 		else if(index == 5) {
+    // 	  		api.getPicture({
+    // 	  			sourceType: 'library',
+    // 	  			encodingType: 'jpg',
+    // 	  			mediaValue: 'pic',
+    // 	  			destinationType: 'url',
+    // 	  			allowEdit: true,
+    // 	  			quality: 50,
+    // 	  			targetWidth: 200,
+    // 	  			targetHeight: 200,
+    // 	  			saveToPhotoAlbum: false
+    // 	  		}, function(ret, err) {
+    // 	  			  if(ret.data){
+    // 	  				  imgFile5 = ret.data;
+    // 	  				//   alert(imgFile2)
+    // 	  				api.ajax({
+    // 	  					  url: upload_Img,
+    // 	  					  method: 'post',
+    // 	  					  data: {
+    // 	  						values: {
+    //
+    // 	  						},
+    // 	  						  files: {
+    // 	  							  file:imgFile5,
+    // 	  						  }
+    // 	  					  }
+    // 	  				  }, function(ret, err) {
+    // 	  						if(ret.code != 200){
+    // 	  						  api.toast({//弹框
+    // 	  							msg: ret.msg,//提示语
+    // 	  							duration: 2000,//提示时长
+    // 	  							location: 'bottom'//提示位置
+    // 	  						  });
+    // 	  							return false
+    // 	  						}
+    // 	  						if(ret.code == 200){
+    // 	  							api.toast({//弹框
+    // 	  								msg: ret.msg,//提示语
+    // 	  								duration: 2000,//提示时长
+    // 	  								location: 'bottom'//提示位置
+    // 	  							});
+    // 	  						}
+    // 	  						$("#fileyi5").attr('src',imgFile5);
+    // 	  						$("#wucang").attr('value',ret.url);
+    // 	  					});
+    // 	  					$(that).hide();
+    // 	  					imgNum++;
+    // 	  					if(imgNum<6){
+    // 	  						$(".upload_img").eq(5).show();
+    // 	  					}
+    // 	  				}else{
+    // 	  					api.toast({//弹框
+    // 	  						msg: '未上传图片',//提示语
+    // 	  						duration: 3000,//提示时长
+    // 	  						location: 'bottom'//提示位置
+    // 	  					});
+    // 	  				}
+    // 	  			});
+    //
+    // 	  				// $(".upload_img_length").html(imgNum);
+    // 	  		}
+    // 			else if(index == 6) {
+    // 		  		api.getPicture({
+    // 		  			sourceType: 'library',
+    // 		  			encodingType: 'jpg',
+    // 		  			mediaValue: 'pic',
+    // 		  			destinationType: 'url',
+    // 		  			allowEdit: true,
+    // 		  			quality: 50,
+    // 		  			targetWidth: 200,
+    // 		  			targetHeight: 200,
+    // 		  			saveToPhotoAlbum: false
+    // 		  		}, function(ret, err) {
+    // 		  			  if(ret.data){
+    // 		  				  imgFile6 = ret.data;
+    // 		  				//   alert(imgFile2)
+    // 		  				api.ajax({
+    // 		  					  url: upload_Img,
+    // 		  					  method: 'post',
+    // 		  					  data: {
+    // 		  						values: {
+    //
+    // 		  						},
+    // 		  						  files: {
+    // 		  							  file:imgFile6,
+    // 		  						  }
+    // 		  					  }
+    // 		  				  }, function(ret, err) {
+    // 		  						if(ret.code != 200){
+    // 		  						  api.toast({//弹框
+    // 		  							msg: ret.msg,//提示语
+    // 		  							duration: 2000,//提示时长
+    // 		  							location: 'bottom'//提示位置
+    // 		  						  });
+    // 		  							return false
+    // 		  						}
+    // 		  						if(ret.code == 200){
+    // 		  							api.toast({//弹框
+    // 		  								msg: ret.msg,//提示语
+    // 		  								duration: 2000,//提示时长
+    // 		  								location: 'bottom'//提示位置
+    // 		  							});
+    // 		  						}
+    // 		  						$("#fileyi6").attr('src',imgFile6);
+    // 		  						$("#liucang").attr('value',ret.url);
+    // 		  					});
+    // 		  					$(that).hide();
+    // 		  					imgNum++;
+    //
+    // 		  				}else{
+    // 		  					api.toast({//弹框
+    // 		  						msg: '未上传图片',//提示语
+    // 		  						duration: 3000,//提示时长
+    // 		  						location: 'bottom'//提示位置
+    // 		  					});
+    // 		  				}
+    // 		  			});
+    //
+    // 		  				// $(".upload_img_length").html(imgNum);
+    // 		  		}
+    // }
+
+
+    function go_back() {
+        api.closeWin({});
+    }
+
+
+</script>
+
+</html>

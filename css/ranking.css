@@ -1,0 +1,272 @@
+body {
+    text-align: center
+}
+
+.bodys {
+    /*width: 300px;*/
+    /*height: 100%;*/
+    /*!*border: 1px solid red;*!*/
+    /*margin: 0 auto;*/
+    /*background-image: url("../image/icon/ranking.jpg");*/
+    margin: 0 auto;
+    background: url("../image/icon/ranking.png") no-repeat top center;
+    background-size: 100% 100%;
+    /*background-attachment: fixed;*/
+    min-height: 100vh;
+    width: 100%;
+    margin-top: -0.8rem;
+    box-sizing: border-box;
+}
+
+.ranking-head {
+    /*margin-top: 20%;*/
+    height: 16.5rem;
+    width: 100%;
+    /*border: 1px solid black;*/
+    box-sizing: border-box;
+}
+
+.ranking-top {
+    height: 2.1rem;
+    width: 90%;
+    /*border: 1px solid black;*/
+    margin: 0 auto;
+    box-sizing: border-box;
+    display: flex;
+}
+
+.ranking-top-div-one {
+    /*margin-left: 0.7rem;*/
+}
+
+.ranking-top-div {
+    /*margin-left: 0.5rem;*/
+    /*float: left;*/
+    height: 2.1rem;
+    width: 22.5%;
+    /*border: 1px solid blue;*/
+    color: red;
+    text-align: center;
+    font-size: 1rem;
+    line-height: 2rem;
+    border-radius: 0.3rem;
+    background: url("../image/icon/shurkung.png") no-repeat fixed 0 0;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    /*min-height: 100vh*/
+}
+
+.ranking-top-div-two {
+    margin-left: 2%;
+}
+
+.ranking-top-red {
+    color: #FAFAD2;
+    /*background-color: red!important;*/
+    background: url("../image/icon/hongs.png") no-repeat fixed 0 0;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+}
+
+.ranking-top-white {
+    color: white;
+    background-color: white;
+}
+
+.ranking-head-text-top {
+    width: 100%;
+    height: 1.4rem;
+    /*border: 1px solid blue;*/
+}
+
+.ranking-head-text {
+    text-align: center;
+    width: 45%;
+    height: 1.5rem;
+    margin: 0 auto;
+    color: #FAFAD2;
+    line-height: 1.6rem;
+    /*border: 1px solid blue;*/
+}
+
+.ranking-pai {
+    margin: 0 auto;
+    margin-top: 1.2rem;
+    width: 92%;
+    height: 9rem;
+    /*border: 1px solid yellow;*/
+}
+
+.ranking-pai-div {
+    float: left;
+    width: 31%;
+    height: 80%;
+    /*border: 1px solid blue;*/
+}
+
+.ranking-pai-div-one {
+    margin-left: 0.6rem;
+}
+
+.ranking-pai-div-dipai {
+    margin-top: 7.5%;
+}
+
+.ranking-pai-div-three {
+    margin-left: 0.6rem;
+}
+
+.ranking-pai-div-img {
+    margin: 0 auto;
+    margin-top: 0.3rem;
+    width: 2.5rem;
+    height: 2.5em;
+}
+
+.ranking-pai-div-img img {
+    border-radius: 2.5rem;
+    /*border: 1px solid blue;*/
+}
+
+.ranking-pai-div-text {
+    margin: 0 auto;
+    margin-top: 0.1rem;
+    width: 6rem;
+    height: 4rem;
+    /*border: 1px solid blue;*/
+}
+
+.ranking-pai-div-text-jiangli {
+    color: red;
+    font-size: 13px;
+    font-weight: 900;
+}
+
+.ranking-pai-div-text-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #3F3F3F;
+    font-size: 12px;
+}
+
+.ranking-pai-div-text-uid {
+    color: #3F3F3F;
+    font-size: 12px;
+}
+
+.ranking-pai-div-text-uid-number {
+    color: #3F3F3F;
+    font-size: 11px;
+}
+
+.ranking-pai-div-text-num {
+    color: #f79316;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.ranking-end-clear {
+    width: 100%;
+    height: 0.8rem;
+}
+
+.ranking-end {
+    width: 92%;
+    height: 22rem;
+    /*border: 1px solid blue;*/
+    /*position: fixed;*/
+    /*!*top:0px;*!*/
+    /*left: 0px;*/
+    /*right: 0px;*/
+    /*bottom: 0px;*/
+    margin: 0 auto;
+}
+
+.ranking-end-top {
+    height: 2rem;
+}
+
+.ranking-end-top-head {
+    width: 25%;
+    float: left;
+    margin-top: 0.4rem;
+    /*border: 1px solid blue;*/
+    /*margin-bottom: 0.1rem;*/
+    border-bottom: 1px solid red;
+}
+
+.ranking-end-add {
+    border-bottom: 1px solid red;
+}
+
+.ranking-end-center {
+    height: 2.5rem;
+    /*border: 1px solid blue;*/
+    text-align: center;
+}
+
+.ranking-end-center-div {
+    width: 24.4%;
+    float: left;
+}
+
+.ranking-end-center-div-pai {
+    /*line-height: 2rem;*/
+}
+
+.ranking-end-center-div-pai-back {
+    margin-top: 0.15rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: #FFE4E1;
+    border-radius: 1.5rem;
+    /*border: 1px solid blue;*/
+    line-height: 1.5rem;
+}
+
+.ranking-end-center-div img {
+    float: left;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 1.5rem;
+    /*border: 1px solid blue;*/
+}
+
+.ranking-end-center-div-name {
+    font-size: 10px;
+    color: #3F3F3F;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ranking-end-center-div-uuid {
+    font-size: 11px;
+    color: #3F3F3F;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ranking-end-center-div-span {
+    font-size: 10px;
+}
+
+.ranking-end-center-div-money {
+    color: #f79316;
+    line-height: 2rem;
+}
+
+.ranking-end-center-div-jiangli {
+    color: red;
+    line-height: 2rem;
+}
+
+.ranking_my {
+    line-height: 1.8rem;
+    font-size: 12px;
+}
+
+.ranking-my-name {
+    /*line-height: 2rem;*/
+}

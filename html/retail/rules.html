@@ -1,0 +1,817 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>分销规则</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/rules.css" />
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script src="../../script/swiper.min.js"></script>
+    <script src="../../script/common.js"></script>
+    <script src="../../script/url.js"></script>
+</head>
+<style>
+    body {
+        background: url("../../image/rules.png") no-repeat left 5rem #fb5134;
+        background-size: 100% auto;
+        padding-bottom: 1rem;
+        -moz-background-size: 100% auto;
+    }
+</style>
+
+<body>
+    <div class="b" id="header">
+        <div class="header">
+            <!--        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>-->
+            <div class="header_text">
+                <h1>我的团队</h1>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <!--<div class="rules_pic"><img src="../../image/rules.png"></div>-->
+    <div class="myshi">
+        <div class="myshi-div">我的师傅ID: <span class="myshi-div-span">12121212</span></div>
+    </div>
+    <div class="labels">
+        <div class="labels-div labels-text-back labels-left" onclick="jiangli()">永久收益</div>
+        <div class="labels-div labels-none" onclick="ej_liebian()">二级裂变</div>
+        <div class="labels-div labels-rigth" onclick="myfrem()">我的好友</div>
+    </div>
+    <!--奖励说明-->
+    <div class="rules">
+        <div class="rules_bg">
+            <div class="bg"><img src="../../image/rules_bg.png"></div>
+            <h1 id="tx_xy"></h1>
+            <div class="box">
+                <div class="page">
+                    <div class="red_page">
+                        <img src="../../image/red.png">
+                        <h2><span class="mon" id="tx_sd"></span><span class="yu">元</span></h2>
+                    </div>
+                    <h1>好友首次提现</h1>
+                </div>
+                <div class="jia"><img src="../../image/jia.png"></div>
+                <div class="page">
+                    <div class="red_page">
+                        <img src="../../image/red.png">
+                        <h2><span class="mon" id="tx_cd1"></span><span class="yu">元</span></h2>
+                    </div>
+                    <h1>好友第二次提现</h1>
+                </div>
+                <div class="jia"><img src="../../image/jia.png"></div>
+                <div class="page">
+                    <div class="red_page">
+                        <img src="../../image/red.png">
+                        <h2><span class="mon" id="tx_cd2"></span><span class="yu">元</span></h2>
+                    </div>
+                    <h1>好友第三次提现</h1>
+                </div>
+                <div class="clearfix"></div>
+                <div class="page">
+                    <div class="red_page">
+                        <img src="../../image/red.png">
+                        <h2><span class="mon" id="tx_cd3"></span><span class="yu">元</span></h2>
+                    </div>
+                    <h1>好友第四次提现</h1>
+                </div>
+                <div class="jia"><img src="../../image/jia.png"></div>
+                <div class="page">
+                    <div class="red_page">
+                        <img src="../../image/red.png">
+                        <h2><span class="mon" id="tx_cd4"></span><span class="yu">元</span></h2>
+                    </div>
+                    <h1>好友第五次提现</h1>
+                </div>
+                <div class="jia"><img src="../../image/jia.png"></div>
+                <div class="page">
+                    <div class="red_page">
+                        <img src="../../image/red.png">
+                        <h2><span class="mon" id="tx_cd5"></span><span class="yu">元</span></h2>
+                    </div>
+                    <h1>好友第六次提现</h1>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="bg1"><img src="../../image/rules_bg.png"></div>
+            <h2>永久做任务提成</h2>
+            <p>好友升级会员服务以及APP内消费,您都会获得<span>相应奖励</span>，仅限一级好友</p>
+            <div class="buttom">
+                <div class="percentage">
+                    <div class="ru">
+                        <p id="yjrw_1"></p>
+                        <img src="../../image/ru_bg.png">
+                    </div>
+                    <div class="ru">
+                        <h1 id="yjrw_2"></h1>
+                        <img src="../../image/ru_bg1.png">
+                    </div>
+                    <div class="ru">
+                        <h2 id="yjrw_3"></h2>
+                        <img src="../../image/ru_bg2.png">
+                    </div>
+                    <div class="ru">
+                        <h3 id="yjrw_4"></h3>
+                        <img src="../../image/ru_bg3.png">
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="text">
+                    <p>好友升级超级商人</p>
+                    <p>好友升级黄金会员</p>
+                    <p>好友购买刷新</p>
+                    <p>好友预约头条</p>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="bg2"><img src="../../image/rules_bg.png"></div>
+            <h3>永久收益提成</h3>
+            <p>好友完成悬赏任务,您可永久获得提成一级好友<span id="hy_1"></span>，二级好友<span id="hy_2"></span></p>
+            <div class="yi">
+                <h1 id="hy_1a"></h1>
+                <h2>一级好友</h2>
+            </div>
+            <div class="er">
+                <h1 id="hy_2a"></h1>
+                <h2>二级好友</h2>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="zhuyi_bg">
+            <div class="zhuyi_title">
+                <h1>注意事项</h1>
+            </div>
+            <p>
+                凡是存在以下违规行为的用户，副业帮有权扣除其作弊奖励，行为严重者将做封号处理，请您正常使用平台赚钱。
+                <br><br> 同一终端设备注册，绑定同一支付账号均 视为同一账户，无法获得奖励。
+                <br><br> 通过不正当手段（包括但不限于侵犯第三人合法权益，作弊，扰乱系统，实施网络攻击，批量注册，用模拟器注册，以及各种形式诱导收徒）副业帮有权终结追回奖励，必要时追究法律责任。
+                <br><br> 提现奖励仅限用户余额提现，所有收益均发放到用户余额。
+                <br><br> 本次活动最终解释权归“副业帮所有”。
+            </p>
+        </div>
+        <!-- 分享-->
+        <div class="rules-fenxiang">
+
+            <div class="rules-fenxiang-div" onclick="sharePyq();"><img src="../../image/pyq.png"> <span>朋友全邀请</span></div>
+            <div class="rules-fenxiang-div" onclick="shareWx();"><img src="../../image/wx.png"> <span>微信邀请</span></div>
+            <div class="rules-fenxiang-div" onclick="copy();"><img src="../../image/lj.png"><span>链接邀请</span></div>
+            <div class="rules-fenxiang-div" onclick="erwcopy();"><img src="../../image/png/ewm.jpg"><span>二维码邀请</span></div>
+        </div>
+    </div>
+    <!--注意事项-->
+    <!-----------二级裂变----------------->
+    <div class="erji">
+        <ul class="erji_list">
+            <!--<li>
+                <span>1</span>
+                <div>
+                    <h4>二级好友内体现1人</h4>
+                    <progress value="100" max="100">100%</progress>
+                    <span>1元</span>
+                </div>
+                <a class="active" href="javascript:">领取</a>
+            </li>-->
+
+        </ul>
+        <div>
+            <div><img class="l_head" src="../../image/about.png" />
+                <div>
+                    <h4 class="l_name">我的师傅</h4>
+                    <p>二级提现人数：<span class="l_num">10</span>人</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--我的好友页面-->
+    <div class="myf">
+
+        <div class="myf-head">
+            <!--        <div class="myf-head-div">-->
+            <!--            <div class="myf-head-div-child myf-head-div-child-ons"><span-->
+            <!--                    class="myf-head-div-child-ons-span myf-head-div-child-ons-span-pro">0</span> 人-->
+            <!--            </div>-->
+            <!--            <div class="myf-head-div-child">今日好友人数</div>-->
+            <!--        </div>-->
+            <div class="myf-head-div" style="margin-right: 0.2rem;">
+                <div class="myf-head-div-child myf-head-div-child-ons"><span class="myf-head-div-child-ons-span myf-head-div-child-ons-span-zpro">0</span> 人
+                </div>
+                <div class="myf-head-div-child">累计好友人数</div>
+            </div>
+            <!--        <div class="myf-head-div">-->
+            <!--            <div class="myf-head-div-child myf-head-div-child-ons"><span-->
+            <!--                    class="myf-head-div-child-ons-span myf-head-div-child-ons-span-now">0.0</span> 元-->
+            <!--            </div>-->
+            <!--            <div class="myf-head-div-child">今日好收益</div>-->
+            <!--        </div>-->
+            <div class="myf-head-div">
+                <div class="myf-head-div-child myf-head-div-child-ons"><span class="myf-head-div-child-ons-span myf-head-div-child-ons-span-zmoney">0.0</span> 元
+                </div>
+                <div class="myf-head-div-child">累计收益</div>
+            </div>
+        </div>
+        <div class="myf-search">
+            <img src="../../image/sousuo.png">
+            <input type="number" name="keyphone" class="keyphone" maxlength="11" placeholder="手机号">
+            <span onclick="search()">搜索</span>
+        </div>
+        <div class="myf-erji">
+            <div class="myf-erji-label myf-erji-label-left myf-erji-label-color" onclick="get_list(0)">一级好友</div>
+            <div class="myf-erji-label myf-erji-label-rigth" onclick="get_list(1)">二级好友</div>
+        </div>
+
+        <!--    下级-->
+
+        <div class="myf-center">
+
+        </div>
+        <div class="myf-xihua" style="margin:0.8rem auto"> 下滑刷新</div>
+    </div>
+
+    <!--    二维码-->
+    <div class="ews" style="display: none">
+        <div class="erwm" onclick="yingcode()"></div>
+        <div class="erwm-div" onclick="yingcode()">
+
+            <img id="erwmc" src="../../image/png/ewm.jpg" height="650" width="650" />
+        </div>
+    </div>
+    <input type="hidden" id="urlttt">
+</body>
+<script>
+    apiready = function() {
+        height()
+            //var header = document.querySelector('#header'); //头帘高度
+            //$api.fixStatusBar(header);
+        token = $api.getStorage('token'); //获取token
+        get_rule()
+        mytems()
+        invite()
+            // $(".rules").hide()
+            // $(".myf").show()
+        get_list(0)
+        ej_liebians()
+        api.addEventListener({
+
+            name: 'scrolltobottom',
+            extra: {
+                threshold: 50 //设置距离底部多少距离时触发，默认值为0，数字类型
+            }
+        }, function(ret, err) {
+            if (yem == 1) {
+                if (pageEnd) {
+                    api.toast({
+                        msg: '没有更多数据了'
+                    })
+                } else {
+                    get_list(orders);
+                }
+            }
+
+        });
+        getUserInfo();
+        api.addEventListener({
+            name: 'guanguan'
+        }, function(ret, err) {
+            if (ret) {
+                getUserInfo();
+            } else {}
+        });
+    }
+
+    function search() {
+        let keyphone = $(".keyphone").val();
+        if (keyphone) {
+            if (!keyphone.match(/^1[3456789]\d{9}$/)) {
+                api.toast({
+                    msg: '手机号错误',
+                    duration: 2000,
+                    location: 'middle'
+                });
+                return;
+            } else {
+                get_list('null', keyphone);
+                /*$(".myf-erji .myf-erji-label-rigth").addClass("myf-erji-label-color");
+                $(".myf-erji .myf-erji-label-left").removeClass("myf-erji-label-color");*/
+            }
+        } else {
+            return;
+        }
+    }
+
+    function getUserInfo() {
+        api.ajax({
+            url: personalInfo,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                }
+            }
+        }, function(ret, err) {
+
+            if (ret.code == 1) {
+                if (ret.data.u_headpic) {
+                    $(".l_head").attr('src', URL + ret.data.u_headpic);
+                }
+                $(".l_name").html(ret.data.u_name + '(UID:' + ret.data.u_id + ')');
+            }
+
+        });
+    }
+    //裂变列表
+    function ej_liebians() {
+        api.ajax({
+            url: popu_lists,
+            method: 'post',
+            data: {
+                values: {
+                    token: token
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                //console.log(JSON.stringify(ret));
+                let list_len = ret.data.list.length;
+                let p_num = ret.data.count;
+                let l_flag = false;
+                let html = '';
+                $(".l_num").html(p_num);
+                if (list_len > 0) {
+                    for (var index = 0; index < list_len; index++) {
+                        html += '<li>' +
+                            '<span>' + (index + 1) + '</span>' +
+                            '<div>' +
+                            '<h4>二级内好友提现' + ret.data.list[index].people + '人</h4>';
+                        if (p_num > 0) {
+                            if (p_num - ret.data.list[index].people > 0) {
+                                //p_num = p_num - ret.data.list[index].people;
+                                l_flag = true;
+                                html += '<p><progress value="100" max="100">100%</progress>100%</p>';
+                            } else {
+                                p_num = p_num - ret.data.list[index].people;
+                                l_flag = false;
+                                let p_num_n = (ret.data.list[index].people - ret.data.count) / 100;
+                                html += '<p><progress value="' + p_num_n + '" max="100">"' + p_num_n + '"%</progress>' + p_num_n + '%</p>';
+                            }
+                        } else {
+                            l_flag = false;
+                            html += '<p><progress value="0" max="100">0%</progress>0%</p>';
+                        }
+                        html += '<span>' + ret.data.list[index].money + '元</span></div>';
+                        if (l_flag) {
+                            if (ret.data.list[index].status == 1) {
+                                html += '<a class="active" href="javascript:">领取</a>';
+                            } else {
+                                html += '<a class="" href="javascript:lingqu_jiangli(' + ret.data.list[index].id + ')">领取</a>';
+                            }
+                        } else {
+                            html += '<a class="active" href="javascript:">领取</a>';
+                        }
+
+
+                        html += '</li>';
+                    }
+                    $(".erji_list").html(html);
+                }
+            }
+        });
+    }
+    //领取裂变奖励
+    function lingqu_jiangli(pid) {
+        api.ajax({
+            url: popu_receive_reward,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    pid: pid
+                }
+            }
+        }, function(ret, err) {
+            //console.log(JSON.stringify(ret));
+            if (ret.code == 100) {
+                api.toast({
+                    msg: ret.info,
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                ej_liebians();
+            } else {
+                api.toast({
+                    msg: ret.info,
+                    duration: 2000,
+                    location: 'bottom'
+                });
+            }
+        });
+    }
+
+    let yem = 0;
+
+    function mytems() {
+        api.ajax({
+            url: myteams,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                }
+            }
+        }, function(ret, err) {
+            let data = ret
+            $(".myf-head-div-child-ons-span-pro").html(ret.pro)
+            $(".myf-head-div-child-ons-span-zpro").html(ret.zpro)
+            $(".myf-head-div-child-ons-span-now").html(ret.money)
+            $(".myf-head-div-child-ons-span-zmoney").html(ret.zmoney)
+            $(".myshi-div-span").html(ret.pid)
+
+            //console.log(JSON.stringify(ret))
+        })
+    }
+
+    let page = 1
+    let pageEnd = false
+    let orders = 0;
+
+    function get_list(type, keyphone = 0) {
+        /*api.showProgress({
+            title: '努力加载中...',
+            text: '请稍后...',
+            modal: false
+        });*/
+        showLoadMore(1);
+        if (type != orders) {
+            page = 1
+            pageEnd = false
+                //$(".myf-center").html('');
+        }
+
+        // alert(type)
+        api.ajax({
+            url: my_team_1s,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    page: page,
+                    type: type,
+                    limit: 10,
+                    keyphone: keyphone
+                }
+            }
+        }, function(ret, err) {
+            //console.log(JSON.stringify(ret))
+            if (ret) {
+
+                if (ret.list.length > 0) {
+                    if (keyphone != 0) {
+                        $(".myf-center").html('');
+                        pageEnd = true;
+                        //orders = ret.leve;
+                        //$(".keyphone").val('');
+                        if (ret.leve == 0) {
+                            $(".myf-erji .myf-erji-label-left").addClass("myf-erji-label-color");
+                            $(".myf-erji .myf-erji-label-rigth").removeClass("myf-erji-label-color");
+                        } else if (ret.leve == 1) {
+                            $(".myf-erji .myf-erji-label-rigth").addClass("myf-erji-label-color");
+                            $(".myf-erji .myf-erji-label-left").removeClass("myf-erji-label-color");
+                        }
+
+                    } else {
+                        pageEnd = false;
+                        //orders = 0
+                    }
+                    orders = type;
+                    htmlList1(ret.list, type);
+                } else {
+                    //api.hideProgress();
+                    showLoadMore();
+                    if (keyphone != 0) {
+                        api.toast({
+                            msg: '该用户未绑定手机号或不是您好友',
+                            duration: 2000,
+                            location: 'middle'
+                        });
+                        $(".keyphone").val('');
+                    }
+                    //pageEnd = true;
+                    return;
+                }
+
+                //$(".keyphone").val('');
+
+            } else {
+                if (keyphone != 0) {
+                    $(".myf-center").html('');
+                }
+            }
+        });
+
+    }
+
+    function htmlList1(data, type) {
+
+        if (type != orders) {
+            page = 1
+            pageEnd = false;
+            $(".myf-center").html('');
+        }
+        if (page == 1) {
+            $(".myf-center").html('');
+        }
+        let html = '';
+        var length = data.length;
+        //console.log(JSON.stringify(data))
+        if (length > 0) {
+            for (var index = 0; index < length; index++) {
+
+                html += '<div class="myf-center-div">\n' +
+                    '                <div class="myf-center-div-div myf-center-div-div-imgs">' +
+                    '                    <img class="myf-center-div-div-img" src="' + URL + data[index].u_headpic + '" >' +
+                    '                </div>' +
+                    '                <div class="myf-center-div-div myf-center-div-div-names">' +
+                    '                    <div style="margin-top:0.3rem"> ' + data[index].u_tel + '</div>' +
+                    '                    <div> UID:' + data[index].u_id + '</div>' +
+                    '                </div>' +
+                    '                <div class="myf-center-div-div myf-center-div-div-money">' + data[index].money + '元</div>';
+                if (data[index].money == 0) {
+                    html += '<div class="myf-center-div-div myf-center-div-div-ytx">未提现</div>';
+                } else {
+                    html += '<div class="myf-center-div-div myf-center-div-div-wtx">已提现</div>';
+                }
+                html += '            </div>';
+            }
+            //$(".myf-center").append(html)
+            if (page == 1 || type != orders) {
+                page = 1
+                $(".myf-center").html(html)
+            } else {
+                $(".myf-center").append(html)
+            }
+            // $api.append(type_1, html);
+        } else {
+            pageEnd = true
+        }
+
+        page++;
+        //api.hideProgress()
+        showLoadMore();
+    }
+
+    // 好友页面
+    function myfrem() {
+        yem = 1
+        $(".rules").hide();
+        $(".erji").hide();
+        $(".myf").show();
+    }
+
+    // 奖励页面
+    function jiangli() {
+        yem = 0
+        $(".rules").show();
+        $(".myf").hide();
+        $(".erji").hide();
+        $(".myf-center").empty();
+    }
+    //裂变页面
+    function ej_liebian() {
+        yem = 2
+        $(".rules").hide();
+        $(".myf").hide();
+        $(".erji").show();
+    }
+    // 改变样式
+    $(".myf-erji-label").click(function() {
+        // alert(1)
+        let parent = $(this).parent();
+        let brother = parent.children();
+        brother.removeClass("myf-erji-label-color")
+        $(this).addClass("myf-erji-label-color")
+    })
+
+    // 改变样式
+    $(".labels-div").click(function() {
+        // alert(1)
+        let parent = $(this).parent();
+        let brother = parent.children();
+        brother.removeClass("labels-text-back")
+        $(this).addClass("labels-text-back")
+    })
+
+    function get_rule() {
+
+        token = $api.getStorage('token');
+        api.ajax({
+            url: get_fxgz_url,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                }
+            }
+        }, function(ret, err) {
+            $api.html(tx_sd, ret.tx_sd);
+            $api.html(tx_cd1, ret.tx_cd);
+            $api.html(tx_cd2, ret.tx_cd);
+            $api.html(tx_cd3, ret.tx_cd);
+            $api.html(tx_cd4, ret.tx_cd);
+            $api.html(tx_cd5, ret.tx_cd);
+            $api.html(tx_xy, ret.tx_xy + '元现金奖励');
+            $api.html(yjrw_1, ret.yjrw_1 + '%');
+            $api.html(yjrw_2, ret.yjrw_2 + '%');
+            $api.html(yjrw_3, ret.yjrw_3 + '%');
+            $api.html(yjrw_4, ret.yjrw_4 + '%');
+            $api.html(yjrw_4, ret.yjrw_4 + '%');
+            $api.html(hy_1, ret.hy_1 + '%');
+            $api.html(hy_2, ret.hy_2 + '%');
+            $api.html(hy_1a, '+' + ret.hy_1 + '%');
+            $api.html(hy_2a, '+' + ret.hy_2 + '%');
+        });
+    }
+
+    function go_back() {
+        api.closeWin({});
+    }
+
+    function erwcopy() {
+        api.openWin({
+                name: 'invite',
+                url: '../my/invite.html'
+            })
+            // $(".ews").show()
+    }
+
+    function yingcode() {
+        $(".ews").hide()
+    }
+
+    // 隐藏二维码
+    $(".erwm").click(function() {
+        $(".ews").hide()
+    })
+
+    function invite() {
+        token = $api.getStorage('token');
+        api.ajax({
+            url: inviteFriends,
+            method: 'post',
+            data: {
+                values: {
+                    token: token
+                }
+            }
+        }, function(ret, err) {
+            //console.log(JSON.stringify(ret.data))
+            if (ret.code == 1) {
+                imgFile = URL + ret.data.code;
+                //console.log(JSON.stringify(imgFile))
+                // $("#code").attr('src', imgFile);
+                $("#erwmc").attr('src', imgFile);
+                $('#urlttt').val(ret.data.url);
+            }
+        });
+
+
+    }
+
+    function copy() {
+        //text为需要复制的文本
+        var text = $('#urlttt').val();
+        var clipBoard = api.require('clipBoard');
+        clipBoard.set({
+            value: text
+        }, function(ret, err) {
+            if (ret) {
+                //		alert(text);
+
+                api.toast({
+                    msg: "复制成功",
+                    duration: 2000,
+                    location: 'bottom'
+                });
+            } else {
+                api.toast({
+                    msg: "复制失败，请重试",
+                    duration: 2000,
+                    location: 'bottom'
+                });
+
+            }
+        });
+    }
+
+    //分享会话
+    function shareWx() {
+
+        var urlttt = $('#urlttt').val();
+        // alert(bb)
+        //判断是否安装了微信
+        var wx = api.require('wxPlus');
+        wx.isInstalled(function(ret, err) {
+            console.log(JSON.stringify(ret));
+            console.log(JSON.stringify(err));
+            if (ret.installed) {
+                api.download({
+                    url: URL + '/Uploads/Admin/News/2019-12-13/5df34f8b67191.png', // 图片地址
+                    savePath: 'fs://image/fx_wx.jpg', // 图片存储路径
+                    report: true,
+                    cache: true,
+                    allowResume: true
+                }, function(res, err) {
+                    // alert("当前设备已安装微信客户端");
+                    wx.shareWebpage({
+                        apiKey: 'wxe176834445c733cd',
+                        scene: 'session',
+                        title: '加入副业帮,动动手指领现金!',
+                        description: '[副业帮] 拿着手机做悬赏任务,2元提现秒到账,在家躺着也赚钱!',
+                        thumb: 'fs://image/fx_wx.jpg',
+                        // thumb:'widget://../image/about.png';
+                        contentUrl: urlttt,
+                    }, function(ret, err) {
+                        console.log(JSON.stringify(ret));
+                        console.log(JSON.stringify(err));
+                        // alert(JSON.stringify(ret))
+                        if (ret.status) {
+
+                        } else {
+                            // alert(err.code);
+                        }
+                        // alert(JSON.stringify(err))
+                    });
+
+                });
+            } else {
+                api.toast({
+                    msg: '当前设备未安装微信客户端',
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                // alert('当前设备未安装微信客户端');
+            }
+        });
+    }
+
+    //分享朋友圈
+    function sharePyq() {
+
+
+        // bb = $('#bendi').val();
+
+        var urltt = $('#urlttt').val();
+        // alert(bb)
+        //判断是否安装了微信
+        var wx = api.require('wxPlus');
+        wx.isInstalled(function(ret, err) {
+            // alert(JSON.stringify(ret))
+            if (ret.installed) {
+                api.download({
+                    url: URL + '/Uploads/Admin/News/2019-12-13/5df34f8b67191.png', // 图片地址
+                    savePath: 'fs://image/fx_wx.jpg', // 图片存储路径
+                    report: true,
+                    cache: true,
+                    allowResume: true
+                }, function(res, err) {
+                    // 	console.log(JSON.stringify(res))
+                    // alert("当前设备已安装微信客户端");
+                    // alert(JSON.stringify(ret))
+                    wx.shareWebpage({
+                        apiKey: 'wxe176834445c733cd',
+                        scene: 'timeline',
+                        title: '加入副业帮,动动手指领现金!',
+                        description: '[副业帮] 拿着手机做悬赏任务,2元提现秒到账,在家躺着也赚钱!',
+                        //  thumb:  URL+'/Uploads/Admin/News/2019-12-13/5df34f8b67191.png',
+                        thumb: 'fs://image/fx_wx.jpg',
+                        contentUrl: urltt,
+                        // contentUrl: URL + 'Product/productDetails/pid/'+produceId+''
+                    }, function(ret, err) {
+
+                        if (ret.status) {
+
+                        } else {
+
+                        }
+                    });
+
+                });
+            } else {
+                api.toast({
+                    msg: '当前设备未安装微信客户端',
+                    duration: 2000,
+                    location: 'bottom'
+                });
+            }
+        });
+
+    }
+</script>
+
+</html>

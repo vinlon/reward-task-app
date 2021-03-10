@@ -1,0 +1,206 @@
+                                                                                                                                                                                                                                                                                                                           <!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="./css/api.css" />
+	<script src="./script/jquery-1.8.3.min.js"></script>
+    <script src="./script/common.js"></script>
+    <style type="text/css">
+        html,
+        body {
+            height: 100%;
+        }
+
+        .wrap {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-flex-flow: column;
+        }
+
+        header {
+            height: 44px;
+            width: 100%;
+            text-align: center;
+            background-color: #81a9c3;
+            color: #fff;
+            line-height: 44px;
+            font-size: 20px;
+        }
+
+        .flex-1 {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+        }
+
+        footer {
+            height: 30px;
+            width: 100%;
+            background-color: #81a9c3;
+            color: white;
+            line-height: 30px;
+            text-align: center;
+        }
+    </style>
+
+</head>
+
+<body class="wrap">
+    <!-- <header>APICloud</header>
+    <section class="flex-1">
+
+    </section>
+    <footer>Copyright &copy;<span id="year"></span></footer> -->
+</body>
+<script type="text/javascript" src="script/api.js"></script>
+<script src="script/url.js" charset="utf-8"></script>
+<script type="text/javascript">
+    apiready = function() {
+        token = $api.getStorage('token');
+
+        let is_app=$api.getStorage('is_app');
+        if (is_app=="1"){
+            // $api.setStorage('is_app', '0'); //存token
+            
+            openNavTabWin()
+        } else {
+            api.openWin({
+                name: 'main',
+                url: './html/main_win.html',
+                bounces: false
+            })
+        }
+
+        // api.getPrefs({
+        //     key:"is_welcome"
+        // },function (ret,err) {
+        //     // alert(JSON.stringify(ret))
+        //     if (ret.value===false){
+        //         openNavTabWin()
+        //         api.setPrefs({
+        //             key: 'is_welcome',
+        //             value: true
+        //         })
+        //     }else {
+        //         api.openWin({
+        //             name: 'main',
+        //             url: './html/main_win.html',
+        //             bounces: false
+        //         })
+        //         api.setPrefs({
+        //             key: 'is_welcome',
+        //             value: true
+        //         })
+        //     }
+        // })
+    }
+    function openNavWin() {
+        var param = {
+            name: 'nav',
+            url: './main_content.html',
+            bgColor: '#fff',
+            title: 'navigationBar',
+            scrollEnabled:false,
+            slidBackEnabled:false,
+            navigationBar: {
+                hideNavigationBar: false,
+                rightButtons: [{
+                    iconPath: "widget://image/more.png"
+                }]
+            }
+        }
+        api.openTabLayout(param);
+    }
+
+    function openWin() {
+        api.openWin({
+            name: 'win',
+            url: './normal/winb.html'
+        });
+    }
+
+    function openNavTabWin() {
+        var param = {
+            name: 'nav-tab',
+            bgColor: '#fff',
+            hideTabBar: false,
+            useWKWebView: false,
+            bounces: false,
+            historyGestureEnabled: false,
+            scrollEnabled:false,
+            slidBackEnabled:false,
+            tabBar: {
+                animated: true,
+                fontSize: 12,
+                selectedColor:'#fb5134',
+                scrollEnabled:false,
+                list: [{
+                    "text": "首页",
+                    "iconPath": "widget://image/icon/index.png",
+                    "selectedIconPath": "widget://image/icon/index2.png"
+                }, {
+                    "text": "任务",
+                    "iconPath": "widget://image/icon/renwu.png",
+                    "selectedIconPath": "widget://image/icon/renwu2.png"
+                }, {
+                    "text": "分红",
+                    // "iconPath": "widget://image/icon/fabu.png",
+                    "iconPath": "widget://image/icon/hbs.png",
+                    // "selectedIconPath": "widget://image/icon/fabu2.png"
+                    "selectedIconPath": "widget://image/icon/hbs2.png"
+                }, {
+                    "text": "推广",
+                    "iconPath": "widget://image/icon/tuiguang.png",
+                    "selectedIconPath": "widget://image/icon/tuiguang1.png"
+                }, {
+                    "text": "我的",
+                    "iconPath": "widget://image/icon/wode.png",
+                    "selectedIconPath": "widget://image/icon/wode1.png"
+                }],
+                frames: [{
+                    "title": "首页",
+                    "name": "tab_frm_1",
+                    "url": "widget://html/index/index.html",
+                    // bounces: true,
+                }, {
+                    "title": "任务",
+                    "name": "tab_frm_2",
+                    "url": "widget://html/tasks/tasks.html"
+                },
+
+                //     {
+                //     "title": "发布",
+                //     "name": "tab_frm_3",
+                //     "url": "widget://html/publish/publish.html"
+                // },
+                    {
+                        "title": "分红",
+                        "name": "tab_frm_3",
+                        "url": "widget://html/dialog/bonus.html"
+                    },
+                    {
+                        "title": "推广",
+                        "name": "tab_frm_4",
+                        "url": "widget://html/retail/rules.html"
+                    },
+                //     {
+                //     "title": "推广",
+                //     "name": "tab_frm_4",
+                //     "url": "widget://html/retail/retail.html"
+                // },
+                    {
+                    "title": "我的",
+                    "name": "tab_frm_5",
+                    "url": "widget://html/my/my.html"
+                }]
+            }
+        }
+        api.openTabLayout(param);
+    }
+
+</script>
+
+</html>

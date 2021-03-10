@@ -1,0 +1,227 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+	<meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+	<title>搜索</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/search.css" />
+	<link rel="stylesheet" href="../../css/swiper0.min.css">
+
+	<script src="../../script/jquery-1.8.3.min.js"></script>
+	<script src="../../script/api.js" charset="utf-8"></script>
+	<script src="../../script/swiper.min.js"></script>
+	<script src="../../script/common.js"></script>
+	<script src="../../script/url.js"></script>
+
+
+</head>
+<body>
+    <div class="header" id="header">
+        <div class="search"  onclick="go_back()"><img src="../../image/close2.png"></div>
+		<form action="#" id="search_form" style="margin:0 .5rem 0 .8rm">
+	        <div class="header_text"><input type="search" class="keyword" placeholder="请输入关键字或任务编号" id="goods_key"></div>
+
+		</form>
+        <div class="message" onclick="get_tx();"><h1>搜索</h1></div>
+        <div class="clearfix"></div>
+    </div>
+	<!-- 历史记录 -->
+	<div class="history">
+		<div class="history_title">
+			<div class="time"><img src="../../image/lishi.png"></div>
+			<h1>历史记录</h1>
+			<div class="del" onclick="shanchu();"><img src="../../image/del.png"></div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="text" id="lilie">
+		 <!-- <span onclick="go_list();">微信关注</span>
+			<span>0元购物</span>
+			<span>注册</span> -->
+		</div>
+	</div>
+<!-- 热门搜索 -->
+	<div class="hotsearch">
+		<div class="hotsearch_title">
+			<div class="hotsearch_pic"><img src="../../image/remen.png"></div>
+			<h1>热门搜索</h1>
+			<div class="clearfix">
+
+
+			</div>
+		</div>
+		<div class="hotsearch_text" id="hotsearch_text">
+
+			<span onclick="titi('下载注册')">下载注册</span>
+			<span onclick="titi('投票关注')">关注投票</span>
+			<span onclick="titi('砍价红包')">砍价红包</span>
+			<span onclick="titi('分享转发')">分享转发</span>
+			<span onclick="titi('试玩')">试玩</span>
+			<span onclick="titi('高价任务')">高价任务</span>
+		</div>
+	</div>
+
+
+
+
+
+
+
+</body>
+
+
+
+<script>
+	apiready = function(){
+		height()
+//		gethc()
+		token = $api.getStorage('token');
+		get_lishi();
+	}
+function get_tx(){
+	var title=$('#goods_key').val();
+	if(title == ""){
+		api.toast({
+			msg: '请输入搜索内容',
+			duration: 2000,
+			location: 'bottom'
+		});
+		return false;
+	}
+
+		go_list(title);
+
+}
+	$(".keyword").on('keypress',function(e) {
+		var keycode = e.keyCode;
+		var searchName = $(this).val();
+		if(keycode=='13') {
+			e.preventDefault();
+			//请求搜索接口  
+			get_tx()
+		}
+	}); 
+
+	function go_list(title){
+
+			api.ajax({
+					url: get_sousuo_url,
+					method: 'post',
+					data: {
+							values: {
+									token: token,
+									title:title,
+							}
+					}
+			}, function(ret, err) {
+				api.openWin({
+					name: 'tasks',
+					url: '../tasks/tasks.html',
+					pageParam: {
+					title:title
+						}
+				});
+			});
+	}
+
+
+		function get_lishi(){
+			//	alert(token);
+			// if(!token){
+			// 		token=0;
+			// }
+			api.ajax({
+					url: search_history_url,
+					method: 'post',
+					data: {
+							values: {
+									token: token,
+							}
+					}
+			}, function(ret, err) {
+				console.log(JSON.stringify(ret));
+					console.log(JSON.stringify(err));
+					if(ret.status == 1){
+						var	lengthx = ret.lishi.length;
+						//	 alert(length)
+						var 	lblist_typex = '';
+							for (var lbx = 0; lbx < lengthx; lbx++) {
+
+								lblist_typex += '<span onclick="go_list(&quot;'+ ret.lishi[lbx].s_content + '&quot;);">'+ ret.lishi[lbx].s_content + '</span>'
+
+							}
+
+							$api.html(lilie,lblist_typex);
+					}
+
+
+					var	length = ret.remen.length;
+					//	 alert(length)
+					var 	lblist_type = '';
+						for (var lb = 0; lb < length; lb++) {
+						lblist_type += '<span onclick="go_list(&quot;'+ ret.remen[lb].s_content + '&quot;);">'+ ret.remen[lb].s_content + '</span>'
+
+					}
+
+					$api.html(hotsearch_text,lblist_type);
+			});
+		}
+
+  // 取消
+	function shanchu(){
+
+		api.ajax({
+				url: get_sousuo_del_url,
+				method: 'post',
+				data: {
+						values: {
+								token: token,
+						}
+				}
+		}, function(ret, err) {
+			api.toast({
+				msg: '删除成功',
+				duration: 2000,
+				location: 'bottom'
+			});
+				//	window.location.reload();
+							$api.html(lilie,"");
+		});
+
+	}
+  // 取消END
+  //清空
+  // function qingkong(){
+	// api.toast({
+	// 	msg: '清除成功',
+	// 	duration: 2000,
+	// 	location: 'bottom'
+	// });
+	// $api.rmStorage('weekDay');
+	// gethc()
+  // }
+//点击历史
+  // function titi(lishi){
+	// document.getElementById('goods_key').value = lishi;
+	// api.openWin({
+	// 	name: 'search_end',
+	// 	url: 'list.html',
+	// 	reload: true,
+	// 	pageParam: {
+	// 	  title:lishi,
+	// 	}
+	// })
+  // }
+
+
+	function go_back() {
+	  api.closeWin({
+
+	  });
+	}
+
+</script>
+
+</html>

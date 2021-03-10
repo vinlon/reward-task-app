@@ -1,0 +1,838 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>发布</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/publish.css" />
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+    <link rel="stylesheet" type="text/css" href="../../css/release_task.css" />
+
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script src="../../script/swiper.min.js"></script>
+    <script src="../../script/common.js"></script>
+    <script src="../../script/url.js"></script>
+    <style>
+        .search {
+            width: 5.1%;
+            float: left;
+        }
+        
+        .search>img {
+            width: 100%;
+            padding-top: 1rem;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header" id="header">
+        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+        <h2 onclick="task_classify()">发布任务</h2>
+        <div class="header_text">
+            <h1>发布</h1>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="banner_bg"><img src="../../image/publish_bg.png"></div>
+
+    <div class="banner">
+
+        <div class="banner_content">
+            <div class="name_pic"><img src="../../image/logo1.png" id="headerpic"></div>
+            <div class="name">
+                <h1 id="user_name"></h1>
+                <h2 id="fyb_id">副业帮ID：01</h2>
+                <h3 id="shop_format">商家会员到期：未开通</h3>
+            </div>
+            <div class="banner_text" onclick="member_center()" id="banner_text" style="display:none;">
+                <h1>开通会员&nbsp;&nbsp;&gt;</h1>
+            </div>
+            <div class="clearfix"></div>
+            <!--发布金额  -->
+            <!--        <div class="card">-->
+            <!--            <h1>发布金额</h1>-->
+            <!--            <div class="card_text">-->
+            <!--                <h2 id="money">0.00</h2>-->
+            <!--                <div class="recharge" onclick="cash_fb()">-->
+            <!--                    <button>提现</button>-->
+            <!--                </div>-->
+            <!--                <div class="cash" onclick="recharge()">-->
+            <!--                    <button>充值</button>-->
+            <!--                </div>-->
+            <!--                <div class="clearfix"></div>-->
+            <!--            </div>-->
+            <!--        </div>-->
+            <!-- 刷新道具 -->
+            <div class="card">
+                <h1>刷新道具</h1>
+                <div class="card_text">
+                    <span id="shua_num">0</span><span class="ge">（个）</span>
+                    <div class="change" onclick="balance()">
+                        <button>用户余额转为发布金额</button>
+                    </div>
+                    <div class="buy" onclick="buy()">
+                        <button>购买</button>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="award">
+        <div class="award_title1">
+            <ul class="list">
+                <li class="click" onclick="get_task(1,1);" id="zpds_1">已上架</li>
+                <li onclick="get_task(3,0);" id="zpds_3">已暂停</li>
+                <li onclick="get_task(2,0);" id="zpds_2">待上架</li>
+                <div class="clearfix"></div>
+            </ul>
+        </div>
+        <!-- 任务 -->
+        <div id="publish_task">
+
+        </div>
+    </div>
+
+    <div class="cover"></div>
+
+
+    <input type="hidden" value="" id="zhiding_money_name"></input>
+    <input type="hidden" value="" id="tuijian_money_name"></input>
+    <input type="hidden" value="0" id="idxzz"></input>
+
+
+    <!--  推荐-->
+    <div class="tout" id="zhiding">
+        <h1>推荐</h1>
+        <input type="hidden" value="" id="zhiding_id">
+        <div class="toutinput clearfix">
+            <input type="number" name="" id="zhiding_hour" onkeyup="value=parseInt(value)">
+            <span>小时</span>
+        </div>
+        <h2>扣除余额：<span id="zhiding_hour_money">0.00</span></h2>
+        <h2 id="xiaoshibiaoqzd"><span>1.00</span>元/小时</h2>
+        <h2>一旦推荐不可退款</h2>
+        <div class="toutbottom clearfix">
+            <h2 id="zhidingclose">取消</h2>
+            <h2 onclick="zhiding_set();">确定</h2>
+        </div>
+    </div>
+
+    <!--  置顶-->
+    <div class="tout" id="tuijian">
+        <h1>置顶</h1>
+        <input type="hidden" value="" id="tuijian_id">
+        <div class="toutinput clearfix">
+            <input type="number" name="" id="tuijian_hour" onkeyup="value=parseInt(value)">
+            <span>小时</span>
+        </div>
+        <h2>扣除余额：<span id="tuijian_hour_money">0.00</span></h2>
+        <h2 id="xiaoshibiaoqtj"></h2>
+        <h2>一旦置顶不可退款</h2>
+        <div class="toutbottom clearfix">
+            <h2 id="tuijianclose">取消</h2>
+            <h2 onclick="tuijian_set();">确定</h2>
+        </div>
+    </div>
+</body>
+
+<script>
+    apiready = function() {
+        height();
+        api.setRefreshHeaderInfo({
+            loadingImg: 'widget://image/refresh.png',
+            bgColor: '#ccc',
+            textColor: '#fff',
+            textDown: '下拉刷新...',
+            textUp: '松开刷新...'
+        }, function(ret, err) {
+            //在这里从服务器加载数据，加载完成后调用
+            //停止api.refreshHeaderLoadDone()方法恢复组件到默认状态
+            window.location.reload();
+            api.refreshHeaderLoadDone();
+        });
+
+        token = $api.getStorage('token');
+        //console.log(token)
+        user_info(); //获取个人信息
+        vipdata() // vip 等级
+
+        get_task(1, 1);
+        get_chanshu();
+        api.addEventListener({
+            name: 'scrolltobottom',
+            extra: {
+                threshold: 0 //设置距离底部多少距离时触发，默认值为0，数字类型
+            }
+        }, function(ret, err) {
+            if (pageEnd) {
+                api.toast({
+                    msg: '没有更多数据了'
+                })
+            } else {
+                get_task(orders, c_orders);
+            }
+        });
+    }
+    $("#zhiding_hour").bind("input propertychange", function(event) {
+        var mmm = parseInt($('#zhiding_hour').val());
+        var nnn = 1;
+        if (isNaN(mmm)) {
+            $(this).val(0);
+            mmm = 0;
+        }
+        $(this).val(mmm);
+
+        if (nnn != "" && mmm != "") {
+            var new_all_money = Number(parseFloat(mmm) * parseInt(nnn)).toFixed(2);
+            $('#zhiding_hour_money').html(new_all_money);
+
+        } else {
+            $('#zhiding_hour_money').html("0.00");
+
+        }
+
+    });
+
+    $("#tuijian_hour").bind("input propertychange", function(event) {
+        var mmm = parseInt($('#tuijian_hour').val());
+
+        // var nnn=5;
+        var nnn = vip_data.zd_price;
+        if (isNaN(mmm)) {
+            $(this).val(0);
+            mmm = 0;
+        }
+        $(this).val(mmm);
+
+        if (nnn != "" && mmm != "") {
+            var new_all_money = Number(parseFloat(mmm) * nnn).toFixed(2);
+            $('#tuijian_hour_money').html(new_all_money);
+
+        } else {
+            $('#tuijian_hour_money').html("0.00");
+
+        }
+
+    });
+
+    function get_chanshu() {
+        api.ajax({
+            url: fabu_canshu_url,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    status: status,
+                }
+            }
+        }, function(ret, err) {
+            //$('#zhiding_money_name').val();
+            $('#tuijian_money_name').val(ret.tuijian_money);
+
+        });
+    }
+
+
+    function list_detail(id, status, c_status) { //列表详情
+        api.openWin({
+            name: 'list_detail',
+            url: 'publish_de.html',
+            allowEdit: true,
+            pageParam: {
+                id: id,
+                status: status,
+                c_status: c_status
+            }
+        })
+    }
+
+    function list_detaila(id) { //列表详情
+        api.openWin({
+            name: 'list_detail',
+            url: '../index/list_detail.html',
+            allowEdit: true,
+            pageParam: {
+                id: id
+            }
+        })
+    }
+
+    // 删除
+    function cxfab_del(id) {
+        api.confirm({
+            title: '确定要删除该任务吗',
+            buttons: ['确定', '取消']
+        }, function(ret, err) {
+            var index = ret.buttonIndex;
+            if (index == 1) {
+                api.ajax({
+                    url: my_task_renwu_url_del,
+                    method: 'post',
+                    data: {
+                        values: {
+                            token: token,
+                            id: id,
+                        }
+                    }
+                }, function(ret, err) {
+                    if (ret.status == 200) {
+                        $(".del_id" + id).remove()
+                        api.toast({
+                            msg: ret.info,
+                            duration: 2000,
+                            location: 'bottom'
+                        });
+                    } else {
+                        api.toast({
+                            msg: ret.info,
+                            duration: 2000,
+                            location: 'bottom'
+                        });
+                    }
+                })
+
+                // console.log('点击了确定按钮')
+            }
+        })
+    }
+
+    // 重新发布
+    function cxfab(id) {
+
+    }
+
+    let vip_data;
+
+    // vip 等级数据
+    function vipdata() {
+        api.ajax({
+            url: user_data,
+            method: 'post',
+            dataType: 'json',
+            data: {
+                values: {
+                    token: token,
+                }
+            }
+        }, function(ret, err) {
+            // alert(JSON.stringify(ret.data))
+            if (ret.code != 100) {
+                api.toast({
+                    msg: '请重新登录'
+                })
+                setTimeout(function() {
+                    api.openWin({
+                        name: 'login',
+                        url: '../my/login.html',
+                    });
+                }, 500)
+
+                return;
+            } else {
+                vip_data = ret.data
+                let html = '<span>' + vip_data.zd_price + '</span>元/小时';
+
+                $api.html(xiaoshibiaoqtj, html)
+                    //$api.html(tuijian_hour_money, vip_data.zd_price)
+            }
+        })
+    }
+
+    let page = 1
+    let pageEnd = false
+    let orders = 0;
+    let c_orders = 1;
+
+    function get_task(status, c_status) {
+
+        /*api.showProgress({
+            title: '努力加载中...',
+            text: '请稍后...',
+            modal: true
+        });*/
+        showLoadMore(1);
+        if (status != orders) {
+
+            page = 1
+            pageEnd = false
+        }
+        if (page == 1) {
+            $api.html(publish_task, "");
+        }
+        //console.log(page)
+        // alert(page)
+        api.ajax({
+            url: my_task_renwu_url,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    status: status,
+                    c_status: c_status,
+                    page: page
+                }
+            }
+        }, function(ret, err) {
+            if (ret.status != 100) {
+                // alert("qqqqqqqqq")
+                return;
+            }
+            //console.log(JSON.stringify(ret));
+            //console.log(JSON.stringify(err));
+            var length = ret.data.length;
+            if (length > 0) {
+                var lblist_type = '';
+                for (var lb = 0; lb < length; lb++) {
+
+                    lblist_type += '	<div class="release_task  del_id' + ret.data[lb].id + '">'
+                    if (ret.data[lb].status == 1) {
+                        lblist_type += '	<div class="award_row1" onclick="list_detail(' + ret.data[lb].id + ',' + status + ', ' + c_status + ')">' //onclick="list_detail()"
+                    } else {
+                        lblist_type += '	<div class="award_row1" onclick="list_detaila(' + ret.data[lb].id + ')">' //onclick="list_detaila()"
+                    }
+                    lblist_type += '			<span class="task_name">' + ret.data[lb].title + '</span>'
+                    lblist_type += '			<span class="finish">+' + ret.data[lb].money + '元</span>'
+                    lblist_type += '			<div class="clearfix"></div>'
+                    lblist_type += '		</div>'
+                    lblist_type += '		<div class="task_b clearfix">'
+                    lblist_type += '			<span>编号：' + ret.data[lb].id + '&nbsp;&nbsp;|&nbsp;&nbsp;' + ret.data[lb].name + '</span>'
+                    lblist_type += '			<span>进行中：' + ret.data[lb].jinxingz + '&nbsp;&nbsp;|&nbsp;&nbsp;剩余：' + ret.data[lb].num + '</span>'
+                    if (ret.data[lb].status == -1) {
+                        lblist_type += '			<span style="color:red">未通过</span><span>原因：' + ret.data[lb].fail_center + '</span>'
+                    } else if (ret.data[lb].status == 0) {
+                        lblist_type += '			<span style="color:red">未审核</span><span>官方审核中</span>'
+                    } else if (ret.data[lb].status == 2) {
+                        lblist_type += '			<span style="color:red">已结束</span>'
+                    }
+                    lblist_type += '		</div>'
+                    if (ret.data[lb].status == 1) {
+                        lblist_type += '<div class="clearfix">'
+                        lblist_type += '	<div class="toutiao row f-c" onclick="chick_task(' + ret.data[lb].id + ')">'
+                        lblist_type += '		<img src="../../image/sh.png" alt="" >'
+                        lblist_type += '		<span>审核：' + ret.data[lb].dsh + '</span>'
+                        lblist_type += '	</div>'
+                        lblist_type += '	<div class="zt row f-c">'
+                        lblist_type += '		<div id="txps_1" onclick="set_c_status(' + ret.data[lb].id + ',' + ret.data[lb].suspend + ',' + ret.data[lb].c_status + ');" class="tx f-c row">'
+                        if (ret.data[lb].c_status == 1) {
+                            lblist_type += '		<img src="../../image/zt.png" alt="">'
+                            lblist_type += '		<span>暂停</span>'
+                        } else {
+                            lblist_type += '		<img src="../../image/ks.png" alt="">'
+                            lblist_type += '		<span>开始</span>'
+                        }
+                        lblist_type += '		</div>'
+                        lblist_type += '	</div>'
+                        lblist_type += '	<div class="shuaxin row f-c"  onclick="tuij(' + ret.data[lb].id + ')">'
+                        lblist_type += '        <img src="../../image/stt.png" alt="">'
+                        lblist_type += '		<span>置顶</span>'
+                        lblist_type += '	</div>'
+                        lblist_type += '	<div class="toutiao row f-c" onclick="zhid(' + ret.data[lb].id + ')">'
+                        lblist_type += '		<img src="../../image/tuijian.png" alt="">'
+                        lblist_type += '		<span>推荐</span>'
+                        lblist_type += '	</div>'
+                        lblist_type += '</div>'
+                    } else {
+                        lblist_type += '<div class="time clearfix">'
+                        lblist_type += '    <div class="buy_a" onclick="cxfab()"><span onclick="task_classify(' + ret.data[lb].id + ')">重新发布</span></div>'
+                        lblist_type += '    <div class="buy_a" onclick="list(' + ret.data[lb].id + ')"><span>已完成</span></div>'
+                        lblist_type += '    <div class="buy_a" onclick="cxfab_del(' + ret.data[lb].id + ')"><span>删除</span></div>'
+                        lblist_type += '</div>'
+                    }
+                    lblist_type += '</div>'
+                }
+
+                if (page == 1 || status != orders) {
+                    $api.html(publish_task, lblist_type);
+                } else {
+                    $api.append(publish_task, lblist_type)
+                }
+
+
+            } else {
+                if (page == 1) {
+                    $api.html(publish_task, "");
+                }
+                //$api.html(publish_task, "");
+                pageEnd = true
+            }
+            orders = status;
+            c_orders = c_status;
+            page++;
+            //api.hideProgress();
+            showLoadMore();
+            $(".list li ").click(function() {
+                $(this).addClass('click').siblings().removeClass('click');
+            });
+        });
+
+
+    }
+
+    $(function() {
+
+
+        $("#zhidingclose").click(function() {
+            $("#zhiding").hide();
+            $(".cover").hide();
+        })
+        $("#tuijianclose").click(function() {
+            $("#tuijian").hide();
+            $(".cover").hide();
+        })
+    })
+
+    function zhid(id) {
+
+        $('#zhiding_id').val(id);
+        $("#zhiding").show();
+        $(".cover").show();
+    }
+
+    function tuij(id) {
+        $('#tuijian_id').val(id);
+        $("#tuijian").show();
+        $(".cover").show();
+    }
+
+    //跳转到任务审核页面
+    function chick_task(id) {
+
+
+        api.ajax({
+            url: get_task_by_order_url,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    id: id,
+                }
+            }
+        }, function(ret, err) {
+
+
+            //	console.log(ret);
+            //	console.log(err);
+            if (ret.code == 100) {
+                //		setTimeout(function() {
+                api.openWin({
+                    name: 'order',
+                    url: '../my/order.html',
+                    pageParam: {
+                        id: id
+                    }
+                });
+                //		}, 1000);
+            } else if (ret.code == -302) {
+                api.toast({
+                    msg: ret.message,
+                    duration: 2000,
+                    location: 'bottom',
+                });
+            } else {
+                api.toast({
+                    msg: ret.info,
+                    duration: 2000,
+                    location: 'bottom',
+                });
+            }
+        });
+    }
+
+
+    function tuijian_set() { //置顶
+        var tuijian_zxc_id = $('#tuijian_id').val();
+        var tuijian_zxc_hour = $('#tuijian_hour').val();
+        // alert(tuijian_zxc_hour);return;
+        api.ajax({
+            url: set_task_indextuijian_url,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    id: tuijian_zxc_id,
+                    hour: tuijian_zxc_hour,
+                }
+            }
+        }, function(ret, err) {
+            api.toast({
+                msg: ret.info,
+                duration: 2000,
+                location: 'bottom',
+            });
+
+            if (ret.code == 100) {
+                setTimeout(function() {
+                    window.location.reload();
+                }, 1000);
+            }
+        });
+
+
+    }
+
+    function zhiding_set() { //推荐
+        var zhiding_zxc_id = $('#zhiding_id').val();
+        var zhiding_zxc_hour = $('#zhiding_hour').val();
+        // alert(tuijian_zxc_hour);return;
+        api.ajax({
+            url: set_task_indexzhiding_url,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    id: zhiding_zxc_id,
+                    hour: zhiding_zxc_hour,
+                }
+            }
+        }, function(ret, err) {
+            api.toast({
+                msg: ret.info,
+                duration: 2000,
+                location: 'bottom',
+            });
+
+            if (ret.code == 100) {
+                setTimeout(function() {
+                    window.location.reload();
+                }, 1000);
+            }
+        });
+
+
+    }
+
+    function set_c_status(id, suspend, c_status) {
+
+        let title = "确定要操作此项么?"
+        let msg = ""
+        let money = 0
+        if (c_status == 1) {
+            if (suspend >= 4) {
+                // alert("是是是")
+                // title="您今日已经暂停了"+suspend+"次该任务,每次暂停付费一元"
+                title = "每天可以免费暂停4次您已用完,本次暂停收费1元,您确定要暂停吗?"
+                    // return;
+                money = 1
+            }
+
+        }
+
+        // alert(suspend);return;
+        api.confirm({
+            title: "您确定要暂停吗",
+            msg: title,
+            buttons: ['确定', '取消']
+        }, function(ret, err) {
+            var index = ret.buttonIndex;
+            if (index == 1) {
+
+                api.ajax({
+                    url: task_c_statusbyid_url,
+                    method: 'post',
+                    data: {
+                        values: {
+                            token: token,
+                            id: id,
+                            money: money
+                        }
+                    }
+                }, function(ret, err) {
+                    api.toast({
+                        msg: ret.info,
+                        duration: 2000,
+                        location: 'bottom',
+                    });
+
+                    if (ret.code == 100) {
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 1000);
+                    }
+                });
+
+
+            }
+        });
+
+    }
+
+
+    function shanchu_del(id) {
+        api.confirm({
+            title: '确定要删除此条任务么?',
+            msg: '删除任务无法恢复,慎重考虑',
+            buttons: ['确定', '取消']
+        }, function(ret, err) {
+            var index = ret.buttonIndex;
+            if (index == 1) {
+
+                api.ajax({
+                    url: task_del_url,
+                    method: 'post',
+                    data: {
+                        values: {
+                            token: token,
+                            id: id,
+                        }
+                    }
+                }, function(ret, err) {
+                    api.toast({
+                        msg: ret.info,
+                        duration: 2000,
+                        location: 'bottom'
+                    });
+
+                    if (ret.code == 100) {
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 1000);
+                    }
+                });
+
+
+            }
+        });
+
+    }
+
+
+    function user_info() {
+        api.ajax({
+            url: personalInfo,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+
+
+                }
+            }
+        }, function(ret, err) {
+            //	console.log(JSON.stringify(ret));
+            //		console.log(JSON.stringify(err));
+
+            if (ret.code == -1) {
+                api.toast({
+                    msg: ret.message,
+                    duration: 2000,
+                    location: 'bottom'
+                });
+
+                api.openWin({
+                    name: 'login',
+                    url: '../my/login.html',
+
+                });
+                return false;
+            }
+
+
+            if (ret.code == 1) {
+                // $api.text(money, ret.data.money);	//发布金额
+                $api.text(shua_num, ret.data.shua_num); //刷新道具
+                $api.text(fyb_id, '副业帮ID：' + ret.data.u_id); //副业帮ID
+                $api.text(user_name, ret.data.u_name); //昵称
+                if (ret.data.u_headpic == "") {
+                    $api.byId('headerpic').src = "../../image/personal.png"; //头像
+                } else {
+                    $api.byId('headerpic').src = URL + ret.data.u_headpic; //头像
+                }
+                if (ret.data.shop_status == 1) {
+                    $api.text(shop_format, '商家到期：' + ret.data.shop_format);
+                    $("#banner_text").hide();
+                } else {
+                    $('#shop_format').hide();
+                    $("#banner_text").show();
+                }
+
+
+            }
+
+
+        });
+    }
+
+
+    $(function() {
+        $(".list li:eq(0) ").addClass('click');
+        $(".list li ").click(function() {
+            $(this).addClass('click').siblings().removeClass('click');
+        });
+    })
+
+    function member_center() {
+        api.openWin({
+            name: 'member_center',
+            url: '../my/member_center.html'
+        })
+    }
+
+    function recharge() {
+        api.openWin({
+            name: 'recharge',
+            url: '../my/recharge.html'
+        })
+    }
+
+    function cash_fb() {
+        api.openWin({
+            name: 'cash_fb',
+            url: '../my/cash_fb.html'
+        })
+    }
+
+    function balance() {
+        api.openWin({
+            name: 'balance',
+            url: 'balance.html'
+        })
+    }
+
+    function buy() {
+        api.openWin({
+            name: 'buy',
+            url: 'buy.html'
+        })
+    }
+
+    function go_back() {
+        api.closeWin({});
+    }
+
+    function task_classify(id = 0) {
+        // api.openWin({
+        //     name: 'task_classify',
+        //     url: 'task_classify.html'
+        // })
+        api.openWin({
+            name: 'release.html',
+            url: 'release.html',
+            allowEdit: true,
+            pageParam: {
+                id: id
+            }
+        })
+
+    }
+
+    function list(id) {
+        api.openWin({
+            name: 'list',
+            url: 'list.html',
+            pageParam: {
+                id: id
+            }
+        })
+    }
+</script>
+
+</html>

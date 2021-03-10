@@ -1,0 +1,151 @@
+.home-tuijian-item {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-left: 1%;
+    margin-top: 1%;
+    flex-direction: column;
+    border: 1px solid red;
+    border-radius: 10px;
+}
+
+.home-tuijian-head {
+    display: flex;
+    flex-direction: row;
+    margin-top: 4px;
+    width: 30%;
+    height: 50%;
+    /*justify-content: space-around;*/
+}
+
+.home-tuijian-head img {
+    margin-left: 2px;
+    /*width: 10px;*/
+    /*height:10px;*/
+    border-radius: 4rem;
+    border: 1px solid red;
+}
+
+.home-tuijian-head span {
+    text-align: center;
+    font-size: 18px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.home-tuijian-center {
+    display: flex;
+    flex-direction: row;
+    margin-top: 4px;
+}
+
+.home-tuijian-center-biaot {
+    margin-left: 2px;
+    border-radius: 10px;
+    border: 1px solid #EE9A00;
+    color: #EE9A00;
+}
+
+.home-tuijian-center-money {
+    color: #EE9A00;
+    margin-left: 10px;
+}
+
+.home-tuijian-btn {
+    display: flex;
+    flex-direction: row;
+}
+
+.home-tuijian-head-shenyu {
+    margin-left: 10px;
+}
+
+.top-div {
+    width: 100%;
+    border: 1px solid red;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.top-div-one-img {
+    width: 10px;
+    height: 10px;
+}
+
+.top-div-one {
+    display: flex;
+    flex-direction: row;
+}
+
+.aui-list-item-media {
+    width: 40px!important;
+    height: 40px!important;
+    border-radius: 40px;
+}
+
+.aui-list-item-title {
+    font-size: 10px !important;
+}
+
+.border-installs {
+    border: 1px solid #EE9A00;
+    padding: 2px;
+    border-radius: 5px;
+}
+
+.liniun-top {
+    color: #EE9A00;
+    margin-top: -20px;
+}
+
+.font-color {
+    color: #EE9A00;
+}
+
+.kong_con {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 0.6rem;
+    color: #808080;
+    font-weight: normal;
+    text-align: left;
+}
+
+.kong_con .kong_title {
+    display: flex;
+}
+
+.kong_con .kong_title img {
+    width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 5rem;
+}
+
+.kong_con .kong_title h3 {
+    margin-left: 0.2rem;
+    margin-top: 0.15rem;
+    font-size: 0.65rem;
+    line-height: 1.2rem;
+    color: black;
+    /*font-weight: bold;*/
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.kong_con .kong_text {
+    margin-top: 0.3rem;
+}
+
+.kong_con .kong_text span {
+    margin: 0 0.35rem;
+    line-height: 1.2rem;
+}
+
+.kong_con .kong_text span.qian {
+    font-size: 0.6rem;
+    color: #fb5134;
+    float: right;
+}

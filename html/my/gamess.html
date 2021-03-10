@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>游戏列表</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/receipts_payments.css" />
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <style media="screen">
+        .recharge>button {
+            width: 24%;
+            float: right;
+            height: 1.8rem;
+            margin-top: 1.2rem;
+            line-height: 1.8rem;
+            color: #fff;
+            background-color: #fb5134;
+            text-align: center;
+            border-radius: 0.3rem
+        }
+        
+        .recharge_text {
+            width: calc(100% - 24% - 3.8rem);
+            float: left;
+            padding-top: 0.6rem
+        }
+    </style>
+</head>
+
+<body>
+    <div class="b" id="header">
+        <div class="header">
+            <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+            <div class="header_text">
+                <h1>游戏列表</h1>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div id="detail">
+
+        <!-- <div class="recharge"  onclick="game_one('+ ret.data.items[lb].adid + ')" style="height:5rem;padding-top:0.8rem;box-sizing:border-box">
+			<img  src="'+ret.data.items[lb].imgurl+'" style="width:3.4rem;height:3.4rem;margin-right:.4rem;float:left">
+			<div class="recharge_text">'
+				<input type="hidden" value="'+ ret.data.items[lb].adlink + '" id="xx_'+ret.data.items[lb].adid+'">
+				<h1>名称:'+ret.data.items[lb].adname+'</h1>
+				<h2>ID:'+ret.data.items[lb].adid+'</h2>
+		 </div>
+		 <button type="button" name="button">进入</button>
+		 <div class="clearfix"></div>
+	</div> -->
+
+
+    </div>
+
+</body>
+<script src="../../script/api.js" charset="utf-8"></script>
+<script src="../../script/swiper.min.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/url.js"></script>
+<script>
+    apiready = function() {
+        height()
+        var hn = $api.byId('header').offsetHeight;
+        var addx = api.pageParam.url;
+        api.openFrame({
+            name: 'gamex',
+            url: addx,
+            rect: {
+                x: 0,
+                y: hn,
+                w: 'auto',
+                h: 'auto',
+            }
+        });
+    }
+
+
+    function go_back() {
+        api.closeWin({
+
+        });
+    }
+</script>
+
+</html>

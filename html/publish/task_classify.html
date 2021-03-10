@@ -1,0 +1,242 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+	<meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+	<title>选择任务类型</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/task_classify.css" />
+	<link rel="stylesheet" href="../../css/swiper.min.css">
+	<script src="../../script/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+	<div class="b">
+		<div class="header" id="header">
+	        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+	        <div class="header_text"><h1>选择任务类型</h1></div>
+	        <div class="clearfix"></div>
+	    </div>
+	</div>
+
+	<div class="prompt">
+		<p>温馨提示：请正确选择发布任务的类型，分类选择错误会导致发布审核不通过</p>
+	</div>
+<div id="task_type">
+	<!-- <div class="download" onclick="sub()">
+		<div class="download_pic"><img src="../../image/xiazai.png"></div>
+		<div class="download_text">
+			<h1 id="position">下载注册</h1>
+			<h2>APP，软件下载注册任务</h2>
+		</div>
+		<div class="enter"><img src="../../image/means_enter.png"></div>
+		<div class="clearfix"></div>
+	</div>
+	<div class="packet" onclick="sub()">
+		<div class="packet_pic"><img src="../../image/hongbao.png"></div>
+		<div class="packet_text">
+			<h1 id="position">砍价红包</h1>
+			<h2>拼多多、美团等砍价</h2>
+		</div>
+		<div class="packet_enter"><img src="../../image/means_enter.png"></div>
+		<div class="clearfix"></div>
+	</div>
+	<div class="vote" onclick="sub()">
+		<div class="vote_pic"><img src="../../image/toupiao.png"></div>
+		<div class="vote_text">
+			<h1 id="position">关注投票</h1>
+			<h2>微信公众号、抖音、微博等关注</h2>
+		</div>
+		<div class="vote_enter"><img src="../../image/means_enter.png"></div>
+		<div class="clearfix"></div>
+	</div>
+	<div class="share" onclick="sub()">
+		<div class="share_pic"><img src="../../image/toupiao.png"></div>
+		<div class="share_text">
+			<h1 id="position">分享转发</h1>
+			<h2>微信公众号、抖音、微博等关注</h2>
+		</div>
+		<div class="share_enter"><img src="../../image/means_enter.png"></div>
+		<div class="clearfix"></div>
+	</div>
+	<div class="through" onclick="sub()">
+		<div class="through_pic"><img src="../../image/liulan1.png"></div>
+		<div class="through_text">
+			<h1 id="position">浏览信息</h1>
+			<h2>网页、公众号、微博浏览</h2>
+		</div>
+		<div class="through_enter"><img src="../../image/means_enter.png"></div>
+		<div class="clearfix"></div>
+	</div>
+	<div class="business" onclick="sub()">
+		<div class="business_pic"><img src="../../image/dianzi.png"></div>
+		<div class="business_text">
+			<h1 id="position">电子商务</h1>
+			<h2>支付宝、淘宝、京东、拼多多等电商</h2>
+		</div>
+		<div class="business_enter"><img src="../../image/means_enter.png"></div>
+		<div class="clearfix"></div>
+	</div>
+	<div class="task" onclick="sub()">
+		<div class="task_pic"><img src="../../image/renwu.png"></div>
+		<div class="task_text">
+			<h1 id="position">多天任务</h1>
+			<h2>需要多天连续完成的任务</h2>
+		</div>
+		<div class="task_enter"><img src="../../image/means_enter.png"></div>
+		<div class="clearfix"></div>
+	</div>
+	<div class="credit" onclick="sub()">
+		<div class="credit_pic"><img src="../../image/xinyongka.png"></div>
+		<div class="credit_text">
+			<h1 id="position">信用卡</h1>
+			<h2>信用卡专区、支持长期审核</h2>
+		</div>
+		<div class="credit_enter"><img src="../../image/means_enter.png"></div>
+		<div class="clearfix"></div>
+	</div>
+
+	<div class="height_task" onclick="sub()">
+		<div class="height_task_pic"><img src="../../image/gaojia.png"></div>
+		<div class="height_task_text">
+			<h1 id="position">高价任务</h1>
+			<h2>高价发布专区</h2>
+		</div>
+		<div class="height_task_enter"><img src="../../image/means_enter.png"></div>
+		<div class="clearfix"></div>
+	</div>
+	<div class="other" onclick="sub()">
+		<div class="other_pic"><img src="../../image/other.png"></div>
+		<div class="other_text">
+			<h1 id="position">其他任务</h1>
+			<h2>如无区分类别，可在本区发布</h2>
+		</div>
+		<div class="other_enter"><img src="../../image/means_enter.png"></div>
+		<div class="clearfix"></div>
+	</div> -->
+</div>
+	</body>
+	<script src="../../script/api.js" charset="utf-8"></script>
+	<script src="../../script/swiper.min.js"></script>
+	<script src="../../script/common.js"></script>
+	<script src="../../script/url.js"></script>
+	<script>
+	apiready = function(){
+		height()
+	//var header = document.querySelector('#header'); //头帘高度
+	//$api.fixStatusBar(header);
+	api.addEventListener({
+        name:'close1'
+    }, function(ret) {
+			// alert("后台审核通过，购买成功");
+			// console.log(1);
+			api.closeWin({
+			 });
+    });
+			task_typeeee();		 //任务分类
+	}
+	function task_typeeee(){
+		api.ajax({
+				url: product_type_list,
+				method: 'post',
+				data: {
+						values: {
+
+						}
+				}
+		}, function(ret, err) {
+
+
+		// console.log(JSON.stringify(ret))
+
+
+			var	length = ret.data.length;
+			//	 alert(length)
+			var 	lblist_type = '';
+				for (var lb = 0; lb < length; lb++) {
+							lblist_type += '	<div class="download" onclick="sub( '+ ret.data[lb].pt_id + ','+ret.data[lb].pt_price+','+ret.data[lb].pt_num+')">'
+							lblist_type += '	<div class="download_pic"><img src="' +URL+ret.data[lb].pt_pic + '"></div>'
+							lblist_type += '	<div class="download_text">'
+							lblist_type += '		<h1 id="position">'+ret.data[lb].pt_name+'</h1>'
+							lblist_type += '		<h2>'+ret.data[lb].pt_event_pic+'</h2>'
+							lblist_type += '	</div>'
+							lblist_type += '	<div class="enter"><img src="../../image/means_enter.png"></div>'
+							lblist_type += '	<div class="clearfix"></div>'
+					  	lblist_type += '	</div>'
+				}
+					lblist_type+=''
+			//	var abc=lblist_type+lblist_type;
+			//	console.log(JSON.stringify(lblist_type))
+				$api.html(task_type,lblist_type);
+
+		});
+
+	}
+	// function sub() {
+	// 	token = $api.getStorage('token');
+	// 	position = $api.byId('position').value;
+	//
+	//
+	// 	api.ajax({
+	// 		url: add_task,
+	// 		method: 'post',
+	// 		data: {
+	// 			values: {
+	// 				token: token,
+	// 				position: position,
+	//
+	// 			}
+	// 		}
+	// 	}, function(ret, err) {
+	// 		api.toast({
+	// 			msg: ret.message,
+	// 			duration: 2000,
+	// 			location: 'bottom'
+	// 		});
+	//
+	// 		if (msg.status == 100) {
+	// 			setTimeout(function() {
+	// 				api.openWin({
+	// 					name: 'release_task1',
+	// 					url: 'release_task1.html'
+	// 				})
+	// 			}, 1000)
+	// 		}
+	// 	});
+	//
+	// }
+
+	function sub(id,price,num) {
+		//alert(id)
+		// alert(price)
+		// alert(num)
+		api.openWin({
+			name: 'release_task1',
+			url: 'release_task1.html',
+			allowEdit:true,
+			pageParam: {
+				id: id,
+				price:price,
+				num:num
+			}
+		})
+	}
+
+
+
+	// function release_task1(){
+	//   api.openWin({
+	// 	  name: 'release_task1',
+	// 	  url: 'release_task1.html'
+	//   })
+	// }
+
+	function go_back() {
+	  api.closeWin({
+
+	  });
+	}
+	</script>
+
+</html>

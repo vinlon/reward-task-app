@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>关注</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/set.css" />
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+    <script type="text/javascript"></script>
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <script src="../../script/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="../../css/guanzu.css">
+    <script src="../../script/aui/script/aui-dialog.js"></script>
+    <link rel="stylesheet" href="../../script/aui/css/api.css">
+    <link rel="stylesheet" href="../../script/aui/css/aui.css">
+</head>
+
+<body>
+    <div class="b" id="header">
+        <div class="header">
+            <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+            <div class="header_text">
+                <h1>关注</h1>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+
+    <div id="guanz">
+        <div class="guanz-head">
+            <div class="guanz-head-div guanz-head-bu" onclick="fens(0)">我的关注</div>
+            <div class="guanz-head-div " onclick="fens(1)">关注的人</div>
+        </div>
+
+        <div class="guanz-list">
+
+
+        </div>
+    </div>
+</body>
+<script src="../../script/api.js" charset="utf-8"></script>
+<script src="../../script/swiper.min.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/url.js"></script>
+<script>
+    apiready = function() {
+        height()
+
+        fens(0)
+        api.addEventListener({
+            name: 'guanzu'
+        }, function(ret, err) {
+            window.location.reload();
+            if (ret) {
+
+
+            } else {}
+        });
+        api.addEventListener({
+            name: 'scrolltobottom',
+            extra: {
+                threshold: 0 //设置距离底部多少距离时触发，默认值为0，数字类型
+            }
+        }, function(ret, err) {
+            if (pageEnd) {
+                api.toast({
+                    msg: '没有更多数据了'
+                })
+            } else {
+                fens(orders);
+            }
+        });
+    }
+    $(".guanz-head-div").click(function() {
+
+        let parent = $(this).parent();
+        let brother = parent.children();
+        brother.removeClass("guanz-head-bu")
+        $(this).addClass("guanz-head-bu")
+    })
+
+    function shop(shop_id) {
+        // var shop_id = $('#shop_id').val();
+        api.sendEvent({
+            name: 'shop_htmlasd',
+
+        });
+
+        api.openWin({
+            name: 'shop',
+            url: '../index/shop.html',
+            pageParam: {
+                shop_id: shop_id,
+            }
+        })
+    }
+
+    let page = 1
+    let pageEnd = false
+    let orders = 0;
+
+    function fens(type) {
+        let token = $api.getStorage('token'); //获取token
+        /*api.showProgress({
+            title: '努力加载中...',
+            text: '请稍后...',
+            modal: false
+        });*/
+        showLoadMore(1);
+        if (type != orders) {
+            page = 1
+            pageEnd = false
+        }
+        if (page == 1) {
+            $(".guanz-list").empty()
+        }
+        // alert(page)
+        api.ajax({
+            url: follow_dt,
+            method: 'post',
+            dataType: "json",
+            data: {
+                values: {
+                    token: token,
+                    ntype: type,
+                    limit: 12,
+                    page: page,
+                }
+            }
+        }, function(ret, err) {
+            let data = ret.data;
+            let length = data.length;
+            if (length > 0) {
+                let html = ""
+                data.map(function(item) {
+
+                    html += '<div class="aui-content aui-margin-b-15" onclick="shop(' + item.user_id + ')">' +
+                        '            <ul class="aui-list aui-media-list">' +
+                        '                <li class="aui-list-item aui-list-item-middle">' +
+                        '                    <div class="aui-media-list-item-inner">' +
+                        '                        <div class="aui-list-item-media" style="width: 3rem;">' +
+                        '                            <img src="' + URL + item.user_image + '" class="aui-img-round aui-list-img-sm">' +
+                        '                        </div>' +
+                        '                        <div class="aui-list-item-inner aui-list-item-arrow">' +
+                        '                            <div class="aui-list-item-text">' +
+                        '                                <div class="aui-list-item-title aui-font-size-14">' + item.user_name + '</div>' +
+                        '                                <div class="aui-list-item-right">' + item.add_time + '</div>' +
+                        '                            </div>' +
+                        '                            <div class="aui-list-item-text"> UID:' + item.user_id + ' </div>' +
+                        '                        </div>' +
+                        '                    </div>' +
+                        '                </li>' +
+                        '            </ul>' +
+                        '        </div>'
+                })
+
+                $(".guanz-list").append(html)
+            } else {
+                pageEnd = true
+            }
+            orders = type
+            page++;
+            //api.hideProgress()
+            showLoadMore();
+
+        })
+    }
+
+    function go_back() {
+        api.closeWin({});
+    }
+</script>
+
+</html>

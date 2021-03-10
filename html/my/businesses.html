@@ -1,0 +1,179 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+	<meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+	<title>商家管理</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/businesses.css" />
+	<link rel="stylesheet" href="../../css/swiper.min.css">
+	<script src="../../script/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+<div class="b" id="header">
+	<div class="header">
+        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+        <div class="header_text"><h1>商家管理</h1></div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+	<div class="banner">
+		<div class="banner_bg"><img src="../../image/retail.png"></div>
+		<div class="banner_content">
+			<div class="name_pic"><img src="../../image/touxiang.png" id="img"></div>	<!--头像-->
+			<div class="name">
+				<h1 id="name">竹墨残水〆烟花冷ゾ</h1>										<!--用户名-->
+				<h2 id="id">副业帮ID：566896</h2>										 <!--用户ID-->
+			</div>
+			<div class="clearfix"></div>
+			<div class="card">
+				<div class="card_text">
+					<h1 id="dsh_x">12</h1>
+					<h2>待审核任务</h2>
+				</div>
+				<div class="card_text">
+					<h1 id="jxz_x">56</h1>
+					<h2>进行中任务</h2>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="content">
+				<div class="content_box"  onclick="order()">
+					<div class="box_pic"><img src="../../image/businesses1.png"></div>
+					<div class="content_text">
+						<h1>订单管理</h1>
+						<h2>订单信息</h2>
+					</div>
+				</div>
+				<div class="content_box" onclick="release_task()">
+					<div class="box_pic"><img src="../../image/businesses2.png"></div>
+					<div class="content_text">
+						<h1>任务管理</h1>
+						<h2>管理任务订单</h2>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+				<div class="content_box" onclick="headline()">
+					<div class="box_pic"><img src="../../image/businesses3.png"></div>
+					<div class="content_text">
+						<h1>头条申请记录</h1>
+						<h2>历史记录</h2>
+					</div>
+				</div>
+				<div class="content_box">
+
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+
+	</body>
+	<script src="../../script/api.js" charset="utf-8"></script>
+	<script src="../../script/swiper.min.js"></script>
+	<script src="../../script/common.js"></script>
+	<script src="../../script/url.js"></script>
+	<script>
+		apiready = function(){
+			height()
+			//var header = document.querySelector('#header'); //头帘高度
+			//$api.fixStatusBar(header);
+			 getUserInfo()
+			 api.setRefreshHeaderInfo({
+				 loadingImg: 'widget://image/refresh.png',
+				 bgColor: '#ccc',
+				 textColor: '#fff',
+				 textDown: '下拉刷新...',
+				 textUp: '松开刷新...'
+			 }, function(ret, err) {
+				 //在这里从服务器加载数据，加载完成后调用
+				 //停止api.refreshHeaderLoadDone()方法恢复组件到默认状态
+				 window.location.reload();
+				 api.refreshHeaderLoadDone();
+			 });
+		}
+		function getUserInfo() {
+			//$api.setStorage('token','a936436f65ff3e27edf61054d416da28');
+			token = $api.getStorage('token'); //获取token
+	        // var ucode = $api.getStorage('code');
+			 //alert(token);
+			api.ajax({
+				url: get_shanghuaguanlizhongxin_url,
+				method: 'post',
+				data: {
+					values: {
+						token: token,
+					}
+				}
+			}, function(ret, err) {
+					console.log(JSON.stringify(ret));
+					console.log(JSON.stringify(err));
+					// api.alert({ msg: JSON.stringify(ret) });
+					if (ret.code == -302) {
+						api.toast({
+							msg: ret.message,
+							duration: 2000,
+							location: 'bottom'
+						});
+						setTimeout(function() {
+							api.openWin({
+								name: 'login',
+								url: 'login.html',
+								pageParam: {
+									name: 'test'
+								}
+							});
+						}, 1000);
+						return false;
+					}else {
+						$('#name').html(ret.data.u_name);
+
+						$api.text(id,'副业帮ID：'+ ret.data.u_id);
+					  $api.text(dsh_x,ret.dsh);
+						$api.text(jxz_x,ret.jxz);
+						if (ret.data.u_headpic) {
+							imgFile = URL + ret.data.u_headpic;
+							//alert(imgFile);
+							$("#img").attr('src', imgFile);
+
+
+						} else {
+							$api.byId('img').src = '../../image/personal.png';
+						}
+
+				}
+					// api.alert({ msg: JSON.stringify(err) });
+
+			});
+		}
+
+		function go_back() {
+	        api.closeWin({
+	            // name: '',
+	        })
+	    }
+		function order(){
+		  api.openWin({
+			  name: 'order',
+			  url: 'order.html'
+		  })
+		}
+		function headline(){
+		  api.openWin({
+			  name: 'headline',
+			  url: 'headline.html'
+		  });
+		}
+		function release_task(){
+		  api.openWin({
+			  name: 'release_task',
+			  url: 'release_task.html'
+		  })
+		}
+
+	</script>
+
+
+</html>

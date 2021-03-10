@@ -1,0 +1,195 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>收支明细</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/receipts_payments.css" />
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+</head>
+
+<body>
+    <div class="b" id="header">
+        <div class="header">
+            <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+            <div class="header_text">
+                <h1>收支明细</h1>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div id="detail">
+        <!--		<div class="rece-div">-->
+        <!--			<div class="rece-div-text">-->
+        <!--				<div class="rece-div-text-name">萨克军军军军军军军军军军军军军军军军军军军军军奥</div>-->
+        <!--				<div class="rece-div-text-time">2020-02-12</div>-->
+        <!--			</div>-->
+        <!--			<div class="rece-div-time">-->
+        <!--					+1000.00-->
+        <!--			</div>-->
+        <!--		</div>-->
+    </div>
+
+</body>
+<script src="../../script/api.js" charset="utf-8"></script>
+<script src="../../script/swiper.min.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/url.js"></script>
+<script>
+    apiready = function() {
+        height()
+        getDetail()
+            //var header = document.querySelector('#header'); //头帘高度
+            //$api.fixStatusBar(header);
+        api.setRefreshHeaderInfo({
+            loadingImg: 'widget://image/refresh.png',
+            bgColor: '#ccc',
+            textColor: '#fff',
+            textDown: '下拉刷新...',
+            textUp: '松开刷新...'
+        }, function(ret, err) {
+            //在这里从服务器加载数据，加载完成后调用
+            //停止api.refreshHeaderLoadDone()方法恢复组件到默认状态
+            window.location.reload();
+            api.refreshHeaderLoadDone();
+        });
+        api.addEventListener({
+            name: 'scrolltobottom',
+            extra: {
+                threshold: 0 //设置距离底部多少距离时触发，默认值为0，数字类型
+            }
+        }, function(ret, err) {
+            if (pageEnd) {
+                api.toast({
+                    msg: '没有更多数据了'
+                })
+            } else {
+                getDetail();
+            }
+        });
+
+    }
+
+    let page = 1
+    let pageEnd = false
+    let orders = 0;
+
+    function getDetail() {
+
+        token = $api.getStorage('token'); //获取token
+        // console.log(JSON.stringify(token))
+        /*api.showProgress({
+        	title: '努力加载中...',
+        	text: '请稍后...',
+        	modal: false
+        });*/
+        showLoadMore(1);
+        api.ajax({
+            url: finance_list_url,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    page: page,
+                    limit: 12,
+                }
+            }
+        }, function(ret, err) {
+            // console.log(JSON.stringify(ret));
+            // console.log(JSON.stringify(err));
+            if (!token || token == 'undefined') {
+                $api.clearStorage();
+                // alert(1)
+                // console.log(1);
+                setTimeout(function() {
+                    api.openWin({
+                        name: 'login',
+                        url: '../my/login.html',
+                    })
+                }, 800)
+
+                return false;
+            } else {
+
+                var length = ret.data.length;
+                //	 alert(length)
+                if (length > 0) {
+
+                    let datas = ret.data
+                    let html = ""
+                    datas.map(function(item) {
+                        html += '<div class="rece-div">' +
+                            '<div class="rece-div-text">' +
+                            '<div class="rece-div-text-name">' + item.content + '</div>' +
+                            '<div class="rece-div-text-time">' + item.add_time + '</div>' +
+                            '</div>';
+
+                        if (item.money_type == 1) {
+                            html += '<div class="rece-div-time rece-div-time-color">+' + item.money + '</div>'
+                        } else {
+                            html += '<div class="rece-div-time ">-' + item.money + '</div>'
+                        }
+
+
+
+                        html += '</div>'
+
+                    })
+
+                    // var lblist_type = '';
+                    // for (var lb = 0; lb < length; lb++) {
+                    //
+                    // 	if (ret.data[lb].money_type == 1) {
+                    // 		lblist_type += '	<div class="recharge">'
+                    // 		lblist_type += '	<div class="recharge_text">'
+                    // 	} else {
+                    // 		lblist_type += '	<div class="withdraw">'
+                    // 		lblist_type += '	<div class="withdraw_text">'
+                    // 	}
+                    //
+                    // 	lblist_type += '	<h1>' + ret.data[lb].content + '</h1>'
+                    // 	lblist_type += '	<h2>' + ret.data[lb].add_time + '</h2>'
+                    // 	lblist_type += '	</div>'
+                    // 	if (ret.data[lb].money_type == 1) {
+                    // 		lblist_type += '	<h3>+' + ret.data[lb].money + '</h3>'
+                    // 	} else {
+                    // 		lblist_type += '	<h3>-' + ret.data[lb].money + '</h3>'
+                    // 	}
+                    //
+                    // 	lblist_type += '	<div class="clearfix"></div>'
+                    // 	lblist_type += '	</div>'
+                    //
+                    // }
+
+                    $api.append(detail, html);
+                } else {
+                    if (page == 1) {
+                        $api.html(detail, "");
+                    }
+                    pageEnd = true
+                }
+
+                page++;
+                //api.hideProgress()
+                showLoadMore();
+
+                // }
+            }
+        });
+    }
+
+
+
+
+    function go_back() {
+        api.closeWin({
+
+        });
+    }
+</script>
+
+</html>

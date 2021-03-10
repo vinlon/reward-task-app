@@ -1,0 +1,384 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>任务详情</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/list_detail.css" />
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script src="../../script/swiper.min.js"></script>
+    <script src="../../script/common.js"></script>
+    <script src="../../script/url.js"></script>
+
+</head>
+<style>
+    #store_type {
+        width: 3.75rem;
+        height: 1rem;
+        font-size: 12px;
+        background-color: #EEB422;
+        text-align: center;
+        color: white;
+    }
+    
+    #set_buzhou {
+        margin-bottom: 40px;
+    }
+</style>
+
+<body>
+    <div class="b" id="header">
+        <div class="header">
+            <div class="search" onclick=""><img src="../../image/return.png"></div>
+            <!--        <div class="header_button"><img src="../../image/mroe.png"></div>-->
+            <div class="header_text">
+                <h1>任务详情</h1>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="covering"></div>
+    <div class="cover"></div>
+    <div class="banner">
+        <!-- 右上角点击内容 -->
+        <!-- 任务内容 -->
+        <div class="list_text">
+            <div class="clearfix">
+                <p id="titles_task">下载注册就可以，秒审核</p>
+            </div>
+            <span class="con" id="fenleix">   微信实名 </span>
+            <span class="con" id="taskTitle">   微信实名 </span>
+            <div class="clearfix"></div>
+        </div>
+        <div class="banner_text">
+            <div class="text_pic"><img src="../../image/pu.png"></div>
+            <h1 id="taskmoney">+1.08</h1>
+            <div class="clearfix"></div>
+            <div class="banner_pic"><img src="../../image/vip.png"></div>
+            <h2 id="taskmoneyvip">+1.39</h2>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="detail_text">
+            <h1 id="shengyu">11</h1>
+            <h2>剩余数量</h2>
+
+        </div>
+        <div class="detail_text">
+            <h1 id="wancheng">26</h1>
+            <!--        <h2>完成数量</h2>-->
+            <h2>通过数量</h2>
+        </div>
+        <div class="detail_text">
+            <h1 id="zuodan">1小时</h1>
+            <h2>做单时间</h2>
+        </div>
+
+        <div class="detail_text">
+            <h1 id="shenhe">1天</h1>
+            <h2>审核时间</h2>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <!-- 做单说明 -->
+
+    <div class="show" style="display: flex;flex-direction: row;justify-content: space-around;">
+        <div id="zhichusbp">支持设备：<span id="zhichusb"></span></div>
+        <div id="kezuocis-p">次数：<span id="kezuocis">123</span></div>
+    </div>
+
+    <div class="show">
+        <h1>做单说明</h1>
+        <p>1.发现诱导私加，私下交易，发布同类平台任务，举报重赏；<br> 2.需要打钱投资的任务需谨慎，亏损自负；
+            <br> 3.请先报名再做任务，否则无赏金；
+            <br>4.加私人聊天或者加群做单，完成以后及时删除和退出群里，如发现邀请私下做单情况，举报奖励50元到200元（如无保证金任务奖励冻结资金全部）；
+        </p>
+    </div>
+
+    <div class="show task-div">
+        <h1>任务说明</h1>
+        <p class="task_text">
+        </p>
+    </div>
+
+
+    <!-- 商家 -->
+    <div class="name clearfix">
+        <div class="name_pic" id="storeImg">
+            <img id="user_pic" src="../../image/list.png">
+
+        </div>
+        <div class="name_text">
+            <h1 id="store_name">王者つ莫紫萱-(566859)21312</h1>
+
+        </div>
+        <div class="store"><img src="../../image/dianpu.png">
+            <h3>店铺</h3>
+        </div>
+    </div>
+
+
+
+    <div class="task" id="set_buzhou"></div>
+
+
+
+    <!-- 提交数据 -->
+    <div class="submit-task">
+
+
+        <div class="submit weixin_nicks">
+            <p>提交数据</p>
+            <textarea id="weixin_nick" style="width: 100%;height: 60px;border: 1px solid #0C0C0C;" placeholder=""></textarea>
+        </div>
+
+
+        <div class="button lijilingqi" style="z-index:10;">
+            <button type="button" class="huanyige" onclick="chat_sho()" style="color: black;width: 30%!important;;line-height: 3.0625rem;float: left;height: 100% ;background-color: white;">
+            修改
+        </button>
+            <button type="button" class="lingqu_rw" onclick="add_datas()">申请发布</button>
+        </div>
+
+    </div>
+</body>
+
+<script>
+    apiready = function() {
+        height()
+        token = $api.getStorage('token');
+        api.addEventListener({
+            name: 'push_data'
+        }, function(ret, err) {
+            window.location.reload();
+        });
+
+        // let push_data = $api.getStorage('push_data')
+        let push_data = api.getPrefs({
+            sync: true,
+            key: "push_data"
+        })
+
+
+        task_details(push_data);
+
+    }
+
+    // 申请发布
+    function add_datas() {
+
+        // let push_data = $api.getStorage('push_data')
+        let push_data = api.getPrefs({
+            sync: true,
+            key: "push_data"
+        })
+        let data = JSON.parse(push_data)
+        api.confirm({
+            title: '温馨提示',
+            msg: "禁止发布同类平台.私加.私下交易等任务，一经发现，封号处理，冻结账户余额，请知",
+            buttons: ['确定', '取消']
+        }, function(ret, err) {
+            var index = ret.buttonIndex;
+            if (index == 1) {
+                api.ajax({
+                    url: add_tasks,
+                    method: 'post',
+                    data: {
+                        values: data
+                    }
+                }, function(ret, err) {
+
+                    api.toast({
+                        msg: ret.info,
+                        duration: 2000,
+                        location: 'bottom'
+                    });
+                    if (ret.status == 100) {
+                        // $api.clearStorage("push_data")
+                        api.removePrefs({
+                            key: "push_data"
+                        })
+                        setTimeout(function() {
+                            api.openWin({
+                                name: 'publish.html',
+                                url: 'publish.html',
+                                // allowEdit: true,
+                                // pageParam: { }
+                            })
+                        }, 2000)
+                    }
+                })
+            }
+        })
+    }
+
+    // 修改数据
+    function chat_sho() {
+
+        // api.confirm({
+        //     title: '温馨提示',
+        //     msg: "禁止发布同类平台.私加.私下交易等任务，一经发现，封号处理，冻结账户余额，请知",
+        //     buttons: ['确定', '取消']
+        // }, function (ret, err) {
+        //     var index = ret.buttonIndex;
+        //     if (index == 1) {
+        api.openWin({
+                name: 'release.html',
+                url: 'release.html',
+                allowEdit: true,
+
+            })
+            //     }
+            // })
+
+
+    }
+
+
+    // 任务详情 预览功能
+    function task_details(push_data) {
+        api.ajax({
+            url: get_user_data,
+            method: 'post',
+            dataType: 'json',
+            data: {
+                values: {
+                    token: token
+                }
+            }
+        }, function(ret, err) {
+            let bili = ret.data.bili;
+            let data = ret.data.user;
+            $("#store_name").html(data.u_name)
+            let imgFile = URL + data.u_headpic;
+            $("#user_pic").attr('src', imgFile);
+
+            deltis(push_data, bili);
+
+
+        })
+    }
+
+    // 详情
+    function deltis(push_data, bili) {
+        let data = JSON.parse(push_data)
+
+
+        switch (data.shebei) {
+            case 1:
+                $("#zhichusb").html("安卓&苹果");
+                $("#zhichusbp").show();
+                break;
+            case 2:
+                $("#zhichusb").html("安卓");
+                $("#zhichusbp").show();
+                break;
+            case 3:
+                $("#zhichusb").html("苹果");
+                $("#zhichusbp").show();
+                break;
+            default:
+                $("#zhichusbp").hide();
+                break;
+        }
+        switch (data.ci_type) {
+            case 1:
+                $("#kezuocis").html("每人一次");
+                $("#kezuocis-p").show();
+                break;
+            case 2:
+                let chishu = data.cfcs;
+                if (chishu == -1) {
+                    chishu = "不限"
+                }
+
+                $("#kezuocis").html("每人" + chishu + "次");
+                $("#kezuocis-p").show();
+                break;
+            case 3:
+                let chishus = data.cfcs;
+                if (chishus == -1) {
+                    chishus = "不限"
+                }
+                $("#kezuocis").html("每日" + chishus + "次");
+                $("#kezuocis-p").show();
+                break;
+
+            default:
+                $("#kezuocis-p").hide();
+                break;
+        }
+
+        $("#shengyu").html(data.num);
+        $("#wancheng").html(data.num);
+        //let money = Number(data.money * bili).toFixed(2);
+        let money = Number(data.money).toFixed(2);
+        $("#taskmoney").html(money);
+        let vip_money = (Number(money) + Number((money * 0.05))).toFixed(2);
+        $("#taskmoneyvip").html(vip_money);
+        $("#zuodan").html(data.ti_time + "小时");
+        $("#shenhe").html(data.audit_time + "小时");
+        $("#titles_task").html(data.title)
+
+        $("#fenleix").html(data.type_name)
+        $("#taskTitle").html(data.name)
+
+        // $("#weixin_nick").attr("placeholder", data.content);
+
+        $(".task_text").html(data.task_shm); //任务说明
+        if (data.task_shm) {
+            $(".task-div").show();
+
+        } else {
+            $(".task-div").hide();
+        }
+
+        $("#weixin_nick").html(data.content);
+        if (data.content) {
+            $(".weixin_nicks").show();
+        } else {
+            $(".weixin_nicks").hide();
+        }
+
+        let types = data.types
+        let titles = data.titles
+        let pics = data.pics
+        var lblist_type = '	<h1>任务步骤</h1>';
+        types.map((item, index) => {
+            lblist_type += '	<div class="step3" id="changsgggs">'
+            lblist_type += '		<h2>' + index + '</h2>'
+            lblist_type += '		<div class="step3_title">'
+            if (item === 1) {
+                lblist_type += '			<h3>步骤' + index + '（图文说明）</h3>'
+            } else {
+                lblist_type += '			<h3>步骤' + index + '（提交截图）</h3>'
+            }
+            lblist_type += '			<p  id="step3Text" >'
+            lblist_type += '<span >' + titles[index] + '</span>';
+            lblist_type += '<span style="margin-left: 2rem;color: #1C86EE">复制内容</span>';
+            lblist_type += '</p>';
+            lblist_type += '			<div class="step3_pic"  id="step3Pic" ><img class="shuiyingimg" " src="' + URL + pics[index] + '"></div>'
+            if (item === 2) {
+                lblist_type += '<div class="add">'
+                lblist_type += '<div class="add_pic"><img  src="../../image/xj1.png"></div>'
+                lblist_type += '<input type="hidden" >'
+                lblist_type += '</div>'
+            }
+            lblist_type += '		</div>'
+            lblist_type += '		<div class="clearfix"></div>'
+            lblist_type += '	</div>'
+
+
+        })
+        $api.html(set_buzhou, lblist_type);
+
+    }
+</script>
+
+
+</html>

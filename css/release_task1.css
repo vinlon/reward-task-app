@@ -1,0 +1,72 @@
+*{font-size: 1rem;font-family:"苹方";}
+.clearfix{clear: both;}
+a{display: block;text-decoration: none;}
+body,html{background-color: #f3f3f3;}
+h1,h2,h3{font-weight: normal;}
+img{display: block;width: 100%;}
+p{overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
+
+.b{width: 100%;background-color: #fff;margin-bottom: 0.625rem;}
+.header{padding: 0 0.9375rem;margin: 0 auto;box-sizing: border-box;border-bottom: 0.0625rem solid #eaeaea;padding-top: 1rem;width: 100%}
+.search{width: 5.1%;float: left;}
+.search img{width: 100%;padding-top: 1rem;box-sizing: border-box;}
+.header_text{text-align: center;width: 87.2%;float: right;line-height: 3.125rem;margin: 0 auto;}
+.header_text h1{font-size: 1.125rem;color: #2a2b35;font-family:"苹方";font-weight: bold;}
+.question{width: 6.4%;float: right;margin-top: 0.8rem;}
+
+.phone{width: 100%;}
+/*.code{padding: 0 0.9375rem;box-sizing: border-box;border-bottom: 0.0625rem solid #eaeaea;line-height: 3.125rem;background-color: #fff}
+.code h1{width: 25%;float: left;font-size: 0.9375rem;color: #333333;font-weight: bold;}
+.code span{font-size: 0.9375rem;color: #fb5134;}
+.input{width: 65%;float: left;}
+.input input{outline: none;line-height: 3.125rem;width: 100%;color: 808080;font-size: 0.9375rem;}
+input::-webkit-input-placeholder {color: #808080;font-size: 0.9375rem;}
+.code h2{width: 40%;font-size: 0.9375rem;color: #cacaca;float: right;}
+.Obtain{width: 25%;float: right;line-height: 3.125rem;}
+.Obtain button{font-size: 0.8125rem;width: 100%;color: #fb5134;border: 0.0625rem solid #fb5134;line-height: 1.6875rem;box-sizing: border-box;}*/
+.code{padding: 0 0.9375rem;box-sizing: border-box;border-bottom: 0.0625rem solid #eaeaea;line-height: 3.125rem;background-color: #fff}
+.code h1{width: 25%;float: left;font-size: 0.9375rem;color: #333333;font-weight: bold;}
+.code span{font-size: 0.9375rem;color: #fb5134;}
+.input{width: 75%;float: left;position: relative;}
+.input input{outline: none;line-height: 3.125rem;width: 100%;z-index: 1002;position: absolute;top: 0;left: 0;}
+.text{width: 100%;position: absolute;left:0;top:0;}
+.text h2{color: #808080;font-size: 0.9375rem;width: 50%;float: left;}
+.text p{color: #cacaca;font-size: 0.875rem;width: 50%;float: left;}
+.sum_text{width: 100%;position: absolute;left:0;top:0;}
+.sum_text h2{color: #808080;font-size: 0.9375rem;width: 50%;float: left;}
+.sum_text p{color: #cacaca;font-size: 0.875rem;width: 50%;float: left;}
+
+.text2{width: 100%;position: absolute;left:0;top:0;}
+.text2 h2{color: #808080;font-size: 0.9375rem;width: 50%;float: left;}
+.text2 p{color: #cacaca;font-size: 0.875rem;width: 50%;float: left;}
+
+.code1{padding: 0 0.9375rem;box-sizing: border-box;line-height: 3.125rem;width: 100%;}
+.code1>h1{width: 25%;float: left;font-size: 0.9375rem;color: #333333;font-weight: bold;}
+.code1 span{font-size: 0.9375rem;color: #fb5134;}
+.code1 .add_bu{width: 25%;float: right;position: relative;}
+.code1 .add_bu h3{font-size: 0.9375rem; color: #fb5134;text-align: right;font-weight: bold;float: right;margin-left: 0.3rem}
+.add{width: 20%;float: right;margin-top: 1rem;}
+
+.show{padding: 1.25rem 0.9375rem;background-color: #fff;border-top: 0.0625rem solid #eaeaea;border-bottom: 0.0625rem solid #eaeaea;box-sizing: border-box;}
+.show h1{font-size: 0.9375rem;color: #333333;margin-bottom: 0.9375rem;font-weight: bold;}
+.show input{font-size: 0.9375rem;color: #808080;outline: none;border: none;width:100%;}
+.pic{border: 0.0625rem solid #dcdcdc;width: 26.4%;margin-top: 1.25rem;}
+.show_pic{width: 100%;margin: 0 auto;height: 6rem;overflow: hidden;}
+.show_pic>img{width: 100%;height: 100%;}
+.pic h3{font-size: 0.75rem;text-align: center;color: #808080;margin-bottom: 0.9375rem;}
+
+.refer{padding: 1.25rem 0.9375rem;margin-bottom: 3.625rem;background-color: #fff;border-top: 0.0625rem solid #eaeaea;box-sizing: border-box;}
+.refer h1{font-size:0.9375rem;color: #333333;font-weight: bold;}
+.refer textarea{width: 100%;height: 5rem;outline: none;border: none;margin-top: 0.75rem;resize:none;font-size: 0.9375rem;color: #808080;}
+.refer h2{font-size: 0.875rem;color: #cacaca;float: right;}
+
+.button{width: 92%;margin-top: 3.75rem;width: 100%;line-height: 3rem;background-color: #fb5134;text-align: center;position: fixed;bottom: 0;}
+.button button{color: #fff;font-size: 1.125rem;outline: none;}
+
+
+.buzou{width: 120%;position: absolute;top: 2.5rem;right: 0;background-color: #fff;z-index: 10;text-align:center;display: none;}
+.buzou h1{font-size: 0.85rem;color: #333;border-bottom: 0.06rem solid #eaeaea;}
+.buzou h2{font-size: 0.85rem;color: #333;}
+.cover{background-color: rgba(0,0,0,0.3);height: 100%;width: 100%;position: fixed;top: 0;left: 0;z-index: 9;display: none;}
+
+#del button{width: 100%;margin: 0.625rem 0;outline: none;background-color: #ccc;line-height: 2rem;color: #fff}

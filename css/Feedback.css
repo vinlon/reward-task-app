@@ -1,0 +1,33 @@
+*{font-size: 1rem;font-family:"苹方";}
+body{background-color: #f3f3f3;}
+.clearfix{clear: both;}
+a{display: block;text-decoration: none;}
+h1,h2,h3{font-weight: normal;}
+img{display: block;width: 100%;}
+.header{padding: 0 0.9375rem ;background-color: #fff;box-sizing: border-box;padding-top: 1rem;width: 100%;}
+.search{width: 5.1%;float: left;}
+.search img{width: 100%;padding-top: 1rem;box-sizing: border-box;}
+.header_text{text-align: center;width: 89.8%;float: left;line-height: 3.125rem;}
+.header_text h1{font-size: 1.125rem;color: #2a2b35;font-family:"苹方";font-weight: bold;}
+
+
+.data_content{width: 100%;}
+.content_text2{line-height:2.8rem;padding: 0 0.9375rem;box-sizing: border-box;border-top: 0.0625rem solid #eaeaea}
+.content_text2 h1{font-size: 0.9375rem;color: #333333;margin-right: 6.5%;}
+.content_text textarea{width: 100%;height: 6rem;color: #808080;font-size: 0.875rem;color: #808080;margin-top: 0.8rem;outline: none;line-height: 1.2rem;padding-left: 1rem;box-sizing: border-box;resize: none;}
+.pic{width: 11%;padding: 0.9375rem;border: 0.0625rem dashed #d2d2d2}
+.pic img{width: 100%;display: block;}
+.content_text{background-color: #fff;line-height:2.8rem;width: 92%;margin: 0 auto;box-sizing: border-box;border: 0.0625rem solid #e6e6e6;border-radius: 0.4rem;}
+.data_content p{font-size: 0.8125rem;color: #999999;padding: 0 0.9375rem;box-sizing: border-box;border}
+.add{width: 29%;border-radius: 0.2rem;margin-left: 1rem;margin-bottom: 0.9375rem;}
+.add>img{width: 100%;}
+.content_text1{line-height:2.8rem;padding: 0 0.9375rem;box-sizing: border-box;}
+.content_text1 h1{font-size: 0.9375rem;color: #333333;;margin-right: 6.5%;}
+
+.way{background-color: #fff;line-height:2.8rem;width: 92%;margin: 0 auto;box-sizing: border-box;border: 0.0625rem solid #e6e6e6;border-radius: 0.4rem;margin-bottom: 0.75rem;}
+
+.way input{width: 100%;color: #808080;font-size: 0.875rem;color: #808080;margin-top: 0.8rem;outline: none;line-height: 1.2rem;padding-left: 1rem;box-sizing: border-box;}
+
+
+.button{width: 100%;margin-top: 3.875rem;padding: 0 0.9375rem;box-sizing: border-box;}
+.button button{background-color: #fb5134;width: 100%;padding: 1rem 0;color: #fff;font-size: 1.125rem;font-weight:bold;outline: none;border-radius: 2rem;}

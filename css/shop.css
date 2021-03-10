@@ -1,0 +1,138 @@
+*{font-size: 1rem;font-family:"苹方";}
+.clearfix{clear: both;}
+body,html{background-color: #f3f3f3;}
+a{display: block;text-decoration: none;}
+h1,h2,h3,h4{font-weight: normal;}
+p{overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
+img{display: block;width: 100%;}
+button{outline: none;}
+.header{padding: 0 0.9375rem;margin: 0 auto;box-sizing: border-box;border-bottom: 0.0625rem solid #eaeaea;background-color: #fff;padding-top: 1rem;width: 100%;}
+.header_text{text-align: center;width:89.8%;float: left;line-height: 3.125rem;}
+.header_text h1{font-size: 1.125rem;color: #2a2b35;font-family:"苹方";font-weight: bold;}
+.search{width: 5.1%;float: left;}
+.search img{width: 100%;padding-top: 1rem;box-sizing: border-box;}
+.name-text-guan{
+    text-align: center;
+    width: 3.5rem;
+    font-size: 12px;
+
+}
+.name-text-guan-back{
+    color: white;
+    background-color: #f79316;
+}
+.name-text-guan-backs{
+    border: 1px solid #f79316;
+    color: #f79316;
+}
+.name-wne{
+    border: 1px solid red;
+}
+.shop-head{
+    width: 100%;
+    height: 8rem;
+    margin: 0 auto;
+    display: flex;
+    justify-content: flex-start;
+    /*border: 1px solid blue;*/
+}
+.shop-head-img{
+    width: 4rem;
+    height: 7rem;
+    display:flex ;
+    flex-direction: column;
+
+}
+.shop-head-img img{
+    width: 4rem;
+    height: 4rem;
+    border-radius: 4rem;
+}
+.shop-head-img span{
+    /*margin-top: 0.5rem;*/
+    background-color: #f79316;
+    color: white;
+    font-size: 12px;
+    line-height: 24px;
+    text-align: center;
+}
+.shop-head-center{
+    width: 70%;
+    height: 8rem;
+    display: flex;
+    flex-direction: column;
+    margin-left: 0.7rem;
+
+}
+
+.shop-head-center-name{
+    height: 2rem;
+    font-size: 15px;
+    color: white;
+}
+.shop-head-center-name-oid {
+    font-size: 12px;
+}
+.shop-head-center-name-uid{
+    font-size: 12px;
+}
+.shop-head-banner_text{
+    width: 9rem;
+    height: 2.5rem;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    background-color: #e24429;
+    /*border: 1px solid blue;*/
+}
+.shop-head-banner_text h1{
+    color: #fff;font-size:0.875rem; padding: 0.5rem 0 1rem 1rem;box-sizing: border-box;
+}
+.banner{width: 100%;position: relative;}
+.banner_bg{width: 100%;position: absolute;}
+.banner_content{width:96%;padding-top: 1.875rem;box-sizing: border-box;margin-left: 4%;}
+
+.name_pic{width: 4rem;height: 4rem;overflow: hidden;border-radius: 5rem;float: left;margin-right: 0.625rem;margin-bottom: 1.875rem;}
+.name_pic>img{width: 100%;height: 100%;}
+.name{width: 46%;float: left;margin-top: 0.625rem;position: relative;}
+.name h1{font-size:0.9375rem;color: #fff;margin-bottom: 0.4rem;width: 100%}
+.name h2{font-size: 0.75rem;color: #fff;}
+.banner_text{width: 29%;background-color: #e24429;border-radius: 2rem 0 0 2rem;float: right;text-align: center;margin-top: 0.8rem;}
+.banner_text h1{color: #fff;font-size:0.875rem; padding: 0.5rem 0;box-sizing: border-box;}
+.card{background-color: #fff;border-radius: 0.4rem;padding-top: 1.5rem;padding-bottom: 1.5rem;;margin-bottom: 0.625rem;margin-right: 0.9375rem;box-sizing: border-box;}
+.card_text{width: calc(100% / 3);text-align: center;float: left;margin-bottom: 1.5rem;}
+.card_text h1{font-size: 1rem;color: #fb5134;margin-bottom: 0.4rem;font-weight: bold;}
+.card_text h2{font-size: 0.875rem;color: #333;}
+.deal{width: calc(100% / 3);text-align: center;float: left;margin-bottom: 1.5rem;}
+.deal h1{font-size: 1rem;color: #fb5134;margin-bottom: 0.4rem;font-weight: bold;}
+.deal h2{font-size: 0.875rem;color: #333;}
+.Receive{width: calc(100% / 3);text-align: center;float: left;margin-bottom: 1.5rem;}
+.Receive h1{font-size: 1rem;color: #fb5134;margin-bottom: 0.4rem;font-weight: bold;}
+.Receive h2{font-size: 0.875rem;color: #333;}
+.reported{width: calc(100% / 3);text-align: center;float: left;}
+.reported h1{font-size: 1rem;color: #fb5134;margin-bottom: 0.4rem;font-weight: bold;}
+.reported h2{font-size: 0.875rem;color: #333;}
+.tip{width: calc(100% / 3);text-align: center;float: left;}
+.tip h1{font-size: 1rem;color: #fb5134;margin-bottom: 0.4rem;font-weight: bold;}
+.tip h2{font-size: 0.875rem;color: #333;}
+.opinion{width: calc(100% / 3);text-align: center;float: left;}
+.opinion h1{font-size: 1rem;color: #fb5134;margin-bottom: 0.4rem;font-weight: bold;}
+.opinion h2{font-size: 0.875rem;color: #333;}
+
+
+.buy{width: 20%;float: right;background-color: #fd7535;border-radius: 2rem;text-align: center;box-sizing: border-box;margin-top: 0.2rem;margin-right: 0.625rem;}
+.buy button{color: #fff;font-size: 0.875rem;line-height: 1.75rem}
+.change{width: 46%;float: right;background-color: #ffe8dd;border-radius: 2rem;border: 0.0625rem solid #fd7535;text-align: center;box-sizing: border-box;margin-top: 0.2rem;}
+.change button{color: #fd7535;font-size: 0.75rem;line-height: 1.75rem}
+
+
+.award{width: 100%;background-color: #fff;position: relative;margin-top: 0.625rem;}
+
+.award_row{padding: 0.9375rem 0.9375rem;box-sizing: border-box;border-bottom: 0.0625rem solid #eaeaea;}
+.head_pic{width: 3.75rem;height: 3.75rem;overflow: hidden;border-radius: 5rem;float: left;}
+.head_pic>img{width: 100%;height: 100%;}
+.award_text{width: 55%;padding-left: 0.8125rem;box-sizing: border-box;float: left;}
+.award_text .task_name{font-size: 1rem;color: #333333;font-weight: bold;margin-bottom: 0.4rem;}
+.award_text .task_con{font-size: 0.625rem;color: #808080;width:30%;float: left;}
+.award_text .task_con1{font-size: 0.625rem;color: #808080;width:30%;float: left;}
+.award_text .yiyou_num{font-size: 0.75rem;color: #808080;width: 100%;margin-top: 0.5rem;}
+.award_row .shang{font-size: 0.875rem;width: 26%;color: #fb5134;float: right;font-weight:bold;text-align: right;}

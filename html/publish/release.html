@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>发布任务</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+    <link rel="stylesheet" href="../../css/release.css">
+
+    <script src="../../script/layui/layui.js"></script>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script src="../../script/swiper.min.js"></script>
+    <script src="../../script/common.js"></script>
+    <script src="../../script/url.js"></script>
+    <script src="../../script/aui/script/aui-dialog.js"></script>
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+
+    <body>
+        <div class="header" id="header">
+            <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+            <div class="question" onclick="help()"><img src="../../image/question.png"></div>
+            <div class="header_text">
+                <h1>发布任务</h1>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="renwu_de">
+            <div class="renwu_type" style="margin-top: 0;">
+                <h4>任务类型</h4>
+                <ul id="type_rw" data-id="type_select">
+
+                </ul>
+            </div>
+            <div class="shebei_type">
+                <h4>支持设备</h4>
+                <ul id="type_sb">
+                    <li class="active" onclick="zhichusheb(1)">全部</li>
+                    <li onclick="zhichusheb(2)">安卓</li>
+                    <li onclick="zhichusheb(3)">苹果</li>
+                </ul>
+                <span class="tips">请明确好做单设备，若设备选择不对到来的纠纷由悬赏主承担！</span>
+            </div>
+
+            <div class="renwu_de_li">
+                <div>
+                    <h4>项目名称</h4>
+                    <p><input type="text" id="name" name="name" placeholder="请输入项目名称"></p>
+                </div>
+                <div>
+                    <h4>任务标题</h4>
+                    <p><input type="text" name="title" id="title" maxlength="10" placeholder="请输入任务标题，限10字内"></p>
+                </div>
+                <div>
+                    <h4>任务说明</h4>
+                    <p><input type="text" placeholder="任务备注，非必填" id="task_shm" name="task_shm"></p>
+                </div>
+                <div class="end_tim">
+                    <h4>结束时间</h4>
+                    <p><select name="end_time" id="end_time" onchange="zidongs()" lay-filter="zidong">
+                        <option value="0">数量完成自动结束</option>
+                        <option value="1">设定结束时间</option>
+                    </select>
+                        <input class="sel_data" style="display:none;" type="text" value="" id="end_data">
+                    </p>
+                </div>
+                <div>
+                    <h4>提交限时</h4>
+                    <p><select name="ti_time" id="ti_time" lay-filter="aihao">
+                        <option value="2">2小时</option>
+                        <option value="3">3小时</option>
+                        <option value="4">4小时</option>
+                        <option value="5">5小时</option>
+                        <option value="6">6小时</option>
+                        <option value="24">24小时</option>
+                        <option value="48">48小时</option>
+                        <option value="72">72小时</option>
+                        <option value="96">96小时</option>
+                    </select></p>
+                </div>
+                <div>
+                    <h4>审核周期</h4>
+                    <p><select name="audit_time" id="audit_time" lay-filter="aihao">
+                        <option value="24">24小时</option>
+                        <option value="48">48小时</option>
+                        <option value="72">72小时</option>
+                        <option value="120">120小时</option>
+                    </select></p>
+                    <span class="tips">若未按时审核，任务单将自动通过，发放佣金！</span>
+                </div>
+                <div class="ci_t" style="border-bottom: none;">
+                    <h4>做单次数</h4>
+                    <p style="margin-top: 0.3rem;">
+                        <label><input type="radio" name="ci_type" value="1" checked onclick="meirenduoci(1)">每人一次</label>
+                        <label><input type="radio" name="ci_type" value="2" onclick="meirenduoci(2)">每人多次</label>
+                        <label><input type="radio" name="ci_type" value="3" onclick="meirenduoci(3)">每日一次</label></p>
+                </div>
+                <div id="chonfgcs" style="display: none;border-bottom: none;">
+                    <h4>重复次数</h4>
+                    <p><select name="cfcs" id="cfcss">
+                        <option value="3">3次</option>
+                        <option value="5">5次</option>
+                        <option value="10">10次</option>
+                        <option value="-1">不限</option>
+                    </select></p>
+                </div>
+                <div id="chonfgcss" style="display: none">
+                    <h4>重复次数</h4>
+                    <p><select name="cfcs" id="cfcs">
+                        <option value="2">2次</option>
+                        <option value="3">3次</option>
+                        <option value="4">4次</option>
+                        <option value="5">5次</option>
+                        <option value="6">6次</option>
+                        <option value="7">7次</option>
+                        <option value="-1">不限</option>
+                    </select></p>
+                </div>
+            </div>
+
+            <div class="renwu_de_li">
+                <div>
+                    <h4>投放单价</h4>
+                    <p><input type="number" class="inputid" name="money" id="money" placeholder="最低2元">最低￥<span id="money_low" style="font-size: 0.8rem;"></span></p>
+                </div>
+                <div>
+                    <h4>投放数量</h4>
+                    <p><input type="number" class="inputids" name="num" id="num" placeholder="最少10单">最少<span id="num_low" style="font-size: 0.8rem;"></span>单</p>
+                </div>
+                <div>
+                    <h4>预付赏金</h4>
+                    <p class="all_money"><span id="all_money"></span><a onclick="jiangdifwq()">降低服务费</a></p>
+                </div>
+            </div>
+
+            <div class="renwu_de_li renwu_bz">
+                <div class="formtop">
+                    <h4>做单步骤</h4>
+                    <p class="add_bz"><a>添加步骤</a></p>
+                </div>
+                <ul class="formtopli" style="display: none;">
+                    <li onclick="add_xinxi(1)">输入网址</li>
+                    <li onclick="add_xinxi(2)">收集信息</li>
+                    <li onclick="add_wenban(1)">图文说明</li>
+                    <li onclick="add_wenban(2)">验证图</li>
+                </ul>
+                <div id="wangzhi" class="del_xinxi1"></div>
+                <div id="xinxi" class="del_xinxi2"></div>
+                <div id="tuwen"></div>
+                <div id="shouji"></div>
+            </div>
+
+            <div class="read_li">
+                <p class="read_but"><label><input type="radio" name="is_read" value="1" checked>我已阅读并同意遵守《发布规则》的全部内容</label></p>
+                <h4>发布提示：</h4>
+                <p>1.本平台禁止发布黄,赌，毒及政策等一切法律禁止内容，详情请参考《发布规则》，如有违反将排查封账号，不退还账号余额，敬请周知；</p>
+                <p>2.悬赏主对自己发布的任务全权负责，禁止发布虚假，诱导性内容，如有违反后果自负；</p>
+            </div>
+
+        </div>
+
+        <footer id="footer">
+            <ul>
+                <li onclick="yunlian_show()">预览</li>
+                <li onclick="add_datas()">申请发布</li>
+            </ul>
+            <input type="hidden" id="heji">
+            <!--            onclick="submit()"-->
+        </footer>
+
+        <div class="confirm">
+
+            <div class="dian-confirm">
+                <div class="dian-heands">
+                    <div class="dian-button" onclick="baocheng(1)">相机拍照</div>
+                    <hr>
+                    <div class="dian-buttons" onclick="baocheng(2)">选中照片</div>
+                </div>
+                <div class="dian-but">
+                    <div class="dian-but-qux" onclick="qunxiao()">取消</div>
+                </div>
+
+                <div id="qrcode"></div>
+            </div>
+        </div>
+
+
+        <script>
+            $(".add_bz").on('click', function() {
+                $(".formtopli").show();
+            });
+            $(".formtopli li").on('click', function() {
+                $(".formtopli").hide();
+            });
+
+            let pt_prices = 1.00; // 任务单价
+            let pt_nums = 1; // 任务数量
+            let shebei = 1; // 设备类型
+            let vip_data; // vip 数据
+            let vip_sxf = 0; // 手续费
+            let data_list
+                // let idss = 913
+            let idss = 0 // 更新id
+                // $(function () {
+            $(".confirm").hide()
+
+
+            // console.log(pt_nums)
+            apiready = function() {
+                height()
+                token = $api.getStorage('token');
+
+                param = api.pageParam;
+                idss = param.id ? param.id : 0
+
+                vipdata(function(vs) {
+                    product_type_lists()
+
+                })
+
+                // 会员等级
+                // task_typeeee();		 //任务分类
+
+                // getzanti()
+
+                // 重新上架进入
+                if (idss) {
+                    //console.log(idss)
+                    setTimeout(function() {
+                        gerwxiang(idss);
+                    }, 800)
+                } else {
+                    // let push_data = $api.getStorage('push_data');
+                    let push_data = api.getPrefs({
+                        sync: true,
+                        key: "push_data"
+                    })
+
+                    // console.log(push_data);
+                    // console.log("push_data");
+                    if (push_data != "undefined" && push_data != "") {
+
+                        push_data = JSON.parse(push_data);
+                        Render_data(push_data);
+                        child_xns(push_data.types, push_data.pics, push_data.titles)
+                    }
+                }
+
+
+            }
+
+            function product_type_lists() {
+                api.ajax({
+                    url: product_type_listss,
+                    method: 'post',
+                    dataType: "json",
+                    data: {
+                        values: {}
+                    }
+                }, function(ret, err) {
+                    var length = ret.data.length;
+                    data_list = ret.data;
+
+                    // console.log(JSON.stringify(data_list))
+
+                    datas_lis(data_list, length);
+                    type_select_data = data_list[0];
+                    let all_moneys = Number(parseFloat(type_select_data.pt_num) * parseFloat(type_select_data.pt_price)).toFixed(2);
+
+
+
+                    // console.log( all_moneys +  (all_moneys * (vip_sxf / 100)) )
+                    all_moneys = Number(parseFloat(all_moneys) + parseFloat(all_moneys * (vip_sxf / 100))).toFixed(2);
+
+
+                    pt_prices = Number(parseFloat(type_select_data.pt_price)).toFixed(2);
+                    pt_nums = parseFloat(type_select_data.pt_num);
+                    // console.log(pt_nums)
+                    $("#money").val(pt_prices);
+                    $("#num").val(pt_nums);
+                    $("#heji").val(all_moneys);
+                    $("#all_money").html("￥" + all_moneys);
+                    $("#money_low").text(pt_prices);
+                    $("#num_low").text(pt_nums);
+                })
+            }
+
+            // vip 等级数据
+            function vipdata(back) {
+                api.ajax({
+                    url: user_data,
+                    method: 'post',
+                    dataType: 'json',
+                    data: {
+                        values: {
+                            token: token,
+                        }
+                    }
+                }, function(ret, err) {
+                    // alert(JSON.stringify(ret.data))
+                    if (ret.code != 100) {
+                        api.toast({
+                            msg: '请重新登录'
+                        })
+                        setTimeout(function() {
+                            api.openWin({
+                                name: 'login',
+                                url: '../my/login.html',
+                            });
+                        }, 500)
+                        return;
+                    } else {
+
+                        vip_data = ret.data
+                        vip_sxf = vip_data.fb_rw_sxf;
+                        back(vip_sxf)
+                    }
+                })
+            }
+
+            // 粘贴
+            function getzanti() {
+                var clipBoard = api.require('clipBoard');
+                clipBoard.get(function(ret, err) {
+                    if (ret) {
+                        alert(JSON.stringify(ret));
+                    } else {
+                        alert(JSON.stringify(err));
+                    }
+                });
+            }
+
+            $(".inputid").on("mouseleave", function(e) {
+                    // let value = parseFloat(e.delegateTarget.value).toFixed(2)
+                    let value = parseFloat(e.delegateTarget.value).toFixed(2)
+                        // value=Number(parseFloat(value)+parseFloat(value)*(vip_sxf/100)).toFixed(2)
+                    $(this).val(value)
+                })
+                //投放单价
+            $(".inputid").on("input", function(e) {
+                let num = $("#num").val()
+                let value = parseFloat(e.delegateTarget.value).toFixed(2)
+                if (isNaN(value)) {
+                    $(this).val(0)
+                    value = 0;
+                }
+                let moneys = Number(parseInt(num) * value).toFixed(2)
+                    // let moneys = Number(num * value)
+                    // $(this).val(value)
+                moneys = Number(parseFloat(moneys) + parseFloat(moneys) * (vip_sxf / 100)).toFixed(2)
+                $("#heji").val(moneys)
+                $("#all_money").html("￥" + moneys)
+                    // console.log(e);
+            });
+            //投放数量
+            $(".inputids").on("input", function(e) {
+
+                let num = $("#money").val()
+                let value = parseInt(e.delegateTarget.value)
+                    // console.log(Number(value))
+                if (isNaN(value)) {
+                    $(this).val(0)
+                    value = 0;
+                }
+                $(this).val(value)
+
+                let moneys = Number(num * value).toFixed(2)
+                    // let moneys = Number(num * value)
+                moneys = Number(parseFloat(moneys) + parseFloat(moneys) * (vip_sxf / 100)).toFixed(2)
+
+                $("#heji").val(moneys)
+                $("#all_money").html("￥" + moneys)
+            });
+
+            // 下拉任务条
+
+
+
+            $("#type_sb li").on('click', function() {
+                $(this).addClass('active').siblings().removeClass('active');
+            })
+
+
+            // 获取任务详情
+            function gerwxiang(id) {
+                let da = {
+                    token: token,
+                    id: id
+                }
+                api.ajax({
+                    url: gestast,
+                    method: 'post',
+                    data: {
+                        values: da
+                    }
+                }, function(ret, err) {
+                    let data = ret.data
+                    let child = data.child;
+
+                    let type = [];
+                    let price = [];
+                    let title = [];
+
+                    child.map((item, index) => {
+                        // console.log(JSON.stringify(item.name))
+                        type[index] = Number(item.type);
+                        price[index] = item.pic;
+                        title[index] = item.name;
+                    })
+
+                    // console.log(JSON.stringify(type))
+                    Render_data(data)
+                    child_xns(type, price, title)
+
+
+                })
+            }
+
+
+            // 多次输入次数
+
+            function meirenduoci(type) {
+
+
+                if (type == 2) {
+                    $("#chonfgcs").show();
+                    $("#chonfgcss").hide();
+                    $(".ci_t").css('border-bottom', '1px solid #f3f3f3');
+                } else if (type == 3) {
+
+                    $("#chonfgcs").hide();
+                    $("#chonfgcss").show();
+                    $(".ci_t").css('border-bottom', '1px solid #f3f3f3');
+                } else {
+                    $("#chonfgcss").hide();
+                    $("#chonfgcs").hide();
+                    $(".ci_t").css('border-bottom', 'none');
+                }
+
+
+            }
+
+            // 预览数据
+            function yunlian_show() {
+                const subm = submit(); // 处理数据
+                if (!subm) {
+                    return;
+                }
+                let subms = JSON.stringify(subm);
+
+                // $api.setStorage("push_data", subms);
+                api.setPrefs({
+                    key: "push_data",
+                    value: subms
+                });
+
+                // console.log(subms)
+                api.sendEvent({
+                    name: 'push_data',
+                });
+
+                api.openWin({
+                    name: 'list_details.html',
+                    // url: '../index/list_detail.html',
+                    url: 'list_details.html',
+                    allowEdit: true,
+                    // pageParam: { }
+                })
+            }
+
+            // 申请发布
+            function add_datas() {
+
+
+                let ssd = submit();
+
+                api.confirm({
+                    title: '温馨提示',
+                    msg: "禁止发布同类平台.私加.私下交易等任务，一经发现，封号处理，冻结账户余额，请知",
+                    buttons: ['确定', '取消']
+                }, function(ret, err) {
+                    var index = ret.buttonIndex;
+                    if (index == 1) {
+                        api.ajax({
+                            url: add_tasks,
+                            method: 'post',
+                            data: {
+                                values: ssd
+                            }
+                        }, function(ret, err) {
+                            // console.log(JSON.stringify(ret));
+                            // console.log(JSON.stringify(err));
+                            api.toast({
+                                msg: ret.info,
+                                duration: 2000,
+                                location: 'bottom'
+                            });
+                            if (ret.status == 100) {
+                                api.removePrefs({
+                                        key: "push_data"
+                                    })
+                                    // $api.clearStorage("push_data")
+
+                                /*setTimeout(function() {
+                                    api.openWin({
+                                        name: 'publish.html',
+                                        url: 'publish.html',
+
+                                    })
+                                }, 2000)*/
+                                go_back();
+                            }
+                        })
+                    }
+                })
+            }
+
+
+            function submit() {
+                let position = $("#type_rw li.active").attr('value'); // 任务类型
+                let type_name = $("#type_rw li.active").text(); // 任务类型名称
+                let id = idss; // 任务id
+                let name = $("#name").val(); //项目名称
+                let title = $("#title").val(); //任务标题
+                let connect = $("#connect").val(); //任务链接
+                let money = $("#money").val(); //投放单价
+                let num = $("#num").val(); //投放数量
+                let heji = $("#heji").val(); //合计
+                let end_time = $("#end_time").val(); //结束时间 0 数量完成自动结束 1设定结束时间
+                let end_data = $("#end_data").val(); //设定结束时间
+                let ti_time = $("#ti_time").val(); //提交限时
+                let audit_time = $("#audit_time").val(); //审核周期
+                let shebeis = shebei; //支持设备 1全部 2安卓 3苹果
+                let ci_type = Number($(':radio[name="ci_type"]:checked').val()); //做单次数
+                let cfcs = 0;
+                if (ci_type == 2) {
+                    cfcs = $("#cfcss").val()
+                } else if (ci_type == 3) {
+                    cfcs = $("#cfcs").val()
+                }
+
+                /*console.log(position)
+                console.log(type_name)
+                console.log(heji)
+                console.log(shebeis)*/
+                // let one_use = $(':radio[name="one_use"]:checked').val();//同号重做
+                // let cfcs=$("#cfcs").val()
+
+                let content = $("#content").val(); //收集数据
+                let task_shm = $("#task_shm").val(); //任务说明
+
+
+                let data = {
+                    token: token,
+                    id: id,
+                    position: position,
+                    name: name,
+                    title: title,
+                    connect: connect,
+                    task_shm: task_shm,
+                    money: money,
+                    num: num,
+                    heji: heji,
+                    end_time: end_time,
+                    end_data: end_data,
+                    ti_time: ti_time,
+                    audit_time: audit_time,
+                    shebei: shebeis,
+                    ci_type: ci_type,
+                    // one_use: one_use,
+                    cfcs: cfcs,
+                    type_name: type_name,
+                    content: content,
+                }
+
+                if (data.name == "") {
+                    api.alert({
+                        title: '步骤说明',
+                        msg: '请设置项目名称',
+                    }, function(ret, err) {});
+                    return false;
+                }
+                if (data.title == "") {
+                    api.alert({
+                        title: '步骤说明',
+                        msg: '请设置任务标题',
+                    }, function(ret, err) {});
+                    return false;
+                }
+                //console.log(pt_prices)
+                //console.log(pt_nums)
+                //console.log(data.num)
+
+                if (Number(pt_prices) > Number(data.money)) {
+                    api.alert({
+                        title: '步骤说明',
+                        msg: '投放单价最低' + pt_prices + '元',
+                    }, function(ret, err) {});
+                    return false;
+                }
+                if (Number(pt_nums) > Number(data.num)) {
+                    api.alert({
+                        title: '步骤说明',
+                        msg: '投放数量最少' + pt_nums + '单',
+                    }, function(ret, err) {});
+                    return false;
+                }
+                // return ;
+
+                var ex = /^\d+$/;
+                if (!ex.test(data.num)) {
+                    api.alert({
+                        title: '步骤说明',
+                        msg: '请设置投放数量整数',
+                    }, function(ret, err) {});
+                    return false;
+                }
+
+                let pics = []; // 图片数据
+                let titles = []; // 内容
+                let p_numx = 1
+                let types = [];
+                if (add_num == 1) {
+                    api.alert({
+                        title: '步骤说明',
+                        msg: '请添加任务步骤说明',
+                    }, function(ret, err) {});
+                    return false;
+                }
+                let ad_nu = 0;
+                let shifshouji = false
+                for (let i = 1; i < add_num; i++) {
+                    // console.log("I:" + i)
+                    let shifopu_s = $("#shifopu_s" + i).val()
+                    if (shifopu_s != null) {
+
+                        pics[ad_nu] = $("#img_value" + i).val()
+                        titles[ad_nu] = $("#textarea-cen" + i).val()
+                        if (shifopu_s == 2) {
+                            if (pics[ad_nu] == "") {
+                                api.alert({
+                                    title: '步骤说明',
+                                    msg: '请上传第' + Number(ad_nu + 1) + '步骤图片',
+                                }, function(ret, err) {});
+                                return false;
+                            } else {
+                                types[ad_nu] = 2
+                                shifshouji = true
+                            }
+                        } else {
+                            types[ad_nu] = 1
+                        }
+                        if (titles[ad_nu] == "") {
+                            api.alert({
+                                title: '步骤说明',
+                                msg: '请输入第' + Number(ad_nu + 1) + '步骤说明',
+                            }, function(ret, err) {
+
+                            });
+                            return false;
+                        }
+                        ad_nu++
+                    }
+                }
+
+                if (!shifshouji) {
+                    api.alert({
+                        title: '步骤说明',
+                        msg: '请添加收集信息',
+                    }, function(ret, err) {});
+                    return false;
+                }
+
+
+                data.pics = pics
+                data.titles = titles
+                data.types = types
+                let year_data = ""
+                let month_data = ""
+                let day_data = ""
+                    // let end_data = $("#end_data").val()
+                if (end_data) {
+                    let ends = end_data.split("/")
+                    year_data = ends[0];
+                    month_data = ends[1];
+                    day_data = ends[2];
+                }
+                data.year_data = year_data
+                data.month_data = month_data
+                data.day_data = day_data
+
+                if (idss) {
+                    data.id = idss;
+                } else {
+                    data.id = 0;
+                }
+
+                return data
+                    // console.log(JSON.stringify(data))
+            }
+
+
+            // 渲染数据
+            function Render_data(data) {
+                // 任务类型
+                $("#type_rw").find("li[value=" + data.position + "]").addClass('active').siblings().removeClass('active');
+                $("#money_low").text($("#type_rw").find("li[value=" + data.position + "]").attr("pt_price"));
+                $("#num_low").text($("#type_rw").find("li[value=" + data.position + "]").attr("pt_num"));
+                //任务最低单价
+                //pt_prices=0
+                pt_prices = $("#type_rw").find("li[value=" + data.position + "]").attr("pt_price");
+                // 任务最少数量
+                //pt_nums=0
+                pt_nums = $("#type_rw").find("li[value=" + data.position + "]").attr("pt_num");
+                // 设备类型
+                $("#type_sb li").removeClass("active");
+                if (data.shebei && data.shebei <= 3 && data.shebei > 0) {
+                    $("#type_sb li").eq(Number(data.ci_type) - 1).addClass("active");
+                } else {
+                    $("#type_sb li").eq('0').addClass("active");
+                }
+
+                //项目名称
+                $("#name").val(data.name);
+                //任务标题
+                $("#title").val(data.title);
+                //任务说明
+                $("#task_shm").val(data.task_shm);
+                //结束时间
+                $("#end_time").find("option[value=" + data.end_time + "]").attr("selected", true);
+                if (data.end_time == 0) { //设定结束时间
+                    $(".sel_data").hide();
+                } else {
+                    $("#end_data").val(data.year_data + "/" + data.month_data + "/" + data.day_data)
+                    $(".sel_data").show();
+                }
+                //提交限时
+                $("#ti_time").find("option[value=" + data.ti_time + "]").attr("selected", true);
+                //审核周期
+                $("#audit_time").find("option[value=" + data.audit_time + "]").attr("selected", true);
+                //做单次数
+                $(':radio[name="ci_type"]').eq(Number(data.ci_type) - 1).attr("checked", true);
+                //重复次数
+                if (data.ci_type == 2) {
+                    $("#chonfgcs").show();
+                    $("#cfcss").find("option[value=" + data.cfcs + "]").attr("selected", true);
+                } else if (data.ci_type == 3) {
+                    $("#chonfgcss").show();
+                    $("#cfcs").find("option[value=" + data.cfcs + "]").attr("selected", true);
+                }
+                //投放单价
+                $("#money").val(data.money);
+                //投放数量
+                $("#num").val(data.num);
+                ////合计
+                let all_money = Number(parseFloat(data.money) * parseFloat(data.num)).toFixed(2);
+                all_money = Number(parseFloat(all_money) + parseFloat(parseFloat(all_money) * (vip_sxf / 100))).toFixed(2);
+                $("#heji").val(all_money);
+                $("#all_money").html("￥" + all_money);
+                //任务链接
+                $("#wangzhi").html('<h4>输入网址</h4><p><input type="url" name="connect" value="' + data.connect + '" id="connect" placeholder="请输入任务网址"><a onclick="del_xinxi(1)">删除</a></p>');
+                //提交数据
+                $("#xinxi").html('<h4>收集信息</h4><p><input type="text" name="content" value="' + data.content + '" id="content" placeholder="如：提交手机号或用户昵称"><a onclick="del_xinxi(2)">删除</a></p>');
+
+            }
+
+
+            // 数据渲染
+            function child_xns(type, price, title) {
+
+                type.map(function(item, index) {
+                    let name = "收集截图"
+                    let text = "您可以在这里详细说明要截取哪个页面,图片必传"
+                    let shifou = 2
+                    if (item == 1) {
+                        shifou = 1
+                        name = "图文步骤"
+                        text = "请填写任务步骤图文说明,图片选填"
+                    }
+                    let imsg = "../../image/xj.png"
+                    if (price[index]) {
+                        imsg = URL + price[index];
+                    }
+                    let neiri = title[index]
+                    let html = ' <div class="textarea_con del_jie' + add_num + '">' +
+                        '                <div class="textarea_title">' +
+                        '                    <h4>' + name + '(' + add_num_show + ')</h4>' +
+                        '                    <a onclick="del_tuwen(' + add_num + ')"> 删除</a>' +
+                        '                </div>' +
+                        '                <div class="textarea_body">' +
+                        '                    <img class="add_img' + add_num + '" src="' + imsg + '" onclick="upLoad(' + add_num + ')" >' +
+                        '                     <input type="hidden" name="" id="img_value' + add_num + '" value="' + price[index] + '">' +
+                        '                     <input type="hidden" name="" id="shifopu_s' + add_num + '" value="' + shifou + '">' +
+                        '                    <textarea placeholder="' + text + '" id="textarea-cen' + add_num + '">' + neiri + '</textarea>' +
+                        '                </div>' +
+                        '         </div>';
+                    if (item === 1) {
+                        $api.append(tuwen, html);
+                    } else {
+                        $api.append(shouji, html);
+                    }
+                    add_num++
+                    add_num_show++
+                })
+            }
+
+            // 数据渲染
+            function child_xn(data) {
+                data.map(function(item) {
+                    // console.log(JSON.stringify(item))
+
+                    let name = "收集截图"
+                    let text = "您可以在这里详细说明要截取哪个页面,图片必传"
+                    let shifou = 2
+                    if (item.type == 1) {
+                        shifou = 1
+                        name = "图文步骤"
+                        text = "请填写任务步骤图文说明,图片选填"
+                    }
+                    let imsg = "../../image/xj.png"
+                    if (item.pic) {
+                        imsg = URL + item.pic;
+                    }
+
+                    let html = ' <div class="textarea_con del_jie' + add_num + '">' +
+                        '                <div class="textarea_title">' +
+                        '                    <h4>' + name + '(' + add_num_show + ')</h4>' +
+                        '                    <a onclick="del_tuwen(' + add_num + ')"> 删除</a>' +
+                        '                </div>' +
+                        '                <div class="textarea_body">' +
+                        '                    <img class="add_img' + add_num + '" src="' + imsg + '" onclick="upLoad(' + add_num + ')" >' +
+                        '                     <input type="hidden" name="" id="img_value' + add_num + '" value="' + item.pic + '">' +
+                        '                     <input type="hidden" name="" id="shifopu_s' + add_num + '" value="' + shifou + '">' +
+                        '                    <textarea placeholder="' + text + '" id="textarea-cen' + add_num + '">' + item.name + '</textarea>' +
+                        '                </div>' +
+                        '         </div>';
+                    if (item.type == 1) {
+                        $api.append(tuwen, html);
+                    } else {
+                        $api.append(shouji, html);
+                    }
+                    add_num++
+                    add_num_show++
+                })
+            }
+
+            // 选择支持设备
+            function zhichusheb(type) {
+                shebei = type;
+            }
+
+            // 初始化 任务类型
+            function datas_lis(data, num) {
+                let lblist_type = '';
+                for (var lb = 0; lb < num; lb++) {
+                    lblist_type += '<li class=" " indexlb="' + lb + '" value="' + data[lb].pt_id + '" pt_price="' + data[lb].pt_price + '" pt_num="' + data[lb].pt_num + '">' + data[lb].pt_name + '</li>'
+                }
+
+                //console.log(JSON.stringify(data));
+                $api.html(type_rw, lblist_type);
+                $("#type_rw li:first-child").addClass('active');
+
+                $("#type_rw li").on('click', function() {
+                    $(this).addClass('active').siblings().removeClass('active');
+                    //alert('11')
+                    let type_rw_id = $(this).attr('value');
+                    let pt_price = $(this).attr('pt_price');
+                    let pt_num = $(this).attr('pt_num');
+                    pt_prices = pt_price;
+                    pt_nums = pt_num;
+                    $("#money").val(pt_price);
+                    $("#num").val(pt_num);
+                    let all_money = Number(pt_num * pt_price).toFixed(2);
+                    all_money = Number(parseFloat(all_money) + parseFloat(all_money) * (vip_sxf / 100)).toFixed(2);
+                    //alert(all_money)
+                    $("#heji").val(all_money);
+                    $("#all_money").html("￥" + all_money);
+                    $("#money_low").text(pt_prices);
+                    $("#num_low").text(pt_nums);
+                    //console.log(type_rw_id + '+' + pt_prices + '+' + pt_nums + '+' + all_money);
+
+                })
+
+
+            }
+
+            function zidongs() {
+
+                let end_time = $("#end_time").val();
+                if (end_time == 0) {
+                    $(".sel_data").hide();
+                } else {
+                    var myDate = new Date;
+                    var year = myDate.getFullYear(); //获取当前年
+                    var mon = myDate.getMonth() + 1; //获取当前月
+                    var date = myDate.getDate(); //获取当前日
+                    api.openPicker({
+                        type: 'date',
+                        date: year + mon + date,
+                        title: '选择时间'
+                    }, function(ret, err) {
+                        if (ret) {
+                            $(".sel_data").show();
+                            $("#end_data").val(ret.year + '/' + ret.month + "/" + ret.day)
+                                // alert(JSON.stringify(ret));
+                        } else {
+                            // alert(JSON.stringify(err));
+                        }
+                    });
+
+                }
+            }
+
+
+
+
+
+            // 删除
+            function del_xinxi(jie) {
+                $(".del_xinxi" + jie).html('');
+                api.toast({
+                    msg: "删除",
+                    duration: 2000,
+                    location: 'bottom'
+                });
+            }
+
+            function del_tuwen(jie) {
+                $(".del_jie" + jie).remove()
+                $(".add-num").each(function(index) {
+                    let xia = index + 1
+                    $(this).html(index + 1)
+                    add_num_show = xia + 1
+                })
+
+                api.toast({
+                    msg: "删除",
+                    duration: 2000,
+                    location: 'bottom'
+                });
+            }
+
+
+            function go_back() {
+                /*api.openWin({
+                    name: 'publish.html',
+                    url: 'publish.html',
+
+                })*/
+                api.closeWin({});
+            }
+
+            function help() {
+
+                api.openWin({
+                    name: 'fabuguiz.html',
+                    url: '../dialog/fabuguiz.html'
+                })
+
+
+                // api.openWin({
+                //     name: 'help',
+                //     url: '../my/help.html'
+                // })
+            }
+
+            function add_xinxi(type) {
+                var html = '';
+                if (type == 1) {
+                    html += '<h4>输入网址</h4><p><input type="url" name="connect" id="connect" placeholder="请输入任务网址"><a onclick="del_xinxi(' + type + ')">删除</a></p>';
+                    $api.html(wangzhi, html);
+                    //$("#wangzhi").addClass("del_xinxi" + type + "");
+                } else if (type == 2) {
+                    html += '<h4>收集信息</h4><p><input type="text" name="content" id="content" placeholder="如：提交手机号或用户昵称"><a onclick="del_xinxi(' + type + ')">删除</a></p>'
+                    $api.html(xinxi, html);
+                    //$("#xinxi").addClass("del_xinxi" + type + "");
+                }
+            }
+
+            let add_num = 1 //节点用
+            let add_num_show = 1 // 显示用
+
+            // 添加
+            function add_wenban(type) {
+
+                let name = "验证截图"
+                let text = "您可以在这里详细说明要截取哪个页面,图片必传"
+                let shifou = 2
+                if (type == 1) {
+                    shifou = 1
+                    name = "图文说明"
+                    text = "请填写任务步骤图文说明,图片选填"
+                }
+                let html = ' <div class="textarea_con del_jie' + add_num + '">' +
+                    '                <div class="textarea_title">' +
+                    '                    <h4>' + name + '(' + add_num_show + ')</h4>' +
+                    '                    <a onclick="del_tuwen(' + add_num + ')"> 删除</a>' +
+                    '                </div>' +
+                    '                <div class="textarea_body">' +
+                    '                    <img class="add_img' + add_num + '" src="../../image/xj.png" onclick="upLoad(' + add_num + ')" >' +
+                    '                     <input type="hidden" name="" id="img_value' + add_num + '" value="">' +
+                    '                     <input type="hidden" name="" id="shifopu_s' + add_num + '" value="' + shifou + '">' +
+                    '                    <textarea placeholder="' + text + '" id="textarea-cen' + add_num + '"></textarea>' +
+                    '                </div>' +
+                    '         </div>';
+
+                if (type == 1) {
+                    $api.append(tuwen, html);
+                } else {
+                    $api.append(shouji, html);
+                }
+
+                $(".add-num").each(function(index) {
+
+                    $(this).html(index + 1)
+                })
+                add_num++
+                add_num_show++
+            }
+
+
+            let xuan_num;
+
+            // 弹出框选中照片类型
+            function baocheng(type) {
+
+
+                if (type == 2) {
+                    xiangces(xuan_num); // 相册
+                } else {
+                    paizhao(xuan_num)
+                }
+                // return type;
+            }
+
+            // 选中图片
+            function upLoad(num) {
+                xuan_num = num
+                $(".confirm").show()
+            }
+
+            //拍照
+            function paizhao(num) {
+                var FNPhotograph = api.require('FNPhotograph');
+                FNPhotograph.open({
+                    path: 'fs://savePath',
+                    album: false,
+                    qualityValue: 20,
+                    usePreview: true,
+                    useAdvanceFeature: true,
+                    // isShowAlbum: true,
+                }, function(ret) {
+                    if (ret.eventType = "takePhoto") {
+                        let imgFile = ret.imagePath; // 图片
+                        // 上传图片
+                        $(".add_img" + num).attr('src', imgFile);
+
+                        api.ajax({
+                            url: get_pic_1,
+                            method: 'post',
+                            data: {
+                                files: {
+                                    image: imgFile,
+                                }
+                            }
+                        }, function(ret, err) {
+                            if (ret) {
+                                if (ret.code == 1) {
+                                    $(".add_img" + num).attr('src', URL + ret.data);
+                                    $('#img_value' + num).val(ret.data);
+                                    FNPhotograph.close(
+                                        function(ret) {
+
+                                        });
+                                }
+                                // 将返回的路径房费隐藏的 input id="yicang"中  提交时获
+                            } else {}
+                        })
+
+                    }
+                    // alert(JSON.stringify(ret));
+                });
+
+                // alert("拍照//待綁定 未完成")
+                // var cameraTool = api.require('cameraTool');
+                //
+                //
+                // cameraTool.openCamera(function(ret, err) {
+                //     api.prompt({ title: "信息", msg: "图片路径：" + ret.imgPath, buttons: ["取消", "确定"] });
+                // });
+            }
+
+            // 选中相册
+            function xiangces(num) {
+                api.getPicture({
+                    sourceType: 'library',
+                    encodingType: 'jpg,png',
+                    mediaValue: 'pic',
+                    destinationType: 'url',
+                    allowEdit: false,
+                    quality: 100,
+                    preview: true,
+                    targetWidth: 1000,
+                    targetHeight: 1000,
+                    saveToPhotoAlbum: false
+                }, function(ret, err) {
+                    if (ret) {
+
+                        if (ret.data) {
+                            //将返回的路径放到id="img",为的是显示图片
+                            imgFile = ret.data;
+                            $(".add_img" + num).attr('src', imgFile);
+
+                            api.ajax({
+                                url: get_pic_1,
+                                method: 'post',
+                                data: {
+                                    files: {
+                                        image: imgFile,
+                                    }
+                                }
+                            }, function(ret, err) {
+                                console.log(URL + ret.data)
+                                if (ret) {
+                                    if (ret.code == 1) {
+                                        $(".add_img" + num).attr('src', URL + ret.data);
+                                        $('#img_value' + num).val(ret.data);
+                                    }
+                                    // 将返回的路径房费隐藏的 input id="yicang"中  提交时获
+                                } else {}
+                            });
+
+                        } else {
+                            api.toast({ //弹框
+                                msg: '未上传图片', //提示语
+                                duration: 3000, //提示时长
+                                location: 'bottom' //提示位置
+                            });
+                        }
+                    } else {}
+                });
+            }
+
+            // 弹出框操作
+
+            $(".confirm").click(function() {
+                $(this).hide()
+            })
+
+            function qunxiao() {
+                $(".confirm").hide()
+            }
+
+            // 降低服务费
+            function jiangdifwq() {
+                api.openWin({
+                    name: 'member_center',
+                    url: '../my/member_center.html'
+                })
+            }
+        </script>
+
+    </body>
+
+</html>

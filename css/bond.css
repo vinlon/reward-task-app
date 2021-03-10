@@ -1,0 +1,49 @@
+.bond{
+    width: 100%;
+    margin: 0 auto;
+    background-color: white;
+}
+.bond-div{
+    margin: 0 auto;
+    width: 80%;
+    height: 10rem;
+    background-color: #57B3FF;
+    border-radius: 1rem;
+    /*border: 1px solid red;*/
+}
+.bond-div-head{
+    text-align: center;
+    font-size: 20px;
+    line-height: 40px;
+    color: white;
+}
+.bond-div-money{
+    text-align: center;
+    font-size: 25px;
+    line-height: 50px;
+    color: white;
+}
+.bond-div-bu{
+    display: flex;
+    margin: 0 auto;
+    margin-top: 1rem;
+}
+.bond-div-bu div{
+    margin: 0 auto;
+    font-size: 15px;
+    line-height: 30px;
+    color: white;
+    border: 1px solid white;
+    border-radius: 0.81rem;
+    font-weight: 500;
+}
+.bond-text{
+
+    width: 95%;
+    margin: 0 auto;
+    margin-top: 2rem;
+}
+.bond-text-center{
+        margin-top: 1rem;
+    font-size: 18px;
+}

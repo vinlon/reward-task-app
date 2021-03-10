@@ -1,0 +1,290 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>问题中心</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/help.css" />
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+    <script type="text/javascript"></script>
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script src="../../script/swiper.min.js"></script>
+    <script src="../../script/common.js"></script>
+    <script src="../../script/url.js"></script>
+    <script src="../../script/jquery-3.4.1.min.js"></script>
+</head>
+
+<body>
+    <div class="header" id="header">
+        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+        <div class="header_text">
+            <h1>问题中心</h1>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="recommend">
+
+        <ul class="list" id="fenlei_list">
+
+            <!-- <li class="recommend_card">
+			关于商家
+		</li>
+		<li class="recommend_card">
+			关于用户
+		</li>
+		<li class="recommend_card">
+			关于提现
+		</li>
+		<li class="recommend_card">
+			关于举报
+		</li>
+		<li class="recommend_card">
+			关于奖励
+		</li>
+		<li class="recommend_card">
+			关于提现
+		</li>
+		<li class="recommend_card">
+			关于举报
+		</li>
+		<li class="recommend_card">
+			关于举报
+		</li>
+		<li class="recommend_card">
+			关于举报
+		</li>
+		<div class="clearfix"></div>-->
+        </ul>
+    </div>
+    <div id="help_list">
+        <!-- <div class="help_content">
+		<div class="content">
+			<div class="help_pic"><img src="../../image/dian.png"></div>
+			<h1>什么是任务刷新？</h2>
+			<div class="spread">
+				<div class="down"><img src="../../image/xia.png"></div>
+				<div class="up"><img src="../../image/shang.png"></div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="help_text">
+			<p>刷新是一款道具，每次刷新后可使任务跳到首页顶部，每次购买的刷新可在多个进行中的任务中使用！</p>
+		</div>
+	</div> -->
+    </div>
+    <!-- <div class="help_content">
+		<div class="content">
+			<div class="help_pic"><img src="../../image/dian.png"></div>
+			<h1>发布任务的手续费是多少？</h2>
+			<div class="spread">
+				<div class="down"><img src="../../image/xia.png"></div>
+				<div class="up"><img src="../../image/shang.png"></div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="help_text">
+			<p>刷新是一款道具，每次刷新后可使任务跳到首页顶部，每次购买的刷新可在多个进行中的任务中使用！</p>
+		</div>
+	</div>
+	<div class="help_content">
+		<div class="content">
+			<div class="help_pic"><img src="../../image/dian.png"></div>
+			<h1>发布任务后多久可以通过审核？</h2>
+			<div class="spread">
+				<div class="down"><img src="../../image/xia.png"></div>
+				<div class="up"><img src="../../image/shang.png"></div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="help_text">
+			<p>刷新是一款道具，每次刷新后可使任务跳到首页顶部，每次购买的刷新可在多个进行中的任务中使用！</p>
+		</div>
+	</div>
+	<div class="help_content">
+		<div class="content">
+			<div class="help_pic"><img src="../../image/dian.png"></div>
+			<h1>未通过的任务可以重新发布吗？</h2>
+			<div class="spread">
+				<div class="down"><img src="../../image/xia.png"></div>
+				<div class="up"><img src="../../image/shang.png"></div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="help_text">
+			<p>刷新是一款道具，每次刷新后可使任务跳到首页顶部，每次购买的刷新可在多个进行中的任务中使用！</p>
+		</div>
+	</div>
+	<div class="help_content">
+		<div class="content">
+			<div class="help_pic"><img src="../../image/dian.png"></div>
+			<h1>任务结束后剩余金额会退款吗？</h2>
+			<div class="spread">
+				<div class="down"><img src="../../image/xia.png"></div>
+				<div class="up"><img src="../../image/shang.png"></div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="help_text">
+			<p>刷新是一款道具，每次刷新后可使任务跳到首页顶部，每次购买的刷新可在多个进行中的任务中使用！</p>
+		</div>
+	</div> -->
+
+
+</body>
+
+<script>
+    apiready = function() {
+        height()
+        get_help_fl();
+        get_list(0);
+    }
+
+    function get_list(typeid) {
+        api.ajax({
+            url: get_type_by_archive_url,
+            method: 'post',
+            data: {
+                values: {
+                    type: typeid,
+                }
+            }
+        }, function(ret, err) {
+            console.log(JSON.stringify(ret));
+            // console.log(JSON.stringify(err));
+            var lengthx = ret.info.length;
+            //	 alert(length)
+            var lblist_typex = '';
+            for (var lbx = 0; lbx < lengthx; lbx++) {
+                lblist_typex += '<div class="help_content"  >'
+                lblist_typex += '	<div class="content">'
+                lblist_typex += '	<div class="help_pic"><img src="../../image/dian.png"></div>'
+                lblist_typex += '	<h1>' + ret.info[lbx].a_title + '</h2>'
+                lblist_typex += '	<div class="spread">'
+                lblist_typex += '		<div class="down" style="display:none;"  id="down_' + ret.info[lbx].a_id + '" onclick="get_xq(' + ret.info[lbx].a_id + ')"><img src="../../image/xia.png"></div>'
+                lblist_typex += '		<div class="up" style="display:block;"  id="up_' + ret.info[lbx].a_id + '" onclick="get_xq(' + ret.info[lbx].a_id + ')"><img src="../../image/shang.png"></div>'
+                lblist_typex += '	</div>'
+                lblist_typex += '	<div class="clearfix"></div>'
+                lblist_typex += '	</div>'
+                lblist_typex += '	<div class="help_text"  style="display:none;" id="help_text_' + ret.info[lbx].a_id + '">'
+                lblist_typex += '<input type="hidden" value="0" id="xqxq_' + ret.info[lbx].a_id + '"></input>'
+                lblist_typex += '	<p>' + ret.info[lbx].a_editorvalue + '</p>'
+                lblist_typex += '	</div>'
+                lblist_typex += '	</div>'
+                lblist_typex += '	</div>'
+
+            }
+
+            //	var abc=lblist_type+lblist_type;
+            //	console.log(JSON.stringify(lblist_type))
+            // $('#order_0').removeClass("click");
+            // $('#order_1').removeClass("click");
+            // $('#order_2').removeClass("click");
+            // $('#order_3').removeClass("click");
+            // $('#order_4').removeClass("click");
+            // $('#order_'+order).addClass("click");
+
+            $api.html(help_list, lblist_typex);
+            $('.recommend_card').removeClass('click');
+
+            if (typeid == '0') {
+                $('#fen_type_1').addClass('click')
+            } else {
+                $('#fen_type_' + typeid).addClass('click')
+            }
+
+            //		$(".help_text").hide();
+            //		$(".up").hide();
+
+        });
+    }
+
+    //
+    function get_xq(id) {
+        var txsfid = $('#xqxq_' + id).val();
+        if (txsfid == 0) {
+            $('#help_text_' + id).show();
+            $('#up_' + id).show();
+            $('#down_' + id).hide();
+            $('#xqxq_' + id).val(1);
+        } else {
+            $('#help_text_' + id).hide();
+            $('#up_' + id).hide();
+            $('#down_' + id).show();
+            $('#xqxq_' + id).val(0);
+        }
+    }
+
+
+    function get_help_fl() {
+        api.ajax({
+            url: archive_type_list_url,
+            method: 'post',
+            data: {
+                values: {
+
+                }
+            }
+        }, function(ret, err) {
+            // console.log(JSON.stringify(ret));
+            // console.log(JSON.stringify(err));
+            var length = ret.info.length;
+            //	 alert(length)
+            var lblist_type = '	';
+            for (var lb = 0; lb < length; lb++) {
+
+                lblist_type += '		<li class="recommend_card" onclick="get_list(' + ret.info[lb].typeid + ')" id="fen_type_' + ret.info[lb].typeid + '">'
+                lblist_type += ret.info[lb].type_name
+                lblist_type += '		</li>'
+
+            }
+            lblist_type += '	<div class="clearfix"></div>'
+            lblist_type += ''
+                //	var abc=lblist_type+lblist_type;
+                //	console.log(JSON.stringify(lblist_type))
+                // $('#order_0').removeClass("click");
+                // $('#order_1').removeClass("click");
+                // $('#order_2').removeClass("click");
+                // $('#order_3').removeClass("click");
+                // $('#order_4').removeClass("click");
+                // $('#order_'+order).addClass("click");
+
+            $api.html(fenlei_list, lblist_type);
+
+        });
+
+    }
+    // $(function(){
+    // $(".list li:eq(0) ").addClass('click');
+    // $(".list li ").click(function(){
+    // 	$(this).addClass('click').siblings().removeClass('click');
+    // });
+
+
+
+
+    // 	$(".down").click(function(){
+    // 		$(this).parent().parent().siblings(".help_text").show();
+    // 		$(this).siblings(".up").show();
+    // 		$(this).hide();
+    // 	});
+    // 	$(".up").click(function(){
+    // 		$(this).parent().parent().siblings(".help_text").hide();
+    // 		$(this).siblings(".down").show();
+    // 		$(this).hide();
+    // 	})
+    // })
+
+    function go_back() {
+        api.closeWin({
+
+        });
+    }
+</script>
+
+
+</html>

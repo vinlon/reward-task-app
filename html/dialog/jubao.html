@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>保证金</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/set.css"/>
+    <!--    <link rel="stylesheet" href="../../css/swiper.min.css">-->
+    <script type="text/javascript"></script>
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <script src="../../script/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="../../css/bond.css">
+    <script src="../../script/layer/layer.js"></script>
+    <script src="../../script/aui/script/aui-dialog.js"></script>
+    <link rel="stylesheet" href="../../script/aui/css/api.css">
+    <link rel="stylesheet" href="../../script/aui/css/aui.css">
+    <link rel="stylesheet" href="../../css/jubao.css">
+
+
+</head>
+
+<body>
+<div class="b" id="header">
+    <div class="header">
+        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+        <div class="header_text"><h1>举报维权</h1></div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+<div class="aui-content aui-margin-b-15">
+    <ul class="aui-list aui-media-list" onclick="goto()">
+        <li class="aui-list-item aui-list-item-middle">
+            <div class="aui-media-list-item-inner">
+                <div class="aui-list-item-media rw-img-divs">
+                    <img src="" class="aui-img-round aui-list-img-sm rw-img"/>
+                </div>
+
+                <div class="aui-list-item-inner aui-list-item-arrow rw-name">
+
+                </div>
+                <input type="hidden" id="rw_id">
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="aui-content aui-margin-b-15">
+    <ul class="aui-list aui-list-in">
+        <li class="aui-list-header">举报信息</li>
+    </ul>
+
+</div>
+<p style="font-size: 16px" ><h1 style="color: red;font-size: 16px;text-align:center" class="endtimes"></h1> </p>
+
+<!-- 内容-->
+<div class="center">
+
+</div>
+<!--底部-->
+<div class="buttons">
+
+    <div class="aui-form-list aui-form-list-div sbyuansk" >
+        <div class="aui-info-item aui-info-item-toubu aui-info-item-red">  商家失败</div>
+        <div class="aui-info-item aui-info-item-toubu shenzhie">2015-07-13 22:31</div>
+    </div>
+
+
+    <div class="aui-content-padded shangchouzhanj">
+        <p>
+        <div class="aui-btn aui-btn-primary aui-btn-block" onclick="zhanju()">上传证据</div>
+        </p>
+    </div>
+
+
+
+
+    <div class="zhuan" style="display: none">
+        <div class="aui-content aui-margin-b-15">
+            <ul class="aui-list aui-list-in">
+                <li class="aui-list-header">证据上传</li>
+
+            </ul>
+            <ul class="aui-list aui-form-list">
+                <li class="aui-list-item">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-label aui-list-item-label-size">
+                            申述说明
+                        </div>
+                        <div class="aui-list-item-input">
+                            <textarea placeholder="请填写您的举报理由，10-100字" id="content_neirong"></textarea>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <ul class="aui-list aui-form-list">
+                <li class="aui-list-item pox">
+                    <img class="upload_img" onclick="upLoad(1)" data-id="1" id="fileyi1" src="../../image/xiangji.png"/>
+                    <input type="hidden" id="yicang1" value="">
+                </li>
+            </ul>
+        </div>
+        <div class="aui-content-padded aui-content-padded-button">
+            <p>
+            <div class="aui-btn aui-btn-info" onclick="tj()">提交证据</div>
+            <div class="aui-btn " onclick="qux()">暂不提交</div>
+            </p>
+        </div>
+        <!--        <p>-->
+
+        <!--        <div class="aui-btn aui-btn-primary aui-btn-block aui-btn-outlined" onclick="tj()">提交证据</div>-->
+        <!--        <div class="aui-btn aui-btn-primary aui-btn-block aui-btn-outlined" onclick="qux()">暂不提交</div>-->
+        <!--        </p>-->
+    </div>
+    <input type="hidden" value="1" id="for_num">
+</div>
+
+</body>
+<script src="../../script/api.js" charset="utf-8"></script>
+<!--<script src="../../script/swiper.min.js"></script>-->
+<script src="../../script/common.js"></script>
+<script src="../../script/url.js"></script>
+<script>
+    // var dialog = new auiDialog({})
+    // let ts_id;
+    // let task_id;
+    apiready = function () {
+        height()
+
+       let  param = api.pageParam;
+        ts_id = param.ts_id;//任务id
+        task_id = param.task_id;//任务id
+        shuj()
+    }
+
+    function zhanju() {
+        $(".zhuan").show();
+    }
+    function qux() {
+        $(".zhuan").hide();
+    }
+
+    function tj() {
+        let token = $api.getStorage('token');//获取token
+        var content_neirong = $('#content_neirong').val();//获得举报理由
+
+        var x_num = $('#for_num').val();
+        var t_numsxcx = parseInt(x_num);
+        var pics = [];//举报证据图片
+        for (var i = 1; i < t_numsxcx + 1; i++) {
+            pics[i] = $('#yicang' + i).val();
+        }
+        if (content_neirong == "") {
+            api.toast({
+                msg: "请输入申述说明",
+                duration: 2000,
+                location: 'bottom',
+
+            });
+            return;
+        }
+        // alert(JSON.stringify(pics))
+        // return
+        // let ts_id = 527
+        api.ajax({
+            url: add_toushu,
+            method: 'post',
+            dataType: "json",
+            data: {
+                values: {
+                    token: token,
+                    text: content_neirong,
+                    ts_id: ts_id,
+                    img: pics,
+
+                }
+            }
+        }, function (ret, err) {
+
+            console.log(JSON.stringify(ret))
+            if (ret.code == -1) {
+                api.toast({
+                    msg: ret.message,
+                    duration: 2000,
+                    location: 'bottom',
+                    global: true,
+                });
+
+                api.openWin({
+                    name: 'my',
+                    url: '../my/login.html',
+
+                })
+            } else {
+                api.toast({
+                    msg: ret.msg,
+                    duration: 2000,
+                    location: 'bottom',
+                    global: true,
+                });
+                if (ret.code == 100) {
+                    window.location.reload();
+                }
+
+            }
+
+            return false;
+
+
+        });
+
+
+    }
+
+    // 上传图片
+    function upLoad(num) {
+        api.getPicture({
+            sourceType: 'library',
+            encodingType: 'jpg',
+            mediaValue: 'pic',
+            destinationType: 'url',
+            allowEdit: true,
+            quality: 100,
+            targetWidth: 1000,
+            targetHeight: 1000,
+            saveToPhotoAlbum: false
+        }, function (ret, err) {
+            if (ret) {
+
+                if (ret.data) {
+                    //将返回的路径放到id="img",为的是显示图片
+                    imgFile = ret.data;
+                    $("#img_" + num).attr('src', imgFile);
+
+                    api.ajax({
+                        url: get_pic_1,
+                        method: 'post',
+                        data: {
+                            files: {
+                                image: imgFile,
+                                //			token:token,
+                            }
+                        }
+                    }, function (ret, err) {
+
+                        if (ret) {
+
+                            if (ret.code == 1) {
+                                var x_num = parseInt(num) + 1;
+                                var str = '<img class="upload_img" onclick="upLoad(' + x_num + ')" data-id="1" id="fileyi' + x_num + '" src="../../image/xiangji.png" />' +
+                                    '<input type="hidden"  value="" id="yicang' + x_num + '">'
+                                $("#fileyi" + num).attr('src', URL + ret.data);
+                                $('#yicang' + num).val(ret.data);
+                                $('#for_num').val(x_num);
+                                if (x_num <= 6) {
+                                    $('.pox').append(str);
+                                }
+
+                            }
+                            // 将返回的路径房费隐藏的 input id="yicang"中  提交时获
+                        } else {
+                        }
+                    });
+
+                } else {
+                    api.toast({ //弹框
+                        msg: '未上传图片', //提示语
+                        duration: 3000, //提示时长
+                        location: 'bottom' //提示位置
+                    });
+                }
+            } else {
+                // alert(3)
+                // alert(JSON.stringify(err));
+            }
+        });
+    }
+
+    // window.onload = function () {
+    //     shuj()
+    // }
+
+    // 去查看任务
+    function goto() {
+        let rw_id = $("#rw_id").val()
+        api.openWin({
+            name: 'list_detail',
+            url: '../index/list_detail.html',
+            allowEdit: true,
+            pageParam: {
+                id: rw_id
+            }
+        });
+    }
+
+    function shuj() {
+        // task_id = 3061;
+        // ts_id = 527;
+        let token = $api.getStorage('token'); //获取token
+        // let token = 222; //获取token
+        // alert(task_id)
+        api.ajax({
+            url: jubao_list,
+            method: 'post',
+            dataType: "json",
+            data: {
+                values: {
+                    token: token,
+                    task_id: task_id,
+                    ts_id: ts_id,
+                }
+            }
+        }, function (ret, err) {
+            if (ret.code != 1) {
+                api.toast({
+                    msg: ret.msg,
+                    duration: 2000,
+                    location: 'middle'
+                })
+                return false;
+            }
+            let data = ret.data
+            let ts = ret.data.ts
+            // 主信息
+            if (ts.status!=0){
+                if (ts.sbtype==1){
+                    $(".aui-info-item-red").html("商户维权失败，用户维权成功")
+                } else {
+                    $(".aui-info-item-red").html("用户维权失败，商户维权成功")
+                }
+                    $(".shenzhie").html(ts.fail)
+
+                $(".shangchouzhanj").hide()
+                $(".sbyuansk").show()
+            }else {
+                $(".aui-info-item-red").html("")
+                $(".shenzhie").html("")
+                $(".sbyuansk").hide()
+                $(".shangchouzhanj").show()
+            }
+            // alert(ts_id)
+            // alert(task_id)
+            if (ts.is_show==1){
+                $(".endtimes").html("请在"+ts.end_time+"之前完成提交")
+                // $(".endtimes-div").show()
+            } else {
+                $(".endtimes").html("")
+                // $(".endtimes-div").hide()
+            }
+            // 头部
+            $(".rw-img").attr("src", URL + data.head.u_headpic);
+            $(".rw-name").html(data.head.name);
+            $("#rw_id").val(data.head.id)
+
+            // 中间内容
+
+            let list = data.list;
+            let html = '';
+            list.map(function (item) {
+                html += '<div class="aui-content aui-margin-b-15">' +
+                    '        <ul class="aui-list aui-media-list">' +
+                    '            <li class="aui-list-item">' +
+                    '                <div class="aui-info" style="padding-top:0">' +
+                    '                    <div class="aui-info-item" >' +
+                    '                        <img  style="width: 1rem;height: 1rem "src="' + URL + item.image + '" class="aui-img-round aui-img-round-imgsa"/>' +
+                    '                        <span class="aui-margin-l-5" style="font-size: 12px">' + item.name + '</span>' +
+                    '                    </div>' +
+                    '                    <div class="aui-info-item" style="font-size: 12px">' + item.add_time + '</div>' +
+                    '                </div>' +
+                    '                <div class="aui-media-list-item-inner">' +
+                    '                    <div class="aui-list-item-inner">' +
+                    '                        <div class="aui-list-item-text" style="font-size: 12px">' +
+                    item.text +
+                    '                        </div>' +
+                    '                    </div>' +
+                    '                </div>' +
+                    '                <div class="aui-row aui-row-padded">';
+
+                let img = ''
+                item.pic.map(function (vs) {
+                    img += "<div class='aui-col-xs-4 list-img' style='width: 3rem;height: 3rem' onclick='lookimg(\"" + URL + vs + "\")'><img src='" + URL + vs + "'></div>"
+                })
+
+                html += img
+                html += '                </div>' +
+                    '            </li>' +
+                    '        </ul>' +
+                    '    </div>'
+            })
+            $(".center").append(html)
+
+        })
+    }
+
+    // 查看照片
+    function lookimg(img) {
+        var photoBrowser = api.require('photoBrowser');
+        photoBrowser.open({
+            images: [
+                img
+            ],
+            placeholderImg: 'widget://res/img/apicloud.png',
+            bgColor: '#000'
+        }, function (ret, err) {
+            if (ret) {
+                if (ret.eventType == "longPress") {
+                    let indexs = ret.index
+                    frames(img)
+                } else {
+                    if (ret.eventType == "click") {
+                        photoBrowser.close();
+                    }
+                }
+
+            } else {
+                photoBrowser.close();
+                api.toast({
+                    msg: "打开图片失败",
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                return;
+            }
+        });
+
+
+    }
+
+    function frames(img = "222") {
+        api.openFrame({
+            name: 'dian',
+            url: '../dialog/dian.html',
+            rect: {
+                x: 0,
+                y: 0,
+                w: api.winWidth,
+                h: api.winHeight
+            },
+            pageParam: {
+                img: img
+            },
+            bounces: false,
+            bgColor: 'rgba(0,0,0,0.2)',
+        });
+
+    }
+
+    function go_back() {
+        api.closeWin({});
+    }
+</script>
+</html>

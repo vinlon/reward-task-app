@@ -1,0 +1,504 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>我的任务</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/my_tasks.css" />
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script src="../../script/swiper.min.js"></script>
+    <script src="../../script/common.js"></script>
+    <script src="../../script/url.js"></script>
+</head>
+
+<body>
+    <div class="b" id="header">
+        <div class="header">
+            <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+            <div class="header_text">
+                <h1>我的任务</h1>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <div class="cover"></div>
+    <div class="coving"></div>
+    <div class="award">
+        <div class="award_title">
+            <ul class="list">
+                <li onclick="get_my_order(-2);">全部</li>
+                <li onclick="get_my_order(0);">待提交</li>
+                <li onclick="get_my_order(1);">审核中</li>
+                <li onclick="get_my_order(-1);">不合格</li>
+                <li onclick="get_my_order(2);">已完成</li>
+                <!--<li onclick="get_my_order(-10);">已取消</li> -->
+                <!-- 复审/举报-->
+                <div class="clearfix"></div>
+            </ul>
+        </div>
+        <div class="line"></div>
+        <div id="task_my_list">
+            <!-- 我的任务 -->
+
+        </div>
+        <!-- 我的任务 -->
+
+        <!-- 我的任务 -->
+        <!-- <div class="tasks">
+        <div class="award_row" >
+            <div class="head_pic"><img src="../../image/task2.png"></div>
+            <div class="award_text">
+                <h1>电动车拍摄</h1>
+                <h4>待提交</h4>
+                <div class="clearfix"></div>
+                <h3>创建时间：2019-11-08 15:16</h3>
+                <h2><span>￥</span>5.25</h2>
+                <button type="button" name="button" class="pingjia" onclick="pingjia();">评价</button>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="tasks_row">
+            <div class="time"><img src="../../image/time.png"></div>
+            <p>请在<span>22:30:00</span>前完成提交</p>
+            <div class="button" onclick="submit_detail()"><button class="submit">立即提交</button></div>
+            <div class="clearfix"></div>
+        </div>
+    </div> -->
+
+    </div>
+
+
+    <div class="evaluate" style="display:none;">
+        <div class="close" onclick="close_pingjia();"><img src="../../image/close1.png" alt=""></div>
+        <div class="evaluate_rank">
+            <div class="rank" onclick="get_style_id(1);">
+                <img src="../../image/manyi.png" id="txps_1" alt="" class=" my">
+                <!-- <img src="../../image/manyi1.png" alt="" class=" my"> -->
+                <h1>满意</h1>
+            </div>
+            <div class="rank" onclick="get_style_id(2);">
+                <img src="../../image/yiban.png" id="txps_2" alt="" class=" my">
+                <!-- <img src="../../image/yiban1.png" alt="" class=" my"> -->
+                <h1>一般</h1>
+            </div>
+            <div class="rank" onclick="get_style_id(3);">
+                <img src="../../image/bumanyi.png" id="txps_3" alt="" class=" my">
+                <!-- <img src="../../image/bumanyi1.png" alt="" class=" my"> -->
+                <h1>不满意</h1>
+            </div>
+            <input type="hidden" id="gzcxz_id" value="0"></input>
+            <input type="hidden" id="typepingjia" value="0"></input>
+            <div class="clearfix"></div>
+        </div>
+        <div class="evaluate_text">
+            <textarea name="name" id="content_pingjia" placeholder="请填写评价"></textarea>
+        </div>
+        <button type="button" name="button" class="true" onclick="qu_pingjia();">确定</button>
+        <button type="button" name="button" class="quxiao" onclick="close_pingjia();">取消</button>
+
+    </div>
+</body>
+
+<script>
+    apiready = function() {
+        token = $api.getStorage('token');
+        height();
+
+        // param = api.pageParam;
+        // id = param.id;//任务id
+        // if(id == 1){
+        // 	param.id == 0;
+        // //		window.location.reload();
+        //
+        // }
+        get_my_order(-2);
+        api.setRefreshHeaderInfo({
+            loadingImg: 'widget://image/refresh.png',
+            bgColor: '#ccc',
+            textColor: '#fff',
+            textDown: '下拉刷新...',
+            textUp: '松开刷新...'
+        }, function(ret, err) {
+            //在这里从服务器加载数据，加载完成后调用
+            //停止api.refreshHeaderLoadDone()方法恢复组件到默认状态
+            window.location.reload();
+            api.refreshHeaderLoadDone();
+        });
+
+        api.addEventListener({
+            name: 'scrolltobottom',
+            extra: {
+                threshold: 0 //设置距离底部多少距离时触发，默认值为0，数字类型
+            }
+        }, function(ret, err) {
+            if (pageEnd) {
+                api.toast({
+                    msg: '没有更多数据了'
+                })
+            } else {
+                get_my_order(orders);
+            }
+        });
+    }
+
+    function get_style_id(idx) {
+        $('#typepingjia').val(idx);
+        if (idx == 1) {
+            $api.byId('txps_1').src = "../../image/manyi1.png"; //头像
+            $api.byId('txps_2').src = "../../image/yiban.png"; //头像
+            $api.byId('txps_3').src = "../../image/bumanyi.png"; //头像
+        } else if (idx == 2) {
+            $api.byId('txps_1').src = "../../image/manyi.png"; //头像
+            $api.byId('txps_2').src = "../../image/yiban1.png"; //头像
+            $api.byId('txps_3').src = "../../image/bumanyi.png"; //头像
+        } else if (idx == 3) {
+            $api.byId('txps_1').src = "../../image/manyi.png"; //头像
+            $api.byId('txps_2').src = "../../image/yiban.png"; //头像
+            $api.byId('txps_3').src = "../../image/bumanyi1.png"; //头像
+        } else {
+            $api.byId('txps_1').src = "../../image/manyi.png"; //头像
+            $api.byId('txps_2').src = "../../image/yiban.png"; //头像
+            $api.byId('txps_3').src = "../../image/bumanyi.png"; //头像
+            $('#typepingjia').val(0);
+        }
+    }
+
+    function qu_pingjia() {
+        var dd_id = $('#gzcxz_id').val();
+        var typepingjia = $('#typepingjia').val();
+        var content_pingjia = $('#content_pingjia').val();
+        api.ajax({
+            url: addAComment_url,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    id: dd_id,
+                    star: typepingjia,
+                    content: content_pingjia
+                }
+            }
+        }, function(ret, err) {
+            api.toast({
+                msg: ret.message,
+                duration: 2000,
+                location: 'bottom'
+            });
+            if (ret.code == 100) {
+
+                setTimeout(function() {
+                    window.location.reload();
+                }, 1000);
+                return false;
+            }
+
+        });
+        // console.log(dd_id);
+        // 	console.log(typepingjia);
+        // 		console.log(content_pingjia);
+    }
+
+    function pingjia(id) {
+        //	alert(id);
+        $('#gzcxz_id').val(id);
+        $(".evaluate").show();
+        $(".cover").show();
+    }
+
+    function close_pingjia() {
+        $(".evaluate").hide();
+        $(".cover").hide();
+    }
+    let page = 1
+    let pageEnd = false
+    let orders = 0;
+
+    function get_my_order(status) {
+        /*api.showProgress({
+            title: '努力加载中...',
+            text: '请稍后...',
+            modal: true
+        });*/
+        showLoadMore(1);
+        if (status != orders) {
+
+            page = 1
+            pageEnd = false
+        }
+        api.ajax({
+            url: my_task_orders,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    status: status,
+                    page: page
+                }
+            }
+        }, function(ret, err) {
+            //console.log(JSON.stringify(ret));
+            //  console.log(JSON.stringify(err));
+            //$api.html(task_my_list, '');
+            var length = ret.data.length;
+            //	 alert(length)
+            if (length > 0) {
+                var lblist_type = '';
+                for (var lb = 0; lb < length; lb++) {
+                    lblist_type += '<div class="task clearfix">'
+                    lblist_type += '    <div class="task_pic">'
+                    lblist_type += '        <img src=" ' + URL + ret.data[lb].image + ' ">'
+                    lblist_type += '    </div>'
+                    lblist_type += '    <div class="task_text">'
+                    lblist_type += '        <p class="task_name" onclick="task_del(' + ret.data[lb].t_id + ')">' + ret.data[lb].t.title + '</p><p class="shang">+' + ret.data[lb].t.money + '元</p>'
+                    lblist_type += '        <div class="clearfix"></div>'
+                    lblist_type += '        <span>编号：' + ret.data[lb].t_id + '</span>|'
+                        //lblist_type += '        <span>' + ret.data[lb].fenlei + '</span>|'
+                    lblist_type += '        <span>' + ret.data[lb].t.name + '</span>'
+                    lblist_type += '        <span>报名时间：' + getLocalTime(ret.data[lb].add_time).replace(/-/g, '/') + '</span>'
+                    lblist_type += '        <span class="statu">' + ret.data[lb].status_format + '</span>'
+                    lblist_type += '    </div>'
+                    lblist_type += '    <div class="clearfix"></div>'
+                    if (ret.data[lb].status == -10) {
+                        lblist_type += '    <p class="task_butt">'
+                        lblist_type += '        <span onclick="delete_task_order(' + ret.data[lb].id + ')">删除</span>'
+                        lblist_type += '        <span onclick="cx_lingqu(' + ret.data[lb].id + ')">重新领取</span>'
+                        lblist_type += '    </p>'
+                    } else if (ret.data[lb].status == 0) {
+                        lblist_type += '    <p class="task_butt">请在<b>' + ret.data[lb].status_0.replace(/-/g, '/') + '</b>前完成提交!'
+                        lblist_type += '        <span onclick="quxiao_task(' + ret.data[lb].id + ')">取消</span>'
+                        lblist_type += '        <span onclick="submit_detail(' + ret.data[lb].t_id + ')">立即提交</span>'
+                        lblist_type += '    </p>'
+                    } else if (ret.data[lb].status == -1) {
+                        lblist_type += '    <p class="task_butt">原因：' + ret.data[lb].content + ''
+                        lblist_type += '        <span onclick="get_tousu(' + ret.data[lb].t_id + ',' + ret.data[lb].id + ')">投诉</span>'
+                        lblist_type += '        <span onclick="chongxinshenqing(' + ret.data[lb].id + ')">重新申请</span>'
+                        if (ret.data[lb].bohui_status == 5) {
+                            lblist_type += '        <a>此任务已被任务主举报,请到举报维权页面提交证据,超时默认失败!</a>'
+                        }
+                        lblist_type += '    </p>'
+                    }
+                    lblist_type += '</div>'
+                    lblist_type += '<div class="clearfix"></div>'
+                }
+                if (page == 1 || status != orders) {
+                    $api.html(task_my_list, lblist_type);
+                } else {
+                    $api.append(task_my_list, lblist_type)
+                }
+            } else {
+                if (page == 1) {
+                    $api.html(task_my_list, "");
+                }
+                //$api.html(task_my_list, "");
+                pageEnd = true
+            }
+            orders = status;
+            page++;
+            //$api.html(task_my_list, lblist_type);
+            //api.hideProgress();
+            showLoadMore();
+            $(function() {
+                $(".bohui_tp").click(function() {
+                    $(this).addClass("tp").removeClass("bohui_tp");
+                    $(".cover").show();
+                    $(".coving").show();
+                })
+                $(".coving").click(function() {
+                    $(".tp").removeClass("tp").addClass("bohui_tp");
+                    $(".cover").hide();
+                    $(this).hide();
+                })
+            })
+        });
+    }
+
+    function task_del(id) {
+        api.sendEvent({
+            name: 'dddagain',
+        });
+        //
+        api.openWin({
+            name: 'list_detail',
+            url: '../index/list_detail.html',
+            pageParam: {
+                id: id,
+            }
+        })
+
+
+    }
+
+    function get_tousu(task_id, task_order_id) {
+        // alert(task_id);
+        // alert(task_order_id);
+        api.openWin({
+            name: 'complaints',
+            url: '../index/complaints.html',
+            pageParam: {
+                task_id: task_id,
+                task_order_id: task_order_id,
+            }
+        })
+    }
+
+    function chongxinshenqing(id) {
+        api.ajax({
+            url: bohui_cxtmd_reaccept_url,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    id: id,
+                }
+            }
+        }, function(ret, err) {
+            //console.log(JSON.stringify(ret));
+            //console.log(JSON.stringify(err));
+            api.toast({
+                msg: ret.info,
+                duration: 2000,
+                location: 'bottom'
+            });
+            if (ret.code == 200) {
+
+                setTimeout(function() {
+                    window.location.reload();
+                }, 1000);
+                return false;
+            }
+
+
+        });
+    }
+
+    //重新领取任务
+    function cx_lingqu(id) {
+        api.ajax({
+            url: cx_lingqu_url,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    id: id,
+                }
+            }
+        }, function(ret, err) {
+            //console.log(JSON.stringify(ret));
+            //console.log(JSON.stringify(err));
+
+            if (ret.code == 100) {
+
+                submit_detail(ret.task.id);
+            } else {
+                api.toast({
+                    msg: ret.info,
+                    duration: 2000,
+                    location: 'bottom'
+                });
+            }
+
+
+        });
+    }
+
+
+    //删除已经取消的任务
+    function delete_task_order(id) {
+        api.ajax({
+            url: del_my_order_task_url,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    id: id,
+                }
+            }
+        }, function(ret, err) {
+            //console.log(JSON.stringify(ret));
+            //console.log(JSON.stringify(err));
+
+            api.toast({
+                msg: ret.info,
+                duration: 2000,
+                location: 'bottom'
+            });
+            if (ret.code == 100) {
+
+                setTimeout(function() {
+                    window.location.reload();
+                }, 1000);
+                return false;
+            }
+
+
+        });
+    }
+
+    function quxiao_task(id) {
+
+        api.ajax({
+            url: quxiao_task_url,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    id: id,
+                }
+            }
+        }, function(ret, err) {
+            api.toast({
+                msg: ret.info,
+                duration: 2000,
+                location: 'bottom'
+            });
+            if (ret.code == 100) {
+
+                setTimeout(function() {
+                    window.location.reload();
+                }, 1000);
+                return false;
+            }
+        });
+    }
+
+    $(function() {
+        $(".list li:eq(0) ").addClass('click');
+        $(".list li ").click(function() {
+            $(this).addClass('click').siblings().removeClass('click');
+        });
+    })
+
+    function go_back() {
+        api.closeWin({});
+    }
+
+    function submit_detail(id) { //任务详情
+        api.sendEvent({
+            name: 'dddagain',
+
+        });
+        api.openWin({
+            name: 'list_detail',
+            url: '../index/list_detail.html',
+            pageParam: {
+                id: id
+            }
+
+        })
+    }
+
+    function submit_detail_1() { //任务详情
+        api.openWin({
+            name: 'submit_detail',
+            url: 'submit_detail.html'
+        })
+    }
+</script>
+
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+	<meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+	<title>申请提现</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/application_cash.css" />
+	<link rel="stylesheet" href="../../css/swiper.min.css">
+	    <script type="text/javascript"></script>
+	<script src="../../script/jquery-1.8.3.min.js"></script>
+
+		<script src="../../script/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+	<div class="b" id="header">
+		<div class="header">
+	        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+			<div class="question" onclick="help()"><img src="../../image/bz.png"></div>
+	        <div class="header_text"><h1>提现</h1></div>
+	        <div class="clearfix"></div>
+	    </div>
+	</div>
+
+	<div class="award">
+		<div class="award_title">
+			<ul class="list">
+				<li>赏金提现</li>
+				<li>充值提现</li>
+				<div class="clearfix"></div>
+			</ul>
+		</div>
+	</div>
+	<!-- 钱包 -->
+	<div class="card">
+		<img src="../../image/cash_bg.png">
+		<div class="card_text">
+			<h1>钱包余额(元)</h1>
+			<h2>486.00</h2>
+		</div>
+	</div>
+<!--提现金额 -->
+	<div class="recharge">
+		<h3>提现金额</h3>
+		<div class="import">
+			<h2>￥</h2>
+			<input type="text">
+		</div>
+
+	</div>
+	<div class="recharge_text">
+		<h1>实际到账：￥98.04</h1>
+		<h2>手续费：￥1.96</h2>
+		<h3>全部提现</h3>
+		<div class="clearfix"></div>
+	</div>
+
+<!-- 提现方式 -->
+	<div class="way">
+		<div class="way_title"><h1>选择提现方式</h1></div>
+		<div class="way_content">
+			<div class="way_pic"><img src="../../image/zhifubao.png"></div>
+			<h1>支付宝支付</h1>
+			<div class="content_pic"><img src="../../image/center_xz.png"></div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="wechat">
+			<div class="wechat_way_pic"><img src="../../image/weixin.png"></div>
+			<h1>微信支付</h1>
+			<div class="wechat_content_pic"><img src="../../image/center_xz.png"></div>
+			<div class="clearfix"></div>
+		</div>
+
+	</div>
+
+	<div class="button"><button>提现</button></div>
+
+
+	</body>
+	<script src="../../script/api.js" charset="utf-8"></script>
+	<script src="../../script/swiper.min.js"></script>
+	<script src="../../script/common.js"></script>
+	<script>
+		apiready = function(){
+			height()
+			//var header = document.querySelector('#header'); //头帘高度
+			//$api.fixStatusBar(header);
+		}
+
+
+		$(function(){
+			$(".list li:eq(0) ").addClass('click');
+			$(".list li ").click(function(){
+				$(this).addClass('click').siblings().removeClass('click');
+			});
+		})
+	// 支付方式
+		$(function(){
+			$(".content_pic").children().hide();
+			$(".content_pic").addClass("bor");
+			$(".wechat ").children(".wechat_content_pic").children().show();
+			$(".wechat ").children(".wechat_content_pic").removeClass("bor");
+			$(".way_content").click(function(){
+				$(this).children(".content_pic").children().show();
+				$(this).children(".content_pic").removeClass("bor");
+				$(this).siblings(".wechat").children(".wechat_content_pic").children().hide();
+				$(this).siblings(".wechat").children(".wechat_content_pic").addClass("bor");
+			});
+			$(".wechat").click(function(){
+				$(this).children(".wechat_content_pic").children().show();
+				$(this).children(".wechat_content_pic").removeClass("bor");
+				$(this).siblings(".way_content").children(".content_pic").children().hide();
+				$(this).siblings(".way_content").children(".content_pic").addClass("bor");
+			});
+		})
+
+		function help(){
+		  api.openWin({
+			  name: 'help',
+			  url: '../my/help.html'
+		  })
+		}
+
+		function go_back() {
+	        api.closeWin({
+	            // name: '',
+	        })
+	    }
+	</script>
+
+
+</html>

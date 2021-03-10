@@ -1,0 +1,306 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+	<meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+	<title>提现</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/cash.css" />
+	<link rel="stylesheet" href="../../css/swiper.min.css">
+	    <script type="text/javascript"></script>
+	<script src="../../script/jquery-1.8.3.min.js"></script>
+<!--	<script src="../../script/aui/script/aui-dialog.js"></script>-->
+<!--	<link rel="stylesheet" href="../../script/aui/css/api.css">-->
+<!--	<link rel="stylesheet" href="../../script/aui/css/aui.css">-->
+		<script src="../../script/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+	<div class="b" id="header">
+		<div class="header">
+	    <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+			<div class="question" onclick="help()"><img src="../../image/bz.png"></div>
+			<h2 onclick="tixianjilu();">提现记录</h2>
+      <div class="header_text"><h1>提现</h1></div>
+      <div class="clearfix"></div>
+	  </div>
+	</div>
+<!-- 钱包余额 -->
+	<div class="card">
+		<img src="../../image/cash_bg.png">
+		<div class="card_text">
+			<h1>发布余额(元)</h1>
+			<h2 id="sum_money"></h2>
+		</div>
+	</div>
+<!--提现金额  -->
+	<div class="recharge">
+		<h3>提现金额</h3>
+		<div class="import">
+			<h2>￥</h2>
+			<input type="number" id="money" value=''></input>
+			<input type="hidden" id="money_u" value=""></input>
+		</div>
+
+	</div>
+	<div class="recharge_text">
+		<span id="sj">实际到账：￥0.00</span>
+		<span id="sxf">手续费：￥0.00</span>
+		<span onclick="all_tx()" class="tx">全部提现</span>
+		<div class="clearfix"></div>
+	</div>
+
+<!-- 提现方式 -->
+<div class="way">
+	<div class="way_title"><h1>选择提现方式</h1></div>
+	<div class="way_content">
+		<div class="way_pic"><img src="../../image/zhifubao.png"></div>
+		<h1>支付宝支付</h1>
+		<div class="content_pic">
+		   <input onclick="clicktype(this)" id="zfb"  type="radio" name="sex" value="2">
+		   <label for="zfb"></label>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+	<div class="wechat">
+		<div class="wechat_way_pic"><img src="../../image/weixin.png"></div>
+		<h1>微信支付</h1>
+		<div class="wechat_content_pic">
+			<input onclick="clicktype(this)" id="wxzf" type="radio" name="sex" checked value="1" >
+			<label for="wxzf"></label>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+
+</div>
+<!--提现按钮 -->
+<div class= "tishi">
+	<h1><span>温馨提示：</span>
+	<span style="color: red">用户余额提现2元起，收取2%手续费，发布余额提现手续费根据会员等级不同收取，每天可提现一次，微信每笔最多200元，支付宝单笔最高500元，20元以下秒到，20元以上提现一个工作日内到账，节假日延后至工作日发放</span>
+	</h1>
+</div>
+	<div class="button" onclick="sub()"><button>提现</button></div>
+	<input type="hidden" name="" value="1" id="zftype">
+
+
+	</body>
+	<script src="../../script/api.js" charset="utf-8"></script>
+	<script src="../../script/swiper.min.js"></script>
+	<script src="../../script/common.js"></script>
+	<script src="../../script/url.js"></script>
+	<script>
+
+		// var dialog = new auiDialog({})
+		apiready = function(){
+			height()
+			//var header = document.querySelector('#header'); //头帘高度
+			//$api.fixStatusBar(header);
+			get_zican()
+
+		}
+
+	$("#money").bind("input propertychange",function(event){
+			var mmm=	$('#money').val();
+				t_fee = $api.getStorage('shop_tixian_fee');
+			if( mmm != ""){
+				var new_all_money=parseInt(mmm)-parseFloat(t_fee)*parseInt(mmm);
+				var fee_money=parseFloat(t_fee)*parseInt(mmm);
+					  $('#sj').html('实际到账：'+new_all_money);
+ 				 	  $('#sxf').html('手续费'+fee_money);
+
+			}else{
+				 $('#sj').html('实际到账：0.00');
+				 $('#sxf').html('手续费： 0.00');
+			}
+
+	});
+		function sub() {
+			money = $api.byId('money').value;
+			//alert(money);
+			money_u = $api.byId('money_u').value;
+			type = $api.byId('zftype').value;
+			api.ajax({
+				url: Txian,
+				method: 'post',
+				data: {
+					values: {
+						token: token,
+								money:money,
+								type:type,
+								money_type:1,
+					}
+				}
+			},function(ret, err){
+
+				if (ret.code==-20){
+					api.confirm({
+						title: '提示',
+						msg: '请绑定微信在提现',
+						buttons: ['确定', '取消']
+					}, function (ret, err) {
+						var index = ret.buttonIndex;
+						if (index == 1) {
+							api.openWin({
+								name: 'set',
+								url: '../my/set.html'
+							});
+						}
+					})
+
+					return false;
+				}
+
+					api.toast({
+						msg: ret.message,
+						duration: 2000,
+						location: 'bottom'
+					});
+
+				if (ret.code == 100) {
+						setTimeout(function() {
+							api.openWin({
+								name: 'record',
+								url: '../retail/record.html'
+							});
+						}, 1000)
+				}
+			});
+
+		}
+
+		function all_tx() {
+			money_u = $api.byId('money_u').value;
+			$('#money').attr('value',money_u);
+			var mmm=money_u;
+				t_fee = $api.getStorage('shop_tixian_fee');
+			if( mmm != ""){
+
+				var new_all_money=parseInt(mmm)-parseFloat(t_fee)*parseInt(mmm);
+
+				var fee_money=parseFloat(t_fee)*parseInt(mmm);
+						$('#sj').html('实际到账：'+new_all_money);
+						$('#sxf').html('手续费'+fee_money);
+
+			}else{
+				 $('#sj').html('实际到账：0.00');
+				 $('#sxf').html('手续费： 0.00');
+			}
+			 //console.log(JSON.stringify(money));
+		}
+
+		//  money = $api.byId('money').value;
+		//
+		// 		var tixian_fee = ret.info.tixian_fee;
+		// 		alert(money);return false;
+		// 		 var fee = parseFloat(tixian_fee) * parseFloat(money);
+		// 		 alert(fee);
+		// 		 zfee = fee.toFixed(2);
+		// $api.text(sxf, '手续费 ¥' + zfee);
+			function get_zican() {
+			//console.log(JSON.stringify(get_zican));
+				//		token = $api.getStorage('token');
+				//$api.setStorage('token','a936436f65ff3e27edf61054d416da28'); //存token
+				token = $api.getStorage('token');
+				api.ajax({
+					url:my_zican,
+					method: 'post',
+					data: {
+						values: {
+						   token: token
+						}
+					}
+				},function(ret, err) {
+				//	console.log(JSON.stringify(ret));
+				 var y_money = ret.info.yongjin_money ;
+				 var s_money =  ret.info.money;
+				 y_money=0;
+				 var z_money = parseFloat(y_money) + parseFloat(s_money);
+				 num = z_money.toFixed(2);
+				 $api.setStorage('shop_tixian_fee',ret.info.shop_fee); //存token
+
+				 console.log(JSON.stringify(y_money));
+				 console.log(JSON.stringify(s_money));
+				 $api.html(sum_money, num);
+				 $('#money_u').attr('value',num);
+
+
+			});
+		}
+
+
+		function clicktype(obj){
+			$api.byId('zftype').value = $(obj).val();
+		}
+
+		// function info() {
+		// 	way = $api.byId('zftype').value;
+		// 	money = $api.byId('cost').value
+		// 	api.ajax({
+		// 		url: Txian,
+		// 		method: 'post',
+		// 		data: {
+		// 			values: {
+		// 				token: token,
+		// 				type: way,
+		// 				money: money
+		// 			},
+		// 		}
+		// 	}, function(ret, err) {
+		// 		//console.log(JSON.stringify(ret));
+		// 		//console.log(JSON.stringify(err));
+		// 		//return false;
+		// 		api.toast({ //弹框
+		// 			msg: ret.message, //提示语
+		// 			duration: 2000, //提示时长
+		// 			location: 'bottom' //提示位置
+		// 		});
+		// 	});
+		// }
+
+
+// // 支付方式
+//
+// 		$(function(){
+// 			$(".content_pic").children().hide();
+// 			$(".content_pic").addClass("bor");
+// 			$(".wechat ").children(".wechat_content_pic").children().show();
+// 			$(".wechat ").children(".wechat_content_pic").removeClass("bor");
+// 			$(".way_content").click(function(){
+// 				$(this).children(".content_pic").children().show();
+// 				$(this).children(".content_pic").removeClass("bor");
+// 				$(this).siblings(".wechat").children(".wechat_content_pic").children().hide();
+// 				$(this).siblings(".wechat").children(".wechat_content_pic").addClass("bor");
+// 			});
+// 			$(".wechat").click(function(){
+// 				$(this).children(".wechat_content_pic").children().show();
+// 				$(this).children(".wechat_content_pic").removeClass("bor");
+// 				$(this).siblings(".way_content").children(".content_pic").children().hide();
+// 				$(this).siblings(".way_content").children(".content_pic").addClass("bor");
+// 			});
+// 		})
+
+		function tixianjilu(){					//常见问题
+
+			api.openWin({
+				name: 'record',
+				url: '../retail/record.html'
+			});
+		}
+
+		function help(){					//常见问题
+		  api.openWin({
+			  name: 'help',
+			  url: 'help.html'
+		  })
+		}
+
+		function go_back() {
+	        api.closeWin({
+	            // name: '',
+	        })
+	    }
+	</script>
+
+
+</html>

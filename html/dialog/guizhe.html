@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>活动规则</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/set.css"/>
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+    <script type="text/javascript"></script>
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <!--    <link rel="stylesheet" type="text/css" href="../../css/publish.css"/>-->
+    <script src="../../script/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="../../css/guizhe.css">
+    <!--    <link rel="stylesheet" href="../../css/ranking.css">-->
+</head>
+<body>
+<div class="b" id="header">
+    <div class="header">
+
+        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+        <div class="header_text"><h1>活动规则</h1></div>
+
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+
+<div class="bodys">
+
+
+
+
+
+</div>
+
+
+</body>
+<script src="../../script/api.js" charset="utf-8"></script>
+<script src="../../script/swiper.min.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/url.js"></script>
+<script>
+    apiready = function () {
+        height()
+
+        lists()
+    }
+
+    // 获取数据
+    function lists() {
+        let token = $api.getStorage('token'); //获取token
+        api.ajax({
+            url: guizhe,
+            method: 'post',
+            dataType:"json",
+            data: {
+                values: {
+                    token: token,
+                }
+            }
+        }, function(ret, err) {
+
+            let list=ret.data;
+            list.map(function (item) {
+                let center=htmlDecodeByRegExp(item.center)
+                let html='<div class="gui-dev">' +
+                    '        <div class="gui-dev-left">' +
+                    '            <div class="gui-dev-left-div">' +
+                    '                <div>'+item.name+'</div>' +
+                    '            </div>' +
+                    '        </div>' +
+                    '        <div class="gui-dev-rig">' +
+                    '            <div class="gui-dev-rig-div">' + center+' </div>' +
+                    '        </div>' +
+                    '    </div>'
+                $(".bodys").append(html)
+            })
+        })
+    }
+    function htmlDecodeByRegExp (str){
+        var s = "";
+        if(str.length == 0) return "";
+        s = str.replace(/&amp;/g,"&");
+        s = s.replace(/&lt;/g,"<");
+        s = s.replace(/&gt;/g,">");
+        s = s.replace(/&nbsp;/g," ");
+        // s = s.replace(/&#39;/g,"\'");
+        s = s.replace(/&quot;/g,"\"");
+
+        return s;
+    }
+    function go_back() {
+        api.closeWin({});
+    }
+
+</script>
+</html>

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>绑定手机号</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/set.css"/>
+    <!--        <link rel="stylesheet" href="../../css/swiper.min.css">-->
+    <script type="text/javascript"></script>
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <script src="../../script/jquery-3.4.1.min.js"></script>
+    <!--    <link rel="stylesheet" href="../../css/bond.css">-->
+    <!--    <script src="../../script/layer/layer.js"></script>-->
+    <script src="../../script/aui/script/aui-dialog.js"></script>
+    <link rel="stylesheet" href="../../script/aui/css/api.css">
+    <link rel="stylesheet" href="../../script/aui/css/aui.css">
+
+
+</head>
+<style>
+    .netclickn{
+        pointer-events: none;
+    }
+</style>
+<body>
+<div class="b" id="header">
+    <div class="header">
+        <!--        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>-->
+        <div class="header_text"><h1>绑定手机号</h1></div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+
+<div id="bond">
+
+    <div class="aui-content aui-margin-b-15">
+        <ul class="aui-list aui-form-list">
+
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        手机号:
+                    </div>
+                    <div class="aui-list-item-input">
+                        <input type="text" placeholder="手机号" id="account">
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        验证码:
+                    </div>
+                    <div class="aui-list-item-input">
+                        <input type="text" placeholder="验证码" id="yanmz">
+                    </div>
+                    <div class="aui-list-item-right" >
+                        <p><div class="aui-btn aui-btn-info " id="btn"  onclick="sencode()">发送验证码</div></p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="aui-content-padded">
+        <div class="aui-btn aui-btn-info aui-btn-block" onclick="bind_phone()">确认绑定</div>
+            <div class="aui-btn aui-btn-primary aui-btn-block aui-btn-outlined" style="margin-top: 1rem" onclick="clear_bind()">取消绑定</div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../../script/api.js" charset="utf-8"></script>
+<!--<script src="../../script/swiper.min.js"></script>-->
+<script src="../../script/common.js"></script>
+<script src="../../script/url.js"></script>
+<script>
+    var dialog = new auiDialog({})
+    apiready = function () {
+        height()
+        // bond_shows()
+    }
+    // 绑定手机号
+    function bind_phone() {
+        let token = $api.getStorage('token'); //获取token
+
+       let account = $api.byId('account').value;
+      let   yanmz = $api.byId('yanmz').value;
+        if (account == '') {
+            api.toast({//弹框
+                msg: '请填写手机号',//提示语
+                duration: 2000,//提示时长
+                location: 'bottom'//提示位置
+            });
+            return false
+        }
+
+        if (yanmz == '') {
+            api.toast({//弹框
+                msg: '请填写验证码',//提示语
+                duration: 2000,//提示时长
+                location: 'bottom'//提示位置
+            });
+            return false
+        }
+
+        api.ajax({
+            url: bind_phones,
+            method: 'post',
+            dataType: "json",
+            data: {
+                values: {
+                    token: token,
+                    phone: account,
+                    code: yanmz,
+                }
+            }
+
+        }, function (ret, err) {
+                    api.toast({//弹框
+                        msg: ret.msg,//提示语
+                        duration: 2000,//提示时长
+                        location: 'bottom'//提示位置
+                    });
+                if (ret.code==1){
+                    clear_bind()
+
+                }   else {
+                    return false
+                }
+        })
+    }
+
+    var countdown = 60;
+    // 获取验证码
+    function sencode() {
+        var obj = $("#btn");
+        // settime(obj);
+        // alert(12121)
+        // return ;
+        ///手机号
+        account = $api.byId('account').value;
+        if (account == '') {
+            api.toast({//弹框
+                msg: '请填写手机号',//提示语
+                duration: 2000,//提示时长
+                location: 'bottom'//提示位置
+            });
+            return false
+        }
+        api.ajax({
+            url: sendCode,
+            method: 'post',
+            data: {
+                values: {
+                    tel: account,
+                    status: 1,
+                }
+            }
+        }, function (ret, err) {
+            if (ret.code == 1) {
+                api.toast({//弹框
+                    msg: ret.message,//提示语
+                    duration: 2000,//提示时长
+                    location: 'bottom'//提示位置
+                });
+                //$api.byId('data_ma').value = ret.data;
+            } else {
+                api.toast({//弹框
+                    msg: ret.message,//提示语
+                    duration: 2000,//提示时长
+                    location: 'bottom'//提示位置
+                });
+                return false
+            }
+            settime(obj);
+        });
+    }
+
+
+    function settime(obj) { //发送验证码倒计时
+
+        // alert(111);
+        if (countdown == 0) {
+            obj.removeClass("netclickn")
+            //obj.removeattr("disabled");
+            obj.html("获取验证码");
+            countdown = 60;
+            return;
+        } else {
+            obj.addClass("netclickn");
+            obj.html("重新发送(" + countdown + ")");
+            countdown--;
+        }
+        setTimeout(function () {
+            settime(obj)
+        }, 1000)
+    }
+
+    // 取消绑定
+
+    function clear_bind(){
+        api.sendEvent({
+            name: 'guanguan',
+        });
+
+        api.closeToWin({
+                name: 'nav-tab',
+        //         url: '../index/index.html',
+        });
+
+        // api.openWin({
+        //     name: 'index',
+        //     url: '../index/index.html',
+        //     pageParam: {
+        //         name: 'test'
+        //     }
+        // });
+    }
+    // // 退款
+    // function del_money() {
+    //     let token = $api.getStorage('token'); //获取token
+    //     api.ajax({
+    //         url: bond_money_del,
+    //         method: 'post',
+    //         dataType:"json",
+    //         data: {
+    //             values: {
+    //                 token:token,
+    //             }
+    //         }
+    //     }, function (ret, err) {
+    //         api.toast( {
+    //             msg: ret.msg,
+    //             duration: 2000,
+    //             location: 'middle'
+    //         } )
+    //     })
+    // }
+    // // 添加金额
+    // function add_money(){
+    //     let token = $api.getStorage('token'); //获取token
+    //     dialog.prompt({
+    //         title:"请输入充值金额",
+    //         text:'金额',
+    //         buttons:['取消','确定']
+    //     },function(ret){
+    //
+    //         if(ret.buttonIndex == 2){
+    //             let money=ret.text
+    //             let value = parseFloat(money).toFixed(2)
+    //             if (isNaN(value)) {
+    //                 dialog.alert({
+    //                     title:"提示",
+    //                     msg:"请输入整数",
+    //                     buttons:['确定']
+    //                 });
+    //                 return false;
+    //             }
+    //             var ex = /^\d+$/;
+    //             if (!ex.test(money)) {
+    //                 dialog.alert({
+    //                     title:"提示",
+    //                     msg:"请输入整数",
+    //                     buttons:['确定']
+    //                 });
+    //                 return false;
+    //             }
+    //             // alert(money)
+    //             if (Number(money)<Number(bond_money)){
+    //                 dialog.alert({
+    //                     title:"提示",
+    //                     msg:"最低金额是"+bond_money+"元",
+    //                     buttons:['确定']
+    //                 });
+    //                 return false;
+    //             }
+    //             let mo=Number(money)%Number(bond_money)
+    //             if (mo!=0){
+    //                 dialog.alert({
+    //                     title:"提示",
+    //                     msg:"请输入"+bond_money+"的倍数",
+    //                     buttons:['确定']
+    //                 });
+    //                 return false;
+    //             }
+    //             api.ajax({
+    //                 url: add_bond_money,
+    //                 method: 'post',
+    //                 dataType:"json",
+    //                 data: {
+    //                     values: {
+    //                         token:token,
+    //                         money:Number(money),
+    //                     }
+    //                 }
+    //             }, function (ret, err) {
+    //                 if (ret.code==1){
+    //                     $(".bond-div-money").html(Number(money))
+    //                     api.toast( {
+    //                         msg: ret.msg,
+    //                         duration: 2000,
+    //                         location: 'middle'
+    //                     } )
+    //                     return false;
+    //                 }else {
+    //                     api.toast( {
+    //                         msg: ret.msg,
+    //                         duration: 2000,
+    //                         location: 'middle'
+    //                     } )
+    //                 }
+    //
+    //             })
+    //
+    //         }
+    //     })
+    // }
+
+
+    let bond_money;
+
+    function bond_shows() {
+        let token = $api.getStorage('token'); //获取token
+        api.ajax({
+            url: bond_show,
+            method: 'post',
+            dataType: "json",
+            data: {
+                values: {
+                    token: token,
+                }
+            }
+        }, function (ret, err) {
+
+            if (ret.code != 1) {
+                api.toast({
+                    msg: "请登录后在查看",
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                setTimeout(function () {
+                    api.openWin({
+                        name: 'login',
+                        url: '../my/login.html',
+                    });
+                }, 500)
+
+                return false;
+            }
+            let money = ret.data.money
+            bond_money = ret.data.bond_money
+            let bond_center = htmlDecodeByRegExp(ret.data.bond_center)
+
+            $(".bond-div-money").html(money)
+            $(".bond-text-center").html(bond_center)
+        })
+    }
+
+
+    function htmlDecodeByRegExp(str) {
+        var s = "";
+        if (str.length == 0) return "";
+        s = str.replace(/&amp;/g, "&");
+        s = s.replace(/&lt;/g, "<");
+        s = s.replace(/&gt;/g, ">");
+        s = s.replace(/&nbsp;/g, " ");
+        // s = s.replace(/&#39;/g,"\'");
+        s = s.replace(/&quot;/g, "\"");
+        return s;
+    }
+
+    function go_back() {
+        api.closeWin({});
+    }
+</script>
+</html>

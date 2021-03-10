@@ -1,0 +1,355 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+	<meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+	<title>任务中心</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/release_task.css" />
+	<link rel="stylesheet" href="../../css/swiper.min.css">
+
+	<script src="../../script/jquery-1.8.3.min.js"></script>
+	<script src="../../script/api.js" charset="utf-8"></script>
+	<script src="../../script/swiper.min.js"></script>
+	<script src="../../script/common.js"></script>
+	<script src="../../script/url.js"></script>
+</head>
+<body>
+
+	<div class="b" id="header">
+		<div class="header">
+	        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+	        <div class="header_text"><h1>任务中心</h1></div>
+	        <div class="clearfix"></div>
+	    </div>
+	</div>
+
+	<div class="award">
+		<div class="award_title">
+			<ul class="list">
+				<li onclick="get_task(0);" id="zpds_0">未上线</li>
+				<li onclick="get_task(1);" id="zpds_1">进行中</li>
+				<li onclick="get_task(2);" id="zpds_2">已结束</li>
+				<div class="clearfix"></div>
+			</ul>
+		</div>
+	<!-- 任务 -->
+<div id="publish_task">
+	<!-- 任务 -->
+	<!-- <div class="release_task">
+		<div class="award_row" onclick="list_detail()">
+			<div class="head_pic"><img src="../../image/index2.png"></div>
+			<div class="award_text">
+				<h1>高价收微信马上结账</h1>
+
+				<div class="clearfix"></div>
+				<p>26人已赚，剩余13个</p>
+			</div>
+			<h4>赏5.48元</h4>
+			<div class="clearfix"></div>
+		</div>
+
+		<div class="task_box clearfix">
+			<div class="shuaxin row f-c">
+				<img src="../../image/release.png" alt="">
+				<span>刷新</span>
+			</div>
+			<div class="toutiao row f-c">
+				<img src="../../image/release1.png" alt="">
+				<span>上头条</span>
+			</div>
+			<div class="shanchu row f-c">
+				<img src="../../image/release2.png" alt="">
+				<span>删除<span>
+			</div>
+		</div>
+	</div> -->
+	<!-- 任务 -->
+	<!-- <div class="release_task">
+		<div class="award_row" onclick="list_detail()">
+			<div class="head_pic"><img src="../../image/index2.png"></div>
+			<div class="award_text">
+				<h1>高价收微信马上结账</h1>
+				<span class="task_1">认证绑卡</span>
+				<span class="task_2">微信实名</span>
+				<div class="clearfix"></div>
+				<p>26人已赚，剩余13个</p>
+			</div>
+			<h4>赏5.48元</h4>
+			<div class="clearfix"></div>
+		</div>
+		<div class="task_box clearfix">
+			<div class="shuaxin row f-c">
+				<img src="../../image/release.png" alt="">
+				<span>刷新</span>
+			</div>
+			<div class="toutiao row f-c">
+				<img src="../../image/release1.png" alt="">
+				<span>上头条</span>
+			</div>
+			<div class="shanchu row f-c">
+				<img src="../../image/release2.png" alt="">
+				<span>删除<span>
+			</div>
+		</div>
+	</div> -->
+</div>
+</div>
+
+
+</body>
+
+<script>
+	apiready = function(){
+		height();
+		// api.setRefreshHeaderInfo({
+		// 	loadingImg: 'widget://image/refresh.png',
+		// 	bgColor: '#ccc',
+		// 	textColor: '#fff',
+		// 	textDown: '下拉刷新...',
+		// 	textUp: '松开刷新...'
+		// }, function(ret, err) {
+		// 	//在这里从服务器加载数据，加载完成后调用
+		// 	//停止api.refreshHeaderLoadDone()方法恢复组件到默认状态
+		// 	window.location.reload();
+		// 	api.refreshHeaderLoadDone();
+		// });
+		token = $api.getStorage('token');
+		get_task(0);
+		api.setRefreshHeaderInfo({
+			loadingImg: 'widget://image/refresh.png',
+			bgColor: '#ccc',
+			textColor: '#fff',
+			textDown: '下拉刷新...',
+			textUp: '松开刷新...'
+		}, function(ret, err) {
+			//在这里从服务器加载数据，加载完成后调用
+			//停止api.refreshHeaderLoadDone()方法恢复组件到默认状态
+			window.location.reload();
+			api.refreshHeaderLoadDone();
+		});
+	}
+	function  get_task(status){
+		api.ajax({
+			url: my_task_renwu_url,
+			method: 'post',
+			data: {
+				values: {
+					token: token,
+					status:status,
+				}
+			}
+		}, function(ret, err) {
+	//		console.log(JSON.stringify(ret));console.log(JSON.stringify(err));
+			var	length = ret.data.length;
+			//	 alert(length)
+			var 	lblist_type = '';
+				for (var lb = 0; lb < length; lb++) {
+
+
+						// lblist_type += '				<div class="head_pic"><img src="'+URL+ ret.image + '"></div>'
+						//
+						//
+						// lblist_type += '			<div class="award_text">'
+						// lblist_type += '				<h1>'+ ret.data[lb].task_data.name + '</h1>'
+						// lblist_type += '				<h4>'+ ret.data[lb].status_format + '</h4>'
+						// lblist_type += '				<div class="clearfix"></div>'
+						// lblist_type += '				<h3>创建时间：'+ ret.data[lb].add_time_format + '</h3>'
+						// lblist_type += '				<h2><span>￥</span>'+ ret.data[lb].task_data.money + '</h2>'
+
+
+
+
+
+
+
+
+
+						lblist_type += '	<div class="release_task">'
+						lblist_type += '		<div class="award_row" >'//onclick="list_detail()"
+						lblist_type += '			<div class="head_pic"><img src="'+URL+ret.data[lb].image+'"></div>'
+						lblist_type += '			<div class="award_text">'
+						lblist_type += '				<p class="task_name">'+ret.data[lb].name+'</p>'
+
+							lblist_type += '			<div class="clearfix"></div>'
+							lblist_type += '			<p class="yiyou_num">'+ret.data[lb].yiyou_num+'人已赚，剩余'+ret.data[lb].num+'个</p>'
+							lblist_type += '		</div>'
+						lblist_type += '			<p class="shang">赏'+ret.data[lb].money+'元</p>'
+							lblist_type += '		<div class="clearfix"></div>'
+						lblist_type += '		</div>'
+
+							lblist_type += '	<div class="task_box clearfix">'
+							lblist_type += '		<div class="shuaxin row f-c" onclick="shuaxin('+ret.data[lb].id+')">'
+							lblist_type += '			<img src="../../image/release.png" alt="">'
+							lblist_type += '			<span>刷新</span>'
+							lblist_type += '		</div>'
+							lblist_type += '		<div class="toutiao row f-c" onclick="toutiao('+ret.data[lb].id+')">'
+							lblist_type += '			<img src="../../image/release1.png" alt="">'
+							lblist_type += '			<span>上头条</span>'
+							lblist_type += '		</div>'
+								lblist_type += '	<div class="shanchu row f-c" onclick="shanchu_del('+ret.data[lb].id+')">'
+								lblist_type += '		<img src="../../image/release2.png" alt="">'
+								lblist_type += '		<span>删除<span>'
+							lblist_type += '		</div>'
+							lblist_type += '	</div>'
+						lblist_type += '	</div>'
+
+
+				}
+
+
+					$api.html(publish_task,lblist_type);
+
+
+				  	$('#zpds_0').removeClass("click");
+						$('#zpds_1').removeClass("click");
+						$('#zpds_2').removeClass("click");
+					$('#zpds_'+status).addClass("click");
+
+					// $(function(){
+					// 	$(".list li:eq(0) ").addClass('click');
+					// 	$(".list li ").click(function(){
+					// 		$(this).addClass('click').siblings().removeClass('click');
+					// 	});
+					// })
+		});
+	}
+
+	function go_back() {
+		api.closeWin({
+
+		});
+	}
+function shuaxin(id){
+	api.confirm({
+	  title: '是否使用刷新功能?',
+	  msg: '每次消耗一个刷新币!',
+	  buttons: [ '确定', '取消' ]
+	}, function ( ret, err ) {
+	  var index = ret.buttonIndex;
+	  if ( index == 1 ) {
+
+			api.ajax({
+				url: use_shuaxin_url,
+				method: 'post',
+				data: {
+					values: {
+						token: token,
+						id:id,
+					}
+				}
+			}, function(ret, err) {
+						api.toast({
+							msg: ret.info,
+							duration: 2000,
+							location: 'bottom'
+						});
+
+						if(ret.code == 100){
+							setTimeout(function() {
+								window.location.reload();
+							}, 1000);
+						}
+			});
+
+
+
+	  }
+	} );
+
+}
+
+
+function toutiao(id){
+	api.confirm({
+	  title: '是否需要申请上头条?',
+	  msg: '每次申请头条花费100发布币!',
+	  buttons: [ '确定', '取消' ]
+	}, function ( ret, err ) {
+	  var index = ret.buttonIndex;
+	  if ( index == 1 ) {
+
+			api.ajax({
+				url: shenqing_toutiao_url,
+				method: 'post',
+				data: {
+					values: {
+						token: token,
+						id:id,
+					}
+				}
+			}, function(ret, err) {
+						api.toast({
+							msg: ret.info,
+							duration: 2000,
+							location: 'bottom',
+						});
+
+						if(ret.code == 100){
+							setTimeout(function() {
+								api.openWin({
+								  name: 'headline',
+								  url: 'headline.html',
+							  });
+							}, 1000);
+						}
+			});
+
+
+
+	  }
+	} );
+
+}
+
+function shanchu_del(id){
+	api.confirm({
+	  title: '确定要删除此条任务么?',
+	  msg: '删除任务无法恢复,慎重考虑',
+	  buttons: [ '确定', '取消' ]
+	}, function ( ret, err ) {
+	  var index = ret.buttonIndex;
+	  if ( index == 1 ) {
+
+			api.ajax({
+				url: task_del_url,
+				method: 'post',
+				data: {
+					values: {
+						token: token,
+						id:id,
+					}
+				}
+			}, function(ret, err) {
+						api.toast({
+							msg: ret.info,
+							duration: 2000,
+							location: 'bottom'
+						});
+
+						if(ret.code == 100){
+							setTimeout(function() {
+								window.location.reload();
+							}, 1000);
+						}
+			});
+
+
+
+	  }
+	} );
+
+}
+
+		function list_detail(){
+	  	  api.openWin({
+	  		  name: 'list_detail',
+	  		  url: '../index/list_detail.html',
+
+	  	  })
+	  	}
+	</script>
+
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>支付宝绑定</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/phone_binding.css" />
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <script src="../../script/swiper.min.js"></script>
+    <script src="../../script/common.js"></script>
+    <script src="../../script/url.js"></script>
+    <script src="../../script/aui/script/aui-dialog.js"></script>
+    <link rel="stylesheet" href="../../script/aui/css/api.css">
+    <link rel="stylesheet" href="../../script/aui/css/aui.css">
+	<script src="../../script/vscode.js"></script>
+
+
+</head>
+<style>
+	.notclick{
+		pointer-events: none;
+	}
+</style>
+
+<body>
+    <div class="b" id="header">
+        <div class="header">
+            <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+            <div class="header_text">
+                <h1>支付宝绑定</h1></div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+
+	<div class="aui-content aui-margin-b-15">
+		<ul class="aui-list aui-form-list">
+			<li class="aui-list-item">
+				<div class="aui-list-item-inner">
+					<div class="aui-list-item-label">
+						姓名
+					</div>
+					<div class="aui-list-item-input">
+						<input type="text"  id="name" placeholder="请输入支付宝姓名">
+					</div>
+				</div>
+			</li>
+
+			<li class="aui-list-item">
+				<div class="aui-list-item-inner">
+					<div class="aui-list-item-label">
+						账号
+					</div>
+					<div class="aui-list-item-input">
+						<input type="text"  id="card" placeholder="请输入支付宝号码">
+					</div>
+				</div>
+			</li>
+
+			<li class="aui-list-item">
+				<div class="aui-list-item-inner">
+					<div class="aui-list-item-label">
+						安全验证
+					</div>
+					<div class="aui-list-item-input" id="phones">
+						10086
+					</div>
+				</div>
+			</li>
+
+
+			<li class="aui-list-item">
+				<div class="aui-list-item-inner">
+					<div class="aui-list-item-label">
+						图形验证
+					</div>
+					<div class="aui-list-item-label">
+						<input type="text"  id="code" placeholder="图形验证码">
+					</div>
+					<div class="aui-list-item-label" id="divvss" style="border: 1px solid red;width: 8rem;height:2rem;">
+<!--						<canvas id="canvas" style="border: 1px solid yellow;height: 100%;width: 100%"></canvas>-->
+					</div>
+
+				</div>
+			</li>
+
+			<li class="aui-list-item">
+				<div class="aui-list-item-inner">
+					<div class="aui-list-item-label">
+						验证码
+					</div>
+					<div class="aui-list-item-label">
+						<input type="text"  id="phonecode" placeholder="手机验证码">
+					</div>
+					<div class="aui-list-item-label">
+						<div class="aui-btn aui-btn-warning aui-btn-sm"   id="getcodes" onclick="sendemail()">获取验证码</div>
+					</div>
+				</div>
+			</li>
+
+
+
+		</ul>
+	</div>
+
+	<div class="aui-content-padded aui-list-item-center">
+		<p><div class="aui-btn aui-btn-primary aui-btn-block" onclick="save_alipay()">保存</div></p>
+	</div>
+
+
+</body>
+<script src="../../script/api.js" charset="utf-8"></script>
+
+<script>
+    apiready = function() {
+        height()
+            //var header = document.querySelector('#header'); //头帘高度
+            //$api.fixStatusBar(header);
+        getUserInfo()
+
+		verifyCode = new GVerify("divvss");
+    }
+
+
+    function save_alipay() {
+        token = $api.getStorage('token');
+        name = $api.byId('name').value;
+        card = $api.byId('card').value; //输入验证码
+		let code = $api.byId('code').value; //输入验证码
+		let phonecode = $api.byId('phonecode').value; //输入验证码
+		if (!code){
+			api.toast({//弹框
+				msg: '请填写图形验证码',//提示语
+			});
+			return false
+		}
+		if (!verifyCode.validate(code)){
+			verifyCode=new GVerify("divvss");
+
+			api.toast({//弹框
+				msg: '验证码错误',//提示语
+			});
+			return false
+		}
+
+		if (!phonecode){
+			api.toast({//弹框
+				msg: '请填写手机号验证码',//提示语
+			});
+			return false
+		}
+
+        if (card == "" || name == "") {
+            api.toast({
+                msg: '提交为空',
+                duration: 2000,
+                location: 'bottom'
+            });
+            return false
+        }
+
+
+        api.ajax({
+            url: bangding_zfb,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    name: name,
+                    card: card,
+					phonecode: phonecode,
+					phone: phone,
+                }
+            }
+        }, function(ret, err) {
+            //console.log(JSON.stringify(ret));
+            //console.log(JSON.stringify(err));
+            //return false;
+            api.toast({
+                msg: ret.info,
+                duration: 2000,
+                location: 'bottom'
+            });
+
+            if (ret.code == 1) {
+                setTimeout(function() {
+                    api.closeWin({
+                        name: 'alipay_binding'
+                    });
+                }, 1000)
+            }
+
+        });
+    }
+
+    function getUserInfo() {
+        //$api.setStorage('token','a936436f65ff3e27edf61054d416da28');
+        token = $api.getStorage('token'); //获取token
+        // var ucode = $api.getStorage('code');
+        //alert(token);
+        api.ajax({
+            url: personalInfo,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                }
+            }
+        }, function(ret, err) {
+            console.log(JSON.stringify(ret));
+            console.log(JSON.stringify(err));
+
+            // api.alert({ msg: JSON.stringify(ret) });
+            if (ret.code != 1) {
+                api.toast({
+                    msg: ret.message,
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                setTimeout(function() {
+                    api.openWin({
+                        name: 'login',
+                        url: 'login.html',
+                        pageParam: {
+                            name: 'test'
+                        }
+                    });
+                }, 1000);
+                return false;
+            } else {
+
+            	let u_account=ret.data.u_account;
+				phone=u_account;
+				var reg = /^(\d{3})\d{4}(\d{4})$/;
+
+				u_account = u_account.replace(reg, "$1****$2");
+
+
+                $('#phones').html(u_account);
+                $('#name').val(ret.data.zfb_name);
+                $('#card').val(ret.data.zfb_card);
+            }
+            // api.alert({ msg: JSON.stringify(err) });
+
+        });
+    }
+
+
+
+	function settime(obj) { //发送验证码倒计时
+		if (countdown == 0) {
+
+			// obj.attr('disabled', false);
+			$("#getcodes").removeClass("notclick");
+
+			//obj.removeattr("disabled");
+			obj.html("获取验证码");
+			countdown = 60;
+			return;
+		} else {
+			$("#getcodes").addClass("notclick");
+			// document.getElementById("getcodes").setAttribute('disabled', true);
+			// obj.attr('disabled', true);
+			obj.html("重新发送(" + countdown + ")");
+			countdown--;
+		}
+		setTimeout(function () {
+			settime(obj)
+		}, 1000)
+	}
+	var countdown = 60;
+	let phone;
+	function sendemail() {
+		//   计时
+		var obj = $("#getcodes");
+		token = $api.getStorage('token'); //获取token
+			// console.log(JSON.stringify(obj))
+		let codes=$("#code").val()
+		// console.log(codes)
+		if (!codes){
+			api.toast({//弹框
+				msg: '请填写图形验证码',//提示语
+			});
+			return false
+		}
+		if (!verifyCode.validate(codes)){
+			verifyCode=new GVerify("divvss");
+
+			api.toast({//弹框
+				msg: '验证码错误',//提示语
+				// duration: 2000,//提示时长
+				// location: 'bottom'//提示位置
+			});
+			return false
+		}
+
+		$("#getcodes").addClass("notclick");
+		api.ajax({
+			url: sendCode,
+			method: 'post',
+			data: {
+				values: {
+					token: token,
+					tel: phone,
+					status: 2,
+				}
+			}
+		}, function (ret, err) {
+			if (ret.code == 1) {
+				api.toast({//弹框
+					msg: ret.message,//提示语
+					duration: 2000,//提示时长
+					location: 'bottom'//提示位置
+				});
+				//$api.byId('data_ma').value = ret.data;
+			} else {
+				api.toast({//弹框
+					msg: ret.message,//提示语
+					duration: 2000,//提示时长
+					location: 'bottom'//提示位置
+				});
+				return false
+			}
+			settime(obj);
+		});
+	}
+
+
+	var verifyCode
+	$("#divvss").click(function () {
+		// drawPic();
+		 verifyCode = new GVerify("divvss");
+	})
+
+    function go_back() {
+        api.closeWin({
+
+        });
+    }
+</script>
+
+</html>

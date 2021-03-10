@@ -1,0 +1,605 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>我的</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/my.css" />
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+    <script src="../../script/aui/script/aui-dialog.js"></script>
+    <link rel="stylesheet" href="../../script/aui/css/api.css">
+    <link rel="stylesheet" href="../../script/aui/css/aui.css">
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <style media="screen">
+        body,
+        html {
+            background-color: #f3f3f3
+        }
+        
+        .name span {
+            width: 3rem;
+            height: 1rem;
+            font-size: 12px;
+            background-color: #EEB422;
+            text-align: center;
+            /*margin-top: -10px;*/
+            /*color: white;*/
+        }
+        
+        .shangtou {
+            margin-top: -20px;
+        }
+        
+        .aui-lists {
+            position: relative;
+            font-size: 0.8rem;
+            /*background-color: #ffffff;*/
+            /*border-top: 1px solid #dddddd;*/
+            color: white;
+        }
+        
+        .disp {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header" id="header">
+        <div class="bg"><img src="../../image/my_bg.png"></div>
+        <div class="set">
+            <div class="message" onclick="set()"><img src="../../image/shezhi.png"></div>
+            <!--设置-->
+            <div class="clearfix"></div>
+
+        </div>
+
+
+    </div>
+    <div class="aui-content aui-margin-b-15">
+        <ul class="aui-lists aui-media-list">
+            <li class="aui-list-item">
+                <div class="aui-info " style="padding-top:0" onclick="personal_information()">
+                    <div class="aui-info-item">
+                        <img id="img" src="../../image/liulangnan.png" style="width:3rem; height: 3rem; margin-left: 0.3rem;" class="aui-img-round" />
+                        <span class="aui-margin-l-5 aui-text-center" id="name" style="color: white">流浪男</span>
+                    </div>
+                </div>
+                <div class="aui-info-item aui-list-item-center disp">
+                    <div class="aui-info-item aui-text-center aui-font-size-14" id="id">1</div>
+                </div>
+                <div class="aui-info-item disp">
+                    <div class="aui-info-item aui-font-size-14" id="vip_format">2015-07-14 10:31</div>
+
+                    <div class="aui-btn aui-btn-warning " id="kait" style="display:none; margin-bottom: 0.2rem;" onclick="member_center()">开通会员</div>
+                </div>
+                <div class="aui-info-item disp">
+                    <div class="aui-btn aui-btn-warning name-guanz" onclick="guanzhi()">关注粉丝</div>
+                    <div class="aui-btn aui-btn-warning name-guanzs" onclick="bond_mons()">关注粉丝</div>
+                </div>
+
+            </li>
+
+        </ul>
+
+
+    </div>
+
+
+    <div class="clard">
+        <div class="aui-card-list">
+            <div class="aui-card-list-header ">
+                <div class="aui-info-item aui-text-left aui-info">
+                    用户余额(元)
+                </div>
+                <div class="aui-info-item aui-text-left aui-info">
+                    发布余额(元)
+                </div>
+            </div>
+            <div class="aui-card-list-user-name">
+
+                <div class="aui-info-item aui-text-center aui-margin-l-15 " id="x_yongjin_money">
+                    0000
+                </div>
+                <div class="aui-info-item aui-text-left aui-margin-r-15" id="x_yongjin_moneys">
+                    0000
+                </div>
+
+            </div>
+            <div class="aui-card-list-footer">
+                <div class="aui-info-item  ">
+                    <div class="aui-btn aui-btn-primary aui-btn-sm" onclick="cash()">提现</div>
+                    <!--							<div class="aui-btn aui-btn-danger aui-btn-sm aui-margin-l-5" onclick="recharge()">充值</div>-->
+                </div>
+                <div class="aui-info-item ">
+                    <div class="aui-btn aui-btn-primary aui-btn-sm" onclick="cash_fb()">提现</div>
+                    <div class="aui-btn aui-btn-danger aui-btn-sm aui-margin-l-5" onclick="recharges()">充值</div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <section class="aui-grid">
+        <div class="aui-row">
+            <div class="aui-col-xs-3" onclick="receipts()">
+                <img class="aui-grid aui-img-object pic" src="../../image/huiyuan.png" style="width: 30%">
+                <div class="aui-grid-label">收支明细</div>
+            </div>
+            <div class="aui-col-xs-3" onclick="word()">
+                <img class="aui-grid aui-img-object pic" src="../../image/fenxiao.png" style="width: 30%">
+                <div class="aui-grid-label">使用教程</div>
+            </div>
+            <div class="aui-col-xs-3" onclick="my_tasks()">
+                <img class="aui-grid aui-img-object pic" src="../../image/renwu1.png" style="width: 30%">
+                <div class="aui-grid-label">我的任务</div>
+            </div>
+            <div class="aui-col-xs-3" onclick="invite()">
+                <div class="aui-badge jubs">0</div>
+                <img class="aui-grid aui-img-object pic" src="../../image/icon/liaot.jpg" style="width: 30%">
+                <div class="aui-grid-label">好友列表</div>
+            </div>
+            <div class="aui-col-xs-3" onclick="evaluating()">
+                <img class="aui-grid aui-img-object pic" src="../../image/pingjia.png" style="width: 30%">
+                <div class="aui-grid-label">发布管理</div>
+            </div>
+            <div class="aui-col-xs-3" onclick="message()">
+                <img class="aui-grid aui-img-object pic" src="../../image/xiaoxi1.png" style="width: 30%">
+                <div class="aui-grid-label">我的消息</div>
+            </div>
+            <div class="aui-col-xs-3" onclick="ranking_award()">
+                <img class="aui-grid aui-img-object pic" src="../../image/paihang.png" style="width: 30%">
+                <div class="aui-grid-label">排行奖励</div>
+            </div>
+
+            <!--        <div class="aui-col-xs-3" onclick="help()">-->
+            <!--            <img class="aui-grid aui-img-object pic" src="../../image/wenti.png" style="width: 30%">-->
+            <!--            <div class="aui-grid-label">常见问题</div>-->
+            <!--        </div>-->
+            <div class="aui-col-xs-3" onclick="help()">
+                <img class="aui-grid aui-img-object pic" src="../../image/wenti.png" style="width: 30%">
+                <div class="aui-grid-label">全天置顶</div>
+            </div>
+
+            <div class="aui-col-xs-3" onclick="report()">
+                <div class="aui-badge jubhong">0</div>
+                <img class="aui-grid aui-img-object pic" src="../../image/jubao.png" style="width: 30%">
+                <div class="aui-grid-label">举报维权</div>
+            </div>
+
+            <div class="aui-col-xs-3" onclick="black_list()">
+                <img class="aui-grid aui-img-object pic" src="../../image/heimingdan.png" style="width: 30%">
+                <div class="aui-grid-label">黑户名单</div>
+            </div>
+            <!--<a id="kefu" href="#" target="_blank">-->
+            <div class="aui-col-xs-3" onclick="service()">
+
+                <img class="aui-grid aui-img-object pic" src="../../image/kefu.png" style="width: 30%">
+                <div class="aui-grid-label">联系客服</div>
+
+            </div>
+            <!--</a>-->
+            <div class="aui-col-xs-3" onclick="Feedback()">
+                <img class="aui-grid aui-img-object pic" src="../../image/yijian.png" style="width: 30%">
+                <div class="aui-grid-label">意见反馈</div>
+            </div>
+
+
+        </div>
+    </section>
+
+
+</body>
+
+<script src="../../script/api.js" charset="utf-8"></script>
+<script src="../../script/swiper.min.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/url.js"></script>
+
+<script>
+    apiready = function() {
+        height();
+
+        api.setRefreshHeaderInfo({
+            visible: true,
+            loadingImg: 'widget://image/refresh.png',
+
+            bgColor: '#ccc',
+            textColor: '#fff',
+            textDown: '下拉刷新...',
+            textUp: '松开刷新...'
+        }, function(ret, err) {
+            //在这里从服务器加载数据，加载完成后调用
+            //停止api.refreshHeaderLoadDone()方法恢复组件到默认状态
+            // window.location.reload();
+            window.location.reload();
+            api.refreshHeaderLoadDone();
+            // api.refreshHeaderLoading();
+            // setTimeout(function(){
+            //
+            // },300)
+        });
+        var kefu = null;
+
+
+        // token = "";
+        //alert(token);
+        token = $api.getStorage('token');
+        if (token == undefined || token == "") {
+            api.toast({
+                msg: "请登录",
+                duration: 2000,
+                location: 'bottom'
+            });
+            setTimeout(function() {
+                api.openWin({
+                    name: 'login',
+                    url: 'login.html',
+
+                });
+            }, 1000);
+
+        } else {
+            getUserInfo();
+            gettoushus()
+            weiduchat()
+        }
+        //var header = document.querySelector('#header'); //头帘高度
+        //$api.fixStatusBar(header);
+        //启动监听 addEventListener -> reloadCartList
+        api.addEventListener({
+            name: 'guanguan'
+        }, function(ret, err) {
+            if (ret) {
+                getUserInfo();
+            } else {}
+        });
+
+    }
+
+    // 获取未读信息
+    function weiduchat() {
+        token = $api.getStorage('token'); //获取token
+        api.ajax({
+            url: chat_num,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                }
+            }
+        }, function(ret, err) {
+            let num = ret.data
+            console.log(num)
+            if (Number(num) > 0) {
+
+
+                let html = '<span style="font-size: 10px;line-height:20px;text-align: center;width: 1rem;height: 1rem;position: absolute;color: white;background-color: red;border-radius: 1rem;margin-top:-13px">' + num + '</span>'
+                $(".jubs").html(num)
+            }
+        })
+    }
+
+
+    // 关注
+    function guanzhi() {
+        api.openWin({
+            name: 'guanz',
+            url: '../dialog/guanzu.html',
+
+        });
+    }
+
+    // 保证金额
+    function bond_mons() {
+        api.openWin({
+            name: 'bond',
+            url: '../dialog/bond.html',
+
+        });
+    }
+
+    function gettoushus() {
+        token = $api.getStorage('token'); //获取token
+        api.ajax({
+            url: gettoushu,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                }
+            }
+        }, function(ret, err) {
+            let data = ret.data ? ret.data : 0;
+            if (data != "0") {
+
+                let html = '<span style="font-size: 10px;line-height:20px;text-align: center;width: 1rem;height: 1rem;position: absolute;color: white;background-color: red;border-radius: 1rem;margin-top:-13px">' + data + '</span>'
+                $(".jubhong").html(data)
+                    // $(".jubhong-imgs").addClass("shangtou")
+
+            }
+        })
+    }
+
+    function getUserInfo() {
+        //$api.setStorage('token','a936436f65ff3e27edf61054d416da28');
+        token = $api.getStorage('token'); //获取token
+        // var ucode = $api.getStorage('code');
+        //alert(token);
+        api.ajax({
+            url: personalInfo,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                }
+            }
+        }, function(ret, err) {
+
+            if (ret.code != 1) {
+                api.toast({
+                    msg: ret.message,
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                setTimeout(function() {
+                    api.openWin({
+                        name: 'login',
+                        url: 'login.html',
+                        pageParam: {
+                            name: 'test'
+                        }
+                    });
+                }, 1000);
+                return false;
+            } else {
+
+                $('#name').html(ret.data.u_name);
+
+                $(".name-guanzs").html("保证金" + ret.data.bond_money)
+                $('#id').html('副业帮ID：' + ret.data.u_id);
+                // $('#x_money').html(+ ret.data.money);
+                $('#x_yongjin_money').html('' + ret.data.yongjin_money);
+                $('#x_yongjin_moneys').html('' + ret.data.money);
+                kefu = ret.data.kefu;
+                //$("#kefu").attr("href", kefu)
+                if (ret.data.u_headpic) {
+                    imgFile = URL + ret.data.u_headpic;
+                    //alert(imgFile);
+                    $("#img").attr('src', imgFile);
+                    $("#uploadimg").attr('value', ret.data.u_headpic);
+
+                } else {
+                    $api.byId('img').src = '../../image/personal.png';
+                }
+                if (ret.data.vip_status == 1) {
+                    $api.text(vip_format, '会员到期：' + ret.data.vip_format);
+                    $("#kait").hide();
+                } else {
+                    $('#vip_format').hide();
+                    $("#kait").show();
+                }
+
+                if (ret.data.u_account == "") {
+                    api.toast({
+                        msg: '请绑定手机',
+                        duration: 2000,
+                        location: 'bottom'
+                    });
+                    setTimeout(function() {
+                        api.openWin({
+                            name: 'phone_binding',
+                            url: 'phone_binding.html',
+
+                        });
+
+                    }, 1000);
+                }
+
+            }
+            // api.alert({ msg: JSON.stringify(err) });
+
+        });
+    }
+
+
+    function set() { //设置
+        api.openWin({
+            name: 'set',
+            url: 'set.html'
+        })
+    }
+
+    function personal_information() { //个人信息
+        api.openWin({
+            name: 'personal_information',
+            url: 'personal_information.html'
+        })
+    }
+
+    function recharge() { //充值
+        api.openWin({
+            name: 'recharge',
+            url: 'recharge.html'
+        })
+    }
+
+    function cash() { //提现
+        api.openWin({
+            name: 'cash',
+            url: 'cash.html'
+        })
+    }
+
+    function cash_fb() {
+        api.openWin({
+            name: 'cash_fb',
+            url: 'cash_fb.html'
+        })
+    }
+
+    function recharges() {
+        api.openWin({
+            name: 'recharge',
+            url: 'recharge.html'
+        })
+    }
+
+    function receipts() { //收支明细
+        api.openWin({
+            name: 'receipts',
+            url: '../retail/receipts.html'
+        })
+    }
+
+    function member_center() { //会员中心
+        api.openWin({
+            name: 'member_center',
+            url: 'member_center.html'
+        })
+    }
+
+    function word() { //使用教程
+        api.openWin({
+            name: 'word',
+            url: 'word.html'
+        })
+    }
+
+    function my_tasks() { //我的任务
+        api.openWin({
+            name: 'my_tasks',
+            url: 'my_tasks.html'
+        })
+    }
+
+    function invite() { //邀请好友
+        api.openWin({
+                name: 'chat_list',
+                url: '../dialog/chat_list.html'
+            })
+            // api.openWin({
+            //   name: 'invite',
+            //   url: 'invite.html'
+            // })
+    }
+
+    function evaluating() { //评价管理
+        api.openWin({
+                name: 'publish',
+                url: '../publish/publish.html'
+            })
+            // api.openWin({
+            //   name: 'evaluating',
+            //   url: 'evaluating.html'
+            // })
+
+    }
+
+    function message() { //我的消息
+        api.openWin({
+            name: 'message',
+            url: 'message.html'
+        })
+    }
+
+    // function businesses(){															//商家管理
+    //   api.openWin({
+    // 	  name: 'businesses',
+    // 	  url: 'businesses.html'
+    //   })
+    // }
+    function ranking_award() { //排行奖励
+        api.openWin({
+            name: 'ranking_award',
+            url: 'ranking_award.html'
+        })
+    }
+
+    function help() { //常见问题
+        // api.openWin({
+        //     name: 'help',
+        //     url: 'help.html'
+        // })
+
+        api.openWin({
+            name: 'top',
+            url: '../dialog/top.html'
+        })
+    }
+
+    function report() { //举报维权
+        // api.openWin({
+        //   name: 'report',
+        //   url: 'report.html'
+        // })
+        api.openWin({
+            name: 'reports',
+            url: 'reports.html'
+        })
+    }
+
+    function black_list() { //黑户名单
+        api.openWin({
+            name: 'black_list',
+            url: 'black_list.html'
+        })
+    }
+
+    function service() { //联系客服
+        /* api.openFrame({
+             name: 'service',
+             url: kefu,
+             rect: {
+                 x: 0,
+                 y: 200,
+                 w: 'auto',
+                 h: 400,
+                 marginLeft: 0, //相对父页面左外边距的距离，数字类型
+                 marginTop: 200, //相对父页面上外边距的距离，数字类型
+                 marginBottom: 0, //相对父页面下外边距的距离，数字类型
+                 marginRight: 0 //相对父页面右外边距的距离，数字类型
+             }
+         });*/
+        api.openWin({
+                name: 'service',
+                url: 'service.html',
+                pageParam: {
+                    url: kefu
+                }
+            })
+            /*api.openWin({
+                name: 'service',
+                url: 'tencent://message/?uin=977511016&Site=Senlon.Net&Menu=yes'
+            })*/
+
+        // api.openWin({
+        //   name: 'service',
+        //   url: 'http://mai.meinuoka.com/Web/im.aspx?_=t&accountid=116745'
+        // })
+
+
+    }
+
+    function Feedback() { //意见反馈
+        api.openWin({
+            name: 'Feedback',
+            url: 'Feedback.html'
+        })
+    }
+
+    function game() { //意见反馈
+        api.openWin({
+            name: 'game',
+            url: 'game.html'
+        })
+    }
+</script>
+
+</html>

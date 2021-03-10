@@ -1,0 +1,193 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+	<meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+	<title>意见反馈</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/Feedback.css" />
+	<link rel="stylesheet" href="../../css/swiper.min.css">
+	<script src="../../script/jquery-1.8.3.min.js"></script>
+	<style>
+
+	.upload_img{
+		width: 2.875rem;
+		height: 2.875rem;
+		padding: 1rem;border:0.0625rem dashed #bfbfbf;
+		border-radius: 0.2rem;
+	}
+	.upload_img_wrap{
+		display: flex;
+		width: 90%;
+	    padding: 3% 5% 3% 5%;
+	}
+	</style>
+
+</head>
+<body>
+	<div class="header" id="header">
+        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+        <div class="header_text"><h1>意见反馈</h1></div>
+        <div class="clearfix"></div>
+    </div>
+<!-- 问题描述 -->
+    <div class="data_content">
+        <div class="content_text2">
+            <h1>问题描述</h1>
+        </div>
+        <div class="content_text">
+            <textarea  id="content"  placeholder="输入您的反馈，我们将不断改进~"></textarea>
+        	<div class="add"><img src="../../image/add1.png" onclick="upLoad()" id="img"><input type="hidden" id="uploadimg"></div>
+
+			<!-- <div class="upload_img_wrap">
+				<div id="imgBox"></div>
+				<img class="upload_img" onclick="fileyi(1)" data-id="1" id="fileyi1" src="../../image/add.png" /><input type="hidden" id="yicang">
+				<img style="display:none" onclick="fileyi(2)" class="upload_img" id="fileyi2" data-id="2" src="../../image/add.png" /><input type="hidden" id="ercang">
+				<img style="display:none" onclick="fileyi(3)" class="upload_img" id="fileyi3" data-id="3" src="../../image/add.png" /><input type="hidden" id="sancang">
+			</div> -->
+
+			<div class="clearfix"></div>
+
+        </div>
+		<!-- 联系方式 -->
+		<div class="content_text1">
+			<h1>联系方式</h1>
+		</div>
+		<div class="way"><input type="number" placeholder="请输入手机号" id="tel"></div>
+		<p>*请留下您的联系方式，以便我们能够方便了解问题以及您反馈问题的结果。</p>
+
+    </div>
+    <div class="button" onclick="sub()">
+        <button type="sumbit">提交</button>
+    </div>
+
+	</body>
+	<script src="../../script/api.js" charset="utf-8"></script>
+	<script src="../../script/swiper.min.js"></script>
+	<script src="../../script/common.js"></script>
+	<script src="../../script/url.js"></script>
+	<script>
+		apiready = function(){
+			var header = document.querySelector('#header'); //头帘高度
+			$api.fixStatusBar(header);
+		}
+		function go_back() {
+		  api.closeWin({
+
+		  });
+		}
+
+		function sub() {
+			token = $api.getStorage('token');
+			content = $api.byId('content').value;
+			tel = $api.byId('tel').value;
+			pic = $api.byId('uploadimg').value;
+			console.log(JSON.stringify(token));
+			console.log(JSON.stringify(content));
+			console.log(JSON.stringify(tel));
+			console.log(JSON.stringify(pic));
+			if (content == '') {
+				api.toast({
+					msg: '内容为空',
+					duration: 2000,
+					location: 'bottom'
+				});
+				return false;
+			}
+
+			api.ajax({
+				url: feedback,
+				method: 'post',
+				data: {
+					values: {
+						token: token,
+						content: content,
+						tel: tel,
+						pic: pic
+					}
+				}
+			}, function(ret, err) {
+				api.toast({
+					msg: ret.message,
+					duration: 2000,
+					location: 'bottom'
+				});
+
+				if (ret.code == 1) {
+					setTimeout(function() {
+						api.closeWin({
+
+						})
+					}, 1000)
+				}else {
+					api.toast({
+						msg: ret.message,
+						duration: 2000,
+						location: 'bottom'
+					});
+
+					return false;
+				}
+			});
+
+		}
+
+		function upLoad() {
+			api.getPicture({
+				sourceType: 'library',
+				encodingType: 'jpg',
+				mediaValue: 'pic',
+				destinationType: 'url',
+				allowEdit: true,
+				quality: 100,
+				targetWidth: 100,
+				targetHeight: 100,
+				saveToPhotoAlbum: false
+			}, function(ret, err) {
+				if (ret) {
+					if (ret.data) {
+						//将返回的路径放到id="img",为的是显示图片
+						imgFile = ret.data;
+						$("#img").attr('src', imgFile);
+						// alert(upload_Img)
+						api.ajax({
+							url: get_pic_1,
+							method: 'post',
+							data: {
+								files: {
+									image: imgFile,
+								}
+							}
+						}, function(ret, err) {
+							if (ret) {
+								if (ret.code == 1) {
+									$("#img").attr('src', URL+ret.data);
+									$("#uploadimg").val(ret.data);
+
+								}
+								// 将返回的路径房费隐藏的 input id="yicang"中  提交时获
+							} else {}
+						});
+
+					} else {
+						api.toast({ //弹框
+							msg: '未上传图片', //提示语
+							duration: 3000, //提示时长
+							location: 'bottom' //提示位置
+						});
+					}
+				} else {
+					// alert(3)
+					// alert(JSON.stringify(err));
+				}
+			});
+		}
+
+
+
+
+
+ </script>
+ </html>

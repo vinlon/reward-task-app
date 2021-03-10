@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+	<meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+	<title>关于我们</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/about_us.css" />
+	<link rel="stylesheet" href="../../css/swiper.min.css">
+	<script src="../../script/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+	<div class="b" id="header">
+	<div class="header">
+        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+        <div class="header_text"><h1>关于我们</h1></div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+	<div class="about">
+		<div class="about_pic" id="s_logo"><img src=""  ></div>			<!--logo-->
+		<p id="s_about">副业帮是一款小巧、好用的手机兼职APP，提供各种类型的任务供用户选择，空闲时间，就能快速赚取零花钱。副业帮是一款小巧、好用的手机兼职APP，提供各种类型的任务供用户选择，空闲时间，拿出手机做做小任务，就能快速赚取零花钱。</p>
+	</div>
+	<!-- 客服电话 -->
+	<div class="tel">
+		<h1>客服电话</h1>
+		<h2 id="s_a_helpline">4000-506-608</h2>
+		<div class="clearfix"></div>
+	</div>
+	<!-- 微信客服 -->
+	<div class="wechat">
+		<h1>微信客服</h1>
+		<h2 id="s_wechat">fyb_18924681357</h2>
+		<div class="clearfix"></div>
+	</div>
+	<div class="copyright">
+		<p id="beianxinxi">Copyright©2010-2019</p><p id="banquan_xinxi">沈阳副业帮科技有限公司 版权所有</p>
+	</div>
+
+	</body>
+	<script src="../../script/api.js" charset="utf-8"></script>
+	<script src="../../script/swiper.min.js"></script>
+	<script src="../../script/common.js"></script>
+	<script src="../../script/url.js"></script>
+	<script>
+
+		apiready = function(){
+			height()
+			// var header = document.querySelector('#header'); //头帘高度
+			// $api.fixStatusBar(header);
+				getAbout()
+			}
+
+			function getAbout() {
+				//$api.setStorage('token','a936436f65ff3e27edf61054d416da28');
+				token = $api.getStorage('token');
+				api.ajax({
+					url: About,
+					method: 'post',
+					data: {
+						values: {
+							token: token
+						}
+					}
+				},function(ret, err){
+							//console.log(JSON.stringify(ret.data))
+					if (ret.code == 1) {
+							var lblist_type = '';
+							lblist_type += '<img src="' +URL+ret.data.s_logo + '">'
+							$api.html(s_logo,lblist_type);
+							$api.html(s_about, ret.data.s_about);
+							$api.html(s_a_helpline, ret.data.s_a_helpline);
+							$api.html(s_wechat, ret.data.s_wechat);
+							$api.html(beianxinxi, ret.data.beianxinxi);
+							$api.html(banquan_xinxi, ret.data.banquan_xinxi);
+					}
+				});
+
+
+			}
+
+		function go_back() {
+		  api.closeWin({
+
+		  });
+		}
+	</script>
+
+
+</html>

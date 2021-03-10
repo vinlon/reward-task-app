@@ -1,0 +1,225 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>已完成订单</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/balance.css" />
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+    <script src="../../script/jquery-1.8.3.min.js"></script>
+    <script src="../../script/api.js" charset="utf-8"></script>
+    <script src="../../script/swiper.min.js"></script>
+    <script src="../../script/common.js"></script>
+    <script src="../../script/url.js"></script>
+
+</head>
+<style>
+    /*.step3_pic{*/
+    /*    width: 5rem;*/
+    /*    height: 5rem;*/
+    /*}*/
+</style>
+
+<body>
+    <div class="b" id="header">
+        <div class="header">
+            <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>
+            <div class="header_text">
+                <h1>已完成订单详情</h1>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div id="listppp">
+        <!-- -->
+    </div>
+
+</body>
+
+<script>
+    apiready = function() {
+        token = $api.getStorage('token');
+        id1 = api.pageParam.id1;
+        id2 = api.pageParam.id2;
+        height()
+        get_listde(id1, id2);
+
+    }
+
+    function get_listde(a, b) {
+        api.ajax({
+            url: wancheng_task_url,
+            method: 'post',
+            data: {
+                values: {
+                    token: token,
+                    id: b,
+                }
+            }
+        }, function(ret, err) {
+            //console.log(JSON.stringify(ret));
+            var length = ret.data.length;
+            var lblist_type = '';
+            for (var lb = 0; lb < length; lb++) {
+                if (ret.data[lb].id == a) {
+                    let nsmd = "'" + ret.data[lb].tijiaoshuju + "'";
+                    lblist_type += '<div class="finishlist m-t">'
+                    lblist_type += '    <div class="finishlistpic"><img src="' + URL + ret.data[lb].user.u_headpic + '">'
+                    if (ret.data[lb].user.vip_level == 1) {
+                        lblist_type += '<span style="background-image: linear-gradient(to right, #87CEEB , #BFEFFF);">月卡</span>'
+                    } else if (ret.data[lb].user.vip_level == 2) {
+                        lblist_type += '<span style="background-image: linear-gradient(to right, #EE5C42 , #BFEFFF);">季卡</span>'
+                    } else if (ret.data[lb].user.vip_level == 3) {
+                        lblist_type += '<span style="background-image: linear-gradient(to right, #EE0000 , #BFEFFF);">年卡</span>'
+                    }
+                    lblist_type += '    </div>'
+                    lblist_type += '	<div class="finishtitle">'
+                    lblist_type += '		<span class="finishname">' + ret.data[lb].user.u_name + '</span>'
+                    lblist_type += '		<span class="finishid">(ID：' + ret.data[lb].uid + ')</span>'
+                    lblist_type += '		<p><span class="">报名时间：' + getLocalTime(ret.data[lb].add_time) + '</span>'
+                    lblist_type += '		<span class="">提交时间：' + getLocalTime(ret.data[lb].tijiao_time) + '</span></p>'
+                    lblist_type += '	</div>'
+                    lblist_type += '	<div class="clearfix"></div>'
+                    lblist_type += '</div>'
+                        //let nsmd = "'" + ret.data[lb].tijiaoshuju + "'";
+                    lblist_type += '<div class="finishpic m-t">'
+                    lblist_type += '    <p style="margin-bottom:1.2rem"><span>提交数据：' + nsmd + '</span><span onClick="fuzhis(' + nsmd + ');" style="margin-left: 2rem;color: #1C86EE">复制</span></p>'
+                    var pics = ret.data[lb].xiangqing.length;
+                    var pics_list = "";
+                    for (var jlb = 0; jlb < pics; jlb++) {
+                        lblist_type += '		<img class="step3_pic" src="' + URL + ret.data[lb].xiangqing[jlb].pic + '" alt="">'
+                    }
+
+                    lblist_type += '</div>'
+
+                }
+
+
+            }
+            $api.html(listppp, lblist_type);
+            if (ret.code == 100) {
+
+            }
+            let timeOutEvent;
+            $(".step3_pic").on({
+                touchstart: function(e) {
+                    // alert(111)
+                    timeOutEvent = setTimeout(function() {
+                        timeOutEvent = 0
+                        let srcs = e.target
+                        let imgs = srcs.src
+                            // alert(imgs)
+                        if (imgs) {
+                            frames(imgs)
+                        } else {
+                            api.toast({
+                                msg: "没有图片",
+                                duration: 2000,
+                                location: 'bottom'
+                            });
+                        }
+                    }, 500);
+                },
+                touchmove: function() {
+                    clearTimeout(timeOutEvent)
+                    timeOutEvent = 0
+                },
+                touchend: function(e) {
+                    let srcs = e.target
+                    let imgs = srcs.src
+                    clearTimeout(timeOutEvent);
+                }
+            });
+
+        });
+
+    }
+
+    function openImagess(activeIndex = 0, imgs) {
+
+        var photoBrowser = api.require('photoBrowser');
+        photoBrowser.open({
+            images: imgs,
+            // activeIndex: activeIndex,
+            placeholderImg: 'widget://res/img/apicloud.png',
+            bgColor: '#000'
+        }, function(ret, err) {
+            if (ret) {
+                if (ret.eventType == "longPress") {
+                    frames(imgs)
+                } else {
+                    if (ret.eventType == "click") {
+                        photoBrowser.close();
+                    }
+                    // alert(JSON.stringify(ret));
+                }
+
+            } else {
+                photoBrowser.close();
+                api.toast({
+                    msg: "打开图片失败",
+                    duration: 2000,
+                    location: 'bottom'
+                });
+
+            }
+        });
+    }
+
+    // 识别图片
+    function frames(img = "222") {
+        api.openFrame({
+            name: 'dians',
+            url: '../dialog/dians.html',
+            rect: {
+                x: 0,
+                y: 0,
+                w: api.winWidth,
+                h: api.winHeight
+            },
+            pageParam: {
+                img: img
+            },
+            bounces: false,
+            bgColor: 'rgba(0,0,0,0.2)',
+        });
+
+    }
+
+    function fuzhis(text) {
+        //text为需要复制的文本
+        //	alert(123);
+
+        // var text = $('.namse_' + id).html();
+        var clipBoard = api.require('clipBoard');
+        clipBoard.set({
+            value: text
+        }, function(ret, err) {
+            if (ret) {
+                //		alert(text);
+                api.toast({
+                    msg: "复制成功",
+                    duration: 2000,
+                    location: 'bottom'
+                });
+
+            } else {
+                api.toast({
+                    msg: "复制成功",
+                    duration: 2000,
+                    location: 'bottom'
+                });
+
+            }
+        });
+    }
+
+    function go_back() {
+        api.closeWin({});
+    }
+</script>
+
+</html>

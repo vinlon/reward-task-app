@@ -1,0 +1,181 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+	<meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+	<title>分销中心</title>
+	<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/retail.css" />
+	<link rel="stylesheet" href="../../css/swiper.min.css">
+	<script src="../../script/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+<div class="b" id="header">
+	<div class="header">
+<!--        <div class="search" onclick="go_back()"><img src="../../image/return.png"></div>-->
+        <div class="header_text"><h1>分销中心</h1></div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+	<div class="banner">
+		<div class="banner_bg"><img src="../../image/retail.png"></div>
+		<div class="banner_content">
+			<div class="name_pic"><img src="../../image/logo1.png" id="img"></div>	<!--头像-->
+			<div class="name">
+				<h1 id="name">未填写</h1>										<!--用户名-->
+				<h2 id="id">副业帮ID：0</h2>										 <!--用户ID-->
+			</div>
+			<div class="clearfix"></div>
+			<div class="card">
+				<div class="card_text">
+					<h1 id="all_yongjin_money">0.00</h1>
+					<h2>累计佣金(元)</h2>
+				</div>
+				<div class="card_text">
+					<h1 id="t_money">0.00</h1>
+					<h2>已提现佣金(元)</h2>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="content">
+				<div class="content_box"  onclick="means()">
+					<div class="box_pic"><img src="../../image/qb.png"></div>
+					<div class="content_text">
+						<h1>我的资产</h1>
+						<h2>用于佣金提现</h2>
+					</div>
+				</div>
+				<div class="content_box" onclick="team()">
+					<div class="box_pic"><img src="../../image/td.png"></div>
+					<div class="content_text">
+						<h1>我的团队</h1>
+						<h2>展示我的团队</h2>
+					</div>
+				</div>
+
+				<div class="clearfix"></div>
+<!--				<div class="content_box" onclick="rules()">-->
+<!--					<div class="box_pic"><img src="../../image/fx.png"></div>-->
+<!--					<div class="content_text">-->
+<!--						<h1>分销规则</h1>-->
+<!--						<h2>详细了解制度</h2>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--				<div class="content_box" onclick="invite()">-->
+<!--					<div class="box_pic"><img src="../../image/yqhy.png"></div>-->
+<!--					<div class="content_text">-->
+<!--						<h1>邀请好友</h1>-->
+<!--						<h2>获得下级分成</h2>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--				<div class="clearfix"></div>-->
+			</div>
+		</div>
+	</div>
+
+	</body>
+	<script src="../../script/api.js" charset="utf-8"></script>
+	<script src="../../script/swiper.min.js"></script>
+	<script src="../../script/common.js"></script>
+	<script src="../../script/url.js"></script>
+	<script>
+		apiready = function(){
+			height()
+			//var header = document.querySelector('#header'); //头帘高度
+			//$api.fixStatusBar(header);
+			 getUserInfo()
+
+		}
+		function getUserInfo() {
+			//$api.setStorage('token','a936436f65ff3e27edf61054d416da28');
+			token = $api.getStorage('token'); //获取token
+	        // var ucode = $api.getStorage('code');
+			 //alert(token);
+			api.ajax({
+				url: personalInfo,
+				method: 'post',
+				data: {
+					values: {
+						token: token,
+					}
+				}
+			}, function(ret, err) {
+					console.log(JSON.stringify(ret));
+					console.log(JSON.stringify(err));
+					// api.alert({ msg: JSON.stringify(ret) });
+					if (ret.code != 1) {
+						api.toast({
+							msg: ret.message,
+							duration: 2000,
+							location: 'bottom'
+						});
+						setTimeout(function() {
+							api.openWin({
+								name: 'login',
+								url: '../my/login.html',
+								pageParam: {
+									name: 'test'
+								}
+							});
+						}, 1000);
+						return false;
+					}else {
+						$('#name').html(ret.data.u_name);
+						$('#all_yongjin_money').html(ret.data.all_yongjin_money);
+						$('#t_money').html(ret.data.t_money);
+						$api.text(id,'副业帮ID：'+ ret.data.u_id);
+						if (ret.data.u_headpic) {
+							imgFile = URL + ret.data.u_headpic;
+							//alert(imgFile);
+							$("#img").attr('src', imgFile);
+
+
+						} else {
+							$api.byId('img').src = '../../image/personal.png';
+						}
+
+				}
+					// api.alert({ msg: JSON.stringify(err) });
+
+			});
+		}
+
+		function go_back() {
+	        api.closeWin({
+	            // name: '',
+	        })
+	    }
+		function means(){
+		  api.openWin({
+			  name: 'means',
+			  url: 'means.html'
+		  })
+		}
+		function team(){
+		  // api.openWin({
+			// 	name: 'team',
+			// 	url: 'team.html'
+			// })
+			api.openWin({
+				name: 'rules',
+				url: 'rules.html'
+			})
+		}
+		function rules(){
+		  api.openWin({
+			  name: 'rules',
+			  url: 'rules.html'
+		  })
+		}
+		function invite(){
+		  api.openWin({
+			  name: 'invite',
+			  url: '../my/invite.html'
+		  })
+		}
+	</script>
+
+
+</html>
