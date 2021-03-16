@@ -74,7 +74,7 @@
         <div class="kong_con">
             <div class="kong_title">
                 <img src="../../image/about.png">
-                <h3>简单操作直接售卖</h3>
+                <h3>虚位以待</h3>
             </div>
             <div class="kong_text">
                 <p>
@@ -82,8 +82,8 @@
                     <span style="background-color: #EE0000;">推</span>
                 </p>
                 <p>
-                    <span>陌陌女号</span>|<span>陌陌女号</span><br>
-                    <span>66人已赚，剩余数：34</span>
+                    <span>虚位以待</span>|<span>虚位以待</span><br>
+                    <span>0人已赚，剩余数：0</span>
                     <span class="qian">+55元</span>
                 </p>
             </div>
@@ -91,7 +91,7 @@
         <div class="kong_con">
             <div class="kong_title">
                 <img src="../../image/about.png">
-                <h3>简单操作直接售卖</h3>
+                <h3>虚位以待</h3>
             </div>
             <div class="kong_text">
                 <p>
@@ -99,8 +99,8 @@
                     <span style="background-color: #EE0000;">推</span>
                 </p>
                 <p>
-                    <span>陌陌女号</span>|<span>陌陌女号</span><br>
-                    <span>66人已赚，剩余数：34</span>
+                    <span>虚位以待</span>|<span>虚位以待</span><br>
+                    <span>0人已赚，剩余数：0</span>
                     <span class="qian">+55元</span>
                 </p>
             </div>
@@ -108,7 +108,7 @@
         <div class="kong_con">
             <div class="kong_title">
                 <img src="../../image/about.png">
-                <h3>简单操作直接售卖</h3>
+                <h3>虚位以待</h3>
             </div>
             <div class="kong_text">
                 <p>
@@ -116,8 +116,8 @@
                     <span style="background-color: #EE0000;">推</span>
                 </p>
                 <p>
-                    <span>陌陌女号</span>|<span>陌陌女号</span><br>
-                    <span>66人已赚，剩余数：34</span>
+                    <span>虚位以待</span>|<span>虚位以待</span><br>
+                    <span>0人已赚，剩余数：0</span>
                     <span class="qian">+55元</span>
                 </p>
             </div>
@@ -125,7 +125,7 @@
         <div class="kong_con">
             <div class="kong_title">
                 <img src="../../image/about.png">
-                <h3>简单操作直接售卖</h3>
+                <h3>虚位以待</h3>
             </div>
             <div class="kong_text">
                 <p>
@@ -134,7 +134,7 @@
                 </p>
                 <p>
                     <span>陌陌女号</span>|<span>陌陌女号</span><br>
-                    <span>66人已赚，剩余数：34</span>
+                    <span>0人已赚，剩余数：0</span>
                     <span class="qian">+55元</span>
                 </p>
             </div>
@@ -233,7 +233,6 @@
         // if (systemType=="ios"){
         //     $(".card").addClass("yinfgc")
         // }
-        console.log("type", systemType)
             //启动监听 addEventListener ->
         api.addEventListener({
             name: 'index_lo'
@@ -504,29 +503,39 @@
     function topList(data) {
         let html = "";
         data.map((item, index) => {
-            html += '<div class="kong_con" onclick="list_detail(' + item.id + ')">' +
-                '       <div class="kong_title">' +
-                '           <img src="' + URL + item.image + '">' +
-                '           <h3>' + item.title + '</h3>' +
-                '       </div>' +
-                '       <div class="kong_text"><p>';
+            let title = 
+                '<div class="kong_title">' +
+                    '<img src="' + URL + item.image + '">' +
+                    '<h3>' + item.title + '</h3>' +
+                '</div>';
+
+            let tag = '<p>';
             if (Number(item.is_tuijian) == 1) {
-                html += '<span style="background-color: #00CD00;">顶</span>';
-            } else {
-                html += '';
+                tag += '<span style="background-color: #00CD00;">顶</span>';
             }
             if (Number(item.is_zhiding) == 1) {
-                html += '<span style="background-color: #EE0000;">推</span>';
-            } else {
-                html += '';
+                tag += '<span style="background-color: #EE0000;">推</span>';
             }
+            tag += '</p>';
+            let desc = 
+                '<p>' +
+                    '<span>' + item.name + '</span>|<span>'+item.type_name+'</span><br>' +
+                    '<span>'+item.yiyou_num+'人已赚，剩余数：'+item.num+'</span>' +
+                    '<span class="qian">+'+item.money+'元</span>' +
+                '</p>';
 
-            html += '</p><p><span>' + item.name + '</span>|<!--<span>' + item.type_name + '</span>--><span style="color:red">+' + item.money + '元</span><br>' +
-                '           <span>' + item.yiyou_num + '人已赚，剩余数：' + item.num + '</span><br>' +
-                '           <!--<span class="qian">+' + item.money + '元</span>-->' +
-                '       </p></div>' +
-                '   </div>';
+            let text = 
+                '<div class="kong_text">' +
+                    tag +
+                    desc +
+                '</div>'
+            html = 
+                '<div class="kong_con" onclick="list_detail(' + item.id + ')">' +
+                     title +
+                     text +
+                '</div>'
         })
+        console.log(html);
         $api.html(hometuijian, html);
     }
 
