@@ -16,14 +16,13 @@
     <script src="../../script/url.js"></script>
 </head>
 <style>
-    /*.header{*/
-    /*    !*top: 0px;*!*/
-    /*    position:fixed;*/
-    /*    right:0;*/
-    /*    bottom:0;*/
-    /*    !*position: absolute;*!*/
-    /*}*/
-    
+    /*.header{
+        !*top: 0px;*!
+        position:fixed;
+        right:0;
+        bottom:0;
+        !*position: absolute;*!
+    }*/
     .yinfgc {
         display: none;
     }
@@ -65,30 +64,13 @@
     <div class="slide-hidden">
         <div class="slide-container">
             <div class="left">
-                <img src="../../image/notice.png" style="width: 1.5rem;">
+                <img src="../../image/speaker-red.png" style="width: 1.5rem;">
             </div>
             <ul class="slide-list js-slide-list" id="messageList"></ul>
             <div class="clearfix"></div>
         </div>
     </div>
     <div class="home-tuijian" id="hometuijian">
-        <!--<div class="kong_con">
-            <div class="kong_title">
-                <img src="../../image/about.png">
-                <h3>简单操作直接售卖</h3>
-            </div>
-            <div class="kong_text">
-                <p>
-                    <span style="background-color: #00CD00;">顶</span>
-                    <span style="background-color: #EE0000;">推</span>
-                </p>
-                <p>
-                    <span>陌陌女号</span>|<span>陌陌女号</span><br>
-                    <span>66人已赚，剩余数：34</span>
-                    <span class="qian">+55元</span>
-                </p>
-            </div>
-        </div>
         <div class="kong_con">
             <div class="kong_title">
                 <img src="../../image/about.png">
@@ -139,109 +121,58 @@
                     <span class="qian">+55元</span>
                 </p>
             </div>
-        </div>-->
+        </div>
+        <div class="kong_con">
+            <div class="kong_title">
+                <img src="../../image/about.png">
+                <h3>简单操作直接售卖</h3>
+            </div>
+            <div class="kong_text">
+                <p>
+                    <span style="background-color: #00CD00;">顶</span>
+                    <span style="background-color: #EE0000;">推</span>
+                </p>
+                <p>
+                    <span>陌陌女号</span>|<span>陌陌女号</span><br>
+                    <span>66人已赚，剩余数：34</span>
+                    <span class="qian">+55元</span>
+                </p>
+            </div>
+        </div>
     </div>
-    <!--<div class="bor">-->
-    <!--<div class="banner" onclick="member_center()">-->
-    <!--<img src="../../image/banner1.png">-->
-    <!--</div>-->
-    <!--    <div class="card">-->
-    <!--        <div class="card_col" onclick="list(1)">-->
-    <!--            <h1>每日推荐</h1>-->
-    <!--            <h2>做任务享奖励</h2>-->
-    <!--            <div class="card_pic"><img src="../../image/card.png"></div>-->
-    <!--        </div>-->
-    <!--         <div class="card_col" onclick="pay_game()">-->
-    <!--            <h1>试玩赚钱</h1>-->
-    <!--            <h2>玩游戏赚钱</h2>-->
-    <!--            <div class="card_pic"><img src="../../image/card1.png"></div>-->
-    <!--        </div>-->
-    <!--        <div class="card_col" onclick="game()">-->
-    <!--            <h1>游戏赚钱</h1>-->
-    <!--            <h2>做任务享奖励</h2>-->
-    <!--            <div class="card_pic"><img src="../../image/card2.png"></div>-->
-    <!--        </div>-->
-    <!--        <div class="clearfix"></div>-->
-    <!--    </div>-->
-    <!--</div>-->
-    <!-- 每日必备 -->
     <div class="bor">
-        <div class="day">
-            <h1>每日必备</h1>
-            <div>
-             <!--   <div class="day_col" onclick="member_center()">
-                    <div class="day_text">
-                        <h1>开通会员</h1>
-                        <!--<h2>尊享折扣</h2>-->
-                       <!-- <h3>GO&gt;</h3>
-                    </div>
-                    <!--<div class="day_pic"><img src="../../image/banner1.png">
-						</div>-->
-               <!-- </div>-->
-                <div class="day_col" onclick="new_taskslist()">
-                    <div class="day_text">
-                        <h1>新单榜</h1>
-                        <!--<h2>玩游戏赚钱</h2>-->
-                        <h3>GO&gt;</h3>
-                    </div>
-                    <!--<div class="day_pic"><img src="../../image/card1.png">
-						</div>-->
-                </div>
-                <div class="day_col" onclick="daily_tasks()">
-                    <div class="day_text">
-                        <h1>周排行榜</h1>
-                        <!--<h2>做任务享奖励</h2>-->
-                        <h3>GO&gt;</h3>
-                    </div>
-                    <!--<div class="day_pic"><img src="../../image/card3.png">
-						</div>-->
-                </div>
-                <!--        <div class="day_col">-->
-                <!--            <div class="day_text" onclick="daily_tasks()">-->
-                <!--                <h1>每周任务</h1>-->
-                <!--                <h2>做任务享奖励</h2>-->
-                <!--                <h3>GO&gt;</h3>-->
-                <!--            </div>-->
-                <!--            <div class="day_pic"><img src="../../image/card3.png"></div>-->
-                <!--            <div class="clearfix"></div>-->
-                <!--        </div>-->
-                <div class="day_col" onclick="ranking_award()">
-                    <div class="day_text">
-                        <h1>月排行榜</h1>
-                        <!--<h2>做任务享奖励</h2>-->
-                        <h3>GO&gt;</h3>
-                    </div>
-                    <!--<div class="day_pic"><img src="../../image/card4.png">
-						</div>-->
-                </div>
-                <div class="day_col" onclick="jisu_taskslist()">
-                    <div class="day_text">
-                        <h1>极速审核</h1>
-                        <!--<h2>做任务享奖励</h2>-->
-                        <h3>GO&gt;</h3>
-                    </div>
-                    <!--<div class="day_pic"><img src="../../image/card4.png">
-						</div>-->
-                </div>
-                <div class="day_col" onclick="pay_game()">
-                    <div class="day_text">
-                        <h1>试玩赚钱</h1>
-                        <!--<h2>玩游戏赚钱</h2>-->
-                        <h3>GO&gt;</h3>
-                    </div>
-                    <!--<div class="day_pic"><img src="../../image/card1.png">
-						</div>-->
-                </div>
-                <div class="day_col" onclick="game()">
-                    <div class="day_text">
-                        <h1>游戏赚钱</h1>
-                        <!--<h2>做任务享奖励</h2>-->
-                        <h3>GO&gt;</h3>
-                    </div>
-                    <!--<div class="day_pic"><img src="../../image/card2.png">
-						</div>-->
-                </div>
+        <div class="card">
+            <div class="nav_col" onclick="new_taskslist(1)">
+                <img class="nav_pic" src="../../image/paper_plane.png">
+                <h2>极速审核</h2>
             </div>
+            <div class="nav_col" onclick="new_taskslist(1)">
+                <img class="nav_pic" src="../../image/almaz.png">
+                <h2>每日推荐</h2>
+            </div>
+            <div class="nav_col" onclick="new_taskslist(1)">
+                <img class="nav_pic" src="../../image/money.png">
+                <h2>试玩赚钱</h2>
+            </div>
+            <div class="nav_col" onclick="new_taskslist(1)">
+                <img class="nav_pic" src="../../image/game.png">
+                <h2>游戏赚钱</h2>
+            </div>
+        </div>
+        <div class="banner" onclick="member_center()">
+        <img src="../../image/banner1.png">
+        </div>
+        <div class="card">
+            <div class="card_col" onclick="new_taskslist(1)">
+                <h1>新单榜</h1>
+            </div>
+             <div class="card_col" onclick="daily_tasks()">
+                <h1>周排行榜</h1>
+            </div>
+            <div class="card_col" onclick="ranking_award()">
+                <h1>月排行榜</h1>
+            </div>
+            <div class="clearfix"></div>
         </div>
     </div>
     <!-- 推荐任务 -->
@@ -251,7 +182,7 @@
             <div class="clearfix"></div>
         </div>
         <div id="task">
-            <!-- <div class="task" onclick="list_detail()">
+             <div class="task" onclick="list_detail()">
                 <div class="task_pic"><img src="../../image/index1.png"></div>
                 <div class="task_text">
                     <h1>高价收微信马上结账</h1>
@@ -260,7 +191,7 @@
                 </div>
                 <h4>+5.48元</h4>
                 <div class="clearfix"></div>
-            </div>-->
+            </div>
         </div>
     </div>
     <div class="form" onclick="my_tasks()">
@@ -375,7 +306,7 @@
         //alert(token);return false;
         get_banner() //轮播图
         messagelist() //滚动消息
-        ReTask() //推荐任务
+        TopTask() //推荐任务
         ReTasks() //推荐任务
             // product_type()
         get_notice();
@@ -448,28 +379,26 @@
             if (ret.code == 100) {
                 length = ret.data.length;
                 // alert(length)
-                //console.log(JSON.stringify(ret.data));
                 lblist = '';
                 for (var lb = 0; lb < length; lb++) {
-                    lblist += '<div class="swiper-slide" style="height: 10rem;" onclick="open_banner(\'' + ret.data[lb].b_href + '\')">'
+                    lblist += '<div class="swiper-slide" onclick="open_banner(\'' + ret.data[lb].b_href + '\')">'
                     lblist += '<img src="' + URL + ret.data[lb].b_src + '" >'
                     lblist += '</div>'
                 }
                 $api.html(yplist, lblist);
                 var swiper = new Swiper('.swiper-container', {
                     loop: true,
-                    slidesPerView: 1.14,
-                    spaceBetween: 10,
+                    slidesPerView: 1,
+                    spaceBetween: 0,
                     centeredSlides: true,
                     pagination: {
                         el: '.swiper-pagination',
                     },
                     autoplay: {
-                        delay: 2500,
+                        delay: 5000,
                         disableOnInteraction: false,
                     },
                 });
-
             }
         });
 
@@ -545,17 +474,16 @@
                 }
             }
         }, function(ret, err) {
-            //console.log(JSON.stringify(ret.data));
             // htmlList(ret.data);
             if (JSON.stringify(ret.data) != "[]") {
-                htmlList(ret.data);
+                reList(ret.data);
             }
 
         });
     }
 
-    // 推荐任务
-    function ReTask() {
+    // 置顶任务
+    function TopTask() {
         api.ajax({
             // url: index_task_list_url,
             url: shouyejiek,
@@ -566,18 +494,15 @@
                 }
             }
         }, function(ret, err) {
-            // console.log(JSON.stringify(ret.data));
-            // htmlList(ret.data);
             if (JSON.stringify(ret.data) != "[]") {
-                htmlLists(ret.data);
+                topList(ret.data);
             }
 
         });
     }
 
-    function htmlLists(data) {
+    function topList(data) {
         let html = "";
-        //console.log(JSON.stringify(data))
         data.map((item, index) => {
             html += '<div class="kong_con" onclick="list_detail(' + item.id + ')">' +
                 '       <div class="kong_title">' +
@@ -607,8 +532,7 @@
 
 
 
-    function htmlList(data) {
-        //console.log(JSON.stringify(data))
+    function reList(data) {
         var html = '';
         var tlength = data.length;
         for (let index = 0; index < tlength; index++) {
@@ -1163,20 +1087,20 @@
         })
     }
 </script>
-<!-- <script>
-	var swiper = new Swiper('.swiper-container', {
-	loop: true,
-	slidesPerView: 1.14,
-	spaceBetween: 10,
-	centeredSlides: true,
-	pagination: {
-	el: '.swiper-pagination',
-	},
-	autoplay: {
-	delay: 2500,
-	disableOnInteraction: false,
-	},
-	});														//轮播图
-	</script> -->
+<script>
+	// var swiper = new Swiper('.swiper-container', {
+ //    	loop: true,
+ //    	slidesPerView: 1.14,
+ //    	spaceBetween: 10,
+ //    	centeredSlides: true,
+ //    	pagination: {
+ //        	el: '.swiper-pagination',
+ //    	},
+ //    	autoplay: {
+ //        	delay: 2500,
+ //        	disableOnInteraction: false,
+ //    	},
+	// });														//轮播图
+</script>
 
 </html>

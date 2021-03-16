@@ -230,7 +230,7 @@
     
     .left {
         float: left;
-        width: 11.6%;
+        width: 8%;
         margin-right: 2%;
         position: relative;
         text-align: center;
@@ -241,7 +241,7 @@
     
     .slide-list {
         position: absolute;
-        width: 78%;
+        width: 81%;
         float: right;
         right: 0;
         top: 0;
@@ -285,17 +285,16 @@
         width: 100%;
         border-top: 0.0625rem solid #eaeaea;
         border-bottom: 0.0625rem solid #eaeaea;
-        margin-bottom: 0.625rem;
     }
     
     .banner {
-        width: 92%;
+        width: 90%;
         margin: 0 auto;
         margin-top: 0.4375rem;
     }
     
     .card {
-        width: 92%;
+        width: 88%;
         margin: 0 auto;
         margin-top: 0.625rem;
     }
@@ -307,9 +306,29 @@
         border-radius: 0.5rem;
         text-align: center;
         padding-top: 0.875rem;
+        padding-bottom: 0.5rem;
         box-sizing: border-box;
         float: left;
         margin-bottom: 0.9375rem;
+    }
+
+    .nav_col {
+        width: calc((100% - 2rem) / 4);
+        margin-right: 0.5rem;
+        border-radius: 0.5rem;
+        text-align: center;
+        box-sizing: border-box;
+        float: left;
+        margin-bottom: 0.5rem;
+    }
+
+    .nav_col h2 {
+        font-size: 0.8rem;
+    }
+    
+    .nav_pic {
+        width: 70%;
+        padding: 0.5rem;
     }
     
     .card_col:nth-child(3) {

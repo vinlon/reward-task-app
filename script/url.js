@@ -1,6 +1,6 @@
 /**----------------------- 域名 ------------------------ */
 //var URL = 'http://www.syfuyebang.com/';
-var URL = 'http://www.xiazy.cn/';
+var URL = 'http://reward.foxonline.net/';
 
 // var token = '956281d2f7d3c838d65a52b33c828146';
 
