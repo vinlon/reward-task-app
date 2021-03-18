@@ -222,7 +222,7 @@
                 }
             }
         }, function(ret, err) {
-            //		console.log(JSON.stringify(ret));
+            console.log(JSON.stringify(ret), deviceId);
             //		console.log(JSON.stringify(err));
             if (!token || token == 'undefined') {
                 $api.clearStorage();

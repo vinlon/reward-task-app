@@ -264,7 +264,7 @@
                             apiSecret: '',
                             code: code
                         }, function(ret, err) {
-                            // alert(JSON.stringify(ret))
+                            
                             // return ;
                             if (ret.status) {
                                 wx.getUserInfo({
@@ -287,7 +287,8 @@
                                                 },
                                             }
                                         }, function(ret, err) {
-
+                                            console.log(JSON.stringify(ret))
+                                        console.log(JSON.stringify(err))
                                             api.toast({
                                                 msg: ret.message,
                                                 duration: 2000,

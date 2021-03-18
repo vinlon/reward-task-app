@@ -75,14 +75,20 @@
                         }, function(ret, err) {
                             if (ret.status) {
                                 // console.log(JSON.stringify(ret))
-                                // alert(JSON.stringify(ret));
+                                // console.log(JSON.stringify(err))
                                 wx.getUserInfo({
                                     accessToken: ret.accessToken,
                                     openId: ret.openId
                                 }, function(ret, err) {
                                     if (ret.status) {
 
-                                        // alert(JSON.stringify(ret));
+                                        console.log(JSON.stringify({
+                                                    token: token,
+                                                    name: ret.nickname,
+                                                    openid: ret.openid,
+                                                    pic: ret.headimgurl,
+                                                    unionid: ret.unionid
+                                                }))
                                         api.ajax({
                                             url: bangding_weixin_url,
                                             method: 'post',
@@ -96,6 +102,8 @@
                                                 },
                                             }
                                         }, function(ret, err) {
+                                            console.log(JSON.stringify(ret))
+                                            console.log(JSON.stringify(err))
                                             api.toast({
                                                 msg: ret.message,
                                                 duration: 2000,

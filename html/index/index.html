@@ -142,7 +142,7 @@
     </div>
     <div class="bor">
         <div class="card">
-            <div class="nav_col" onclick="new_taskslist(1)">
+            <div class="nav_col" onclick="jisu_taskslist()">
                 <img class="nav_pic" src="../../image/paper_plane.png">
                 <h2>极速审核</h2>
             </div>
@@ -150,11 +150,11 @@
                 <img class="nav_pic" src="../../image/almaz.png">
                 <h2>每日推荐</h2>
             </div>
-            <div class="nav_col" onclick="new_taskslist(1)">
+            <div class="nav_col" onclick="pay_game()">
                 <img class="nav_pic" src="../../image/money.png">
                 <h2>试玩赚钱</h2>
             </div>
-            <div class="nav_col" onclick="new_taskslist(1)">
+            <div class="nav_col" onclick="game()">
                 <img class="nav_pic" src="../../image/game.png">
                 <h2>游戏赚钱</h2>
             </div>
@@ -225,6 +225,15 @@
 
 <script>
     apiready = function() {
+
+        var apk = api.require('apk');
+        var packageName = apk.getPackageName();
+        var sign = apk.getSign();
+        var v = apk.getVersion();
+        console.log(packageName);
+        console.log(sign);
+        console.log(v);
+
         height()
         appVersion()
             // console.log(api.winName)
@@ -305,7 +314,7 @@
         //alert(token);return false;
         get_banner() //轮播图
         messagelist() //滚动消息
-        TopTask() //推荐任务
+        TopTask() //置顶任务
         ReTasks() //推荐任务
             // product_type()
         get_notice();
@@ -473,7 +482,6 @@
                 }
             }
         }, function(ret, err) {
-            // htmlList(ret.data);
             if (JSON.stringify(ret.data) != "[]") {
                 reList(ret.data);
             }
@@ -510,16 +518,16 @@
                 '</div>';
 
             let tag = '<p>';
-            if (Number(item.is_tuijian) == 1) {
+            if (Number(item.is_zhiding) == 1) {
                 tag += '<span style="background-color: #00CD00;">顶</span>';
             }
-            if (Number(item.is_zhiding) == 1) {
+            if (Number(item.is_tuijian) == 1) {
                 tag += '<span style="background-color: #EE0000;">推</span>';
             }
             tag += '</p>';
             let desc = 
                 '<p>' +
-                    '<span>' + item.name + '</span>|<span>'+item.type_name+'</span><br>' +
+                    '<span>' + item.name + '</span><br>' +
                     '<span>'+item.yiyou_num+'人已赚，剩余数：'+item.num+'</span>' +
                     '<span class="qian">+'+item.money+'元</span>' +
                 '</p>';

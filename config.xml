@@ -1,4 +1,4 @@
- <widget id="A6160240601306"  version="1.0.0">
+ <widget id="A6161586150952"  version="1.0.0">
 
     <name>悬赏</name>
 
@@ -75,9 +75,9 @@
         <param name="apiSecret" value="4a11bdacf3fe8c6557820d456eea8ae6"/>
     </feature>-->
     <feature name="wxPlus">
-    <param name="urlScheme" value="wxe176834445c733cd"/>
-    <param name="apiKey" value="wxe176834445c733cd"/>
-    <param name="apiSecret" value="4a11bdacf3fe8c6557820d456eea8ae6"/>
+    <param name="urlScheme" value="wx98a92eb27f43aef6"/>
+    <param name="apiKey" value="wx98a92eb27f43aef6"/>
+    <param name="apiSecret" value="5bc85b7abc679a52d622b3058b476ffe"/>
     <param name="universalLink" value="https://bjtest.apicloud.com"/>
   </feature>
     <feature name="aliPayPlus">

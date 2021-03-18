@@ -475,6 +475,9 @@
 
 
                 let ssd = submit();
+                if (ssd === false) {
+                    return;
+                }
 
                 api.confirm({
                     title: '温馨提示',
@@ -490,8 +493,8 @@
                                 values: ssd
                             }
                         }, function(ret, err) {
-                            // console.log(JSON.stringify(ret));
-                            // console.log(JSON.stringify(err));
+                            console.log(JSON.stringify(ret));
+                            console.log(JSON.stringify(err));
                             api.toast({
                                 msg: ret.info,
                                 duration: 2000,
