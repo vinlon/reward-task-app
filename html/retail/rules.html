@@ -337,8 +337,13 @@
                 }
             }
         }, function(ret, err) {
-            if (ret) {
-                //console.log(JSON.stringify(ret));
+            if (ret.code) {
+                api.toast({
+                    msg: ret.message,
+                    duration: 2000,
+                    location: 'bottom'
+                });
+            } else {
                 let list_len = ret.data.list.length;
                 let p_num = ret.data.count;
                 let l_flag = false;
@@ -468,9 +473,13 @@
                 }
             }
         }, function(ret, err) {
-            //console.log(JSON.stringify(ret))
-            if (ret) {
-
+            if (ret.code) {
+                api.toast({
+                    msg: ret.message,
+                    duration: 2000,
+                    location: 'bottom'
+                });
+            } else {
                 if (ret.list.length > 0) {
                     if (keyphone != 0) {
                         $(".myf-center").html('');
@@ -508,10 +517,6 @@
 
                 //$(".keyphone").val('');
 
-            } else {
-                if (keyphone != 0) {
-                    $(".myf-center").html('');
-                }
             }
         });
 

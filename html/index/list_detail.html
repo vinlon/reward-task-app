@@ -586,9 +586,6 @@
                 }
             }
         }, function(ret, err) {
-            console.log(JSON.stringify(ret));
-            console.log(JSON.stringify(err));
-
             if (ret.code == -302) {
                 api.toast({
                     msg: ret.message,
